@@ -1,0 +1,75 @@
+{
+  "name": "mern-portfolio",
+  "version": "1.0.0",
+  "description": "MERN Stack Portfolio for 9 Years Experience Developer",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run client\"",
+    "server": "cd server && node index.js",
+    "server:dev": "cd server && nodemon index.js",
+    "client": "cd client && SKIP_PREFLIGHT_CHECK=true react-scripts start",
+    "client:build": "cd client && SKIP_PREFLIGHT_CHECK=true react-scripts build",
+    "build": "npm run client:build",
+    "start": "npm run server",
+    "test": "cd client && react-scripts test",
+    "install-deps": "npm install && cd server && npm install && cd ../client && npm install",
+    "clean": "rm -rf node_modules server/node_modules client/node_modules",
+    "upload-data": "node scripts/uploadData.js"
+  },
+  "keywords": ["mern", "portfolio", "react", "nodejs", "mongodb", "express"],
+  "author": "Bishal Kumar Shaw",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "express-validator": "^7.0.1",
+    "multer": "^1.4.4",
+    "nodemailer": "^6.9.4",
+    "helmet": "^7.0.0",
+    "express-rate-limit": "^6.10.0",
+    "@reduxjs/toolkit": "^2.9.0",
+    "axios": "^1.5.0",
+    "framer-motion": "^10.16.4",
+    "lucide-react": "^0.276.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet-async": "^1.3.0",
+    "react-hot-toast": "^2.4.1",
+    "react-intersection-observer": "^9.5.2",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^6.15.0",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "autoprefixer": "^10.4.15",
+    "postcss": "^8.4.29",
+    "tailwindcss": "^3.3.3"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
