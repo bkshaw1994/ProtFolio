@@ -114,7 +114,7 @@ const ProfileManager = () => {
             accept="image/*"
             maxSize={5 * 1024 * 1024} // 5MB
             onFileSelect={handleImageUpload}
-            isLoading={isUploadingImage || isDeletingFile}
+            isLoading={isDeletingFile}
             currentFile={getImageFileName()}
             onDelete={profile?.profileImage ? handleDeleteImage : null}
             uploadType="image"
@@ -137,7 +137,7 @@ const ProfileManager = () => {
             accept="application/pdf"
             maxSize={10 * 1024 * 1024} // 10MB
             onFileSelect={handleResumeUpload}
-            isLoading={isUploadingResume || isDeletingFile}
+            isLoading={isDeletingFile}
             currentFile={getResumeFileName()}
             onDelete={profile?.resume ? handleDeleteResume : null}
             uploadType="resume"
