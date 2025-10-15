@@ -23,7 +23,7 @@ const ProfileManager = () => {
       const formData = new FormData();
       formData.append('profileImage', file);
       
-      const result = await uploadImage(formData).unwrap();
+      //const result = await uploadImage(formData).unwrap();
       setUploadStatus({ type: 'success', message: 'Profile image uploaded successfully!' });
       setTimeout(() => setUploadStatus({ type: '', message: '' }), 3000);
     } catch (error) {
@@ -40,7 +40,7 @@ const ProfileManager = () => {
       const formData = new FormData();
       formData.append('resume', file);
       
-      const result = await uploadResume(formData).unwrap();
+      //const result = await uploadResume(formData).unwrap();
       setUploadStatus({ type: 'success', message: 'Resume uploaded successfully!' });
       setTimeout(() => setUploadStatus({ type: '', message: '' }), 3000);
     } catch (error) {
