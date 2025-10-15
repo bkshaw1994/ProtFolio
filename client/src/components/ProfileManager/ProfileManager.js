@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import {
-  useUploadProfileImageMutation,
-  useUploadResumeMutation,
   useDeleteFileMutation,
   useGetProfileQuery
 } from '../../features/api/apiSlice';
