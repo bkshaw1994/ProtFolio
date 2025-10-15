@@ -12,8 +12,8 @@ const ProfileManager = () => {
   const { data: profileData } = useGetProfileQuery();
   const profile = profileData?.data;
   
-  const [uploadImage, { isLoading: isUploadingImage }] = useUploadProfileImageMutation();
-  const [uploadResume, { isLoading: isUploadingResume }] = useUploadResumeMutation();
+  const [_, { isLoading: isUploadingImage }] = useUploadProfileImageMutation();
+  const [_, { isLoading: isUploadingResume }] = useUploadResumeMutation();
   const [deleteFile, { isLoading: isDeletingFile }] = useDeleteFileMutation();
   
   const [uploadStatus, setUploadStatus] = useState({ type: '', message: '' });
