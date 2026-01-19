@@ -1,15 +1,15 @@
-import React from "react";
-import { Helmet } from "react-helmet-async";
-import { useGetSkillsQuery } from "../../features/api/apiSlice";
-import LoadingSpinner from "../../components/LoadingSpinner";
-import SkillBadge from "../../components/SkillBadge";
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useGetSkillsQuery } from '../../features/api/apiSlice';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import SkillBadge from '../../components/SkillBadge';
 
 const Skills = () => {
   const {
     data: skillsResponse,
     isLoading,
     isError,
-    refetch,
+    refetch
   } = useGetSkillsQuery();
 
   // Extract the actual skills data from the API response
@@ -62,7 +62,7 @@ const Skills = () => {
             {skillCategories.map((category) => (
               <div key={category} className="mb-16">
                 <h2 className="text-2xl sm:text-3xl font-bold text-secondary-900 mb-8 capitalize">
-                  {category.replace("-", " ")} Skills
+                  {category.replace('-', ' ')} Skills
                 </h2>
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                   {Array.isArray(skills[category]) ? (

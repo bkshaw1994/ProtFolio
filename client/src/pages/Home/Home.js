@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import {
   ArrowRight,
   Download,
@@ -9,19 +9,19 @@ import {
   Database,
   Zap,
   Mail,
-  MapPin,
-} from "lucide-react";
+  MapPin
+} from 'lucide-react';
 import {
   useGetProfileQuery,
   useGetFeaturedProjectsQuery,
   useGetCoreSkillsQuery,
-  useGetFeaturedGitHubReposQuery,
-} from "../../features/api/apiSlice";
+  useGetFeaturedGitHubReposQuery
+} from '../../features/api/apiSlice';
 
 // Components
-import ProjectCard from "../../components/ProjectCard";
-import SkillBadge from "../../components/SkillBadge";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import ProjectCard from '../../components/ProjectCard';
+import SkillBadge from '../../components/SkillBadge';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const Home = () => {
   const { data: profile, isLoading: loadingProfile } = useGetProfileQuery();
@@ -44,7 +44,7 @@ const Home = () => {
   // Combine portfolio projects and GitHub repos for featured section
   const allFeaturedProjects = [
     ...featuredProjects.slice(0, 3), // Top 3 portfolio projects
-    ...githubRepos.slice(0, 3), // Top 3 GitHub repos
+    ...githubRepos.slice(0, 3) // Top 3 GitHub repos
   ].slice(0, 6); // Show max 6 featured projects
 
   if (loadingProfile || loadingProjects || loadingSkills) {
@@ -57,13 +57,13 @@ const Home = () => {
         <title>
           {profileData?.name
             ? `${profileData.name} - Full Stack Developer`
-            : "Portfolio - Full Stack Developer"}
+            : 'Portfolio - Full Stack Developer'}
         </title>
         <meta
           name="description"
           content={
             profileData?.summary ||
-            "Professional portfolio showcasing 9 years of MERN stack development experience"
+            'Professional portfolio showcasing 9 years of MERN stack development experience'
           }
         />
         <meta
@@ -72,13 +72,13 @@ const Home = () => {
         />
         <meta
           property="og:title"
-          content={`${profile?.name || "Portfolio"} - Full Stack Developer`}
+          content={`${profile?.name || 'Portfolio'} - Full Stack Developer`}
         />
         <meta
           property="og:description"
           content={
             profile?.summary ||
-            "Professional portfolio showcasing development experience"
+            'Professional portfolio showcasing development experience'
           }
         />
         <meta property="og:type" content="website" />
@@ -95,13 +95,13 @@ const Home = () => {
                   <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center text-white font-bold text-xl">
                     {profileData?.name
                       ? profileData.name.charAt(0).toUpperCase()
-                      : "H"}
+                      : 'H'}
                   </div>
                   <div className="badge badge-primary">Available for work</div>
                 </div>
 
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-secondary-900 leading-tight">
-                  Hi, I'm{" "}
+                  Hi, I'm{' '}
                   <span className="text-gradient">{profileData?.name}</span>
                 </h1>
 
@@ -158,7 +158,7 @@ const Home = () => {
 
                 {profileData?.resume && (
                   <a
-                    href={`${process.env.REACT_APP_API_URL?.replace("/api", "") || "http://localhost:5000"}${profileData.resume}`}
+                    href={`${process.env.REACT_APP_API_URL?.replace('/api', '') || 'http://localhost:5000'}${profileData.resume}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-secondary group"
@@ -200,15 +200,15 @@ const Home = () => {
                 <div className="w-80 h-80 mx-auto bg-gradient-to-br from-primary-200 via-primary-100 to-secondary-100 rounded-full overflow-hidden shadow-custom-xl">
                   {profileData?.profileImage ? (
                     <img
-                      src={`${process.env.REACT_APP_API_URL?.replace("/api", "") || "http://localhost:5000"}${profileData.profileImage}`}
-                      alt={profileData.name || "Profile"}
+                      src={`${process.env.REACT_APP_API_URL?.replace('/api', '') || 'http://localhost:5000'}${profileData.profileImage}`}
+                      alt={profileData.name || 'Profile'}
                       className="w-full h-full object-cover"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-6xl font-bold text-primary-600">
                       {profileData?.name
                         ? profileData.name.charAt(0).toUpperCase()
-                        : "P"}
+                        : 'P'}
                     </div>
                   )}
                 </div>

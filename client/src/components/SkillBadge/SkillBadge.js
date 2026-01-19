@@ -1,28 +1,28 @@
-import React from "react";
+import React from 'react';
 
-const SkillBadge = ({ skill, showProficiency = true, size = "md" }) => {
+const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
   const sizeClasses = {
-    sm: "p-3",
-    md: "p-4",
-    lg: "p-6",
+    sm: 'p-3',
+    md: 'p-4',
+    lg: 'p-6'
   };
 
   const textSizes = {
-    sm: "text-sm",
-    md: "text-base",
-    lg: "text-lg",
+    sm: 'text-sm',
+    md: 'text-base',
+    lg: 'text-lg'
   };
 
   const iconTextSizes = {
-    sm: "text-2xl",
-    md: "text-4xl",
-    lg: "text-6xl",
+    sm: 'text-2xl',
+    md: 'text-4xl',
+    lg: 'text-6xl'
   };
 
   const iconImageSizes = {
-    sm: "w-6 h-6",
-    md: "w-10 h-10",
-    lg: "w-14 h-14",
+    sm: 'w-6 h-6',
+    md: 'w-10 h-10',
+    lg: 'w-14 h-14'
   };
 
   // Default icon based on skill name if no icon provided
@@ -31,43 +31,43 @@ const SkillBadge = ({ skill, showProficiency = true, size = "md" }) => {
 
     // You can extend this mapping or use actual icon URLs
     const iconMap = {
-      react: "⚛️",
-      javascript: "🟨",
-      typescript: "🔷",
-      nodejs: "🟢",
-      "node.js": "🟢",
-      mongodb: "🍃",
-      express: "🚀",
-      css: "🎨",
-      html: "📄",
-      python: "🐍",
-      java: "☕",
-      git: "📂",
-      docker: "🐳",
-      aws: "☁️",
-      azure: "☁️",
-      mysql: "🗄️",
-      postgresql: "🐘",
-      redis: "🔴",
-      vue: "💚",
-      angular: "🔴",
-      php: "🐘",
-      laravel: "🎵",
-      django: "🐍",
-      flask: "🍶",
-      graphql: "💜",
-      rest: "🌐",
-      api: "🔌",
+      react: '⚛️',
+      javascript: '🟨',
+      typescript: '🔷',
+      nodejs: '🟢',
+      'node.js': '🟢',
+      mongodb: '🍃',
+      express: '🚀',
+      css: '🎨',
+      html: '📄',
+      python: '🐍',
+      java: '☕',
+      git: '📂',
+      docker: '🐳',
+      aws: '☁️',
+      azure: '☁️',
+      mysql: '🗄️',
+      postgresql: '🐘',
+      redis: '🔴',
+      vue: '💚',
+      angular: '🔴',
+      php: '🐘',
+      laravel: '🎵',
+      django: '🐍',
+      flask: '🍶',
+      graphql: '💜',
+      rest: '🌐',
+      api: '🔌'
     };
 
-    return iconMap[name] || "💻";
+    return iconMap[name] || '💻';
   };
 
   const proficiencyColor = (proficiency) => {
-    if (proficiency >= 90) return "text-success-600";
-    if (proficiency >= 75) return "text-primary-600";
-    if (proficiency >= 60) return "text-warning-600";
-    return "text-secondary-600";
+    if (proficiency >= 90) return 'text-success-600';
+    if (proficiency >= 75) return 'text-primary-600';
+    if (proficiency >= 60) return 'text-warning-600';
+    return 'text-secondary-600';
   };
 
   return (
@@ -76,7 +76,7 @@ const SkillBadge = ({ skill, showProficiency = true, size = "md" }) => {
     >
       {/* Skill Icon */}
       <div className="flex justify-center mb-3">
-        {skill.icon && skill.icon.startsWith("http") ? (
+        {skill.icon && skill.icon.startsWith('http') ? (
           <img
             src={skill.icon}
             alt={skill.name}
@@ -115,12 +115,12 @@ const SkillBadge = ({ skill, showProficiency = true, size = "md" }) => {
             <div
               className={`h-2 rounded-full transition-all duration-500 ${
                 skill.proficiency >= 90
-                  ? "bg-success-500"
+                  ? 'bg-success-500'
                   : skill.proficiency >= 75
-                    ? "bg-primary-500"
+                    ? 'bg-primary-500'
                     : skill.proficiency >= 60
-                      ? "bg-warning-500"
-                      : "bg-secondary-500"
+                      ? 'bg-warning-500'
+                      : 'bg-secondary-500'
               }`}
               style={{ width: `${skill.proficiency}%` }}
             ></div>
@@ -132,7 +132,7 @@ const SkillBadge = ({ skill, showProficiency = true, size = "md" }) => {
       {skill.yearsOfExperience && (
         <div className="mt-2 text-xs text-secondary-600">
           {skill.yearsOfExperience} year
-          {skill.yearsOfExperience !== 1 ? "s" : ""} exp.
+          {skill.yearsOfExperience !== 1 ? 's' : ''} exp.
         </div>
       )}
 
@@ -145,7 +145,7 @@ const SkillBadge = ({ skill, showProficiency = true, size = "md" }) => {
 
       {/* Category */}
       <div className="mt-2 text-xs text-secondary-500 capitalize">
-        {skill.category?.replace("-", " ")}
+        {skill.category?.replace('-', ' ')}
       </div>
     </div>
   );
