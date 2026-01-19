@@ -145,6 +145,14 @@ app.get("/api/test-db", async (req, res) => {
   }
 });
 
+// Vercel Speed Insights route
+// This endpoint handles Speed Insights analytics data collection
+app.post("/_vercel/speed-insights/event", (req, res) => {
+  // Vercel's infrastructure handles Speed Insights automatically
+  // This route ensures compatibility if called directly
+  res.status(204).send();
+});
+
 // Middleware to ensure DB connection for API routes only
 app.use("/api", async (req, res, next) => {
   // Skip DB check for health and test-db endpoints
