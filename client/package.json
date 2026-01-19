@@ -22,10 +22,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:validate": "npm run lint:check && npm run test:coverage:check && react-scripts build",
+    "build:validate": "npm run lint:check && npm run test:coverage:check",
     "build:dev": "react-scripts build",
     "build:prod": "npm run pre-build && react-scripts build",
-    "build:validate": "npm run lint:check && npm run test:coverage:check",
     "pre-build": "npm run lint:check && npm run test:coverage:check",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --coverage --watchAll=false",

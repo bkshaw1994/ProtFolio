@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 
 // Email configuration
 const createTransporter = () => {
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     host: process.env.SMTP_HOST || process.env.EMAIL_HOST,
     port: process.env.SMTP_PORT || process.env.EMAIL_PORT,
     secure: process.env.SMTP_SECURE === "true" || false,
@@ -68,6 +68,15 @@ const submitContactForm = async (req, res) => {
       const transporter = createTransporter();
       const emailUser = process.env.SMTP_USER || process.env.EMAIL_USER;
 
+      if (!emailUser) {
+        console.warn(
+          "SMTP_USER or EMAIL_USER not configured. Skipping email notifications.",
+        );
+        throw new Error("Email configuration missing");
+      }
+
+      console.log("Attempting to send emails...");
+
       // Email to admin
       await transporter.sendMail({
         from: emailUser,
@@ -106,8 +115,16 @@ const submitContactForm = async (req, res) => {
           <p>Best regards,<br>Your Name</p>
         `,
       });
+
+      console.log("Emails sent successfully!");
     } catch (emailError) {
-      console.error("Email sending failed:", emailError);
+      console.error("Email sending failed:", emailError.message);
+      console.error("Email error details:", {
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
+        user: process.env.SMTP_USER,
+        hasPassword: !!process.env.SMTP_PASSWORD,
+      });
       // Don't fail the request if email fails
     }
 
