@@ -46,7 +46,7 @@ Long-tail Keywords:
 ### Immediate (Week 1)
 
 1. **Google Search Console**
-   - Submit sitemap: https://bishalshaw.dev/sitemap.xml
+   - Submit sitemap: https://bishal-portfolio-chi.vercel.app/sitemap.xml
    - Request indexing for all pages
    - Monitor crawl errors
 
@@ -161,7 +161,7 @@ Your site is optimized to rank for:
 
 Before going live, replace these placeholders:
 
-- [ ] Update `https://bishalshaw.dev` with your actual domain
+- [ ] Update `https://bishal-portfolio-chi.vercel.app` with your actual domain
 - [ ] Add actual Twitter handle in meta tags
 - [ ] Create and add og-image.jpg (1200x630px)
 - [ ] Add profile-image.jpg for structured data

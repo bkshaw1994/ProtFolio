@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bishalshaw.dev/sitemap.xml
+Sitemap: https://bishal-portfolio-chi.vercel.app/sitemap.xml
