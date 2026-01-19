@@ -60,27 +60,58 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // Serve uploaded files statically
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+const uploadsDir = process.env.VERCEL
+  ? "/tmp/uploads"
+  : path.join(__dirname, "uploads");
+app.use("/uploads", express.static(uploadsDir));
 
-// MongoDB connection
+// MongoDB connection with caching for serverless
+let cachedDb = null;
+
 const connectDB = async () => {
+  if (cachedDb && mongoose.connection.readyState === 1) {
+    return cachedDb;
+  }
+
   try {
-    await mongoose.connect(
+    const connection = await mongoose.connect(
       process.env.MONGODB_URI || "mongodb://localhost:27017/portfolio",
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        serverSelectionTimeoutMS: 5000,
       },
     );
     console.log("MongoDB connected successfully");
+    cachedDb = connection;
+    return connection;
   } catch (error) {
     console.error("MongoDB connection error:", error);
-    process.exit(1);
+    if (!process.env.VERCEL) {
+      process.exit(1);
+    }
+    throw error;
   }
 };
 
-// Connect to database
-connectDB();
+// Connect to database (non-blocking for serverless)
+if (!process.env.VERCEL) {
+  connectDB();
+}
+
+// Middleware to ensure DB connection for serverless
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error("Database connection failed:", error);
+    res.status(503).json({
+      success: false,
+      message: "Database connection unavailable",
+    });
+  }
+});
 
 // Routes
 app.use("/api/profile", profileRoutes);
