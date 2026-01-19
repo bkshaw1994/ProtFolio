@@ -21,7 +21,11 @@ import {
 // Components
 import ProjectCard from '../../components/ProjectCard';
 import SkillBadge from '../../components/SkillBadge';
-import { SkeletonProject, SkeletonSkill, SkeletonProfile } from '../../components/Skeleton';
+import {
+  SkeletonProject,
+  SkeletonSkill,
+  SkeletonProfile
+} from '../../components/Skeleton';
 import { getFileUrl } from '../../utils/apiUrl';
 
 const Home = () => {
@@ -275,15 +279,13 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {loadingSkills ? (
-              Array.from({ length: 6 }).map((_, index) => (
+            {loadingSkills
+              ? Array.from({ length: 6 }).map((_, index) => (
                 <SkeletonSkill key={index} />
               ))
-            ) : (
-              coreSkills.map((skill, index) => (
+              : coreSkills.map((skill, index) => (
                 <SkillBadge key={index} skill={skill} />
-              ))
-            )}
+              ))}
           </div>
 
           <div className="text-center mt-12">
@@ -329,7 +331,6 @@ const Home = () => {
                 />
               ))}
             </div>
-          )}
           )}
 
           <div className="text-center mt-12">

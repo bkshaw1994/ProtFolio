@@ -34,7 +34,7 @@ const Navbar = () => {
     { path: '/projects', label: 'Projects' },
     { path: '/skills', label: 'Skills' },
     { path: '/experience', label: 'Experience' },
-    { path: '/contact', label: 'Contact' }
+    { path: '/about', label: 'About' }
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -148,7 +148,7 @@ const Navbar = () => {
             )}
 
             <Link to="/contact" className="btn-primary ml-2">
-              Hire Me
+              Contact
             </Link>
           </div>
 
@@ -185,7 +185,7 @@ const Navbar = () => {
                   to="/contact"
                   className="btn-primary w-full justify-center mb-3"
                 >
-                  Get In Touch
+                  Contact
                 </Link>
 
                 {profileData?.resume && (
