@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import {
   ArrowRight,
   Download,
@@ -9,24 +9,24 @@ import {
   Database,
   Zap,
   Mail,
-  MapPin
-} from 'lucide-react';
+  MapPin,
+} from "lucide-react";
 import {
   useGetProfileQuery,
   useGetFeaturedProjectsQuery,
   useGetCoreSkillsQuery,
-  useGetFeaturedGitHubReposQuery
-} from '../../features/api/apiSlice';
+  useGetFeaturedGitHubReposQuery,
+} from "../../features/api/apiSlice";
 
 // Components
-import ProjectCard from '../../components/ProjectCard';
-import SkillBadge from '../../components/SkillBadge';
+import ProjectCard from "../../components/ProjectCard";
+import SkillBadge from "../../components/SkillBadge";
 import {
   SkeletonProject,
   SkeletonSkill,
-  SkeletonProfile
-} from '../../components/Skeleton';
-import { getFileUrl } from '../../utils/apiUrl';
+  SkeletonProfile,
+} from "../../components/Skeleton";
+import { getFileUrl } from "../../utils/apiUrl";
 
 const Home = () => {
   const { data: profile, isLoading: loadingProfile } = useGetProfileQuery();
@@ -49,7 +49,7 @@ const Home = () => {
   // Combine portfolio projects and GitHub repos for featured section
   const allFeaturedProjects = [
     ...featuredProjects.slice(0, 3), // Top 3 portfolio projects
-    ...githubRepos.slice(0, 3) // Top 3 GitHub repos
+    ...githubRepos.slice(0, 3), // Top 3 GitHub repos
   ].slice(0, 6); // Show max 6 featured projects
 
   // Loading states for different sections
@@ -84,15 +84,19 @@ const Home = () => {
       <Helmet>
         <title>
           {profileData?.name
-            ? `${profileData.name} - Full Stack Developer`
-            : 'Portfolio - Full Stack Developer'}
+            ? `${profileData.name} - Freelance MERN Stack Developer | Available for Hire`
+            : "Freelance Full Stack Developer | MERN Stack Expert for Hire"}
         </title>
         <meta
           name="description"
           content={
             profileData?.summary ||
-            'Professional portfolio showcasing 9 years of MERN stack development experience'
+            "Professional freelance MERN stack developer with 9+ years experience. Available for hire for React, Node.js, MongoDB web development projects. Contact for custom web solutions."
           }
+        />
+        <meta
+          name="keywords"
+          content="freelance developer, hire MERN developer, React developer for hire, Node.js freelancer, MongoDB expert, full stack developer available, web developer Bangalore, freelance programmer"
         />
         <meta
           name="keywords"
@@ -100,13 +104,13 @@ const Home = () => {
         />
         <meta
           property="og:title"
-          content={`${profile?.name || 'Portfolio'} - Full Stack Developer`}
+          content={`${profile?.name || "Portfolio"} - Full Stack Developer`}
         />
         <meta
           property="og:description"
           content={
             profile?.summary ||
-            'Professional portfolio showcasing development experience'
+            "Professional portfolio showcasing development experience"
           }
         />
         <meta property="og:type" content="website" />
@@ -123,13 +127,13 @@ const Home = () => {
                   <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center text-white font-bold text-xl">
                     {profileData?.name
                       ? profileData.name.charAt(0).toUpperCase()
-                      : 'H'}
+                      : "H"}
                   </div>
                   <div className="badge badge-primary">Available for work</div>
                 </div>
 
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-secondary-900 leading-tight">
-                  Hi, I'm{' '}
+                  Hi, I'm{" "}
                   <span className="text-gradient">{profileData?.name}</span>
                 </h1>
 
@@ -228,14 +232,14 @@ const Home = () => {
                   {profileData?.profileImage ? (
                     <img
                       src={getFileUrl(profileData.profileImage)}
-                      alt={profileData.name || 'Profile'}
+                      alt={profileData.name || "Profile"}
                       className="w-full h-full object-cover"
                       crossOrigin="anonymous"
                       onError={(e) => {
-                        console.error('Home page image failed:', {
+                        console.error("Home page image failed:", {
                           src: e.target.src,
                           profileImage: profileData.profileImage,
-                          constructedUrl: getFileUrl(profileData.profileImage)
+                          constructedUrl: getFileUrl(profileData.profileImage),
                         });
                       }}
                     />
@@ -243,7 +247,7 @@ const Home = () => {
                     <div className="w-full h-full flex items-center justify-center text-6xl font-bold text-primary-600">
                       {profileData?.name
                         ? profileData.name.charAt(0).toUpperCase()
-                        : 'P'}
+                        : "P"}
                     </div>
                   )}
                 </div>
@@ -281,11 +285,11 @@ const Home = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
             {loadingSkills
               ? Array.from({ length: 6 }).map((_, index) => (
-                <SkeletonSkill key={index} />
-              ))
+                  <SkeletonSkill key={index} />
+                ))
               : coreSkills.map((skill, index) => (
-                <SkillBadge key={index} skill={skill} />
-              ))}
+                  <SkillBadge key={index} skill={skill} />
+                ))}
           </div>
 
           <div className="text-center mt-12">

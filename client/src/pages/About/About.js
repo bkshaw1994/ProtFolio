@@ -1,14 +1,14 @@
-import { Helmet } from 'react-helmet-async';
-import { useGetProfileQuery } from '../../features/api/apiSlice';
-import { SkeletonProfile } from '../../components/Skeleton';
-import { getFileUrl } from '../../utils/apiUrl';
+import { Helmet } from "react-helmet-async";
+import { useGetProfileQuery } from "../../features/api/apiSlice";
+import { SkeletonProfile } from "../../components/Skeleton";
+import { getFileUrl } from "../../utils/apiUrl";
 
 const About = () => {
   const {
     data: profileResponse,
     isLoading,
     isError,
-    refetch
+    refetch,
   } = useGetProfileQuery();
 
   const profile = profileResponse?.data || profileResponse;
@@ -64,10 +64,14 @@ const About = () => {
   return (
     <>
       <Helmet>
-        <title>About - Portfolio</title>
+        <title>About Bishal Kumar Shaw - Freelance MERN Stack Developer</title>
         <meta
           name="description"
-          content="Learn more about my background and experience as a Senior MERN Stack Developer"
+          content="Experienced freelance full-stack developer with 9+ years in MERN stack. Available for hire for custom web development, React applications, and Node.js backend solutions. Based in Bangalore, India."
+        />
+        <meta
+          name="keywords"
+          content="about freelance developer, MERN stack developer Bangalore, hire React developer, experienced Node.js developer, full stack developer for hire, web development expert"
         />
       </Helmet>
       <div className="pt-20 min-h-screen bg-gradient-to-b from-secondary-50 to-white">
@@ -93,7 +97,7 @@ const About = () => {
                     className="w-48 h-48 rounded-full object-cover shadow-lg border-4 border-white"
                     crossOrigin="anonymous"
                     onError={(e) =>
-                      console.error('About page image failed:', e.target.src)
+                      console.error("About page image failed:", e.target.src)
                     }
                   />
                   <div className="absolute -bottom-2 -right-2 bg-primary-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
@@ -108,19 +112,19 @@ const About = () => {
               <div className="prose prose-lg max-w-none">
                 {profile.aboutParagraphs &&
                 profile.aboutParagraphs.length > 0 ? (
-                    profile.aboutParagraphs.map((paragraph, index) => (
-                      <p
-                        key={index}
-                        className="text-lg text-secondary-700 leading-relaxed mb-6"
-                      >
-                        {paragraph}
-                      </p>
-                    ))
-                  ) : (
-                    <p className="text-lg text-secondary-700 leading-relaxed mb-6">
-                      {profile.bio}
+                  profile.aboutParagraphs.map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className="text-lg text-secondary-700 leading-relaxed mb-6"
+                    >
+                      {paragraph}
                     </p>
-                  )}
+                  ))
+                ) : (
+                  <p className="text-lg text-secondary-700 leading-relaxed mb-6">
+                    {profile.bio}
+                  </p>
+                )}
               </div>
 
               {/* Key Highlights */}
