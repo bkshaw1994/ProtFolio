@@ -30,22 +30,28 @@ const limiter = rateLimit({
 app.use("/api/", limiter);
 
 // Middleware
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://bishal-portfolio-client.vercel.app",
-  process.env.CLIENT_URL,
-].filter(Boolean);
-
 app.use(
   cors({
     origin: (origin, callback) => {
       // Allow requests with no origin (like mobile apps or Postman)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
+
+      // Allow localhost for development
+      if (origin.includes("localhost")) {
+        return callback(null, true);
       }
+
+      // Allow any Vercel deployment
+      if (origin.endsWith(".vercel.app")) {
+        return callback(null, true);
+      }
+
+      // Allow specific client URL from env
+      if (process.env.CLIENT_URL && origin === process.env.CLIENT_URL) {
+        return callback(null, true);
+      }
+
+      callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
   }),
