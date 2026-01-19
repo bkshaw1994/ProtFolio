@@ -119,8 +119,30 @@ app.get("/api/health", (req, res) => {
     message: "Server is running",
     mongodb:
       mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+    mongodbReadyState: mongoose.connection.readyState,
+    hasMongoUri: !!process.env.MONGODB_URI,
     timestamp: new Date().toISOString(),
   });
+});
+
+// Diagnostic endpoint to test DB connection
+app.get("/api/test-db", async (req, res) => {
+  try {
+    await connectDB();
+    res.json({
+      success: true,
+      message: "MongoDB connection successful",
+      readyState: mongoose.connection.readyState,
+    });
+  } catch (error) {
+    res.status(503).json({
+      success: false,
+      message: "MongoDB connection failed",
+      error: error.message,
+      hasMongoUri: !!process.env.MONGODB_URI,
+      readyState: mongoose.connection.readyState,
+    });
+  }
 });
 
 // Middleware to ensure DB connection for API routes only
