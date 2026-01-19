@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import {
-  useUploadProfileImageMutation,
-  useUploadResumeMutation,
   useDeleteFileMutation,
   useGetProfileQuery
 } from '../../features/api/apiSlice';
@@ -12,8 +10,8 @@ const ProfileManager = () => {
   const { data: profileData } = useGetProfileQuery();
   const profile = profileData?.data;
   
-  const [uploadImage, { isLoading: isUploadingImage }] = useUploadProfileImageMutation();
-  const [uploadResume, { isLoading: isUploadingResume }] = useUploadResumeMutation();
+  //const [_, { isLoading: isUploadingImage }] = useUploadProfileImageMutation();
+  //const [_, { isLoading: isUploadingResume }] = useUploadResumeMutation();
   const [deleteFile, { isLoading: isDeletingFile }] = useDeleteFileMutation();
   
   const [uploadStatus, setUploadStatus] = useState({ type: '', message: '' });
@@ -23,7 +21,7 @@ const ProfileManager = () => {
       const formData = new FormData();
       formData.append('profileImage', file);
       
-      const result = await uploadImage(formData).unwrap();
+      //const result = await uploadImage(formData).unwrap();
       setUploadStatus({ type: 'success', message: 'Profile image uploaded successfully!' });
       setTimeout(() => setUploadStatus({ type: '', message: '' }), 3000);
     } catch (error) {
@@ -40,7 +38,7 @@ const ProfileManager = () => {
       const formData = new FormData();
       formData.append('resume', file);
       
-      const result = await uploadResume(formData).unwrap();
+      //const result = await uploadResume(formData).unwrap();
       setUploadStatus({ type: 'success', message: 'Resume uploaded successfully!' });
       setTimeout(() => setUploadStatus({ type: '', message: '' }), 3000);
     } catch (error) {
@@ -114,7 +112,7 @@ const ProfileManager = () => {
             accept="image/*"
             maxSize={5 * 1024 * 1024} // 5MB
             onFileSelect={handleImageUpload}
-            isLoading={isUploadingImage || isDeletingFile}
+            isLoading={isDeletingFile}
             currentFile={getImageFileName()}
             onDelete={profile?.profileImage ? handleDeleteImage : null}
             uploadType="image"
@@ -137,7 +135,7 @@ const ProfileManager = () => {
             accept="application/pdf"
             maxSize={10 * 1024 * 1024} // 10MB
             onFileSelect={handleResumeUpload}
-            isLoading={isUploadingResume || isDeletingFile}
+            isLoading={isDeletingFile}
             currentFile={getResumeFileName()}
             onDelete={profile?.resume ? handleDeleteResume : null}
             uploadType="resume"
