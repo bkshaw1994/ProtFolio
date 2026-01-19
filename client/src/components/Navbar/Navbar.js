@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Github, Linkedin, Mail, Download } from "lucide-react";
-import { useGetProfileQuery } from "../../features/api/apiSlice";
-import { getFileUrl } from "../../utils/apiUrl";
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, Github, Linkedin, Mail, Download } from 'lucide-react';
+import { useGetProfileQuery } from '../../features/api/apiSlice';
+import { getFileUrl } from '../../utils/apiUrl';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,8 +20,8 @@ const Navbar = () => {
       setScrolled(isScrolled);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Close mobile menu when route changes
@@ -30,11 +30,11 @@ const Navbar = () => {
   }, [location]);
 
   const navLinks = [
-    { path: "/", label: "Home" },
-    { path: "/projects", label: "Projects" },
-    { path: "/skills", label: "Skills" },
-    { path: "/experience", label: "Experience" },
-    { path: "/contact", label: "Contact" },
+    { path: '/', label: 'Home' },
+    { path: '/projects', label: 'Projects' },
+    { path: '/skills', label: 'Skills' },
+    { path: '/experience', label: 'Experience' },
+    { path: '/contact', label: 'Contact' }
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -43,8 +43,8 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-sm shadow-lg"
-          : "bg-white/90 backdrop-blur-sm"
+          ? 'bg-white/95 backdrop-blur-sm shadow-lg'
+          : 'bg-white/90 backdrop-blur-sm'
       }`}
     >
       <div className="container-custom">
@@ -55,29 +55,29 @@ const Navbar = () => {
               {profileData?.profileImage ? (
                 <img
                   src={getFileUrl(profileData.profileImage)}
-                  alt={profileData.name || "Profile"}
+                  alt={profileData.name || 'Profile'}
                   className="w-full h-full object-cover"
                   crossOrigin="anonymous"
                   onError={(e) => {
-                    console.error("Image load error:", {
+                    console.error('Image load error:', {
                       src: e.target.src,
                       profileImage: profileData.profileImage,
-                      constructedUrl: getFileUrl(profileData.profileImage),
+                      constructedUrl: getFileUrl(profileData.profileImage)
                     });
                   }}
                 />
               ) : profileData?.name ? (
                 profileData.name.charAt(0).toUpperCase()
               ) : (
-                "P"
+                'P'
               )}
             </div>
             <div className="hidden sm:block">
               <div className="font-bold text-lg text-secondary-900">
-                {profileData?.name || "Portfolio"}
+                {profileData?.name || 'Portfolio'}
               </div>
               <div className="text-sm text-secondary-600 -mt-1">
-                {profileData?.title || "Full Stack Developer"}
+                {profileData?.title || 'Full Stack Developer'}
               </div>
             </div>
           </Link>
@@ -90,8 +90,8 @@ const Navbar = () => {
                 to={link.path}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive(link.path)
-                    ? "text-primary-600 bg-primary-50"
-                    : "text-secondary-700 hover:text-primary-600 hover:bg-secondary-50"
+                    ? 'text-primary-600 bg-primary-50'
+                    : 'text-secondary-700 hover:text-primary-600 hover:bg-secondary-50'
                 }`}
               >
                 {link.label}
@@ -171,8 +171,8 @@ const Navbar = () => {
                   to={link.path}
                   className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     isActive(link.path)
-                      ? "text-primary-600 bg-primary-50"
-                      : "text-secondary-700 hover:text-primary-600 hover:bg-secondary-50"
+                      ? 'text-primary-600 bg-primary-50'
+                      : 'text-secondary-700 hover:text-primary-600 hover:bg-secondary-50'
                   }`}
                 >
                   {link.label}

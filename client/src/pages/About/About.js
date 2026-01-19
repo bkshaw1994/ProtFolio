@@ -1,14 +1,14 @@
-import { Helmet } from "react-helmet-async";
-import { useGetProfileQuery } from "../../features/api/apiSlice";
-import { SkeletonProfile } from "../../components/Skeleton";
-import { getFileUrl } from "../../utils/apiUrl";
+import { Helmet } from 'react-helmet-async';
+import { useGetProfileQuery } from '../../features/api/apiSlice';
+import { SkeletonProfile } from '../../components/Skeleton';
+import { getFileUrl } from '../../utils/apiUrl';
 
 const About = () => {
   const {
     data: profileResponse,
     isLoading,
     isError,
-    refetch,
+    refetch
   } = useGetProfileQuery();
 
   const profile = profileResponse?.data || profileResponse;
@@ -93,7 +93,7 @@ const About = () => {
                     className="w-48 h-48 rounded-full object-cover shadow-lg border-4 border-white"
                     crossOrigin="anonymous"
                     onError={(e) =>
-                      console.error("About page image failed:", e.target.src)
+                      console.error('About page image failed:', e.target.src)
                     }
                   />
                   <div className="absolute -bottom-2 -right-2 bg-primary-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
@@ -108,19 +108,19 @@ const About = () => {
               <div className="prose prose-lg max-w-none">
                 {profile.aboutParagraphs &&
                 profile.aboutParagraphs.length > 0 ? (
-                  profile.aboutParagraphs.map((paragraph, index) => (
-                    <p
-                      key={index}
-                      className="text-lg text-secondary-700 leading-relaxed mb-6"
-                    >
-                      {paragraph}
+                    profile.aboutParagraphs.map((paragraph, index) => (
+                      <p
+                        key={index}
+                        className="text-lg text-secondary-700 leading-relaxed mb-6"
+                      >
+                        {paragraph}
+                      </p>
+                    ))
+                  ) : (
+                    <p className="text-lg text-secondary-700 leading-relaxed mb-6">
+                      {profile.bio}
                     </p>
-                  ))
-                ) : (
-                  <p className="text-lg text-secondary-700 leading-relaxed mb-6">
-                    {profile.bio}
-                  </p>
-                )}
+                  )}
               </div>
 
               {/* Key Highlights */}
