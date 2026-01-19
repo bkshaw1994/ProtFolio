@@ -103,8 +103,33 @@ if (!process.env.VERCEL) {
   connectDB();
 }
 
-// Middleware to ensure DB connection for serverless
-app.use(async (req, res, next) => {
+// Health check endpoint (no DB required)
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "Portfolio API Server",
+    timestamp: new Date().toISOString(),
+    env: process.env.NODE_ENV || "development",
+  });
+});
+
+app.get("/api/health", (req, res) => {
+  res.json({
+    success: true,
+    message: "Server is running",
+    mongodb:
+      mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+    timestamp: new Date().toISOString(),
+  });
+});
+
+// Middleware to ensure DB connection for API routes only
+app.use("/api", async (req, res, next) => {
+  // Skip DB check for health endpoint
+  if (req.path === "/health") {
+    return next();
+  }
+
   try {
     await connectDB();
     next();
@@ -127,15 +152,6 @@ app.use("/api/experience", experienceRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/github", githubRoutes);
-
-// Health check endpoint
-app.get("/api/health", (req, res) => {
-  res.status(200).json({
-    status: "OK",
-    message: "Server is running",
-    timestamp: new Date().toISOString(),
-  });
-});
 
 // 404 handler
 app.use("*", (req, res) => {
