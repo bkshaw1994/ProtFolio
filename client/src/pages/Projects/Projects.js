@@ -1,37 +1,37 @@
-import React, { useState } from "react";
-import { Helmet } from "react-helmet-async";
-import { Briefcase, Github } from "lucide-react";
-import { useGetProjectsQuery } from "../../features/api/apiSlice";
-import ProjectCard from "../../components/ProjectCard";
-import GitHubProjects from "../../components/GitHubProjects";
-import { SkeletonProject } from "../../components/Skeleton";
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Briefcase, Github } from 'lucide-react';
+import { useGetProjectsQuery } from '../../features/api/apiSlice';
+import ProjectCard from '../../components/ProjectCard';
+import GitHubProjects from '../../components/GitHubProjects';
+import { SkeletonProject } from '../../components/Skeleton';
 
 const Projects = () => {
-  const [activeTab, setActiveTab] = useState("portfolio"); // 'portfolio' or 'github'
+  const [activeTab, setActiveTab] = useState('portfolio'); // 'portfolio' or 'github'
   const {
     data: projectsData = { data: [] },
     isLoading,
     isError,
-    refetch,
+    refetch
   } = useGetProjectsQuery();
   const projects = projectsData.data || [];
 
   const tabs = [
     {
-      id: "portfolio",
-      label: "Portfolio Projects",
+      id: 'portfolio',
+      label: 'Portfolio Projects',
       icon: Briefcase,
-      description: "Curated projects showcasing my skills",
+      description: 'Curated projects showcasing my skills'
     },
     {
-      id: "github",
-      label: "GitHub Projects",
+      id: 'github',
+      label: 'GitHub Projects',
       icon: Github,
-      description: "Open source repositories and contributions",
-    },
+      description: 'Open source repositories and contributions'
+    }
   ];
 
-  if (isLoading && activeTab === "portfolio") {
+  if (isLoading && activeTab === 'portfolio') {
     return (
       <>
         <Helmet>
@@ -60,7 +60,7 @@ const Projects = () => {
     );
   }
 
-  if (isError && activeTab === "portfolio") {
+  if (isError && activeTab === 'portfolio') {
     return (
       <div className="min-h-screen flex items-center justify-center pt-20">
         <div className="text-center">
@@ -105,18 +105,18 @@ const Projects = () => {
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex items-center px-6 py-3 rounded-md transition-all duration-200 ${
                       activeTab === tab.id
-                        ? "bg-blue-600 text-white shadow-md transform scale-105"
-                        : "text-gray-600 hover:text-gray-800 hover:bg-gray-50"
+                        ? 'bg-blue-600 text-white shadow-md transform scale-105'
+                        : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
                     }`}
                   >
                     {React.createElement(tab.icon, {
-                      className: "mr-2",
-                      size: 20,
+                      className: 'mr-2',
+                      size: 20
                     })}
                     <div className="text-left">
                       <div className="font-medium">{tab.label}</div>
                       <div
-                        className={`text-xs ${activeTab === tab.id ? "text-blue-100" : "text-gray-500"}`}
+                        className={`text-xs ${activeTab === tab.id ? 'text-blue-100' : 'text-gray-500'}`}
                       >
                         {tab.description}
                       </div>
@@ -128,7 +128,7 @@ const Projects = () => {
 
             {/* Content */}
             <div className="max-w-7xl mx-auto">
-              {activeTab === "portfolio" && (
+              {activeTab === 'portfolio' && (
                 <div>
                   {projects.length === 0 ? (
                     <div className="text-center py-20">
@@ -154,7 +154,7 @@ const Projects = () => {
                 </div>
               )}
 
-              {activeTab === "github" && <GitHubProjects />}
+              {activeTab === 'github' && <GitHubProjects />}
             </div>
           </div>
         </section>

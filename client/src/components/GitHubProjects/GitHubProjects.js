@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Star,
   GitFork,
@@ -9,14 +9,14 @@ import {
   AlertTriangle,
   RefreshCw,
   FolderOpen,
-  BookOpen,
-} from "lucide-react";
+  BookOpen
+} from 'lucide-react';
 import {
   useGetGitHubReposQuery,
   useGetFeaturedGitHubReposQuery,
-  useGetGitHubStatsQuery,
-} from "../../features/api/apiSlice";
-import LoadingSpinner from "../LoadingSpinner";
+  useGetGitHubStatsQuery
+} from '../../features/api/apiSlice';
+import LoadingSpinner from '../LoadingSpinner';
 
 const GitHubProjectCard = ({ project }) => {
   return (
@@ -134,13 +134,13 @@ const GitHubProjects = () => {
   const {
     data: featuredRepos,
     isLoading: featuredLoading,
-    isError: featuredError,
+    isError: featuredError
   } = useGetFeaturedGitHubReposQuery();
 
   const {
     data: allRepos,
     isLoading: allLoading,
-    isError: allError,
+    isError: allError
   } = useGetGitHubReposQuery({ limit: 20 }, { skip: !showAll });
 
   const { data: statsData } = useGetGitHubStatsQuery();
@@ -184,12 +184,12 @@ const GitHubProjects = () => {
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold text-gray-800">
-            {showAll ? "All GitHub Projects" : "Featured GitHub Projects"}
+            {showAll ? 'All GitHub Projects' : 'Featured GitHub Projects'}
           </h2>
           <p className="text-gray-600 mt-1">
             {showAll
-              ? "Complete collection of my repositories"
-              : "Highlighted projects with community engagement"}
+              ? 'Complete collection of my repositories'
+              : 'Highlighted projects with community engagement'}
           </p>
         </div>
         <button
@@ -217,8 +217,8 @@ const GitHubProjects = () => {
           </h3>
           <p className="text-gray-500">
             {showAll
-              ? "No repositories available"
-              : "No featured repositories available"}
+              ? 'No repositories available'
+              : 'No featured repositories available'}
           </p>
         </div>
       ) : (
