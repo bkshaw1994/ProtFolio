@@ -74,19 +74,23 @@ const connectDB = async () => {
   }
 
   try {
-    const connection = await mongoose.connect(
-      process.env.MONGODB_URI || "mongodb://localhost:27017/portfolio",
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        serverSelectionTimeoutMS: 5000,
-      },
-    );
+    if (!process.env.MONGODB_URI) {
+      console.error("MONGODB_URI environment variable is not set!");
+      throw new Error("MONGODB_URI is required");
+    }
+
+    console.log("Attempting to connect to MongoDB...");
+    const connection = await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
+    });
     console.log("MongoDB connected successfully");
     cachedDb = connection;
     return connection;
   } catch (error) {
-    console.error("MongoDB connection error:", error);
+    console.error("MongoDB connection error:", error.message);
     if (!process.env.VERCEL) {
       process.exit(1);
     }
@@ -105,10 +109,12 @@ app.use(async (req, res, next) => {
     await connectDB();
     next();
   } catch (error) {
-    console.error("Database connection failed:", error);
+    console.error("Database connection failed:", error.message);
     res.status(503).json({
       success: false,
-      message: "Database connection unavailable",
+      message:
+        "Database connection unavailable. Please check MongoDB connection.",
+      error: process.env.NODE_ENV === "development" ? error.message : undefined,
     });
   }
 });
