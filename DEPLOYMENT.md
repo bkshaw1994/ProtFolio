@@ -2,6 +2,27 @@
 
 ## Vercel Deployment
 
+### Server Environment Variables (Required)
+
+Set these in your Vercel dashboard for the **server** project:
+
+1. `MONGODB_URI` - MongoDB connection string (e.g., from MongoDB Atlas)
+2. `JWT_SECRET` - Secret key for JWT tokens
+3. `NODE_ENV` - Set to `production`
+4. `CLIENT_URL` - Your client URL (e.g., `https://your-client.vercel.app`)
+
+**How to set in Vercel:**
+
+1. Go to your server project in Vercel dashboard
+2. Settings → Environment Variables
+3. Add each variable for Production environment
+
+### Client Environment Variables
+
+The client uses `.env.production` file which is committed to the repo:
+
+- `REACT_APP_API_URL` - Already set to `https://bishal-portfolio-server.vercel.app/api`
+
 ### File Uploads
 
 ⚠️ **Important**: File uploads currently use local filesystem storage. On Vercel's serverless environment:
