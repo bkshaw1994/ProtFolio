@@ -1,33 +1,61 @@
-import React, { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Mail, Phone, MapPin, Send, CheckCircle, Github, Linkedin, ExternalLink } from 'lucide-react';
-import { useSubmitContactMutation, useGetProfileQuery } from '../../features/api/apiSlice';
-import toast from 'react-hot-toast';
-import LoadingSpinner from '../../components/LoadingSpinner';
+import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  CheckCircle,
+  Github,
+  Linkedin,
+  ExternalLink,
+} from "lucide-react";
+import {
+  useSubmitContactMutation,
+  useGetProfileQuery,
+} from "../../features/api/apiSlice";
+import toast from "react-hot-toast";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const Contact = () => {
   // Fetch profile data for contact information
   const { data: profile, isLoading: loadingProfile } = useGetProfileQuery();
   const profileData = profile?.data || profile;
-  
+
+  // Get list of common currencies using Intl API
+  const currencies = [
+    { code: "INR", symbol: "₹", name: "Indian Rupee" },
+    { code: "USD", symbol: "$", name: "US Dollar" },
+    { code: "EUR", symbol: "€", name: "Euro" },
+    { code: "GBP", symbol: "£", name: "British Pound" },
+    { code: "AUD", symbol: "A$", name: "Australian Dollar" },
+    { code: "CAD", symbol: "C$", name: "Canadian Dollar" },
+    { code: "JPY", symbol: "¥", name: "Japanese Yen" },
+    { code: "CNY", symbol: "¥", name: "Chinese Yuan" },
+    { code: "CHF", symbol: "Fr", name: "Swiss Franc" },
+    { code: "SGD", symbol: "S$", name: "Singapore Dollar" },
+  ];
+
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-    phone: '',
-    company: '',
-    projectType: 'other',
-    budget: 'not-specified',
-    timeline: 'flexible'
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+    phone: "",
+    company: "",
+    projectType: "other",
+    budget: "",
+    currency: "INR",
+    timeline: "flexible",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submitContact, { isLoading: isSubmitting }] = useSubmitContactMutation();
+  const [submitContact, { isLoading: isSubmitting }] =
+    useSubmitContactMutation();
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -35,21 +63,22 @@ const Contact = () => {
     e.preventDefault();
     try {
       const response = await submitContact(formData).unwrap();
-      toast.success(response.message || 'Message sent successfully!');
+      toast.success(response.message || "Message sent successfully!");
       setIsSubmitted(true);
       setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-        phone: '',
-        company: '',
-        projectType: 'other',
-        budget: 'not-specified',
-        timeline: 'flexible'
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+        phone: "",
+        company: "",
+        projectType: "other",
+        budget: "",
+        currency: "INR",
+        timeline: "flexible",
       });
     } catch (error) {
-      toast.error(error?.data?.message || 'Failed to send message');
+      toast.error(error?.data?.message || "Failed to send message");
     }
   };
 
@@ -64,7 +93,7 @@ const Contact = () => {
         <Helmet>
           <title>Contact - Thank You</title>
         </Helmet>
-        
+
         <div className="pt-20 min-h-screen flex items-center justify-center bg-gradient-to-br from-success-50 to-primary-50">
           <div className="container-custom text-center">
             <CheckCircle size={64} className="text-success-500 mx-auto mb-6" />
@@ -72,9 +101,10 @@ const Contact = () => {
               Thank You!
             </h1>
             <p className="text-lg text-secondary-600 mb-8">
-              Your message has been sent successfully. I'll get back to you within 24-48 hours.
+              Your message has been sent successfully. I'll get back to you
+              within 24-48 hours.
             </p>
-            <button 
+            <button
               onClick={() => setIsSubmitted(false)}
               className="btn-primary"
             >
@@ -89,10 +119,16 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>{profileData?.name ? `Contact ${profileData.name}` : 'Contact'} - Portfolio</title>
-        <meta name="description" content={`Get in touch with ${profileData?.name || 'me'} for your next project. ${profileData?.title ? `Specializing in ${profileData.title.toLowerCase()}.` : ''}`} />
+        <title>
+          {profileData?.name ? `Contact ${profileData.name}` : "Contact"} -
+          Portfolio
+        </title>
+        <meta
+          name="description"
+          content={`Get in touch with ${profileData?.name || "me"} for your next project. ${profileData?.title ? `Specializing in ${profileData.title.toLowerCase()}.` : ""}`}
+        />
       </Helmet>
-      
+
       <div className="pt-20">
         {/* Header */}
         <section className="section-padding bg-gradient-to-br from-primary-50 to-secondary-50">
@@ -101,7 +137,7 @@ const Contact = () => {
               Get In Touch
             </h1>
             <p className="text-lg text-secondary-600 max-w-2xl mx-auto">
-              Let's discuss your next project and bring your ideas to life. 
+              Let's discuss your next project and bring your ideas to life.
               {profileData?.name && ` I'm ${profileData.name}, `}
               ready to help you create amazing digital experiences.
             </p>
@@ -122,7 +158,10 @@ const Contact = () => {
                     {profileData?.email && (
                       <div className="flex items-center space-x-3">
                         <Mail className="text-primary-600" size={20} />
-                        <a href={`mailto:${profileData.email}`} className="text-secondary-700 hover:text-primary-600">
+                        <a
+                          href={`mailto:${profileData.email}`}
+                          className="text-secondary-700 hover:text-primary-600"
+                        >
                           {profileData.email}
                         </a>
                       </div>
@@ -130,7 +169,10 @@ const Contact = () => {
                     {profileData?.phone && (
                       <div className="flex items-center space-x-3">
                         <Phone className="text-primary-600" size={20} />
-                        <a href={`tel:${profileData.phone}`} className="text-secondary-700 hover:text-primary-600">
+                        <a
+                          href={`tel:${profileData.phone}`}
+                          className="text-secondary-700 hover:text-primary-600"
+                        >
                           {profileData.phone}
                         </a>
                       </div>
@@ -143,11 +185,13 @@ const Contact = () => {
                         </span>
                       </div>
                     )}
-                    {!profileData?.email && !profileData?.phone && !profileData?.location && (
-                      <div className="text-secondary-600">
-                        Please use the contact form to get in touch.
-                      </div>
-                    )}
+                    {!profileData?.email &&
+                      !profileData?.phone &&
+                      !profileData?.location && (
+                        <div className="text-secondary-600">
+                          Please use the contact form to get in touch.
+                        </div>
+                      )}
                   </div>
                 </div>
 
@@ -156,14 +200,17 @@ const Contact = () => {
                     Response Time
                   </h3>
                   <p className="text-secondary-600">
-                    I typically respond to all inquiries within 24-48 hours. 
-                    {profileData?.phone && ' For urgent matters, please call directly.'} 
+                    I typically respond to all inquiries within 24-48 hours.
+                    {profileData?.phone &&
+                      " For urgent matters, please call directly."}
                     Looking forward to discussing your project!
                   </p>
                 </div>
 
                 {/* Social Links */}
-                {(profileData?.socialLinks?.github || profileData?.socialLinks?.linkedin || profileData?.socialLinks?.portfolio) && (
+                {(profileData?.socialLinks?.github ||
+                  profileData?.socialLinks?.linkedin ||
+                  profileData?.socialLinks?.portfolio) && (
                   <div>
                     <h3 className="text-xl font-semibold text-secondary-900 mb-4">
                       Connect With Me
@@ -212,7 +259,10 @@ const Contact = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-secondary-700 mb-2">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-secondary-700 mb-2"
+                      >
                         Name *
                       </label>
                       <input
@@ -226,9 +276,12 @@ const Contact = () => {
                         placeholder="Your full name"
                       />
                     </div>
-                    
+
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-secondary-700 mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-secondary-700 mb-2"
+                      >
                         Email *
                       </label>
                       <input
@@ -246,7 +299,10 @@ const Contact = () => {
 
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-secondary-700 mb-2">
+                      <label
+                        htmlFor="phone"
+                        className="block text-sm font-medium text-secondary-700 mb-2"
+                      >
                         Phone
                       </label>
                       <input
@@ -259,9 +315,12 @@ const Contact = () => {
                         placeholder="Your phone number"
                       />
                     </div>
-                    
+
                     <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-secondary-700 mb-2">
+                      <label
+                        htmlFor="company"
+                        className="block text-sm font-medium text-secondary-700 mb-2"
+                      >
                         Company
                       </label>
                       <input
@@ -277,7 +336,10 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-secondary-700 mb-2">
+                    <label
+                      htmlFor="subject"
+                      className="block text-sm font-medium text-secondary-700 mb-2"
+                    >
                       Subject *
                     </label>
                     <input
@@ -292,9 +354,12 @@ const Contact = () => {
                     />
                   </div>
 
-                  <div className="grid sm:grid-cols-3 gap-6">
+                  <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="projectType" className="block text-sm font-medium text-secondary-700 mb-2">
+                      <label
+                        htmlFor="projectType"
+                        className="block text-sm font-medium text-secondary-700 mb-2"
+                      >
                         Project Type
                       </label>
                       <select
@@ -312,29 +377,12 @@ const Contact = () => {
                         <option value="other">Other</option>
                       </select>
                     </div>
-                    
+
                     <div>
-                      <label htmlFor="budget" className="block text-sm font-medium text-secondary-700 mb-2">
-                        Budget
-                      </label>
-                      <select
-                        id="budget"
-                        name="budget"
-                        value={formData.budget}
-                        onChange={handleChange}
-                        className="input-field"
+                      <label
+                        htmlFor="timeline"
+                        className="block text-sm font-medium text-secondary-700 mb-2"
                       >
-                        <option value="<5k">Less than $5K</option>
-                        <option value="5k-10k">$5K - $10K</option>
-                        <option value="10k-25k">$10K - $25K</option>
-                        <option value="25k-50k">$25K - $50K</option>
-                        <option value="50k+">$50K+</option>
-                        <option value="not-specified">Not specified</option>
-                      </select>
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="timeline" className="block text-sm font-medium text-secondary-700 mb-2">
                         Timeline
                       </label>
                       <select
@@ -354,8 +402,49 @@ const Contact = () => {
                     </div>
                   </div>
 
+                  {formData.projectType === "freelance" && (
+                    <div>
+                      <label
+                        htmlFor="budget"
+                        className="block text-sm font-medium text-secondary-700 mb-2"
+                      >
+                        Budget
+                      </label>
+                      <div className="relative">
+                        <select
+                          id="currency"
+                          name="currency"
+                          value={formData.currency}
+                          onChange={handleChange}
+                          className="absolute left-0 top-0 h-full pl-3 pr-2 border-r border-secondary-300 bg-secondary-50 text-secondary-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary-500 appearance-none cursor-pointer z-10"
+                          style={{ width: "85px" }}
+                        >
+                          {currencies.map((curr) => (
+                            <option key={curr.code} value={curr.code}>
+                              {curr.symbol} {curr.code}
+                            </option>
+                          ))}
+                        </select>
+                        <input
+                          type="number"
+                          id="budget"
+                          name="budget"
+                          value={formData.budget}
+                          onChange={handleChange}
+                          className="input-field w-full pl-24"
+                          placeholder="Enter amount"
+                          min="0"
+                          step="0.01"
+                        />
+                      </div>
+                    </div>
+                  )}
+
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-secondary-700 mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-secondary-700 mb-2"
+                    >
                       Message *
                     </label>
                     <textarea
@@ -383,7 +472,10 @@ const Contact = () => {
                     ) : (
                       <>
                         Send Message
-                        <Send size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                        <Send
+                          size={20}
+                          className="ml-2 group-hover:translate-x-1 transition-transform"
+                        />
                       </>
                     )}
                   </button>
