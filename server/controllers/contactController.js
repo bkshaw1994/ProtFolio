@@ -39,6 +39,7 @@ const submitContactForm = async (req, res) => {
       company,
       projectType,
       budget,
+      currency,
       timeline
     } = req.body;
 
@@ -56,6 +57,7 @@ const submitContactForm = async (req, res) => {
       company,
       projectType,
       budget,
+      currency,
       timeline,
       ipAddress,
       userAgent
@@ -89,7 +91,7 @@ const submitContactForm = async (req, res) => {
           <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
           <p><strong>Company:</strong> ${company || 'Not provided'}</p>
           <p><strong>Project Type:</strong> ${projectType}</p>
-          <p><strong>Budget:</strong> ${budget}</p>
+          <p><strong>Budget:</strong> ${budget && currency ? `${currency} ${budget.toLocaleString()}` : 'Not provided'}</p>
           <p><strong>Timeline:</strong> ${timeline}</p>
           <p><strong>Subject:</strong> ${subject}</p>
           <p><strong>Message:</strong></p>

@@ -47,15 +47,58 @@ const contactValidation = [
     .withMessage('Company name must be less than 100 characters'),
   body('projectType')
     .optional()
-    .isIn(['web-development', 'mobile-app', 'consultation', 'freelance', 'full-time', 'other'])
+    .isIn([
+      'web-development',
+      'mobile-app',
+      'consultation',
+      'freelance',
+      'full-time',
+      'other'
+    ])
     .withMessage('Invalid project type'),
   body('budget')
     .optional()
-    .isIn(['<5k', '5k-10k', '10k-25k', '25k-50k', '50k+', 'not-specified'])
-    .withMessage('Invalid budget range'),
+    .custom((value) => {
+      if (value === '' || value === null || value === undefined) {
+        return true;
+      }
+      const numValue = parseFloat(value);
+      if (isNaN(numValue)) {
+        throw new Error('Budget must be a valid number');
+      }
+      if (numValue < 0) {
+        throw new Error('Budget cannot be negative');
+      }
+      if (numValue > 100000000) {
+        throw new Error('Budget value is too large');
+      }
+      return true;
+    }),
+  body('currency')
+    .optional()
+    .isIn([
+      'INR',
+      'USD',
+      'EUR',
+      'GBP',
+      'AUD',
+      'CAD',
+      'JPY',
+      'CNY',
+      'CHF',
+      'SGD'
+    ])
+    .withMessage('Invalid currency code'),
   body('timeline')
     .optional()
-    .isIn(['asap', '1-month', '2-3-months', '3-6-months', '6-months+', 'flexible'])
+    .isIn([
+      'asap',
+      '1-month',
+      '2-3-months',
+      '3-6-months',
+      '6-months+',
+      'flexible'
+    ])
     .withMessage('Invalid timeline')
 ];
 
@@ -98,25 +141,29 @@ router.get('/:id', getContactById);
 // @desc    Update contact status/notes (admin only)
 // @access  Private (Admin)
 // Note: Add authentication middleware here when implementing admin panel
-router.put('/:id', [
-  body('status')
-    .optional()
-    .isIn(['new', 'read', 'replied', 'closed'])
-    .withMessage('Invalid status'),
-  body('priority')
-    .optional()
-    .isIn(['low', 'medium', 'high', 'urgent'])
-    .withMessage('Invalid priority'),
-  body('notes')
-    .optional()
-    .trim()
-    .isLength({ max: 1000 })
-    .withMessage('Notes must be less than 1000 characters'),
-  body('reply')
-    .optional()
-    .trim()
-    .isLength({ max: 2000 })
-    .withMessage('Reply must be less than 2000 characters')
-], updateContact);
+router.put(
+  '/:id',
+  [
+    body('status')
+      .optional()
+      .isIn(['new', 'read', 'replied', 'closed'])
+      .withMessage('Invalid status'),
+    body('priority')
+      .optional()
+      .isIn(['low', 'medium', 'high', 'urgent'])
+      .withMessage('Invalid priority'),
+    body('notes')
+      .optional()
+      .trim()
+      .isLength({ max: 1000 })
+      .withMessage('Notes must be less than 1000 characters'),
+    body('reply')
+      .optional()
+      .trim()
+      .isLength({ max: 2000 })
+      .withMessage('Reply must be less than 2000 characters')
+  ],
+  updateContact
+);
 
 module.exports = router;
