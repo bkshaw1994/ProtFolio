@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
+import { Menu, X, Github, Linkedin, Mail, Download } from 'lucide-react';
 import { useGetProfileQuery } from '../../features/api/apiSlice';
+import { getFileUrl } from '../../utils/apiUrl';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { data: profile } = useGetProfileQuery();
-  
+
   // Extract profile data
   const profileData = profile?.data || profile;
 
@@ -39,27 +40,36 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled 
-        ? 'bg-white/95 backdrop-blur-sm shadow-lg' 
-        : 'bg-white/90 backdrop-blur-sm'
-    }`}>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/95 backdrop-blur-sm shadow-lg'
+          : 'bg-white/90 backdrop-blur-sm'
+      }`}
+    >
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
-          <Link 
-            to="/" 
-            className="flex items-center space-x-2 group"
-          >
+          <Link to="/" className="flex items-center space-x-2 group">
             <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg overflow-hidden flex items-center justify-center text-white font-bold text-xl group-hover:scale-105 transition-transform">
               {profileData?.profileImage ? (
-                <img 
-                  src={`${process.env.REACT_APP_API_URL?.replace('/api', '') || 'http://localhost:5000'}${profileData.profileImage}`}
+                <img
+                  src={getFileUrl(profileData.profileImage)}
                   alt={profileData.name || 'Profile'}
                   className="w-full h-full object-cover"
+                  crossOrigin="anonymous"
+                  onError={(e) => {
+                    console.error('Image load error:', {
+                      src: e.target.src,
+                      profileImage: profileData.profileImage,
+                      constructedUrl: getFileUrl(profileData.profileImage)
+                    });
+                  }}
                 />
+              ) : profileData?.name ? (
+                profileData.name.charAt(0).toUpperCase()
               ) : (
-                profileData?.name ? profileData.name.charAt(0).toUpperCase() : 'P'
+                'P'
               )}
             </div>
             <div className="hidden sm:block">
@@ -100,7 +110,7 @@ const Navbar = () => {
                 <Mail size={18} />
               </a>
             )}
-            
+
             {profileData?.socialLinks?.github && (
               <a
                 href={profileData.socialLinks.github}
@@ -112,7 +122,7 @@ const Navbar = () => {
                 <Github size={18} />
               </a>
             )}
-            
+
             {profileData?.socialLinks?.linkedin && (
               <a
                 href={profileData.socialLinks.linkedin}
@@ -125,7 +135,19 @@ const Navbar = () => {
               </a>
             )}
 
-            <Link to="/contact" className="btn-primary ml-4">
+            {profileData?.resume && (
+              <a
+                href={getFileUrl(profileData.resume)}
+                download
+                className="flex items-center space-x-2 px-4 py-2 bg-secondary-100 text-secondary-700 hover:bg-secondary-200 rounded-lg transition-all duration-200 font-medium text-sm"
+                title="Download Resume"
+              >
+                <Download size={16} />
+                <span>Resume</span>
+              </a>
+            )}
+
+            <Link to="/contact" className="btn-primary ml-2">
               Hire Me
             </Link>
           </div>
@@ -156,29 +178,40 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-              
+
               {/* Mobile Contact */}
               <div className="pt-4 border-t border-secondary-200 mt-4">
-                <Link 
-                  to="/contact" 
+                <Link
+                  to="/contact"
                   className="btn-primary w-full justify-center mb-3"
                 >
                   Get In Touch
                 </Link>
-                
+
+                {profileData?.resume && (
+                  <a
+                    href={getFileUrl(profileData.resume)}
+                    download
+                    className="flex items-center justify-center space-x-2 px-4 py-2 bg-secondary-100 text-secondary-700 hover:bg-secondary-200 rounded-lg transition-all duration-200 font-medium text-sm w-full mb-3"
+                  >
+                    <Download size={16} />
+                    <span>Download Resume</span>
+                  </a>
+                )}
+
                 <div className="flex items-center justify-center space-x-4">
-                  {profile?.email && (
+                  {profileData?.email && (
                     <a
-                      href={`mailto:${profile.email}`}
+                      href={`mailto:${profileData.email}`}
                       className="p-2 text-secondary-600 hover:text-primary-600 rounded-lg transition-colors"
                     >
                       <Mail size={20} />
                     </a>
                   )}
-                  
-                  {profile?.socialLinks?.github && (
+
+                  {profileData?.socialLinks?.github && (
                     <a
-                      href={profile.socialLinks.github}
+                      href={profileData.socialLinks.github}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-2 text-secondary-600 hover:text-primary-600 rounded-lg transition-colors"
@@ -186,10 +219,10 @@ const Navbar = () => {
                       <Github size={20} />
                     </a>
                   )}
-                  
-                  {profile?.socialLinks?.linkedin && (
+
+                  {profileData?.socialLinks?.linkedin && (
                     <a
-                      href={profile.socialLinks.linkedin}
+                      href={profileData.socialLinks.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-2 text-secondary-600 hover:text-primary-600 rounded-lg transition-colors"

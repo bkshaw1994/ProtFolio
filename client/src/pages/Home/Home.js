@@ -21,7 +21,8 @@ import {
 // Components
 import ProjectCard from '../../components/ProjectCard';
 import SkillBadge from '../../components/SkillBadge';
-import LoadingSpinner from '../../components/LoadingSpinner';
+import { SkeletonProject, SkeletonSkill, SkeletonProfile } from '../../components/Skeleton';
+import { getFileUrl } from '../../utils/apiUrl';
 
 const Home = () => {
   const { data: profile, isLoading: loadingProfile } = useGetProfileQuery();
@@ -47,8 +48,31 @@ const Home = () => {
     ...githubRepos.slice(0, 3) // Top 3 GitHub repos
   ].slice(0, 6); // Show max 6 featured projects
 
-  if (loadingProfile || loadingProjects || loadingSkills) {
-    return <LoadingSpinner />;
+  // Loading states for different sections
+  const renderHeroSkeleton = () => (
+    <section className="section-padding min-h-screen flex items-center bg-gradient-to-br from-primary-50 to-secondary-50">
+      <div className="container-custom">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <SkeletonProfile />
+            <div className="h-8 w-3/4 bg-secondary-200 rounded animate-pulse" />
+            <div className="space-y-3">
+              <div className="h-4 bg-secondary-200 rounded animate-pulse" />
+              <div className="h-4 bg-secondary-200 rounded animate-pulse w-5/6" />
+            </div>
+            <div className="flex gap-4">
+              <div className="h-12 w-32 bg-secondary-200 rounded-lg animate-pulse" />
+              <div className="h-12 w-32 bg-secondary-200 rounded-lg animate-pulse" />
+            </div>
+          </div>
+          <div className="h-96 bg-secondary-200 rounded-lg animate-pulse" />
+        </div>
+      </div>
+    </section>
+  );
+
+  if (loadingProfile) {
+    return renderHeroSkeleton();
   }
 
   return (
@@ -158,9 +182,8 @@ const Home = () => {
 
                 {profileData?.resume && (
                   <a
-                    href={`${process.env.REACT_APP_API_URL?.replace('/api', '') || 'http://localhost:5000'}${profileData.resume}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={getFileUrl(profileData.resume)}
+                    download
                     className="btn-secondary group"
                   >
                     <Download
@@ -200,9 +223,17 @@ const Home = () => {
                 <div className="w-80 h-80 mx-auto bg-gradient-to-br from-primary-200 via-primary-100 to-secondary-100 rounded-full overflow-hidden shadow-custom-xl">
                   {profileData?.profileImage ? (
                     <img
-                      src={`${process.env.REACT_APP_API_URL?.replace('/api', '') || 'http://localhost:5000'}${profileData.profileImage}`}
+                      src={getFileUrl(profileData.profileImage)}
                       alt={profileData.name || 'Profile'}
                       className="w-full h-full object-cover"
+                      crossOrigin="anonymous"
+                      onError={(e) => {
+                        console.error('Home page image failed:', {
+                          src: e.target.src,
+                          profileImage: profileData.profileImage,
+                          constructedUrl: getFileUrl(profileData.profileImage)
+                        });
+                      }}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-6xl font-bold text-primary-600">
@@ -244,9 +275,15 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {coreSkills.map((skill, index) => (
-              <SkillBadge key={index} skill={skill} />
-            ))}
+            {loadingSkills ? (
+              Array.from({ length: 6 }).map((_, index) => (
+                <SkeletonSkill key={index} />
+              ))
+            ) : (
+              coreSkills.map((skill, index) => (
+                <SkillBadge key={index} skill={skill} />
+              ))
+            )}
           </div>
 
           <div className="text-center mt-12">
@@ -270,7 +307,13 @@ const Home = () => {
             </p>
           </div>
 
-          {allFeaturedProjects.length === 0 ? (
+          {loadingProjects ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <SkeletonProject key={index} />
+              ))}
+            </div>
+          ) : allFeaturedProjects.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-gray-400 text-6xl mb-4">🚀</div>
               <p className="text-gray-600">
@@ -286,6 +329,7 @@ const Home = () => {
                 />
               ))}
             </div>
+          )}
           )}
 
           <div className="text-center mt-12">

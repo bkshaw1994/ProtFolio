@@ -3,30 +3,60 @@ import { Helmet } from 'react-helmet-async';
 import { useGetProjectsQuery } from '../../features/api/apiSlice';
 import ProjectCard from '../../components/ProjectCard';
 import GitHubProjects from '../../components/GitHubProjects';
-import LoadingSpinner from '../../components/LoadingSpinner';
+import { SkeletonProject } from '../../components/Skeleton';
 
 const Projects = () => {
   const [activeTab, setActiveTab] = useState('portfolio'); // 'portfolio' or 'github'
-  const { data: projectsData = { data: [] }, isLoading, isError, refetch } = useGetProjectsQuery();
+  const {
+    data: projectsData = { data: [] },
+    isLoading,
+    isError,
+    refetch
+  } = useGetProjectsQuery();
   const projects = projectsData.data || [];
 
   const tabs = [
-    { 
-      id: 'portfolio', 
-      label: 'Portfolio Projects', 
+    {
+      id: 'portfolio',
+      label: 'Portfolio Projects',
       icon: '💼',
       description: 'Curated projects showcasing my skills'
     },
-    { 
-      id: 'github', 
-      label: 'GitHub Projects', 
+    {
+      id: 'github',
+      label: 'GitHub Projects',
       icon: '🐙',
       description: 'Open source repositories and contributions'
     }
   ];
 
   if (isLoading && activeTab === 'portfolio') {
-    return <LoadingSpinner size="lg" message="Loading projects..." />;
+    return (
+      <>
+        <Helmet>
+          <title>Projects - Portfolio</title>
+          <meta
+            name="description"
+            content="Browse my portfolio of projects and work"
+          />
+        </Helmet>
+        <div className="pt-20 min-h-screen bg-gray-50">
+          <section className="section-padding">
+            <div className="container-custom">
+              <div className="text-center mb-12">
+                <div className="h-12 bg-gray-200 rounded w-64 mx-auto mb-4 animate-pulse"></div>
+                <div className="h-6 bg-gray-200 rounded w-96 mx-auto animate-pulse"></div>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                {Array.from({ length: 6 }).map((_, index) => (
+                  <SkeletonProject key={index} />
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+      </>
+    );
   }
 
   if (isError && activeTab === 'portfolio') {
@@ -46,7 +76,10 @@ const Projects = () => {
     <>
       <Helmet>
         <title>Projects - Portfolio</title>
-        <meta name="description" content="Browse my portfolio of projects and work" />
+        <meta
+          name="description"
+          content="Browse my portfolio of projects and work"
+        />
       </Helmet>
       <div className="pt-20 min-h-screen bg-gray-50">
         <section className="section-padding">
@@ -57,7 +90,8 @@ const Projects = () => {
                 My Projects
               </h1>
               <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-                Explore my portfolio projects and GitHub repositories showcasing my development journey
+                Explore my portfolio projects and GitHub repositories showcasing
+                my development journey
               </p>
             </div>
 
@@ -77,7 +111,9 @@ const Projects = () => {
                     <span className="text-lg mr-2">{tab.icon}</span>
                     <div className="text-left">
                       <div className="font-medium">{tab.label}</div>
-                      <div className={`text-xs ${activeTab === tab.id ? 'text-blue-100' : 'text-gray-500'}`}>
+                      <div
+                        className={`text-xs ${activeTab === tab.id ? 'text-blue-100' : 'text-gray-500'}`}
+                      >
                         {tab.description}
                       </div>
                     </div>
@@ -93,8 +129,13 @@ const Projects = () => {
                   {projects.length === 0 ? (
                     <div className="text-center py-20">
                       <div className="text-gray-400 text-8xl mb-4">💼</div>
-                      <h3 className="text-xl font-semibold text-gray-700 mb-2">No portfolio projects found</h3>
-                      <p className="text-gray-500">Projects will appear here once they're added to the portfolio.</p>
+                      <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                        No portfolio projects found
+                      </h3>
+                      <p className="text-gray-500">
+                        Projects will appear here once they're added to the
+                        portfolio.
+                      </p>
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

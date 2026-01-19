@@ -8,7 +8,8 @@ import {
   CheckCircle,
   Github,
   Linkedin,
-  ExternalLink
+  ExternalLink,
+  Download
 } from 'lucide-react';
 import {
   useSubmitContactMutation,
@@ -16,6 +17,7 @@ import {
 } from '../../features/api/apiSlice';
 import toast from 'react-hot-toast';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { getFileUrl } from '../../utils/apiUrl';
 
 const Contact = () => {
   // Fetch profile data for contact information
@@ -206,6 +208,23 @@ const Contact = () => {
                     Looking forward to discussing your project!
                   </p>
                 </div>
+
+                {/* Resume Download */}
+                {profileData?.resume && (
+                  <div>
+                    <h3 className="text-xl font-semibold text-secondary-900 mb-4">
+                      Download Resume
+                    </h3>
+                    <a
+                      href={getFileUrl(profileData.resume)}
+                      download
+                      className="inline-flex items-center space-x-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors shadow-lg"
+                    >
+                      <Download size={20} />
+                      <span>Download Resume</span>
+                    </a>
+                  </div>
+                )}
 
                 {/* Social Links */}
                 {(profileData?.socialLinks?.github ||

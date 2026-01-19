@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useGetSkillsQuery } from '../../features/api/apiSlice';
-import LoadingSpinner from '../../components/LoadingSpinner';
 import SkillBadge from '../../components/SkillBadge';
+import { SkeletonSkill } from '../../components/Skeleton';
 
 const Skills = () => {
   const {
@@ -17,7 +17,39 @@ const Skills = () => {
   const skillCategories = Object.keys(skills);
 
   if (isLoading) {
-    return <LoadingSpinner size="lg" message="Loading skills..." />;
+    return (
+      <>
+        <Helmet>
+          <title>Skills - Portfolio</title>
+          <meta
+            name="description"
+            content="My technical skills and expertise in various technologies"
+          />
+        </Helmet>
+        <div className="pt-20">
+          <section className="section-padding bg-gradient-to-br from-primary-50 to-secondary-50">
+            <div className="container-custom text-center">
+              <div className="h-12 bg-gray-200 rounded w-64 mx-auto mb-6 animate-pulse"></div>
+              <div className="h-6 bg-gray-200 rounded w-96 mx-auto animate-pulse"></div>
+            </div>
+          </section>
+          <section className="section-padding">
+            <div className="container-custom">
+              {Array.from({ length: 3 }).map((_, categoryIndex) => (
+                <div key={categoryIndex} className="mb-16">
+                  <div className="h-8 bg-gray-200 rounded w-48 mb-8 animate-pulse"></div>
+                  <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {Array.from({ length: 8 }).map((_, index) => (
+                      <SkeletonSkill key={index} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      </>
+    );
   }
 
   if (isError) {
