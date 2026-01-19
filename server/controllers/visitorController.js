@@ -1,4 +1,4 @@
-const Visitor = require("../models/Visitor");
+const Visitor = require('../models/Visitor');
 
 // Get visitor count
 exports.getVisitorCount = async (req, res) => {
@@ -8,7 +8,7 @@ exports.getVisitorCount = async (req, res) => {
     if (!visitor) {
       visitor = await Visitor.create({
         totalVisits: 0,
-        uniqueVisitors: 0,
+        uniqueVisitors: 0
       });
     }
 
@@ -16,14 +16,14 @@ exports.getVisitorCount = async (req, res) => {
       success: true,
       data: {
         totalVisits: visitor.totalVisits,
-        uniqueVisitors: visitor.uniqueVisitors,
-      },
+        uniqueVisitors: visitor.uniqueVisitors
+      }
     });
   } catch (error) {
-    console.error("Error fetching visitor count:", error);
+    console.error('Error fetching visitor count:', error);
     res.status(500).json({
       success: false,
-      message: "Error fetching visitor count",
+      message: 'Error fetching visitor count'
     });
   }
 };
@@ -39,7 +39,7 @@ exports.incrementVisitorCount = async (req, res) => {
       visitor = await Visitor.create({
         totalVisits: 1,
         uniqueVisitors: isUnique ? 1 : 0,
-        lastVisit: new Date(),
+        lastVisit: new Date()
       });
     } else {
       visitor.totalVisits += 1;
@@ -54,14 +54,14 @@ exports.incrementVisitorCount = async (req, res) => {
       success: true,
       data: {
         totalVisits: visitor.totalVisits,
-        uniqueVisitors: visitor.uniqueVisitors,
-      },
+        uniqueVisitors: visitor.uniqueVisitors
+      }
     });
   } catch (error) {
-    console.error("Error incrementing visitor count:", error);
+    console.error('Error incrementing visitor count:', error);
     res.status(500).json({
       success: false,
-      message: "Error incrementing visitor count",
+      message: 'Error incrementing visitor count'
     });
   }
 };
