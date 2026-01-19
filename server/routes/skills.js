@@ -1,6 +1,5 @@
-const express = require('express');
-const Skill = require('../models/Skill');
-const { body, validationResult } = require('express-validator');
+const express = require("express");
+const Skill = require("../models/Skill");
 
 const router = express.Router();
 
@@ -17,8 +16,8 @@ const getAllSkills = async (req, res) => {
     const skills = await Skill.find(filter)
       .sort({ category: 1, priority: -1, proficiency: -1 })
       .limit(limit ? parseInt(limit) : 0)
-      .populate('projects', 'title _id')
-      .select('-__v');
+      .populate("projects", "title _id")
+      .select("-__v");
 
     // Group skills by category
     const groupedSkills = skills.reduce((acc, skill) => {
@@ -32,13 +31,13 @@ const getAllSkills = async (req, res) => {
     res.json({
       success: true,
       data: groupedSkills,
-      totalSkills: skills.length
+      totalSkills: skills.length,
     });
   } catch (error) {
-    console.error('Error fetching skills:', error);
+    console.error("Error fetching skills:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error while fetching skills'
+      message: "Server error while fetching skills",
     });
   }
 };
@@ -50,25 +49,25 @@ const getCoreSkills = async (req, res) => {
   try {
     const skills = await Skill.find({
       isActive: true,
-      isCore: true
+      isCore: true,
     })
       .sort({ proficiency: -1, priority: -1 })
-      .select('name proficiency category icon yearsOfExperience -_id');
+      .select("name proficiency category icon yearsOfExperience -_id");
 
     res.json({
       success: true,
-      data: skills
+      data: skills,
     });
   } catch (error) {
-    console.error('Error fetching core skills:', error);
+    console.error("Error fetching core skills:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error while fetching core skills'
+      message: "Server error while fetching core skills",
     });
   }
 };
 
-router.get('/', getAllSkills);
-router.get('/core', getCoreSkills);
+router.get("/", getAllSkills);
+router.get("/core", getCoreSkills);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 // Example test for utility functions and test helpers
-import React from "react";
-import { renderHook, act } from "@testing-library/react";
-import { renderWithProviders } from "../utils/test-utils";
+import React from 'react';
+import { renderHook, act } from '@testing-library/react';
+import { renderWithProviders } from '../utils/test-utils';
 
 // Mock custom hook example
 const useCounter = (initialValue = 0) => {
@@ -16,7 +16,7 @@ const useCounter = (initialValue = 0) => {
 
 // Mock utility function for testing
 const formatDate = (date) => {
-  if (!date) return "";
+  if (!date) return '';
   return new Date(date).toLocaleDateString();
 };
 
@@ -25,52 +25,52 @@ const validateEmail = (email) => {
   return emailRegex.test(email);
 };
 
-describe("Utility Functions", () => {
-  describe("formatDate", () => {
-    it("should format date correctly", () => {
-      const date = new Date("2023-12-25");
+describe('Utility Functions', () => {
+  describe('formatDate', () => {
+    it('should format date correctly', () => {
+      const date = new Date('2023-12-25');
       const formatted = formatDate(date);
 
       // Accept either US or UK date format
       expect(formatted).toMatch(/^(12\/25\/2023|25\/12\/2023)$/);
     });
 
-    it("should handle invalid date", () => {
-      expect(formatDate(null)).toBe("");
-      expect(formatDate(undefined)).toBe("");
+    it('should handle invalid date', () => {
+      expect(formatDate(null)).toBe('');
+      expect(formatDate(undefined)).toBe('');
     });
   });
 
-  describe("validateEmail", () => {
-    it("should validate correct email formats", () => {
-      expect(validateEmail("test@example.com")).toBe(true);
-      expect(validateEmail("user.name@domain.co.uk")).toBe(true);
+  describe('validateEmail', () => {
+    it('should validate correct email formats', () => {
+      expect(validateEmail('test@example.com')).toBe(true);
+      expect(validateEmail('user.name@domain.co.uk')).toBe(true);
     });
 
-    it("should reject invalid email formats", () => {
-      expect(validateEmail("invalid-email")).toBe(false);
-      expect(validateEmail("test@")).toBe(false);
-      expect(validateEmail("@example.com")).toBe(false);
-      expect(validateEmail("")).toBe(false);
+    it('should reject invalid email formats', () => {
+      expect(validateEmail('invalid-email')).toBe(false);
+      expect(validateEmail('test@')).toBe(false);
+      expect(validateEmail('@example.com')).toBe(false);
+      expect(validateEmail('')).toBe(false);
     });
   });
 });
 
-describe("Custom Hooks", () => {
-  describe("useCounter", () => {
-    it("should initialize with default value", () => {
+describe('Custom Hooks', () => {
+  describe('useCounter', () => {
+    it('should initialize with default value', () => {
       const { result } = renderHook(() => useCounter());
 
       expect(result.current.count).toBe(0);
     });
 
-    it("should initialize with custom value", () => {
+    it('should initialize with custom value', () => {
       const { result } = renderHook(() => useCounter(10));
 
       expect(result.current.count).toBe(10);
     });
 
-    it("should increment count", () => {
+    it('should increment count', () => {
       const { result } = renderHook(() => useCounter());
 
       act(() => {
@@ -80,7 +80,7 @@ describe("Custom Hooks", () => {
       expect(result.current.count).toBe(1);
     });
 
-    it("should decrement count", () => {
+    it('should decrement count', () => {
       const { result } = renderHook(() => useCounter());
 
       act(() => {
@@ -91,7 +91,7 @@ describe("Custom Hooks", () => {
       expect(result.current.count).toBe(0);
     });
 
-    it("should reset count", () => {
+    it('should reset count', () => {
       const { result } = renderHook(() => useCounter(10));
 
       act(() => {
@@ -110,9 +110,9 @@ describe("Custom Hooks", () => {
   });
 });
 
-describe("Test Utilities", () => {
-  describe("renderWithProviders", () => {
-    it("should render component with providers", () => {
+describe('Test Utilities', () => {
+  describe('renderWithProviders', () => {
+    it('should render component with providers', () => {
       const TestComponent = () => <div>Test Component</div>;
 
       renderWithProviders(<TestComponent />);
@@ -120,7 +120,7 @@ describe("Test Utilities", () => {
       expect(true).toBe(true);
     });
 
-    it("should provide Redux store", () => {
+    it('should provide Redux store', () => {
       const TestComponent = () => {
         // This component will fail if store is not provided
         return <div>With Store</div>;
@@ -131,27 +131,27 @@ describe("Test Utilities", () => {
       expect(true).toBe(true);
     });
 
-    it("should handle custom preloaded state", () => {
+    it('should handle custom preloaded state', () => {
       const TestComponent = () => <div>Custom State</div>;
 
       const preloadedState = {
-        profile: { data: { name: "Test User" } },
+        profile: { data: { name: 'Test User' } }
       };
 
       renderWithProviders(<TestComponent />, {
-        preloadedState,
+        preloadedState
       });
       // Just test that it renders without crashing
       expect(true).toBe(true);
     });
 
-    it("should return store in the result", () => {
+    it('should return store in the result', () => {
       const TestComponent = () => <div>Store Test</div>;
 
       const view = renderWithProviders(<TestComponent />);
       expect(view.store).toBeDefined();
-      expect(typeof view.store.dispatch).toBe("function");
-      expect(typeof view.store.getState).toBe("function");
+      expect(typeof view.store.dispatch).toBe('function');
+      expect(typeof view.store.getState).toBe('function');
     });
   });
 });

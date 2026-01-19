@@ -1,16 +1,16 @@
 // Example integration test for server routes
-const _request = require("supertest");
-const mongoose = require("mongoose");
+const _request = require('supertest');
+const mongoose = require('mongoose');
 
 // Import the app (you may need to adjust this based on your app structure)
 // const app = require('../index');
 
-describe("API Routes Integration Tests", () => {
+describe('API Routes Integration Tests', () => {
   beforeAll(async () => {
     // Connect to test database
     const mongoUri =
       process.env.MONGODB_TEST_URI ||
-      "mongodb://localhost:27017/portfolio-test";
+      'mongodb://localhost:27017/portfolio-test';
     await mongoose.connect(mongoUri);
   });
 
@@ -28,8 +28,8 @@ describe("API Routes Integration Tests", () => {
     }
   });
 
-  describe("Health Check", () => {
-    it("should return server status", async () => {
+  describe('Health Check', () => {
+    it('should return server status', async () => {
       // This is a basic example - you'll need to import your actual app
       // const response = await request(app)
       //   .get('/api/health')
@@ -42,8 +42,8 @@ describe("API Routes Integration Tests", () => {
     });
   });
 
-  describe("GitHub Routes", () => {
-    it("should fetch GitHub repositories", async () => {
+  describe('GitHub Routes', () => {
+    it('should fetch GitHub repositories', async () => {
       // Example test structure
       // const response = await request(app)
       //   .get('/api/github/repos')
@@ -57,8 +57,8 @@ describe("API Routes Integration Tests", () => {
     });
   });
 
-  describe("Profile Routes", () => {
-    it("should create and retrieve profile", async () => {
+  describe('Profile Routes', () => {
+    it('should create and retrieve profile', async () => {
       const testProfile = testUtils.createTestUser();
 
       // Example of how integration tests would work
@@ -74,8 +74,8 @@ describe("API Routes Integration Tests", () => {
       // expect(getResponse.body.data).toMatchObject(testProfile);
 
       // Placeholder for now
-      expect(testProfile).toHaveProperty("name");
-      expect(testProfile).toHaveProperty("email");
+      expect(testProfile).toHaveProperty('name');
+      expect(testProfile).toHaveProperty('email');
     });
   });
 });

@@ -9,6 +9,7 @@
     "server:dev": "cd server && nodemon index.js",
     "client": "cd client && SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "client:build": "cd client && SKIP_PREFLIGHT_CHECK=true react-scripts build",
+    "vercel-build": "cd client && npm install && SKIP_PREFLIGHT_CHECK=true react-scripts build",
     "build": "npm run build:prod",
     "build:dev": "npm run client:build",
     "build:prod": "npm run pre-build && npm run build:all",

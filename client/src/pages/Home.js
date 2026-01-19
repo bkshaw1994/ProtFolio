@@ -24,11 +24,7 @@ import SkillBadge from "../components/SkillBadge";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const Home = () => {
-  const {
-    data: profile,
-    isLoading: loadingProfile,
-    error: profileError,
-  } = useGetProfileQuery();
+  const { data: profile, isLoading: loadingProfile } = useGetProfileQuery();
   const { data: featuredProjectsResponse, isLoading: loadingProjects } =
     useGetFeaturedProjectsQuery();
   const featuredProjects = Array.isArray(featuredProjectsResponse)
@@ -39,14 +35,10 @@ const Home = () => {
   const coreSkills = Array.isArray(coreSkillsResponse)
     ? coreSkillsResponse
     : coreSkillsResponse?.data || [];
-  const { data: githubReposResponse, isLoading: loadingGitHub } =
-    useGetFeaturedGitHubReposQuery();
+  const { data: githubReposResponse } = useGetFeaturedGitHubReposQuery();
   const githubRepos = githubReposResponse?.data || [];
 
   // Debug logging
-  console.log("Profile data:", profile);
-  console.log("Profile error:", profileError);
-  console.log("Loading profile:", loadingProfile);
 
   // Extract profile data - handle both direct data and nested data structure
   const profileData = profile?.data || profile;

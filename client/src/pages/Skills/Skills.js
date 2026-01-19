@@ -1,19 +1,20 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { useGetSkillsQuery } from '../../features/api/apiSlice';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import SkillBadge from '../../components/SkillBadge';
+import React from "react";
+import { Helmet } from "react-helmet-async";
+import { useGetSkillsQuery } from "../../features/api/apiSlice";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import SkillBadge from "../../components/SkillBadge";
 
 const Skills = () => {
-  const { data: skillsResponse, isLoading, isError, refetch } = useGetSkillsQuery();
-  
+  const {
+    data: skillsResponse,
+    isLoading,
+    isError,
+    refetch,
+  } = useGetSkillsQuery();
+
   // Extract the actual skills data from the API response
   const skills = skillsResponse?.data || {};
   const skillCategories = Object.keys(skills);
-
-  console.log('Skills Response:', skillsResponse);
-  console.log('Skills Data:', skills);
-  console.log('Skill Categories:', skillCategories);
 
   if (isLoading) {
     return <LoadingSpinner size="lg" message="Loading skills..." />;
@@ -36,7 +37,10 @@ const Skills = () => {
     <>
       <Helmet>
         <title>Skills - Portfolio</title>
-        <meta name="description" content="My technical skills and expertise in various technologies" />
+        <meta
+          name="description"
+          content="My technical skills and expertise in various technologies"
+        />
       </Helmet>
 
       <div className="pt-20">
@@ -58,13 +62,17 @@ const Skills = () => {
             {skillCategories.map((category) => (
               <div key={category} className="mb-16">
                 <h2 className="text-2xl sm:text-3xl font-bold text-secondary-900 mb-8 capitalize">
-                  {category.replace('-', ' ')} Skills
+                  {category.replace("-", " ")} Skills
                 </h2>
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {Array.isArray(skills[category]) ? skills[category].map((skill) => (
-                    <SkillBadge key={skill._id} skill={skill} />
-                  )) : (
-                    <div className="text-gray-500">No skills in this category</div>
+                  {Array.isArray(skills[category]) ? (
+                    skills[category].map((skill) => (
+                      <SkillBadge key={skill._id} skill={skill} />
+                    ))
+                  ) : (
+                    <div className="text-gray-500">
+                      No skills in this category
+                    </div>
                   )}
                 </div>
               </div>

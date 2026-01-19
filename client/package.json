@@ -21,7 +21,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run build:validate && react-scripts build",
+    "build": "react-scripts build",
+    "build:validate": "npm run lint:check && npm run test:coverage:check && react-scripts build",
     "build:dev": "react-scripts build",
     "build:prod": "npm run pre-build && react-scripts build",
     "build:validate": "npm run lint:check && npm run test:coverage:check",

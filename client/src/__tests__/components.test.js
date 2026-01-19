@@ -1,5 +1,5 @@
 // Example test for React components
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 
 // Import components to test
 // import Navbar from '../components/Navbar/Navbar';
@@ -13,14 +13,14 @@ const _createTestStore = (initialState = {}) => {
       projects: (state = { data: [], loading: false, error: null }) => state,
       skills: (state = { data: [], loading: false, error: null }) => state,
       experience: (state = { data: [], loading: false, error: null }) => state,
-      ...initialState,
-    },
+      ...initialState
+    }
   });
 };
 
-describe("Component Tests", () => {
-  describe("LoadingSpinner", () => {
-    it("should render loading spinner with default message", () => {
+describe('Component Tests', () => {
+  describe('LoadingSpinner', () => {
+    it('should render loading spinner with default message', () => {
       // This is a placeholder test structure
       // render(
       //   <TestWrapper>
@@ -34,7 +34,7 @@ describe("Component Tests", () => {
       expect(true).toBe(true);
     });
 
-    it("should render loading spinner with custom message", () => {
+    it('should render loading spinner with custom message', () => {
       // const customMessage = 'Loading projects...';
 
       // render(
@@ -50,8 +50,8 @@ describe("Component Tests", () => {
     });
   });
 
-  describe("Navbar", () => {
-    it("should render navigation links", () => {
+  describe('Navbar', () => {
+    it('should render navigation links', () => {
       // render(
       //   <TestWrapper>
       //     <Navbar />
@@ -67,7 +67,7 @@ describe("Component Tests", () => {
       expect(true).toBe(true);
     });
 
-    it("should handle navigation clicks", async () => {
+    it('should handle navigation clicks', async () => {
       // render(
       //   <TestWrapper>
       //     <Navbar />
@@ -86,19 +86,19 @@ describe("Component Tests", () => {
     });
   });
 
-  describe("API Integration", () => {
+  describe('API Integration', () => {
     beforeEach(() => {
       fetch.mockClear();
     });
 
-    it("should handle API calls correctly", async () => {
+    it('should handle API calls correctly', async () => {
       const mockResponse = {
-        data: [{ id: 1, title: "Test Project" }],
+        data: [{ id: 1, title: 'Test Project' }]
       };
 
       fetch.mockResolvedValueOnce({
         ok: true,
-        json: async () => mockResponse,
+        json: async () => mockResponse
       });
 
       // Example of testing API calls
@@ -106,11 +106,11 @@ describe("Component Tests", () => {
       expect(fetch).toHaveBeenCalledTimes(0); // Initial state
 
       // Simulate API call
-      const response = await fetch("/api/projects");
+      const response = await fetch('/api/projects');
       const data = await response.json();
 
       expect(fetch).toHaveBeenCalledTimes(1);
-      expect(fetch).toHaveBeenCalledWith("/api/projects");
+      expect(fetch).toHaveBeenCalledWith('/api/projects');
       expect(data).toEqual(mockResponse);
     });
   });
