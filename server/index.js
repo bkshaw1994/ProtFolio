@@ -147,8 +147,8 @@ app.get("/api/test-db", async (req, res) => {
 
 // Middleware to ensure DB connection for API routes only
 app.use("/api", async (req, res, next) => {
-  // Skip DB check for health endpoint
-  if (req.path === "/health") {
+  // Skip DB check for health and test-db endpoints
+  if (req.path === "/health" || req.path === "/test-db") {
     return next();
   }
 
