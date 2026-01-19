@@ -11,6 +11,14 @@ Set these in your Vercel dashboard for the **server** project:
 3. `NODE_ENV` - Set to `production`
 4. `CLIENT_URL` - Your client URL (e.g., `https://your-client.vercel.app`)
 
+**Email Configuration (For Contact Form):** 5. `SMTP_HOST` - SMTP host (e.g., `smtp.gmail.com` for Gmail) 6. `SMTP_PORT` - SMTP port (e.g., `587` for TLS) 7. `SMTP_SECURE` - Use SSL/TLS (e.g., `false` for port 587) 8. `SMTP_USER` - Your email address (receives contact form submissions) 9. `SMTP_PASSWORD` - Email password or app-specific password
+
+**For Gmail:**
+
+- Use App Password (not regular password)
+- Go to Google Account → Security → 2-Step Verification → App Passwords
+- Generate a new app password for "Mail"
+
 **How to set in Vercel:**
 
 1. Go to your server project in Vercel dashboard

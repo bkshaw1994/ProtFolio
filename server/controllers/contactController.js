@@ -1,17 +1,17 @@
-const Contact = require('../models/Contact');
-const { validationResult } = require('express-validator');
-const nodemailer = require('nodemailer');
+const Contact = require("../models/Contact");
+const { validationResult } = require("express-validator");
+const nodemailer = require("nodemailer");
 
 // Email configuration
 const createTransporter = () => {
   return nodemailer.createTransporter({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: false,
+    host: process.env.SMTP_HOST || process.env.EMAIL_HOST,
+    port: process.env.SMTP_PORT || process.env.EMAIL_PORT,
+    secure: process.env.SMTP_SECURE === "true" || false,
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
+      user: process.env.SMTP_USER || process.env.EMAIL_USER,
+      pass: process.env.SMTP_PASSWORD || process.env.EMAIL_PASS,
+    },
   });
 };
 
@@ -25,8 +25,8 @@ const submitContactForm = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({
         success: false,
-        message: 'Validation errors',
-        errors: errors.array()
+        message: "Validation errors",
+        errors: errors.array(),
       });
     }
 
@@ -39,12 +39,12 @@ const submitContactForm = async (req, res) => {
       company,
       projectType,
       budget,
-      timeline
+      timeline,
     } = req.body;
 
     // Get client IP and user agent
     const ipAddress = req.ip || req.connection.remoteAddress;
-    const userAgent = req.get('User-Agent');
+    const userAgent = req.get("User-Agent");
 
     // Create contact entry
     const contact = new Contact({
@@ -58,7 +58,7 @@ const submitContactForm = async (req, res) => {
       budget,
       timeline,
       ipAddress,
-      userAgent
+      userAgent,
     });
 
     await contact.save();
@@ -66,34 +66,35 @@ const submitContactForm = async (req, res) => {
     // Send notification email (optional)
     try {
       const transporter = createTransporter();
+      const emailUser = process.env.SMTP_USER || process.env.EMAIL_USER;
 
       // Email to admin
       await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_USER,
+        from: emailUser,
+        to: emailUser,
         subject: `New Contact Form Submission: ${subject}`,
         html: `
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-          <p><strong>Company:</strong> ${company || 'Not provided'}</p>
+          <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
+          <p><strong>Company:</strong> ${company || "Not provided"}</p>
           <p><strong>Project Type:</strong> ${projectType}</p>
           <p><strong>Budget:</strong> ${budget}</p>
           <p><strong>Timeline:</strong> ${timeline}</p>
           <p><strong>Subject:</strong> ${subject}</p>
           <p><strong>Message:</strong></p>
-          <p>${message.replace(/\n/g, '<br>')}</p>
+          <p>${message.replace(/\n/g, "<br>")}</p>
           <hr>
           <p><small>Submitted at: ${new Date().toLocaleString()}</small></p>
-        `
+        `,
       });
 
       // Auto-reply to sender
       await transporter.sendMail({
-        from: process.env.EMAIL_USER,
+        from: emailUser,
         to: email,
-        subject: 'Thank you for contacting me!',
+        subject: "Thank you for contacting me!",
         html: `
           <h2>Thank you for reaching out, ${name}!</h2>
           <p>I've received your message and will get back to you within 24-48 hours.</p>
@@ -103,38 +104,38 @@ const submitContactForm = async (req, res) => {
             <p><strong>Message:</strong> ${message}</p>
           </blockquote>
           <p>Best regards,<br>Your Name</p>
-        `
+        `,
       });
     } catch (emailError) {
-      console.error('Email sending failed:', emailError);
+      console.error("Email sending failed:", emailError);
       // Don't fail the request if email fails
     }
 
     res.status(201).json({
       success: true,
-      message: 'Message sent successfully! I\'ll get back to you soon.',
+      message: "Message sent successfully! I'll get back to you soon.",
       data: {
         id: contact._id,
-        submittedAt: contact.createdAt
-      }
+        submittedAt: contact.createdAt,
+      },
     });
   } catch (error) {
-    console.error('Error submitting contact form:', error);
+    console.error("Error submitting contact form:", error);
 
-    if (error.name === 'ValidationError') {
+    if (error.name === "ValidationError") {
       return res.status(400).json({
         success: false,
-        message: 'Validation error',
-        errors: Object.values(error.errors).map(err => ({
+        message: "Validation error",
+        errors: Object.values(error.errors).map((err) => ({
           field: err.path,
-          message: err.message
-        }))
+          message: err.message,
+        })),
       });
     }
 
     res.status(500).json({
       success: false,
-      message: 'Server error while submitting form'
+      message: "Server error while submitting form",
     });
   }
 };
@@ -149,7 +150,7 @@ const getAllContacts = async (req, res) => {
       priority,
       limit = 20,
       page = 1,
-      sortBy = 'createdAt'
+      sortBy = "createdAt",
     } = req.query;
 
     // Build filter
@@ -160,10 +161,10 @@ const getAllContacts = async (req, res) => {
     // Build sort
     const sortOptions = {};
     switch (sortBy) {
-      case 'name':
+      case "name":
         sortOptions.name = 1;
         break;
-      case 'priority':
+      case "priority":
         sortOptions.priority = -1;
         sortOptions.createdAt = -1;
         break;
@@ -177,7 +178,7 @@ const getAllContacts = async (req, res) => {
       .sort(sortOptions)
       .limit(parseInt(limit))
       .skip(skip)
-      .select('-__v');
+      .select("-__v");
 
     const total = await Contact.countDocuments(filter);
 
@@ -188,14 +189,14 @@ const getAllContacts = async (req, res) => {
         current: parseInt(page),
         total: Math.ceil(total / parseInt(limit)),
         count: contacts.length,
-        totalContacts: total
-      }
+        totalContacts: total,
+      },
     });
   } catch (error) {
-    console.error('Error fetching contacts:', error);
+    console.error("Error fetching contacts:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error while fetching contacts'
+      message: "Server error while fetching contacts",
     });
   }
 };
@@ -210,7 +211,7 @@ const getContactById = async (req, res) => {
     if (!contact) {
       return res.status(404).json({
         success: false,
-        message: 'Contact not found'
+        message: "Contact not found",
       });
     }
 
@@ -222,21 +223,21 @@ const getContactById = async (req, res) => {
 
     res.json({
       success: true,
-      data: contact
+      data: contact,
     });
   } catch (error) {
-    console.error('Error fetching contact:', error);
+    console.error("Error fetching contact:", error);
 
-    if (error.name === 'CastError') {
+    if (error.name === "CastError") {
       return res.status(404).json({
         success: false,
-        message: 'Contact not found'
+        message: "Contact not found",
       });
     }
 
     res.status(500).json({
       success: false,
-      message: 'Server error while fetching contact'
+      message: "Server error while fetching contact",
     });
   }
 };
@@ -257,37 +258,36 @@ const updateContact = async (req, res) => {
       updateData.repliedAt = new Date();
     }
 
-    const contact = await Contact.findByIdAndUpdate(
-      req.params.id,
-      updateData,
-      { new: true, runValidators: true }
-    );
+    const contact = await Contact.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!contact) {
       return res.status(404).json({
         success: false,
-        message: 'Contact not found'
+        message: "Contact not found",
       });
     }
 
     res.json({
       success: true,
-      message: 'Contact updated successfully',
-      data: contact
+      message: "Contact updated successfully",
+      data: contact,
     });
   } catch (error) {
-    console.error('Error updating contact:', error);
+    console.error("Error updating contact:", error);
 
-    if (error.name === 'CastError') {
+    if (error.name === "CastError") {
       return res.status(404).json({
         success: false,
-        message: 'Contact not found'
+        message: "Contact not found",
       });
     }
 
     res.status(500).json({
       success: false,
-      message: 'Server error while updating contact'
+      message: "Server error while updating contact",
     });
   }
 };
@@ -300,41 +300,39 @@ const getContactStats = async (req, res) => {
     const stats = await Contact.aggregate([
       {
         $facet: {
-          statusCounts: [
-            { $group: { _id: '$status', count: { $sum: 1 } } }
-          ],
+          statusCounts: [{ $group: { _id: "$status", count: { $sum: 1 } } }],
           priorityCounts: [
-            { $group: { _id: '$priority', count: { $sum: 1 } } }
+            { $group: { _id: "$priority", count: { $sum: 1 } } },
           ],
           projectTypeCounts: [
-            { $group: { _id: '$projectType', count: { $sum: 1 } } }
+            { $group: { _id: "$projectType", count: { $sum: 1 } } },
           ],
           monthlyStats: [
             {
               $group: {
                 _id: {
-                  year: { $year: '$createdAt' },
-                  month: { $month: '$createdAt' }
+                  year: { $year: "$createdAt" },
+                  month: { $month: "$createdAt" },
                 },
-                count: { $sum: 1 }
-              }
+                count: { $sum: 1 },
+              },
             },
-            { $sort: { '_id.year': -1, '_id.month': -1 } },
-            { $limit: 12 }
-          ]
-        }
-      }
+            { $sort: { "_id.year": -1, "_id.month": -1 } },
+            { $limit: 12 },
+          ],
+        },
+      },
     ]);
 
     res.json({
       success: true,
-      data: stats[0]
+      data: stats[0],
     });
   } catch (error) {
-    console.error('Error fetching contact stats:', error);
+    console.error("Error fetching contact stats:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error while fetching statistics'
+      message: "Server error while fetching statistics",
     });
   }
 };
@@ -344,5 +342,5 @@ module.exports = {
   getAllContacts,
   getContactById,
   updateContact,
-  getContactStats
+  getContactStats,
 };
