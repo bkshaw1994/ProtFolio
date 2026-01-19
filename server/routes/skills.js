@@ -10,7 +10,7 @@ const router = express.Router();
 const getAllSkills = async (req, res) => {
   try {
     const { category, limit } = req.query;
-    
+
     const filter = { isActive: true };
     if (category) filter.category = category;
 
@@ -48,9 +48,9 @@ const getAllSkills = async (req, res) => {
 // @access  Public
 const getCoreSkills = async (req, res) => {
   try {
-    const skills = await Skill.find({ 
-      isActive: true, 
-      isCore: true 
+    const skills = await Skill.find({
+      isActive: true,
+      isCore: true
     })
       .sort({ proficiency: -1, priority: -1 })
       .select('name proficiency category icon yearsOfExperience -_id');

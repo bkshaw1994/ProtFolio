@@ -19,6 +19,18 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
     lg: 'text-lg'
   };
 
+  const iconTextSizes = {
+    sm: 'text-2xl',
+    md: 'text-4xl',
+    lg: 'text-6xl'
+  };
+
+  const iconImageSizes = {
+    sm: 'w-6 h-6',
+    md: 'w-10 h-10',
+    lg: 'w-14 h-14'
+  };
+
   // Default icon based on skill name if no icon provided
   const getDefaultIcon = (skillName) => {
     const name = skillName.toLowerCase();
@@ -51,7 +63,7 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
       'flask': '🍶',
       'graphql': '💜',
       'rest': '🌐',
-      'api': '🔌',
+      'api': '🔌'
     };
 
     return iconMap[name] || '💻';
@@ -72,10 +84,10 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
           <img
             src={skill.icon}
             alt={skill.name}
-            className={`w-${iconSizes[size]/4} h-${iconSizes[size]/4} object-contain group-hover:scale-110 transition-transform`}
+            className={`${iconImageSizes[size]} object-contain group-hover:scale-110 transition-transform`}
           />
         ) : (
-          <div className={`text-${iconSizes[size]/4}xl group-hover:scale-110 transition-transform`}>
+          <div className={`${iconTextSizes[size]} group-hover:scale-110 transition-transform`}>
             {skill.icon || getDefaultIcon(skill.name)}
           </div>
         )}
@@ -103,10 +115,10 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
                 skill.proficiency >= 90
                   ? 'bg-success-500'
                   : skill.proficiency >= 75
-                  ? 'bg-primary-500'
-                  : skill.proficiency >= 60
-                  ? 'bg-warning-500'
-                  : 'bg-secondary-500'
+                    ? 'bg-primary-500'
+                    : skill.proficiency >= 60
+                      ? 'bg-warning-500'
+                      : 'bg-secondary-500'
               }`}
               style={{ width: `${skill.proficiency}%` }}
             ></div>

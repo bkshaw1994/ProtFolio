@@ -1,0 +1,27 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "off"
+  },
+  "ignorePatterns": ["client/**", "node_modules/**", "coverage/**"],
+  "overrides": [
+    {
+      "files": ["server/**/*.js", "scripts/**/*.js"],
+      "env": {
+        "node": true,
+        "es6": true,
+        "commonjs": true
+      },
+      "extends": ["eslint:recommended"]
+    }
+  ]
+}

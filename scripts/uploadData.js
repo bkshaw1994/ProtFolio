@@ -7,6 +7,9 @@ const path = require('path');
 // Load environment variables from server/.env
 dotenv.config({ path: path.join(__dirname, '../server/.env') });
 
+// IMPORTANT: Set buffer timeout BEFORE requiring models
+mongoose.set('bufferTimeoutMS', 60000);
+
 // Import models
 const Profile = require('../server/models/Profile');
 const Experience = require('../server/models/Experience');
@@ -256,78 +259,48 @@ const projectsData = [
 async function uploadData() {
   try {
     console.log('Connecting to MongoDB...');
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log('MongoDB connected successfully!');
 
-    // Upload Profile Data
-    console.log('Uploading profile data...');
-    const existingProfile = await Profile.findOne({});
-    
-    if (existingProfile) {
-      await Profile.findOneAndUpdate({}, profileData, { new: true });
-      console.log('Profile data updated successfully!');
-    } else {
-      const newProfile = new Profile(profileData);
-      await newProfile.save();
-      console.log('Profile data created successfully!');
-    }
-
-    // Upload Experience Data
-    console.log('Uploading experience data...');
-    const existingExperience = await Experience.findOne({ 
-      position: experienceData.position, 
-      company: experienceData.company 
+    await mongoose.connect(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 30000,
+      socketTimeoutMS: 45000,
     });
 
-    if (existingExperience) {
-      await Experience.findOneAndUpdate(
-        { position: experienceData.position, company: experienceData.company },
-        experienceData,
-        { new: true }
-      );
-      console.log('Experience data updated successfully!');
-    } else {
-      const newExperience = new Experience(experienceData);
-      await newExperience.save();
-      console.log('Experience data created successfully!');
-    }
+    console.log('✓ MongoDB connected!\n');
+
+    // Upload Profile Data
+    console.log('Uploading profile...');
+    await Profile.findOneAndUpdate({}, profileData, { upsert: true, new: true });
+    console.log('✓ Profile saved');
+
+    // Upload Experience Data
+    console.log('Uploading experience...');
+    await Experience.findOneAndUpdate(
+      { position: experienceData.position, company: experienceData.company },
+      experienceData,
+      { upsert: true, new: true }
+    );
+    console.log('✓ Experience saved');
 
     // Upload Skills Data
-    console.log('Uploading skills data...');
+    console.log('Uploading skills...');
     for (const skillData of skillsData) {
-      const existingSkill = await Skill.findOne({ name: skillData.name });
-      
-      if (existingSkill) {
-        await Skill.findOneAndUpdate(
-          { name: skillData.name },
-          skillData,
-          { new: true }
-        );
-        console.log(`Skill ${skillData.name} updated successfully!`);
-      } else {
-        const newSkill = new Skill(skillData);
-        await newSkill.save();
-        console.log(`Skill ${skillData.name} created successfully!`);
-      }
+      await Skill.findOneAndUpdate(
+        { name: skillData.name },
+        skillData,
+        { upsert: true, new: true }
+      );
+      console.log(`  ✓ ${skillData.name}`);
     }
 
     // Upload Projects Data
-    console.log('Uploading projects data...');
+    console.log('Uploading projects...');
     for (const projectData of projectsData) {
-      const existingProject = await Project.findOne({ title: projectData.title });
-      
-      if (existingProject) {
-        await Project.findOneAndUpdate(
-          { title: projectData.title },
-          projectData,
-          { new: true }
-        );
-        console.log(`Project ${projectData.title} updated successfully!`);
-      } else {
-        const newProject = new Project(projectData);
-        await newProject.save();
-        console.log(`Project ${projectData.title} created successfully!`);
-      }
+      await Project.findOneAndUpdate(
+        { title: projectData.title },
+        projectData,
+        { upsert: true, new: true }
+      );
+      console.log(`  ✓ ${projectData.title}`);
     }
 
     console.log('✅ All data uploaded successfully!');

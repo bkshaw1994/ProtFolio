@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Github, Linkedin, Mail, Phone, MapPin, Heart } from 'lucide-react';
-import { useGetProfileQuery } from '../features/api/apiSlice';
+import { useGetProfileQuery } from '../../features/api/apiSlice';
 
 const Footer = () => {
   const { data: profile } = useGetProfileQuery();
@@ -13,25 +13,25 @@ const Footer = () => {
     { path: '/projects', label: 'Projects' },
     { path: '/skills', label: 'Skills' },
     { path: '/experience', label: 'Experience' },
-    { path: '/contact', label: 'Contact' },
+    { path: '/contact', label: 'Contact' }
   ];
 
   const socialLinks = [
     {
       name: 'GitHub',
       url: profile?.socialLinks?.github,
-      icon: Github,
+      icon: Github
     },
     {
       name: 'LinkedIn',
       url: profile?.socialLinks?.linkedin,
-      icon: Linkedin,
+      icon: Linkedin
     },
     {
       name: 'Email',
       url: `mailto:${profile?.email}`,
-      icon: Mail,
-    },
+      icon: Mail
+    }
   ].filter(link => link.url);
 
   return (

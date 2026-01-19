@@ -68,7 +68,7 @@ const contactRateLimit = require('express-rate-limit')({
     message: 'Too many contact form submissions. Please try again later.'
   },
   standardHeaders: true,
-  legacyHeaders: false,
+  legacyHeaders: false
 });
 
 // @route   POST /api/contact

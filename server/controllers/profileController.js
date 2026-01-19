@@ -9,7 +9,7 @@ const path = require('path');
 const getProfile = async (req, res) => {
   try {
     const profile = await Profile.findOne({ isActive: true });
-    
+
     if (!profile) {
       return res.status(404).json({
         success: false,
@@ -121,7 +121,7 @@ const getProfileSummary = async (req, res) => {
   try {
     const profile = await Profile.findOne({ isActive: true })
       .select('name title email socialLinks profileImage location');
-    
+
     if (!profile) {
       return res.status(404).json({
         success: false,
@@ -156,7 +156,7 @@ const uploadProfileImage = async (req, res) => {
 
     // Get or create profile
     let profile = await Profile.findOne();
-    
+
     // Delete old profile image if it exists
     if (profile && profile.profileImage) {
       const oldImagePath = path.join(__dirname, '..', profile.profileImage);
@@ -220,7 +220,7 @@ const uploadResume = async (req, res) => {
 
     // Get or create profile
     let profile = await Profile.findOne();
-    
+
     // Delete old resume if it exists
     if (profile && profile.resume) {
       const oldResumePath = path.join(__dirname, '..', profile.resume);
@@ -276,7 +276,7 @@ const uploadResume = async (req, res) => {
 const deleteFile = async (req, res) => {
   try {
     const { type } = req.params;
-    
+
     if (!['image', 'resume'].includes(type)) {
       return res.status(400).json({
         success: false,
@@ -285,7 +285,7 @@ const deleteFile = async (req, res) => {
     }
 
     const profile = await Profile.findOne();
-    
+
     if (!profile) {
       return res.status(404).json({
         success: false,
@@ -318,7 +318,7 @@ const deleteFile = async (req, res) => {
       message: `${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully`
     });
   } catch (error) {
-    console.error(`Error deleting file:`, error);
+    console.error('Error deleting file:', error);
     res.status(500).json({
       success: false,
       message: 'Server error while deleting file'

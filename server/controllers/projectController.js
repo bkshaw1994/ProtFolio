@@ -6,18 +6,18 @@ const { validationResult } = require('express-validator');
 // @access  Public
 const getAllProjects = async (req, res) => {
   try {
-    const { 
-      category, 
-      status, 
-      featured, 
-      limit = 10, 
-      page = 1, 
-      sortBy = 'priority' 
+    const {
+      category,
+      status,
+      featured,
+      limit = 10,
+      page = 1,
+      sortBy = 'priority'
     } = req.query;
 
     // Build filter object
     const filter = { isActive: true };
-    
+
     if (category) filter.category = category;
     if (status) filter.status = status;
     if (featured !== undefined) filter.isFeatured = featured === 'true';
@@ -76,9 +76,9 @@ const getAllProjects = async (req, res) => {
 // @access  Public
 const getFeaturedProjects = async (req, res) => {
   try {
-    const projects = await Project.find({ 
-      isActive: true, 
-      isFeatured: true 
+    const projects = await Project.find({
+      isActive: true,
+      isFeatured: true
     })
       .sort({ priority: -1, startDate: -1 })
       .limit(6)
@@ -117,7 +117,7 @@ const getProjectById = async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching project:', error);
-    
+
     if (error.name === 'CastError') {
       return res.status(404).json({
         success: false,
@@ -157,7 +157,7 @@ const createProject = async (req, res) => {
     });
   } catch (error) {
     console.error('Error creating project:', error);
-    
+
     if (error.name === 'ValidationError') {
       return res.status(400).json({
         success: false,
@@ -211,7 +211,7 @@ const updateProject = async (req, res) => {
     });
   } catch (error) {
     console.error('Error updating project:', error);
-    
+
     if (error.name === 'CastError') {
       return res.status(404).json({
         success: false,
@@ -250,7 +250,7 @@ const deleteProject = async (req, res) => {
     });
   } catch (error) {
     console.error('Error deleting project:', error);
-    
+
     if (error.name === 'CastError') {
       return res.status(404).json({
         success: false,
@@ -272,11 +272,11 @@ const getProjectCategories = async (req, res) => {
   try {
     const categories = await Project.aggregate([
       { $match: { isActive: true } },
-      { 
-        $group: { 
-          _id: '$category', 
-          count: { $sum: 1 } 
-        } 
+      {
+        $group: {
+          _id: '$category',
+          count: { $sum: 1 }
+        }
       },
       { $sort: { count: -1 } }
     ]);

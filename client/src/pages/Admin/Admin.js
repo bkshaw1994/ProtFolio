@@ -1,5 +1,5 @@
 import React from 'react';
-import ProfileManager from '../components/ProfileManager/ProfileManager';
+import ProfileManager from '../../components/ProfileManager';
 import './Admin.css';
 
 const Admin = () => {

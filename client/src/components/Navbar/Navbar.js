@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
-import { useGetProfileQuery } from '../features/api/apiSlice';
+import { useGetProfileQuery } from '../../features/api/apiSlice';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +33,7 @@ const Navbar = () => {
     { path: '/projects', label: 'Projects' },
     { path: '/skills', label: 'Skills' },
     { path: '/experience', label: 'Experience' },
-    { path: '/contact', label: 'Contact' },
+    { path: '/contact', label: 'Contact' }
   ];
 
   const isActive = (path) => location.pathname === path;

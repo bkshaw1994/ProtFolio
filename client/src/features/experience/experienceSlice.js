@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  list: [],
+  list: []
 };
 
 const experienceSlice = createSlice({
@@ -10,8 +10,8 @@ const experienceSlice = createSlice({
   reducers: {
     setExperience: (state, action) => {
       state.list = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setExperience } = experienceSlice.actions;

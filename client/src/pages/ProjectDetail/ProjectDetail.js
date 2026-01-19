@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { useGetProjectByIdQuery } from '../features/api/apiSlice';
-import LoadingSpinner from '../components/LoadingSpinner';
+import { useGetProjectByIdQuery } from '../../features/api/apiSlice';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const ProjectDetail = () => {
   const { id } = useParams();

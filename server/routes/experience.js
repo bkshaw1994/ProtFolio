@@ -31,9 +31,9 @@ const getAllExperience = async (req, res) => {
 // @access  Public
 const getCurrentExperience = async (req, res) => {
   try {
-    const currentExp = await Experience.findOne({ 
-      isActive: true, 
-      isCurrent: true 
+    const currentExp = await Experience.findOne({
+      isActive: true,
+      isCurrent: true
     })
       .select('company position startDate responsibilities technologies -_id');
 

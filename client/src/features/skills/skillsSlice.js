@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   all: {},
-  core: [],
+  core: []
 };
 
 const skillsSlice = createSlice({
@@ -14,8 +14,8 @@ const skillsSlice = createSlice({
     },
     setCoreSkills: (state, action) => {
       state.core = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setSkills, setCoreSkills } = skillsSlice.actions;

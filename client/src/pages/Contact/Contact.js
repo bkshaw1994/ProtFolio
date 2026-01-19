@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Mail, Phone, MapPin, Send, CheckCircle, Github, Linkedin, ExternalLink } from 'lucide-react';
-import { useSubmitContactMutation, useGetProfileQuery } from '../features/api/apiSlice';
+import { useSubmitContactMutation, useGetProfileQuery } from '../../features/api/apiSlice';
 import toast from 'react-hot-toast';
-import LoadingSpinner from '../components/LoadingSpinner';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const Contact = () => {
   // Fetch profile data for contact information

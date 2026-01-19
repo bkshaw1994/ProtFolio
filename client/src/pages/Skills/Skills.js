@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useGetSkillsQuery } from '../features/api/apiSlice';
-import LoadingSpinner from '../components/LoadingSpinner';
-import SkillBadge from '../components/SkillBadge';
+import { useGetSkillsQuery } from '../../features/api/apiSlice';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import SkillBadge from '../../components/SkillBadge';
 
 const Skills = () => {
   const { data: skillsResponse, isLoading, isError, refetch } = useGetSkillsQuery();

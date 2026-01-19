@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import { useGetProfileQuery } from '../features/api/apiSlice';
-import LoadingSpinner from '../components/LoadingSpinner';
+import { useGetProfileQuery } from '../../features/api/apiSlice';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const About = () => {
   const { data: profile, isLoading, isError, refetch } = useGetProfileQuery();

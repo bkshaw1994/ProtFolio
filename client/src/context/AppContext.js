@@ -13,21 +13,21 @@ const initialState = {
     profile: false,
     projects: false,
     skills: false,
-    experience: false,
+    experience: false
   },
   error: {
     profile: null,
     projects: null,
     skills: null,
-    experience: null,
+    experience: null
   },
   filters: {
     projects: {
       category: '',
       status: '',
-      search: '',
-    },
-  },
+      search: ''
+    }
+  }
 };
 
 // Action types
@@ -41,7 +41,7 @@ const actionTypes = {
   SET_CORE_SKILLS: 'SET_CORE_SKILLS',
   SET_EXPERIENCE: 'SET_EXPERIENCE',
   SET_PROJECT_FILTERS: 'SET_PROJECT_FILTERS',
-  CLEAR_ERROR: 'CLEAR_ERROR',
+  CLEAR_ERROR: 'CLEAR_ERROR'
 };
 
 // Reducer
@@ -52,8 +52,8 @@ const appReducer = (state, action) => {
         ...state,
         loading: {
           ...state.loading,
-          [action.payload.type]: action.payload.value,
-        },
+          [action.payload.type]: action.payload.value
+        }
       };
     
     case actionTypes.SET_ERROR:
@@ -61,12 +61,12 @@ const appReducer = (state, action) => {
         ...state,
         error: {
           ...state.error,
-          [action.payload.type]: action.payload.value,
+          [action.payload.type]: action.payload.value
         },
         loading: {
           ...state.loading,
-          [action.payload.type]: false,
-        },
+          [action.payload.type]: false
+        }
       };
     
     case actionTypes.CLEAR_ERROR:
@@ -74,8 +74,8 @@ const appReducer = (state, action) => {
         ...state,
         error: {
           ...state.error,
-          [action.payload]: null,
-        },
+          [action.payload]: null
+        }
       };
     
     case actionTypes.SET_PROFILE:
@@ -83,7 +83,7 @@ const appReducer = (state, action) => {
         ...state,
         profile: action.payload,
         loading: { ...state.loading, profile: false },
-        error: { ...state.error, profile: null },
+        error: { ...state.error, profile: null }
       };
     
     case actionTypes.SET_PROJECTS:
@@ -91,13 +91,13 @@ const appReducer = (state, action) => {
         ...state,
         projects: action.payload,
         loading: { ...state.loading, projects: false },
-        error: { ...state.error, projects: null },
+        error: { ...state.error, projects: null }
       };
     
     case actionTypes.SET_FEATURED_PROJECTS:
       return {
         ...state,
-        featuredProjects: action.payload,
+        featuredProjects: action.payload
       };
     
     case actionTypes.SET_SKILLS:
@@ -105,13 +105,13 @@ const appReducer = (state, action) => {
         ...state,
         skills: action.payload,
         loading: { ...state.loading, skills: false },
-        error: { ...state.error, skills: null },
+        error: { ...state.error, skills: null }
       };
     
     case actionTypes.SET_CORE_SKILLS:
       return {
         ...state,
-        coreSkills: action.payload,
+        coreSkills: action.payload
       };
     
     case actionTypes.SET_EXPERIENCE:
@@ -119,7 +119,7 @@ const appReducer = (state, action) => {
         ...state,
         experience: action.payload,
         loading: { ...state.loading, experience: false },
-        error: { ...state.error, experience: null },
+        error: { ...state.error, experience: null }
       };
     
     case actionTypes.SET_PROJECT_FILTERS:
@@ -129,9 +129,9 @@ const appReducer = (state, action) => {
           ...state.filters,
           projects: {
             ...state.filters.projects,
-            ...action.payload,
-          },
-        },
+            ...action.payload
+          }
+        }
       };
     
     default:
@@ -159,21 +159,21 @@ export const AppProvider = ({ children }) => {
   const setLoading = (type, value) => {
     dispatch({
       type: actionTypes.SET_LOADING,
-      payload: { type, value },
+      payload: { type, value }
     });
   };
 
   const setError = (type, value) => {
     dispatch({
       type: actionTypes.SET_ERROR,
-      payload: { type, value },
+      payload: { type, value }
     });
   };
 
   const clearError = (type) => {
     dispatch({
       type: actionTypes.CLEAR_ERROR,
-      payload: type,
+      payload: type
     });
   };
 
@@ -184,7 +184,7 @@ export const AppProvider = ({ children }) => {
       const response = await profileAPI.getProfile();
       dispatch({
         type: actionTypes.SET_PROFILE,
-        payload: response.data.data,
+        payload: response.data.data
       });
     } catch (error) {
       setError('profile', error.response?.data?.message || 'Failed to fetch profile');
@@ -197,7 +197,7 @@ export const AppProvider = ({ children }) => {
       const response = await projectsAPI.getAllProjects(params);
       dispatch({
         type: actionTypes.SET_PROJECTS,
-        payload: response.data,
+        payload: response.data
       });
     } catch (error) {
       setError('projects', error.response?.data?.message || 'Failed to fetch projects');
@@ -209,7 +209,7 @@ export const AppProvider = ({ children }) => {
       const response = await projectsAPI.getFeaturedProjects();
       dispatch({
         type: actionTypes.SET_FEATURED_PROJECTS,
-        payload: response.data.data,
+        payload: response.data.data
       });
     } catch (error) {
       console.error('Failed to fetch featured projects:', error);
@@ -222,7 +222,7 @@ export const AppProvider = ({ children }) => {
       const response = await skillsAPI.getAllSkills(params);
       dispatch({
         type: actionTypes.SET_SKILLS,
-        payload: response.data.data,
+        payload: response.data.data
       });
     } catch (error) {
       setError('skills', error.response?.data?.message || 'Failed to fetch skills');
@@ -234,7 +234,7 @@ export const AppProvider = ({ children }) => {
       const response = await skillsAPI.getCoreSkills();
       dispatch({
         type: actionTypes.SET_CORE_SKILLS,
-        payload: response.data.data,
+        payload: response.data.data
       });
     } catch (error) {
       console.error('Failed to fetch core skills:', error);
@@ -247,7 +247,7 @@ export const AppProvider = ({ children }) => {
       const response = await experienceAPI.getAllExperience();
       dispatch({
         type: actionTypes.SET_EXPERIENCE,
-        payload: response.data.data,
+        payload: response.data.data
       });
     } catch (error) {
       setError('experience', error.response?.data?.message || 'Failed to fetch experience');
@@ -257,7 +257,7 @@ export const AppProvider = ({ children }) => {
   const setProjectFilters = (filters) => {
     dispatch({
       type: actionTypes.SET_PROJECT_FILTERS,
-      payload: filters,
+      payload: filters
     });
   };
 
@@ -280,7 +280,7 @@ export const AppProvider = ({ children }) => {
     fetchCoreSkills,
     fetchExperience,
     setProjectFilters,
-    clearError,
+    clearError
   };
 
   return (

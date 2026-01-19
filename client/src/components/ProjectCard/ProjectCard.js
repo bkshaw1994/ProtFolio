@@ -27,8 +27,8 @@ const ProjectCard = ({ project }) => {
             project.status === 'completed' 
               ? 'badge-success' 
               : project.status === 'in-progress'
-              ? 'bg-warning-100 text-warning-800'
-              : 'bg-secondary-100 text-secondary-800'
+                ? 'bg-warning-100 text-warning-800'
+                : 'bg-secondary-100 text-secondary-800'
           }`}>
             {project.status}
           </span>

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   list: [],
-  featured: [],
+  featured: []
 };
 
 const projectsSlice = createSlice({
@@ -14,8 +14,8 @@ const projectsSlice = createSlice({
     },
     setFeaturedProjects: (state, action) => {
       state.featured = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setProjects, setFeaturedProjects } = projectsSlice.actions;

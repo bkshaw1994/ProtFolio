@@ -10,78 +10,98 @@ export const apiSlice = createApi({
         headers.set('Content-Type', 'application/json');
       }
       return headers;
-    },
+    }
   }),
   tagTypes: ['Profile', 'Project', 'Skill', 'Experience', 'Contact'],
   endpoints: (builder) => ({
     getProfile: builder.query({
       query: () => '/profile',
-      providesTags: ['Profile'],
+      providesTags: ['Profile']
     }),
     getProfileSummary: builder.query({
       query: () => '/profile/summary',
-      providesTags: ['Profile'],
+      providesTags: ['Profile']
     }),
     getProjects: builder.query({
       query: (params) => ({ url: '/projects', params }),
-      providesTags: ['Project'],
+      providesTags: ['Project']
     }),
     getFeaturedProjects: builder.query({
       query: () => '/projects/featured',
-      providesTags: ['Project'],
+      providesTags: ['Project']
     }),
     getProjectById: builder.query({
       query: (id) => `/projects/${id}`,
-      providesTags: ['Project'],
+      providesTags: ['Project']
     }),
     getSkills: builder.query({
       query: () => '/skills',
-      providesTags: ['Skill'],
+      providesTags: ['Skill']
     }),
     getCoreSkills: builder.query({
       query: () => '/skills/core',
-      providesTags: ['Skill'],
+      providesTags: ['Skill']
     }),
     getExperience: builder.query({
       query: () => '/experience',
-      providesTags: ['Experience'],
+      providesTags: ['Experience']
     }),
     getCurrentExperience: builder.query({
       query: () => '/experience/current',
-      providesTags: ['Experience'],
+      providesTags: ['Experience']
     }),
     submitContact: builder.mutation({
       query: (data) => ({
         url: '/contact',
         method: 'POST',
-        body: data,
+        body: data
       }),
-      invalidatesTags: ['Contact'],
+      invalidatesTags: ['Contact']
     }),
     uploadProfileImage: builder.mutation({
       query: (formData) => ({
         url: '/profile/upload/image',
         method: 'POST',
-        body: formData,
+        body: formData
       }),
-      invalidatesTags: ['Profile'],
+      invalidatesTags: ['Profile']
     }),
     uploadResume: builder.mutation({
       query: (formData) => ({
         url: '/profile/upload/resume',
         method: 'POST',
-        body: formData,
+        body: formData
       }),
-      invalidatesTags: ['Profile'],
+      invalidatesTags: ['Profile']
     }),
     deleteFile: builder.mutation({
       query: (type) => ({
         url: `/profile/file/${type}`,
-        method: 'DELETE',
+        method: 'DELETE'
       }),
-      invalidatesTags: ['Profile'],
+      invalidatesTags: ['Profile']
     }),
-  }),
+    // GitHub API endpoints
+    getGitHubRepos: builder.query({
+      query: ({ page = 1, limit = 10 } = {}) => ({
+        url: '/github/repos',
+        params: { page, limit }
+      }),
+      providesTags: ['GitHubRepos']
+    }),
+    getFeaturedGitHubRepos: builder.query({
+      query: () => '/github/repos/featured',
+      providesTags: ['GitHubRepos']
+    }),
+    getGitHubRepo: builder.query({
+      query: (repoName) => `/github/repos/${repoName}`,
+      providesTags: (result, error, repoName) => [{ type: 'GitHubRepos', id: repoName }]
+    }),
+    getGitHubStats: builder.query({
+      query: () => '/github/stats',
+      providesTags: ['GitHubStats']
+    })
+  })
 });
 
 export const {
@@ -98,4 +118,8 @@ export const {
   useUploadProfileImageMutation,
   useUploadResumeMutation,
   useDeleteFileMutation,
+  useGetGitHubReposQuery,
+  useGetFeaturedGitHubReposQuery,
+  useGetGitHubRepoQuery,
+  useGetGitHubStatsQuery
 } = apiSlice;

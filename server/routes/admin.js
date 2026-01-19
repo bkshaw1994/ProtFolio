@@ -38,9 +38,9 @@ const getDashboardStats = async (req, res) => {
       .select('name email subject createdAt status priority');
 
     // Get featured projects count
-    const featuredProjects = await Project.countDocuments({ 
-      isActive: true, 
-      isFeatured: true 
+    const featuredProjects = await Project.countDocuments({
+      isActive: true,
+      isFeatured: true
     });
 
     // Get contact stats by month

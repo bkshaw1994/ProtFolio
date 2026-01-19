@@ -1,0 +1,68 @@
+{
+  "env": {
+    "node": true,
+    "es6": true,
+    "commonjs": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "rules": {
+    // General JavaScript rules
+    "no-unused-vars": ["warn", {
+      "varsIgnorePattern": "^_",
+      "argsIgnorePattern": "^_",
+      "ignoreRestSiblings": true
+    }],
+    "no-console": "off",
+    "no-debugger": "warn",
+    "no-duplicate-imports": "error",
+    "no-var": "error",
+    "prefer-const": "warn",
+    "prefer-arrow-callback": "warn",
+
+    // Node.js specific rules
+    "no-process-exit": "error",
+    "no-path-concat": "error",
+
+    // Code style rules
+    "arrow-spacing": "warn",
+    "comma-dangle": ["warn", "never"],
+    "comma-spacing": "warn",
+    "comma-style": "warn",
+    "computed-property-spacing": "warn",
+    "func-call-spacing": "warn",
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
+    "key-spacing": "warn",
+    "keyword-spacing": "warn",
+    "no-trailing-spaces": "warn",
+    "no-whitespace-before-property": "warn",
+    "object-curly-spacing": ["warn", "always"],
+    "semi": ["warn", "always"],
+    "semi-spacing": "warn",
+    "space-before-blocks": "warn",
+    "space-before-function-paren": ["warn", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }],
+    "space-in-parens": "warn",
+    "space-infix-ops": "warn",
+    "space-unary-ops": "warn",
+
+    // Security and best practices
+    "no-eval": "error",
+    "no-implied-eval": "error",
+    "no-new-func": "error",
+    "no-script-url": "error",
+    "strict": ["error", "global"]
+  }
+}

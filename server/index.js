@@ -15,6 +15,7 @@ const skillRoutes = require('./routes/skills');
 const experienceRoutes = require('./routes/experience');
 const contactRoutes = require('./routes/contact');
 const adminRoutes = require('./routes/admin');
+const githubRoutes = require('./routes/github');
 
 // Security middleware
 app.set('trust proxy', 1);
@@ -44,7 +45,7 @@ const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio', {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
+      useUnifiedTopology: true
     });
     console.log('MongoDB connected successfully');
   } catch (error) {
@@ -63,11 +64,12 @@ app.use('/api/skills', skillRoutes);
 app.use('/api/experience', experienceRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/github', githubRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.status(200).json({ 
-    status: 'OK', 
+  res.status(200).json({
+    status: 'OK',
     message: 'Server is running',
     timestamp: new Date().toISOString()
   });
@@ -75,9 +77,9 @@ app.get('/api/health', (req, res) => {
 
 // 404 handler
 app.use('*', (req, res) => {
-  res.status(404).json({ 
-    success: false, 
-    message: 'Route not found' 
+  res.status(404).json({
+    success: false,
+    message: 'Route not found'
   });
 });
 

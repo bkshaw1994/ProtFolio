@@ -66,7 +66,7 @@ const submitContactForm = async (req, res) => {
     // Send notification email (optional)
     try {
       const transporter = createTransporter();
-      
+
       // Email to admin
       await transporter.sendMail({
         from: process.env.EMAIL_USER,
@@ -120,7 +120,7 @@ const submitContactForm = async (req, res) => {
     });
   } catch (error) {
     console.error('Error submitting contact form:', error);
-    
+
     if (error.name === 'ValidationError') {
       return res.status(400).json({
         success: false,
@@ -226,7 +226,7 @@ const getContactById = async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching contact:', error);
-    
+
     if (error.name === 'CastError') {
       return res.status(404).json({
         success: false,
@@ -277,7 +277,7 @@ const updateContact = async (req, res) => {
     });
   } catch (error) {
     console.error('Error updating contact:', error);
-    
+
     if (error.name === 'CastError') {
       return res.status(404).json({
         success: false,

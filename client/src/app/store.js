@@ -11,10 +11,10 @@ export const store = configureStore({
     profile: profileReducer,
     projects: projectsReducer,
     skills: skillsReducer,
-    experience: experienceReducer,
+    experience: experienceReducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
+    getDefaultMiddleware().concat(apiSlice.middleware)
 });
 
 export default store;
