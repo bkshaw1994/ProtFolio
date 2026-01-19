@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Helmet } from "react-helmet-async";
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import {
   Mail,
   Phone,
@@ -8,14 +8,14 @@ import {
   CheckCircle,
   Github,
   Linkedin,
-  ExternalLink,
-} from "lucide-react";
+  ExternalLink
+} from 'lucide-react';
 import {
   useSubmitContactMutation,
-  useGetProfileQuery,
-} from "../../features/api/apiSlice";
-import toast from "react-hot-toast";
-import LoadingSpinner from "../../components/LoadingSpinner";
+  useGetProfileQuery
+} from '../../features/api/apiSlice';
+import toast from 'react-hot-toast';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const Contact = () => {
   // Fetch profile data for contact information
@@ -24,29 +24,29 @@ const Contact = () => {
 
   // Get list of common currencies using Intl API
   const currencies = [
-    { code: "INR", symbol: "₹", name: "Indian Rupee" },
-    { code: "USD", symbol: "$", name: "US Dollar" },
-    { code: "EUR", symbol: "€", name: "Euro" },
-    { code: "GBP", symbol: "£", name: "British Pound" },
-    { code: "AUD", symbol: "A$", name: "Australian Dollar" },
-    { code: "CAD", symbol: "C$", name: "Canadian Dollar" },
-    { code: "JPY", symbol: "¥", name: "Japanese Yen" },
-    { code: "CNY", symbol: "¥", name: "Chinese Yuan" },
-    { code: "CHF", symbol: "Fr", name: "Swiss Franc" },
-    { code: "SGD", symbol: "S$", name: "Singapore Dollar" },
+    { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
+    { code: 'USD', symbol: '$', name: 'US Dollar' },
+    { code: 'EUR', symbol: '€', name: 'Euro' },
+    { code: 'GBP', symbol: '£', name: 'British Pound' },
+    { code: 'AUD', symbol: 'A$', name: 'Australian Dollar' },
+    { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar' },
+    { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
+    { code: 'CNY', symbol: '¥', name: 'Chinese Yuan' },
+    { code: 'CHF', symbol: 'Fr', name: 'Swiss Franc' },
+    { code: 'SGD', symbol: 'S$', name: 'Singapore Dollar' }
   ];
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-    phone: "",
-    company: "",
-    projectType: "other",
-    budget: "",
-    currency: "INR",
-    timeline: "flexible",
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+    phone: '',
+    company: '',
+    projectType: 'other',
+    budget: '',
+    currency: 'INR',
+    timeline: 'flexible'
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitContact, { isLoading: isSubmitting }] =
@@ -55,7 +55,7 @@ const Contact = () => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -63,22 +63,22 @@ const Contact = () => {
     e.preventDefault();
     try {
       const response = await submitContact(formData).unwrap();
-      toast.success(response.message || "Message sent successfully!");
+      toast.success(response.message || 'Message sent successfully!');
       setIsSubmitted(true);
       setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-        phone: "",
-        company: "",
-        projectType: "other",
-        budget: "",
-        currency: "INR",
-        timeline: "flexible",
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+        phone: '',
+        company: '',
+        projectType: 'other',
+        budget: '',
+        currency: 'INR',
+        timeline: 'flexible'
       });
     } catch (error) {
-      toast.error(error?.data?.message || "Failed to send message");
+      toast.error(error?.data?.message || 'Failed to send message');
     }
   };
 
@@ -120,12 +120,12 @@ const Contact = () => {
     <>
       <Helmet>
         <title>
-          {profileData?.name ? `Contact ${profileData.name}` : "Contact"} -
+          {profileData?.name ? `Contact ${profileData.name}` : 'Contact'} -
           Portfolio
         </title>
         <meta
           name="description"
-          content={`Get in touch with ${profileData?.name || "me"} for your next project. ${profileData?.title ? `Specializing in ${profileData.title.toLowerCase()}.` : ""}`}
+          content={`Get in touch with ${profileData?.name || 'me'} for your next project. ${profileData?.title ? `Specializing in ${profileData.title.toLowerCase()}.` : ''}`}
         />
       </Helmet>
 
@@ -188,10 +188,10 @@ const Contact = () => {
                     {!profileData?.email &&
                       !profileData?.phone &&
                       !profileData?.location && (
-                        <div className="text-secondary-600">
+                      <div className="text-secondary-600">
                           Please use the contact form to get in touch.
-                        </div>
-                      )}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -202,7 +202,7 @@ const Contact = () => {
                   <p className="text-secondary-600">
                     I typically respond to all inquiries within 24-48 hours.
                     {profileData?.phone &&
-                      " For urgent matters, please call directly."}
+                      ' For urgent matters, please call directly.'}
                     Looking forward to discussing your project!
                   </p>
                 </div>
@@ -402,7 +402,7 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  {formData.projectType === "freelance" && (
+                  {formData.projectType === 'freelance' && (
                     <div>
                       <label
                         htmlFor="budget"
@@ -417,7 +417,7 @@ const Contact = () => {
                           value={formData.currency}
                           onChange={handleChange}
                           className="absolute left-0 top-0 h-full pl-3 pr-2 border-r border-secondary-300 bg-secondary-50 text-secondary-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary-500 appearance-none cursor-pointer z-10"
-                          style={{ width: "85px" }}
+                          style={{ width: '85px' }}
                         >
                           {currencies.map((curr) => (
                             <option key={curr.code} value={curr.code}>
