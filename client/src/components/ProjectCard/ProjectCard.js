@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { ExternalLink, Github, Calendar, Tag } from "lucide-react";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ExternalLink, Github, Calendar, Tag } from 'lucide-react';
 
 const ProjectCard = ({ project }) => {
   return (
@@ -13,7 +13,7 @@ const ProjectCard = ({ project }) => {
               src={project.liveUrl}
               title={project.title}
               className="w-full h-full border-0 pointer-events-none scale-[0.5] origin-top-left"
-              style={{ width: "200%", height: "200%" }}
+              style={{ width: '200%', height: '200%' }}
               loading="lazy"
               sandbox="allow-same-origin"
             />
@@ -37,11 +37,11 @@ const ProjectCard = ({ project }) => {
         <div className="absolute top-3 right-3 z-10">
           <span
             className={`badge text-xs ${
-              project.status === "completed"
-                ? "badge-success"
-                : project.status === "in-progress"
-                  ? "bg-warning-100 text-warning-800"
-                  : "bg-secondary-100 text-secondary-800"
+              project.status === 'completed'
+                ? 'badge-success'
+                : project.status === 'in-progress'
+                  ? 'bg-warning-100 text-warning-800'
+                  : 'bg-secondary-100 text-secondary-800'
             }`}
           >
             {project.status}
