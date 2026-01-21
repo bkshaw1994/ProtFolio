@@ -1,13 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ExternalLink, Github, Calendar, Tag } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { ExternalLink, Github, Calendar, Tag } from "lucide-react";
 
 const ProjectCard = ({ project }) => {
   return (
     <div className="card overflow-hidden card-hover group">
-      {/* Project Image */}
+      {/* Project Preview/Image */}
       <div className="relative h-48 overflow-hidden">
-        {project.images && project.images[0] ? (
+        {project.liveUrl ? (
+          <div className="relative w-full h-full">
+            <iframe
+              src={project.liveUrl}
+              title={project.title}
+              className="w-full h-full border-0 pointer-events-none scale-[0.5] origin-top-left"
+              style={{ width: "200%", height: "200%" }}
+              loading="lazy"
+              sandbox="allow-same-origin"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+          </div>
+        ) : project.images && project.images[0] ? (
           <img
             src={project.images[0]}
             alt={project.title}
@@ -20,16 +32,18 @@ const ProjectCard = ({ project }) => {
             </div>
           </div>
         )}
-        
+
         {/* Status Badge */}
-        <div className="absolute top-3 right-3">
-          <span className={`badge text-xs ${
-            project.status === 'completed' 
-              ? 'badge-success' 
-              : project.status === 'in-progress'
-                ? 'bg-warning-100 text-warning-800'
-                : 'bg-secondary-100 text-secondary-800'
-          }`}>
+        <div className="absolute top-3 right-3 z-10">
+          <span
+            className={`badge text-xs ${
+              project.status === "completed"
+                ? "badge-success"
+                : project.status === "in-progress"
+                  ? "bg-warning-100 text-warning-800"
+                  : "bg-secondary-100 text-secondary-800"
+            }`}
+          >
             {project.status}
           </span>
         </div>
@@ -58,10 +72,7 @@ const ProjectCard = ({ project }) => {
         {/* Technologies */}
         <div className="flex flex-wrap gap-2 mb-4">
           {project.technologies.slice(0, 3).map((tech, index) => (
-            <span
-              key={index}
-              className="badge badge-secondary text-xs"
-            >
+            <span key={index} className="badge badge-secondary text-xs">
               {tech}
             </span>
           ))}
@@ -79,7 +90,10 @@ const ProjectCard = ({ project }) => {
             className="text-primary-600 hover:text-primary-700 font-medium text-sm flex items-center space-x-1 group/link"
           >
             <span>View Details</span>
-            <ExternalLink size={14} className="group-hover/link:translate-x-0.5 transition-transform" />
+            <ExternalLink
+              size={14}
+              className="group-hover/link:translate-x-0.5 transition-transform"
+            />
           </Link>
 
           <div className="flex items-center space-x-2">
@@ -95,7 +109,7 @@ const ProjectCard = ({ project }) => {
                 <Github size={16} />
               </a>
             )}
-            
+
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
@@ -115,11 +129,9 @@ const ProjectCard = ({ project }) => {
         <div className="mt-4 pt-4 border-t border-secondary-100 flex items-center justify-between text-xs text-secondary-500">
           <div className="flex items-center space-x-2">
             <Calendar size={12} />
-            <span>
-              {new Date(project.startDate).getFullYear()}
-            </span>
+            <span>{new Date(project.startDate).getFullYear()}</span>
           </div>
-          
+
           {project.client && (
             <span className="truncate max-w-24">{project.client}</span>
           )}
