@@ -9,18 +9,20 @@ const rootElement = document.getElementById('root');
 
 // Use hydrateRoot if content is already rendered (SSR)
 // Otherwise use createRoot for client-only rendering
-const root = rootElement?.innerHTML
-  ? ReactDOM.hydrateRoot(rootElement, (
+if (rootElement?.innerHTML) {
+  ReactDOM.hydrateRoot(rootElement, (
     <React.StrictMode>
       <ReduxProvider>
         <App />
       </ReduxProvider>
     </React.StrictMode>
-  ))
-  : ReactDOM.createRoot(rootElement).render(
+  ));
+} else {
+  ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
       <ReduxProvider>
         <App />
       </ReduxProvider>
     </React.StrictMode>
   );
+}
