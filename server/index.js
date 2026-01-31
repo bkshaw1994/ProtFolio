@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const compression = require('compression');
 const path = require('path');
 require('dotenv').config();
 
@@ -25,9 +26,30 @@ const { generateHtmlShell } = require('./ssr');
 app.set('trust proxy', 1);
 app.use(
   helmet({
-    crossOriginResourcePolicy: { policy: 'cross-origin' }
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ['\'self\''],
+        scriptSrc: ['\'self\'', '\'unsafe-inline\''],
+        styleSrc: ['\'self\'', '\'unsafe-inline\''],
+        imgSrc: ['\'self\'', 'data:', 'https:'],
+        fontSrc: ['\'self\'', 'data:']
+      }
+    }
   })
 );
+
+// Enable compression for all responses
+app.use(compression());
+
+// Performance headers
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
 
 // Rate limiting
 const limiter = rateLimit({
@@ -73,9 +95,16 @@ const uploadsDir = process.env.VERCEL
   : path.join(__dirname, 'uploads');
 app.use('/uploads', express.static(uploadsDir));
 
-// Serve static files from React build (client-side assets)
+// Serve static assets (JS, CSS, images) from React build
+// But NOT index.html - that will be handled by SSR
 const clientBuildPath = path.join(__dirname, '../client/build');
-app.use(express.static(clientBuildPath, { maxAge: '1h' }));
+app.use('/static', express.static(path.join(clientBuildPath, 'static'), { maxAge: '1y', immutable: true }));
+
+// Serve other static files (manifest, favicon, etc) but NOT index.html
+app.use(express.static(clientBuildPath, {
+  maxAge: '1h',
+  index: false  // Disable serving index.html - SSR will handle it
+}));
 
 // MongoDB connection with caching for serverless
 let cachedDb = null;
@@ -116,7 +145,7 @@ if (!process.env.VERCEL) {
 }
 
 // Health check endpoint (no DB required)
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.json({
     success: true,
     message: 'Portfolio API Server',
@@ -187,6 +216,17 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/github', githubRoutes);
 app.use('/api/visitor', visitorRoutes);
+
+// Explicit routes for SEO files with proper headers
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.sendFile(path.join(clientBuildPath, 'robots.txt'));
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  res.type('application/xml');
+  res.sendFile(path.join(clientBuildPath, 'sitemap.xml'));
+});
 
 // SSR Catch-all route - serve React app for all non-API routes
 app.get('*', (req, res) => {
