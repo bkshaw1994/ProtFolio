@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, StaticRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 
@@ -22,10 +22,14 @@ import NotFound from './pages/NotFound';
 // Context
 
 
-function App() {
+function App({ location = '/' }) {
+  // Use StaticRouter for SSR, BrowserRouter for client
+  const RouterComponent = typeof window === 'undefined' ? StaticRouter : Router;
+  const routerProps = typeof window === 'undefined' ? { location } : {};
+
   return (
     <HelmetProvider>
-      <Router>
+      <RouterComponent {...routerProps}>
         <div className="App min-h-screen flex flex-col">
           <Navbar />
           <main className="flex-grow">
@@ -68,7 +72,7 @@ function App() {
             }}
           />
         </div>
-      </Router>
+      </RouterComponent>
     </HelmetProvider>
   );
 }
