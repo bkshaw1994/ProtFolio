@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Github, Linkedin, Mail, Download } from 'lucide-react';
-import { useGetProfileQuery } from '../../features/api/apiSlice';
+import { useGetProfileSummaryQuery } from '../../features/api/apiSlice';
 import { getFileUrl } from '../../utils/apiUrl';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const { data: profile } = useGetProfileQuery();
+  const { data: profile } = useGetProfileSummaryQuery();
 
   // Extract profile data
   const profileData = profile?.data || profile;
@@ -58,6 +58,9 @@ const Navbar = () => {
                   alt={profileData.name || 'Profile'}
                   className="w-full h-full object-cover"
                   crossOrigin="anonymous"
+                  decoding="async"
+                  width="40"
+                  height="40"
                   onError={(e) => {
                     console.error('Image load error:', {
                       src: e.target.src,

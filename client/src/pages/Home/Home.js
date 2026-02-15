@@ -21,7 +21,7 @@ import {
 // Components
 import ProjectCard from '../../components/ProjectCard';
 import SkillBadge from '../../components/SkillBadge';
-import {
+import Skeleton, {
   SkeletonProject,
   SkeletonSkill,
   SkeletonProfile
@@ -52,32 +52,7 @@ const Home = () => {
     ...githubRepos.slice(0, 3) // Top 3 GitHub repos
   ].slice(0, 6); // Show max 6 featured projects
 
-  // Loading states for different sections
-  const renderHeroSkeleton = () => (
-    <section className="section-padding min-h-screen flex items-center bg-gradient-to-br from-primary-50 to-secondary-50">
-      <div className="container-custom">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <SkeletonProfile />
-            <div className="h-8 w-3/4 bg-secondary-200 rounded animate-pulse" />
-            <div className="space-y-3">
-              <div className="h-4 bg-secondary-200 rounded animate-pulse" />
-              <div className="h-4 bg-secondary-200 rounded animate-pulse w-5/6" />
-            </div>
-            <div className="flex gap-4">
-              <div className="h-12 w-32 bg-secondary-200 rounded-lg animate-pulse" />
-              <div className="h-12 w-32 bg-secondary-200 rounded-lg animate-pulse" />
-            </div>
-          </div>
-          <div className="h-96 bg-secondary-200 rounded-lg animate-pulse" />
-        </div>
-      </div>
-    </section>
-  );
-
-  if (loadingProfile) {
-    return renderHeroSkeleton();
-  }
+  const isProfileLoading = loadingProfile && !profileData;
 
   return (
     <>
@@ -122,119 +97,140 @@ const Home = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="space-y-8 animate-fade-in">
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                    {profileData?.name
-                      ? profileData.name.charAt(0).toUpperCase()
-                      : 'H'}
-                  </div>
-                  <div className="badge badge-primary">Available for work</div>
-                </div>
-
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-secondary-900 leading-tight">
-                  Hi, I'm{' '}
-                  <span className="text-gradient">{profileData?.name}</span>
-                </h1>
-
-                <h2 className="text-xl sm:text-2xl text-secondary-600 font-medium">
-                  {profileData?.title}
-                </h2>
-              </div>
-
-              <p className="text-lg text-secondary-700 leading-relaxed max-w-2xl">
-                {profileData?.summary}
-              </p>
-
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="text-2xl sm:text-3xl font-bold text-primary-600">
-                    {profileData?.yearsOfExperience}+
-                  </div>
-                  <div className="text-sm text-secondary-600">
-                    Years Experience
+              {isProfileLoading ? (
+                <div className="space-y-6">
+                  <SkeletonProfile />
+                  <Skeleton variant="text" width="70%" height="32px" />
+                  <Skeleton variant="text" width="45%" height="24px" />
+                  <Skeleton variant="text" count={3} />
+                  <div className="flex gap-4">
+                    <Skeleton variant="rectangular" width="140px" height="48px" />
+                    <Skeleton variant="rectangular" width="140px" height="48px" />
                   </div>
                 </div>
-                <div className="text-center">
-                  <div className="text-2xl sm:text-3xl font-bold text-primary-600">
-                    {featuredProjects.length}+
-                  </div>
-                  <div className="text-sm text-secondary-600">
-                    Projects Done
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl sm:text-3xl font-bold text-primary-600">
-                    100%
-                  </div>
-                  <div className="text-sm text-secondary-600">
-                    Client Satisfaction
-                  </div>
-                </div>
-              </div>
+              ) : (
+                <>
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                        {profileData?.name
+                          ? profileData.name.charAt(0).toUpperCase()
+                          : 'H'}
+                      </div>
+                      <div className="badge badge-primary">Available for work</div>
+                    </div>
 
-              {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4">
-                <Link to="/projects" className="btn-primary group">
-                  View My Work
-                  <ArrowRight
-                    size={20}
-                    className="ml-2 group-hover:translate-x-1 transition-transform"
-                  />
-                </Link>
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-secondary-900 leading-tight">
+                      Hi, I'm{' '}
+                      <span className="text-gradient">{profileData?.name}</span>
+                    </h1>
 
-                <Link to="/contact" className="btn-outline">
-                  Get In Touch
-                </Link>
-
-                {profileData?.resume && (
-                  <a
-                    href={getFileUrl(profileData.resume)}
-                    download
-                    className="btn-secondary group"
-                  >
-                    <Download
-                      size={20}
-                      className="mr-2 group-hover:-translate-y-1 transition-transform"
-                    />
-                    Download CV
-                  </a>
-                )}
-              </div>
-
-              {/* Contact Info */}
-              <div className="flex flex-wrap gap-6 text-sm text-secondary-600">
-                {profileData?.location && (
-                  <div className="flex items-center space-x-2">
-                    <MapPin size={16} />
-                    <span>{profileData.location}</span>
+                    <h2 className="text-xl sm:text-2xl text-secondary-600 font-medium">
+                      {profileData?.title}
+                    </h2>
                   </div>
-                )}
-                {profileData?.email && (
-                  <div className="flex items-center space-x-2">
-                    <Mail size={16} />
-                    <a
-                      href={`mailto:${profileData.email}`}
-                      className="hover:text-primary-600 transition-colors"
-                    >
-                      {profileData.email}
-                    </a>
+
+                  <p className="text-lg text-secondary-700 leading-relaxed max-w-2xl">
+                    {profileData?.summary}
+                  </p>
+
+                  {/* Stats */}
+                  <div className="grid grid-cols-3 gap-6">
+                    <div className="text-center">
+                      <div className="text-2xl sm:text-3xl font-bold text-primary-600">
+                        {profileData?.yearsOfExperience}+
+                      </div>
+                      <div className="text-sm text-secondary-600">
+                        Years Experience
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl sm:text-3xl font-bold text-primary-600">
+                        {featuredProjects.length}+
+                      </div>
+                      <div className="text-sm text-secondary-600">
+                        Projects Done
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl sm:text-3xl font-bold text-primary-600">
+                        100%
+                      </div>
+                      <div className="text-sm text-secondary-600">
+                        Client Satisfaction
+                      </div>
+                    </div>
                   </div>
-                )}
-              </div>
+
+                  {/* CTA Buttons */}
+                  <div className="flex flex-wrap gap-4">
+                    <Link to="/projects" className="btn-primary group">
+                      View My Work
+                      <ArrowRight
+                        size={20}
+                        className="ml-2 group-hover:translate-x-1 transition-transform"
+                      />
+                    </Link>
+
+                    <Link to="/contact" className="btn-outline">
+                      Get In Touch
+                    </Link>
+
+                    {profileData?.resume && (
+                      <a
+                        href={getFileUrl(profileData.resume)}
+                        download
+                        className="btn-secondary group"
+                      >
+                        <Download
+                          size={20}
+                          className="mr-2 group-hover:-translate-y-1 transition-transform"
+                        />
+                        Download CV
+                      </a>
+                    )}
+                  </div>
+
+                  {/* Contact Info */}
+                  <div className="flex flex-wrap gap-6 text-sm text-secondary-600">
+                    {profileData?.location && (
+                      <div className="flex items-center space-x-2">
+                        <MapPin size={16} />
+                        <span>{profileData.location}</span>
+                      </div>
+                    )}
+                    {profileData?.email && (
+                      <div className="flex items-center space-x-2">
+                        <Mail size={16} />
+                        <a
+                          href={`mailto:${profileData.email}`}
+                          className="hover:text-primary-600 transition-colors"
+                        >
+                          {profileData.email}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Right Content - Profile Image */}
             <div className="relative animate-slide-up">
               <div className="relative">
                 <div className="w-80 h-80 mx-auto bg-gradient-to-br from-primary-200 via-primary-100 to-secondary-100 rounded-full overflow-hidden shadow-custom-xl">
-                  {profileData?.profileImage ? (
+                  {isProfileLoading ? (
+                    <Skeleton variant="circular" width="100%" height="100%" />
+                  ) : profileData?.profileImage ? (
                     <img
                       src={getFileUrl(profileData.profileImage)}
                       alt={profileData.name || 'Profile'}
                       className="w-full h-full object-cover"
                       crossOrigin="anonymous"
+                      decoding="async"
+                      fetchpriority="high"
+                      width="320"
+                      height="320"
                       onError={(e) => {
                         console.error('Home page image failed:', {
                           src: e.target.src,

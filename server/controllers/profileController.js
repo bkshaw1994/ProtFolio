@@ -1,7 +1,7 @@
-const Profile = require("../models/Profile");
-const { validationResult } = require("express-validator");
-const fs = require("fs");
-const path = require("path");
+const Profile = require('../models/Profile');
+const { validationResult } = require('express-validator');
+const fs = require('fs');
+const path = require('path');
 
 // @desc    Get profile information
 // @route   GET /api/profile
@@ -9,25 +9,26 @@ const path = require("path");
 const getProfile = async (req, res) => {
   try {
     const profile = await Profile.findOne({ isActive: true }).select(
-      "-profileImageData -resumeData",
+      '-profileImageData -resumeData'
     ); // Exclude binary data
 
     if (!profile) {
       return res.status(404).json({
         success: false,
-        message: "Profile not found",
+        message: 'Profile not found'
       });
     }
 
+    res.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
     res.json({
       success: true,
-      data: profile,
+      data: profile
     });
   } catch (error) {
-    console.error("Error fetching profile:", error);
+    console.error('Error fetching profile:', error);
     res.status(500).json({
       success: false,
-      message: "Server error while fetching profile",
+      message: 'Server error while fetching profile'
     });
   }
 };
@@ -42,8 +43,8 @@ const createOrUpdateProfile = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({
         success: false,
-        message: "Validation errors",
-        errors: errors.array(),
+        message: 'Validation errors',
+        errors: errors.array()
       });
     }
 
@@ -58,7 +59,7 @@ const createOrUpdateProfile = async (req, res) => {
       resume,
       socialLinks,
       yearsOfExperience,
-      summary,
+      summary
     } = req.body;
 
     // Check if profile exists
@@ -79,9 +80,9 @@ const createOrUpdateProfile = async (req, res) => {
           resume,
           socialLinks,
           yearsOfExperience,
-          summary,
+          summary
         },
-        { new: true, runValidators: true },
+        { new: true, runValidators: true }
       );
     } else {
       // Create new profile
@@ -96,7 +97,7 @@ const createOrUpdateProfile = async (req, res) => {
         resume,
         socialLinks,
         yearsOfExperience,
-        summary,
+        summary
       });
 
       await profile.save();
@@ -105,15 +106,15 @@ const createOrUpdateProfile = async (req, res) => {
     res.json({
       success: true,
       message: profile.isNew
-        ? "Profile created successfully"
-        : "Profile updated successfully",
-      data: profile,
+        ? 'Profile created successfully'
+        : 'Profile updated successfully',
+      data: profile
     });
   } catch (error) {
-    console.error("Error creating/updating profile:", error);
+    console.error('Error creating/updating profile:', error);
     res.status(500).json({
       success: false,
-      message: "Server error while processing profile",
+      message: 'Server error while processing profile'
     });
   }
 };
@@ -124,25 +125,26 @@ const createOrUpdateProfile = async (req, res) => {
 const getProfileSummary = async (req, res) => {
   try {
     const profile = await Profile.findOne({ isActive: true }).select(
-      "name title email socialLinks profileImage location",
+      'name title email socialLinks profileImage location resume'
     );
 
     if (!profile) {
       return res.status(404).json({
         success: false,
-        message: "Profile summary not found",
+        message: 'Profile summary not found'
       });
     }
 
+    res.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
     res.json({
       success: true,
-      data: profile,
+      data: profile
     });
   } catch (error) {
-    console.error("Error fetching profile summary:", error);
+    console.error('Error fetching profile summary:', error);
     res.status(500).json({
       success: false,
-      message: "Server error while fetching profile summary",
+      message: 'Server error while fetching profile summary'
     });
   }
 };
@@ -155,7 +157,7 @@ const uploadProfileImage = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({
         success: false,
-        message: "No file uploaded",
+        message: 'No file uploaded'
       });
     }
 
@@ -164,7 +166,7 @@ const uploadProfileImage = async (req, res) => {
 
     // Delete old profile image if it exists
     if (profile && profile.profileImage) {
-      const oldImagePath = path.join(__dirname, "..", profile.profileImage);
+      const oldImagePath = path.join(__dirname, '..', profile.profileImage);
       if (fs.existsSync(oldImagePath)) {
         fs.unlinkSync(oldImagePath);
       }
@@ -180,30 +182,30 @@ const uploadProfileImage = async (req, res) => {
     } else {
       // Create new profile with image only
       profile = new Profile({
-        name: "Your Name",
-        title: "Your Title",
-        profileImage: fileUrl,
+        name: 'Your Name',
+        title: 'Your Title',
+        profileImage: fileUrl
       });
       await profile.save();
     }
 
     res.json({
       success: true,
-      message: "Profile image uploaded successfully",
+      message: 'Profile image uploaded successfully',
       data: {
         profileImage: fileUrl,
-        filename: req.file.filename,
-      },
+        filename: req.file.filename
+      }
     });
   } catch (error) {
-    console.error("Error uploading profile image:", error);
+    console.error('Error uploading profile image:', error);
     // Delete uploaded file if there was an error
     if (req.file) {
       const filePath = path.join(
         __dirname,
-        "..",
-        "uploads/images",
-        req.file.filename,
+        '..',
+        'uploads/images',
+        req.file.filename
       );
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
@@ -211,7 +213,7 @@ const uploadProfileImage = async (req, res) => {
     }
     res.status(500).json({
       success: false,
-      message: "Server error while uploading image",
+      message: 'Server error while uploading image'
     });
   }
 };
@@ -224,7 +226,7 @@ const uploadResume = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({
         success: false,
-        message: "No file uploaded",
+        message: 'No file uploaded'
       });
     }
 
@@ -233,7 +235,7 @@ const uploadResume = async (req, res) => {
 
     // Delete old resume if it exists
     if (profile && profile.resume) {
-      const oldResumePath = path.join(__dirname, "..", profile.resume);
+      const oldResumePath = path.join(__dirname, '..', profile.resume);
       if (fs.existsSync(oldResumePath)) {
         fs.unlinkSync(oldResumePath);
       }
@@ -249,30 +251,30 @@ const uploadResume = async (req, res) => {
     } else {
       // Create new profile with resume only
       profile = new Profile({
-        name: "Your Name",
-        title: "Your Title",
-        resume: fileUrl,
+        name: 'Your Name',
+        title: 'Your Title',
+        resume: fileUrl
       });
       await profile.save();
     }
 
     res.json({
       success: true,
-      message: "Resume uploaded successfully",
+      message: 'Resume uploaded successfully',
       data: {
         resume: fileUrl,
-        filename: req.file.filename,
-      },
+        filename: req.file.filename
+      }
     });
   } catch (error) {
-    console.error("Error uploading resume:", error);
+    console.error('Error uploading resume:', error);
     // Delete uploaded file if there was an error
     if (req.file) {
       const filePath = path.join(
         __dirname,
-        "..",
-        "uploads/resumes",
-        req.file.filename,
+        '..',
+        'uploads/resumes',
+        req.file.filename
       );
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
@@ -280,7 +282,7 @@ const uploadResume = async (req, res) => {
     }
     res.status(500).json({
       success: false,
-      message: "Server error while uploading resume",
+      message: 'Server error while uploading resume'
     });
   }
 };
@@ -292,10 +294,10 @@ const deleteFile = async (req, res) => {
   try {
     const { type } = req.params;
 
-    if (!["image", "resume"].includes(type)) {
+    if (!['image', 'resume'].includes(type)) {
       return res.status(400).json({
         success: false,
-        message: 'Invalid file type. Must be "image" or "resume"',
+        message: 'Invalid file type. Must be "image" or "resume"'
       });
     }
 
@@ -304,39 +306,39 @@ const deleteFile = async (req, res) => {
     if (!profile) {
       return res.status(404).json({
         success: false,
-        message: "Profile not found",
+        message: 'Profile not found'
       });
     }
 
-    const fieldName = type === "image" ? "profileImage" : "resume";
+    const fieldName = type === 'image' ? 'profileImage' : 'resume';
     const filePath = profile[fieldName];
 
     if (!filePath) {
       return res.status(404).json({
         success: false,
-        message: `No ${type} found to delete`,
+        message: `No ${type} found to delete`
       });
     }
 
     // Delete file from filesystem
-    const fullPath = path.join(__dirname, "..", filePath);
+    const fullPath = path.join(__dirname, '..', filePath);
     if (fs.existsSync(fullPath)) {
       fs.unlinkSync(fullPath);
     }
 
     // Update profile
-    profile[fieldName] = "";
+    profile[fieldName] = '';
     await profile.save();
 
     res.json({
       success: true,
-      message: `${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully`,
+      message: `${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully`
     });
   } catch (error) {
-    console.error("Error deleting file:", error);
+    console.error('Error deleting file:', error);
     res.status(500).json({
       success: false,
-      message: "Server error while deleting file",
+      message: 'Server error while deleting file'
     });
   }
 };
@@ -347,11 +349,12 @@ const deleteFile = async (req, res) => {
 const getProfileImage = async (req, res) => {
   try {
     // Set CORS headers first, before any response
-    res.set("Access-Control-Allow-Origin", req.headers.origin || "*");
-    res.set("Access-Control-Allow-Credentials", "true");
-    res.set("Cache-Control", "no-cache, no-store, must-revalidate"); // Disable caching for debugging
-    res.set("Pragma", "no-cache");
-    res.set("Expires", "0");
+    res.set('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.set('Access-Control-Allow-Credentials', 'true');
+    res.set(
+      'Cache-Control',
+      'public, max-age=86400, stale-while-revalidate=604800'
+    );
 
     const profile = await Profile.findOne({ isActive: true });
 
@@ -360,24 +363,24 @@ const getProfileImage = async (req, res) => {
       !profile.profileImageData ||
       !profile.profileImageData.data
     ) {
-      console.log("Profile image not found in database");
+      console.log('Profile image not found in database');
       return res.status(404).json({
         success: false,
-        message: "Profile image not found",
+        message: 'Profile image not found'
       });
     }
 
     console.log(
-      `Serving profile image: ${profile.profileImageData.contentType}, ${profile.profileImageData.data.length} bytes`,
+      `Serving profile image: ${profile.profileImageData.contentType}, ${profile.profileImageData.data.length} bytes`
     );
 
-    res.set("Content-Type", profile.profileImageData.contentType);
+    res.set('Content-Type', profile.profileImageData.contentType);
     res.send(profile.profileImageData.data);
   } catch (error) {
-    console.error("Error fetching profile image:", error);
+    console.error('Error fetching profile image:', error);
     res.status(500).json({
       success: false,
-      message: "Server error while fetching profile image",
+      message: 'Server error while fetching profile image'
     });
   }
 };
@@ -392,22 +395,25 @@ const getResume = async (req, res) => {
     if (!profile || !profile.resumeData || !profile.resumeData.data) {
       return res.status(404).json({
         success: false,
-        message: "Resume not found",
+        message: 'Resume not found'
       });
     }
 
-    res.set("Content-Type", profile.resumeData.contentType);
+    res.set('Content-Type', profile.resumeData.contentType);
     res.set(
-      "Content-Disposition",
-      `attachment; filename="${profile.resumeData.filename || "resume.pdf"}"`,
+      'Content-Disposition',
+      `attachment; filename="${profile.resumeData.filename || 'resume.pdf'}"`
     );
-    res.set("Cache-Control", "public, max-age=86400"); // Cache for 1 day
+    res.set(
+      'Cache-Control',
+      'public, max-age=86400, stale-while-revalidate=604800'
+    );
     res.send(profile.resumeData.data);
   } catch (error) {
-    console.error("Error fetching resume:", error);
+    console.error('Error fetching resume:', error);
     res.status(500).json({
       success: false,
-      message: "Server error while fetching resume",
+      message: 'Server error while fetching resume'
     });
   }
 };
@@ -420,5 +426,5 @@ module.exports = {
   uploadResume,
   deleteFile,
   getProfileImage,
-  getResume,
+  getResume
 };
