@@ -36,7 +36,6 @@ const Home = () => {
   const featuredCertifications = Array.isArray(featuredCertificationsResponse)
     ? featuredCertificationsResponse
     : featuredCertificationsResponse?.data || [];
-  const primaryCertification = featuredCertifications[0];
 
   // Debug logging
 
