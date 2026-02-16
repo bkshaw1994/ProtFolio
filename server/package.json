@@ -18,7 +18,8 @@
     "test:ci": "jest --ci --coverage --watchAll=false",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "lint:check": "eslint . --max-warnings=0"
+    "lint:check": "eslint . --max-warnings=0",
+    "seed:certifications": "node scripts/seedCertifications.js"
   },
   "dependencies": {
     "@vercel/speed-insights": "^1.3.1",

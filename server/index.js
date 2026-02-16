@@ -12,6 +12,7 @@ const app = express();
 const profileRoutes = require('./routes/profile');
 const projectRoutes = require('./routes/projects');
 const skillRoutes = require('./routes/skills');
+const certificationRoutes = require('./routes/certifications');
 const experienceRoutes = require('./routes/experience');
 const contactRoutes = require('./routes/contact');
 const adminRoutes = require('./routes/admin');
@@ -35,6 +36,11 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // Middleware
+const allowedClientOrigins = (process.env.CLIENT_URLS || '')
+  .split(',')
+  .map((value) => value.trim())
+  .filter(Boolean);
+
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -46,13 +52,22 @@ app.use(
         return callback(null, true);
       }
 
+      // Allow 127.0.0.1 and common local dev hosts
+      if (origin.includes('127.0.0.1') || origin.includes('0.0.0.0')) {
+        return callback(null, true);
+      }
+
       // Allow any Vercel deployment
       if (origin.endsWith('.vercel.app')) {
         return callback(null, true);
       }
 
-      // Allow specific client URL from env
+      // Allow specific client URL(s) from env
       if (process.env.CLIENT_URL && origin === process.env.CLIENT_URL) {
+        return callback(null, true);
+      }
+
+      if (allowedClientOrigins.includes(origin)) {
         return callback(null, true);
       }
 
@@ -189,6 +204,7 @@ app.use('/api', async (req, res, next) => {
 app.use('/api/profile', profileRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/skills', skillRoutes);
+app.use('/api/certifications', certificationRoutes);
 app.use('/api/experience', experienceRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/admin', adminRoutes);

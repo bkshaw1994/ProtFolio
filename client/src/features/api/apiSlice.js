@@ -12,7 +12,7 @@ export const apiSlice = createApi({
       return headers;
     }
   }),
-  tagTypes: ['Profile', 'Project', 'Skill', 'Experience', 'Contact', 'Visitor'],
+  tagTypes: ['Profile', 'Project', 'Skill', 'Experience', 'Contact', 'Visitor', 'Certification'],
   endpoints: (builder) => ({
     getProfile: builder.query({
       query: () => '/profile',
@@ -41,6 +41,18 @@ export const apiSlice = createApi({
     getCoreSkills: builder.query({
       query: () => '/skills/core',
       providesTags: ['Skill']
+    }),
+    getCertifications: builder.query({
+      query: () => '/certifications',
+      providesTags: ['Certification']
+    }),
+    getFeaturedCertifications: builder.query({
+      query: () => '/certifications/featured',
+      providesTags: ['Certification']
+    }),
+    getCertificationById: builder.query({
+      query: (id) => `/certifications/${id}`,
+      providesTags: ['Certification']
     }),
     getExperience: builder.query({
       query: () => '/experience',
@@ -127,6 +139,9 @@ export const {
   useGetProjectByIdQuery,
   useGetSkillsQuery,
   useGetCoreSkillsQuery,
+  useGetCertificationsQuery,
+  useGetFeaturedCertificationsQuery,
+  useGetCertificationByIdQuery,
   useGetExperienceQuery,
   useGetCurrentExperienceQuery,
   useSubmitContactMutation,

@@ -17,6 +17,7 @@ import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
 import Skills from './pages/Skills';
 import Experience from './pages/Experience';
+import Certifications from './pages/Certifications';
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
 import NotFound from './pages/NotFound';
@@ -39,6 +40,7 @@ function App() {
               <Route path="/projects/:id" element={<ProjectDetail />} />
               <Route path="/skills" element={<Skills />} />
               <Route path="/experience" element={<Experience />} />
+              <Route path="/certifications" element={<Certifications />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />

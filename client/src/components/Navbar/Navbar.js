@@ -34,10 +34,12 @@ const Navbar = () => {
     { path: '/projects', label: 'Projects' },
     { path: '/skills', label: 'Skills' },
     { path: '/experience', label: 'Experience' },
+    { path: '/certifications', label: 'Certifications' },
     { path: '/about', label: 'About' }
   ];
 
   const isActive = (path) => location.pathname === path;
+  const isHome = location.pathname === '/';
 
   return (
     <nav
@@ -104,7 +106,7 @@ const Navbar = () => {
 
           {/* Contact Info & Social Links */}
           <div className="hidden lg:flex items-center space-x-4">
-            {profileData?.email && (
+            {isHome && profileData?.email && (
               <a
                 href={`mailto:${profileData.email}`}
                 className="p-2 text-secondary-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200"
@@ -114,7 +116,7 @@ const Navbar = () => {
               </a>
             )}
 
-            {profileData?.socialLinks?.github && (
+            {isHome && profileData?.socialLinks?.github && (
               <a
                 href={profileData.socialLinks.github}
                 target="_blank"
@@ -126,7 +128,7 @@ const Navbar = () => {
               </a>
             )}
 
-            {profileData?.socialLinks?.linkedin && (
+            {isHome && profileData?.socialLinks?.linkedin && (
               <a
                 href={profileData.socialLinks.linkedin}
                 target="_blank"
@@ -138,7 +140,7 @@ const Navbar = () => {
               </a>
             )}
 
-            {profileData?.resume && (
+            {!isHome && profileData?.resume && (
               <a
                 href={getFileUrl(profileData.resume)}
                 download
@@ -191,7 +193,7 @@ const Navbar = () => {
                   Contact
                 </Link>
 
-                {profileData?.resume && (
+                {!isHome && profileData?.resume && (
                   <a
                     href={getFileUrl(profileData.resume)}
                     download
@@ -212,7 +214,7 @@ const Navbar = () => {
                     </a>
                   )}
 
-                  {profileData?.socialLinks?.github && (
+                  {isHome && profileData?.socialLinks?.github && (
                     <a
                       href={profileData.socialLinks.github}
                       target="_blank"
@@ -223,7 +225,7 @@ const Navbar = () => {
                     </a>
                   )}
 
-                  {profileData?.socialLinks?.linkedin && (
+                  {isHome && profileData?.socialLinks?.linkedin && (
                     <a
                       href={profileData.socialLinks.linkedin}
                       target="_blank"
