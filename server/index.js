@@ -38,8 +38,42 @@ app.use('/api/', limiter);
 // Middleware
 const allowedClientOrigins = (process.env.CLIENT_URLS || '')
   .split(',')
+  .concat(process.env.CLIENT_URL || [])
   .map((value) => value.trim())
   .filter(Boolean);
+
+// Only permit permissive localhost origins outside of production.
+const isDevelopment = process.env.NODE_ENV !== 'production';
+const localDevHostnames = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
+
+// Optional exact-match suffix allowlist (e.g. "my-app.vercel.app").
+const allowedOriginSuffixes = (process.env.ALLOWED_ORIGIN_SUFFIXES || '')
+  .split(',')
+  .map((value) => value.trim())
+  .filter(Boolean);
+
+const isOriginAllowed = (origin) => {
+  let hostname;
+  try {
+    hostname = new URL(origin).hostname;
+  } catch {
+    return false;
+  }
+
+  if (isDevelopment && localDevHostnames.has(hostname)) {
+    return true;
+  }
+
+  if (allowedClientOrigins.includes(origin)) {
+    return true;
+  }
+
+  // Suffix allowlist matches on a full label boundary (".vercel.app"),
+  // never a substring, so "evil-vercel.app" is rejected.
+  return allowedOriginSuffixes.some(
+    (suffix) => hostname === suffix || hostname.endsWith(`.${suffix}`)
+  );
+};
 
 app.use(
   cors({
@@ -47,27 +81,7 @@ app.use(
       // Allow requests with no origin (like mobile apps or Postman)
       if (!origin) return callback(null, true);
 
-      // Allow localhost for development
-      if (origin.includes('localhost')) {
-        return callback(null, true);
-      }
-
-      // Allow 127.0.0.1 and common local dev hosts
-      if (origin.includes('127.0.0.1') || origin.includes('0.0.0.0')) {
-        return callback(null, true);
-      }
-
-      // Allow any Vercel deployment
-      if (origin.endsWith('.vercel.app')) {
-        return callback(null, true);
-      }
-
-      // Allow specific client URL(s) from env
-      if (process.env.CLIENT_URL && origin === process.env.CLIENT_URL) {
-        return callback(null, true);
-      }
-
-      if (allowedClientOrigins.includes(origin)) {
+      if (isOriginAllowed(origin)) {
         return callback(null, true);
       }
 
@@ -164,8 +178,7 @@ app.get('/api/test-db', async (req, res) => {
     res.status(503).json({
       success: false,
       message: 'MongoDB connection failed',
-      error: error.message,
-      hasMongoUri: !!process.env.MONGODB_URI,
+      ...(process.env.NODE_ENV === 'development' && { error: error.message }),
       readyState: mongoose.connection.readyState
     });
   }
