@@ -32,8 +32,7 @@ router.get('/repos', async (req, res) => {
     console.error('Error in /repos route:', error);
     res.status(500).json({
       success: false,
-      message: 'Error fetching GitHub repositories',
-      error: error.message
+      message: 'Error fetching GitHub repositories'
     });
   }
 });
@@ -66,8 +65,7 @@ router.get('/repos/featured', async (req, res) => {
     console.error('Error in /repos/featured route:', error);
     res.status(500).json({
       success: false,
-      message: 'Error fetching featured repositories',
-      error: error.message
+      message: 'Error fetching featured repositories'
     });
   }
 });
@@ -91,8 +89,7 @@ router.get('/repos/:repoName', async (req, res) => {
     console.error('Error in /repos/:repoName route:', error);
     res.status(500).json({
       success: false,
-      message: 'Error fetching repository details',
-      error: error.message
+      message: 'Error fetching repository details'
     });
   }
 });
@@ -127,8 +124,7 @@ router.get('/stats', async (req, res) => {
     console.error('Error in /stats route:', error);
     res.status(500).json({
       success: false,
-      message: 'Error fetching GitHub statistics',
-      error: error.message
+      message: 'Error fetching GitHub statistics'
     });
   }
 });

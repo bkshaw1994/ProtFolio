@@ -9,6 +9,7 @@ const {
   deleteProject,
   getProjectCategories
 } = require('../controllers/projectController');
+const { requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -119,19 +120,16 @@ router.get('/:id', getProjectById);
 // @route   POST /api/projects
 // @desc    Create new project
 // @access  Private (Admin)
-// Note: Add authentication middleware here when implementing admin panel
-router.post('/', projectValidation, createProject);
+router.post('/', requireAuth, projectValidation, createProject);
 
 // @route   PUT /api/projects/:id
 // @desc    Update project
 // @access  Private (Admin)
-// Note: Add authentication middleware here when implementing admin panel
-router.put('/:id', projectValidation, updateProject);
+router.put('/:id', requireAuth, projectValidation, updateProject);
 
 // @route   DELETE /api/projects/:id
 // @desc    Soft delete project (set isActive to false)
 // @access  Private (Admin)
-// Note: Add authentication middleware here when implementing admin panel
-router.delete('/:id', deleteProject);
+router.delete('/:id', requireAuth, deleteProject);
 
 module.exports = router;
