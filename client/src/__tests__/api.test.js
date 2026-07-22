@@ -46,6 +46,7 @@ Object.defineProperty(window, 'localStorage', {
 describe('API Services', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockAxios.create.mockReturnValue(mockApiInstance);
     mockApiInstance.get.mockResolvedValue({ data: { success: true } });
     mockApiInstance.post.mockResolvedValue({ data: { success: true } });
     mockApiInstance.put.mockResolvedValue({ data: { success: true } });

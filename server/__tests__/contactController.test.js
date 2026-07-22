@@ -45,7 +45,7 @@ describe('Contact Controller', () => {
       expect(res.json).toHaveBeenCalledWith(
         expect.objectContaining({
           success: true,
-          message: "Message sent successfully! I'll get back to you soon."
+          message: 'Message sent successfully! I\'ll get back to you soon.'
         })
       );
     });
