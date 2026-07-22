@@ -59,14 +59,17 @@ const isTrustedOrigin = (origin) => {
     return true;
   }
 
-  const cleanOrigin = origin.replace(/\/$/, '');
-  if (
-    trustedClientOrigins.some(
-      (allowed) => allowed.replace(/\/$/, '') === cleanOrigin
-    )
-  ) {
-    return true;
-  }
+  const cleanOrigin = origin.replace(/\/$/, '').toLowerCase();
+
+  const isMatch = trustedClientOrigins.some((allowed) => {
+    let cleanAllowed = allowed.replace(/\/$/, '').toLowerCase();
+    if (!cleanAllowed.startsWith('http://') && !cleanAllowed.startsWith('https://')) {
+      cleanAllowed = `https://${cleanAllowed}`;
+    }
+    return cleanAllowed === cleanOrigin;
+  });
+
+  if (isMatch) return true;
 
   return (
     allowedOriginSuffixes.length > 0 &&
