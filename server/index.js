@@ -42,27 +42,24 @@ const allowedClientOrigins = (process.env.CLIENT_URLS || '')
   .map((value) => value.trim())
   .filter(Boolean);
 
+const isWildcardAllowed =
+  process.env.CLIENT_URL === '*' ||
+  allowedClientOrigins.includes('*');
+
+const trustedClientOrigins = allowedClientOrigins.filter((v) => v !== '*');
+
 // Only permit permissive localhost origins outside of production.
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const localDevHostnames = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
 
-// Include default deployment platform suffixes (vercel.app, netlify.app, onrender.com)
-const defaultOriginSuffixes = ['vercel.app', 'netlify.app', 'onrender.com'];
+// Optional exact-match suffix allowlist explicitly specified via env var (e.g. "my-org.com").
 const allowedOriginSuffixes = (process.env.ALLOWED_ORIGIN_SUFFIXES || '')
   .split(',')
   .map((value) => value.trim())
-  .filter(Boolean)
-  .concat(defaultOriginSuffixes);
+  .filter(Boolean);
 
-const isOriginAllowed = (origin) => {
-  // If CLIENT_URL or CLIENT_URLS contains '*', permit all origins
-  if (
-    allowedClientOrigins.includes('*') ||
-    process.env.CLIENT_URL === '*' ||
-    process.env.CORS_ALLOW_ALL === 'true'
-  ) {
-    return true;
-  }
+const isTrustedOrigin = (origin) => {
+  if (!origin) return false;
 
   let hostname;
   try {
@@ -77,38 +74,58 @@ const isOriginAllowed = (origin) => {
 
   const cleanOrigin = origin.replace(/\/$/, '');
   if (
-    allowedClientOrigins.some(
+    trustedClientOrigins.some(
       (allowed) => allowed.replace(/\/$/, '') === cleanOrigin
     )
   ) {
     return true;
   }
 
-  // Suffix allowlist matches on a full label boundary (".vercel.app"),
-  // never a substring, so "evil-vercel.app" is rejected.
-  return allowedOriginSuffixes.some(
-    (suffix) => hostname === suffix || hostname.endsWith(`.${suffix}`)
+  // Suffix allowlist matches on a full label boundary (e.g. ".mycompany.com"),
+  // only active if explicitly set in ALLOWED_ORIGIN_SUFFIXES.
+  return (
+    allowedOriginSuffixes.length > 0 &&
+    allowedOriginSuffixes.some(
+      (suffix) => hostname === suffix || hostname.endsWith(`.${suffix}`)
+    )
   );
 };
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps or Postman)
-      if (!origin) return callback(null, true);
+const corsOptionsDelegate = (req, callback) => {
+  const origin = req.headers.origin;
 
-      if (isOriginAllowed(origin)) {
-        return callback(null, true);
-      }
+  // Requests with no origin (e.g. mobile apps, cURL, server-to-server)
+  if (!origin) {
+    return callback(null, { origin: true });
+  }
 
-      // Pass false to CORS middleware to gracefully reject unallowed origins
-      // rather than throwing an Error that triggers 500 without CORS headers.
-      return callback(null, false);
-    },
-    credentials: true,
+  // Explicitly trusted origin -> allow origin and enable credentials
+  if (isTrustedOrigin(origin)) {
+    return callback(null, {
+      origin: origin,
+      credentials: true,
+      optionsSuccessStatus: 200
+    });
+  }
+
+  // Wildcard mode -> allow wildcard origin but strictly DISABLE credentials
+  if (isWildcardAllowed) {
+    return callback(null, {
+      origin: '*',
+      credentials: false,
+      optionsSuccessStatus: 200
+    });
+  }
+
+  // Reject unallowed origins
+  return callback(null, {
+    origin: false,
+    credentials: false,
     optionsSuccessStatus: 200
-  })
-);
+  });
+};
+
+app.use(cors(corsOptionsDelegate));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
