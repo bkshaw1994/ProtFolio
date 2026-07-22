@@ -3,10 +3,10 @@ import { render } from '@testing-library/react';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { AppProvider } from '../context/AppContext';
-import { experienceReducer } from '../features/experience/experienceSlice';
-import { profileReducer } from '../features/profile/profileSlice';
-import { projectsReducer } from '../features/projects/projectsSlice';
-import { skillsReducer } from '../features/skills/skillsSlice';
+import experienceReducer from '../features/experience/experienceSlice';
+import profileReducer from '../features/profile/profileSlice';
+import projectsReducer from '../features/projects/projectsSlice';
+import skillsReducer from '../features/skills/skillsSlice';
 
 // Create a custom renderer for testing components that need the Redux store and AppContext
 export function renderWithProviders(
