@@ -226,21 +226,6 @@ app.get('/api/test-db', async (req, res) => {
   }
 });
 
-// Diagnostic endpoint to verify CORS settings in production
-app.get('/api/cors-info', (req, res) => {
-  const reqOrigin = req.headers.origin || null;
-  res.json({
-    success: true,
-    clientUrl: process.env.CLIENT_URL || null,
-    clientUrls: process.env.CLIENT_URLS || null,
-    allowedOriginSuffixes: process.env.ALLOWED_ORIGIN_SUFFIXES || null,
-    trustedOrigins: trustedClientOrigins,
-    requestOrigin: reqOrigin,
-    isTrusted: isTrustedOrigin(reqOrigin),
-    isWildcard: isWildcardAllowed
-  });
-});
-
 // Vercel Speed Insights route
 // This endpoint handles Speed Insights analytics data collection
 app.post('/_vercel/speed-insights/event', (req, res) => {
@@ -251,12 +236,8 @@ app.post('/_vercel/speed-insights/event', (req, res) => {
 
 // Middleware to ensure DB connection for API routes only
 app.use('/api', async (req, res, next) => {
-  // Skip DB check for health, test-db, and cors-info endpoints
-  if (
-    req.path === '/health' ||
-    req.path === '/test-db' ||
-    req.path === '/cors-info'
-  ) {
+  // Skip DB check for health and test-db endpoints
+  if (req.path === '/health' || req.path === '/test-db') {
     return next();
   }
 
