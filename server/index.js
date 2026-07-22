@@ -19,23 +19,10 @@ const adminRoutes = require('./routes/admin');
 const githubRoutes = require('./routes/github');
 const visitorRoutes = require('./routes/visitor');
 
-// Security middleware
+// Trust proxy for rate limiting and IP detection
 app.set('trust proxy', 1);
-app.use(
-  helmet({
-    crossOriginResourcePolicy: { policy: 'cross-origin' }
-  })
-);
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.'
-});
-app.use('/api/', limiter);
-
-// Middleware
+// CORS configuration - MUST be mounted first before helmet or rate limiting
 const allowedClientOrigins = (process.env.CLIENT_URLS || '')
   .split(',')
   .concat(process.env.CLIENT_URL || [])
@@ -81,8 +68,6 @@ const isTrustedOrigin = (origin) => {
     return true;
   }
 
-  // Suffix allowlist matches on a full label boundary (e.g. ".mycompany.com"),
-  // only active if explicitly set in ALLOWED_ORIGIN_SUFFIXES.
   return (
     allowedOriginSuffixes.length > 0 &&
     allowedOriginSuffixes.some(
@@ -125,7 +110,25 @@ const corsOptionsDelegate = (req, callback) => {
   });
 };
 
+// Mount CORS middleware as the very first handler
 app.use(cors(corsOptionsDelegate));
+app.options('*', cors(corsOptionsDelegate));
+
+// Security middleware (Helmet)
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' }
+  })
+);
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.'
+});
+app.use('/api/', limiter);
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
