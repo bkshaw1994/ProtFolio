@@ -46,13 +46,24 @@ const allowedClientOrigins = (process.env.CLIENT_URLS || '')
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const localDevHostnames = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
 
-// Optional exact-match suffix allowlist (e.g. "my-app.vercel.app").
+// Include default deployment platform suffixes (vercel.app, netlify.app, onrender.com)
+const defaultOriginSuffixes = ['vercel.app', 'netlify.app', 'onrender.com'];
 const allowedOriginSuffixes = (process.env.ALLOWED_ORIGIN_SUFFIXES || '')
   .split(',')
   .map((value) => value.trim())
-  .filter(Boolean);
+  .filter(Boolean)
+  .concat(defaultOriginSuffixes);
 
 const isOriginAllowed = (origin) => {
+  // If CLIENT_URL or CLIENT_URLS contains '*', permit all origins
+  if (
+    allowedClientOrigins.includes('*') ||
+    process.env.CLIENT_URL === '*' ||
+    process.env.CORS_ALLOW_ALL === 'true'
+  ) {
+    return true;
+  }
+
   let hostname;
   try {
     hostname = new URL(origin).hostname;
@@ -64,7 +75,12 @@ const isOriginAllowed = (origin) => {
     return true;
   }
 
-  if (allowedClientOrigins.includes(origin)) {
+  const cleanOrigin = origin.replace(/\/$/, '');
+  if (
+    allowedClientOrigins.some(
+      (allowed) => allowed.replace(/\/$/, '') === cleanOrigin
+    )
+  ) {
     return true;
   }
 
@@ -85,9 +101,12 @@ app.use(
         return callback(null, true);
       }
 
-      callback(new Error('Not allowed by CORS'));
+      // Pass false to CORS middleware to gracefully reject unallowed origins
+      // rather than throwing an Error that triggers 500 without CORS headers.
+      return callback(null, false);
     },
-    credentials: true
+    credentials: true,
+    optionsSuccessStatus: 200
   })
 );
 app.use(express.json({ limit: '10mb' }));
