@@ -59,14 +59,17 @@ const isTrustedOrigin = (origin) => {
     return true;
   }
 
-  const cleanOrigin = origin.replace(/\/$/, '');
-  if (
-    trustedClientOrigins.some(
-      (allowed) => allowed.replace(/\/$/, '') === cleanOrigin
-    )
-  ) {
-    return true;
-  }
+  const cleanOrigin = origin.replace(/\/$/, '').toLowerCase();
+
+  const isMatch = trustedClientOrigins.some((allowed) => {
+    let cleanAllowed = allowed.replace(/\/$/, '').toLowerCase();
+    if (!cleanAllowed.startsWith('http://') && !cleanAllowed.startsWith('https://')) {
+      cleanAllowed = `https://${cleanAllowed}`;
+    }
+    return cleanAllowed === cleanOrigin;
+  });
+
+  if (isMatch) return true;
 
   return (
     allowedOriginSuffixes.length > 0 &&
@@ -223,6 +226,21 @@ app.get('/api/test-db', async (req, res) => {
   }
 });
 
+// Diagnostic endpoint to verify CORS settings in production
+app.get('/api/cors-info', (req, res) => {
+  const reqOrigin = req.headers.origin || null;
+  res.json({
+    success: true,
+    clientUrl: process.env.CLIENT_URL || null,
+    clientUrls: process.env.CLIENT_URLS || null,
+    allowedOriginSuffixes: process.env.ALLOWED_ORIGIN_SUFFIXES || null,
+    trustedOrigins: trustedClientOrigins,
+    requestOrigin: reqOrigin,
+    isTrusted: isTrustedOrigin(reqOrigin),
+    isWildcard: isWildcardAllowed
+  });
+});
+
 // Vercel Speed Insights route
 // This endpoint handles Speed Insights analytics data collection
 app.post('/_vercel/speed-insights/event', (req, res) => {
@@ -233,8 +251,12 @@ app.post('/_vercel/speed-insights/event', (req, res) => {
 
 // Middleware to ensure DB connection for API routes only
 app.use('/api', async (req, res, next) => {
-  // Skip DB check for health and test-db endpoints
-  if (req.path === '/health' || req.path === '/test-db') {
+  // Skip DB check for health, test-db, and cors-info endpoints
+  if (
+    req.path === '/health' ||
+    req.path === '/test-db' ||
+    req.path === '/cors-info'
+  ) {
     return next();
   }
 
