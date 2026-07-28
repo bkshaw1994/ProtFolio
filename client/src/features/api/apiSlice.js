@@ -9,6 +9,11 @@ export const apiSlice = createApi({
       if (!['uploadProfileImage', 'uploadResume'].includes(endpoint)) {
         headers.set('Content-Type', 'application/json');
       }
+      // Attach admin auth token when present so protected routes work.
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
       return headers;
     }
   }),
