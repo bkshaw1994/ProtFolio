@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/SEO';
 import {
   Mail,
   Phone,
@@ -64,23 +64,11 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await submitContact(formData).unwrap();
-      toast.success(response.message || 'Message sent successfully!');
+      await submitContact(formData).unwrap();
       setIsSubmitted(true);
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-        phone: '',
-        company: '',
-        projectType: 'other',
-        budget: '',
-        currency: 'INR',
-        timeline: 'flexible'
-      });
-    } catch (error) {
-      toast.error(error?.data?.message || 'Failed to send message');
+      toast.success('Message sent successfully!');
+    } catch (err) {
+      toast.error(err.data?.message || 'Failed to send message');
     }
   };
 
@@ -92,9 +80,11 @@ const Contact = () => {
   if (isSubmitted) {
     return (
       <>
-        <Helmet>
-          <title>Contact - Thank You</title>
-        </Helmet>
+        <SEO
+          title="Contact - Thank You"
+          description="Thank you for contacting Bishal Kumar Shaw. Your message has been received."
+          canonical="/contact"
+        />
 
         <div className="pt-20 min-h-screen flex items-center justify-center bg-gradient-to-br from-success-50 to-primary-50">
           <div className="container-custom text-center">
@@ -120,21 +110,16 @@ const Contact = () => {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {profileData?.name
+      <SEO
+        title={
+          profileData?.name
             ? `Hire ${profileData.name} - Contact Freelance Developer`
-            : 'Hire Freelance MERN Stack Developer - Contact'}
-        </title>
-        <meta
-          name="description"
-          content={`Contact ${profileData?.name || 'me'} for freelance web development projects. ${profileData?.title ? `Expert in ${profileData.title.toLowerCase()}.` : 'Specializing in MERN stack development.'} Available for hire - Get a quote today!`}
-        />
-        <meta
-          name="keywords"
-          content="hire freelance developer, contact MERN developer, freelance web developer, get quote, hire React developer, Node.js developer for hire, freelance programmer contact"
-        />
-      </Helmet>
+            : 'Hire Freelance MERN Stack Developer - Contact'
+        }
+        description={`Contact ${profileData?.name || 'me'} for freelance web development projects. ${profileData?.title ? `Expert in ${profileData.title.toLowerCase()}.` : 'Specializing in MERN stack development.'} Available for hire - Get a quote today!`}
+        keywords="hire freelance developer, contact MERN developer, freelance web developer, get quote, hire React developer, Node.js developer for hire, freelance programmer contact"
+        canonical="/contact"
+      />
 
       <div className="pt-20">
         {/* Header */}

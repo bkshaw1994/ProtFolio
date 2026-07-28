@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/SEO';
 import { useState } from 'react';
 import { useGetExperienceQuery } from '../../features/api/apiSlice';
 import { SkeletonExperience } from '../../components/Skeleton';
@@ -24,13 +24,11 @@ const Experience = () => {
   if (isLoading) {
     return (
       <>
-        <Helmet>
-          <title>Experience - Portfolio</title>
-          <meta
-            name="description"
-            content="My work experience and career journey"
-          />
-        </Helmet>
+        <SEO
+          title="Work Experience - Bishal Kumar Shaw"
+          description="Professional career history and 9+ years experience of Bishal Kumar Shaw as a Senior MERN Stack Developer."
+          canonical="/experience"
+        />
         <div className="pt-20 min-h-screen bg-gradient-to-b from-secondary-50 to-white">
           <section className="section-padding">
             <div className="container-custom">
@@ -89,13 +87,12 @@ const Experience = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Experience - Portfolio</title>
-        <meta
-          name="description"
-          content="My work experience and career journey"
-        />
-      </Helmet>
+      <SEO
+        title="Work Experience - Bishal Kumar Shaw | Senior MERN Stack Developer"
+        description="Professional career history and 9+ years experience of Bishal Kumar Shaw as a Senior MERN Stack Developer. Full-stack development roles, achievements, and leadership."
+        keywords="full stack developer experience, senior MERN developer, React developer work history, Bishal Kumar Shaw experience"
+        canonical="/experience"
+      />
       <div className="pt-20 min-h-screen bg-gradient-to-b from-secondary-50 to-white">
         <section className="section-padding">
           <div className="container-custom">

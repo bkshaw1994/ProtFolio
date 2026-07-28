@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/SEO';
 import { Briefcase, Github } from 'lucide-react';
 import { useGetProjectsQuery } from '../../features/api/apiSlice';
 import ProjectCard from '../../components/ProjectCard';
@@ -34,13 +34,11 @@ const Projects = () => {
   if (isLoading && activeTab === 'portfolio') {
     return (
       <>
-        <Helmet>
-          <title>Projects - Portfolio</title>
-          <meta
-            name="description"
-            content="Browse my portfolio of projects and work"
-          />
-        </Helmet>
+        <SEO
+          title="Projects & Portfolio - Bishal Kumar Shaw"
+          description="Explore web development projects, SaaS applications, and open-source GitHub repositories built by Bishal Kumar Shaw using React, Node.js, and MongoDB."
+          canonical="/projects"
+        />
         <div className="pt-20 min-h-screen bg-gray-50">
           <section className="section-padding">
             <div className="container-custom">
@@ -75,13 +73,12 @@ const Projects = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Projects - Portfolio</title>
-        <meta
-          name="description"
-          content="Browse my portfolio of projects and work"
-        />
-      </Helmet>
+      <SEO
+        title="Projects & Portfolio - Bishal Kumar Shaw | MERN Stack Developer"
+        description="Explore web development projects, SaaS applications, and open-source GitHub repositories built by Bishal Kumar Shaw using React, Node.js, and MongoDB."
+        keywords="MERN stack projects, React portfolio, Node.js projects, full stack web apps, Bishal Kumar Shaw portfolio"
+        canonical="/projects"
+      />
       <div className="pt-20 min-h-screen bg-gray-50">
         <section className="section-padding">
           <div className="container-custom">

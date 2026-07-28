@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/SEO';
 import { useParams } from 'react-router-dom';
 import { useGetProjectByIdQuery } from '../../features/api/apiSlice';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -24,12 +24,16 @@ const ProjectDetail = () => {
     );
   }
 
+  const projectData = project?.data || project;
+
   return (
     <>
-      <Helmet>
-        <title>{project.title} - Project Details</title>
-        <meta name="description" content={project.shortDescription || 'Project details and information'} />
-      </Helmet>
+      <SEO
+        title={`${projectData.title || 'Project'} - Bishal Kumar Shaw Portfolio`}
+        description={projectData.shortDescription || projectData.description || 'Project details and information'}
+        canonical={`/projects/${id}`}
+        ogImage={projectData.image}
+      />
       <div className="pt-20 min-h-screen">
         <section className="section-padding">
           <div className="container-custom">

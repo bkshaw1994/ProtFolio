@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/SEO';
 import { useGetProfileQuery } from '../../features/api/apiSlice';
 import { SkeletonProfile } from '../../components/Skeleton';
 import { getFileUrl } from '../../utils/apiUrl';
@@ -16,13 +16,11 @@ const About = () => {
   if (isLoading) {
     return (
       <>
-        <Helmet>
-          <title>About - Portfolio</title>
-          <meta
-            name="description"
-            content="Learn more about my background and experience"
-          />
-        </Helmet>
+        <SEO
+          title="About Bishal Kumar Shaw"
+          description="Learn more about my background, skills, and experience as a MERN stack developer."
+          canonical="/about"
+        />
         <div className="pt-20 min-h-screen bg-gradient-to-b from-secondary-50 to-white">
           <section className="section-padding">
             <div className="container-custom max-w-5xl mx-auto">
@@ -63,17 +61,12 @@ const About = () => {
 
   return (
     <>
-      <Helmet>
-        <title>About Bishal Kumar Shaw - Freelance MERN Stack Developer</title>
-        <meta
-          name="description"
-          content="Experienced freelance full-stack developer with 9+ years in MERN stack. Available for hire for custom web development, React applications, and Node.js backend solutions. Based in Bangalore, India."
-        />
-        <meta
-          name="keywords"
-          content="about freelance developer, MERN stack developer Bangalore, hire React developer, experienced Node.js developer, full stack developer for hire, web development expert"
-        />
-      </Helmet>
+      <SEO
+        title="About Bishal Kumar Shaw - Freelance MERN Stack Developer"
+        description="Experienced freelance full-stack developer with 9+ years in MERN stack. Available for hire for custom web development, React applications, and Node.js backend solutions. Based in Bangalore, India."
+        keywords="about freelance developer, MERN stack developer Bangalore, hire React developer, experienced Node.js developer, full stack developer for hire, web development expert"
+        canonical="/about"
+      />
       <div className="pt-20 min-h-screen bg-gradient-to-b from-secondary-50 to-white">
         {/* Hero Section */}
         <section className="section-padding">
