@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/SEO';
 import {
   ArrowRight,
   Download,
@@ -54,42 +54,33 @@ const Home = () => {
 
   const isProfileLoading = loadingProfile && !profileData;
 
+  const homeSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: profileData?.name || 'Bishal Kumar Shaw',
+    jobTitle: profileData?.title || 'Senior MERN Stack Developer',
+    description: profileData?.summary || 'Expert freelance full-stack developer with 9+ years of MERN stack experience.',
+    url: 'https://bishal-portfolio-chi.vercel.app',
+    email: profileData?.email || 'b.kumarshaw94@gmail.com',
+    telephone: profileData?.phone || '+91-7903755779'
+  };
+
   return (
     <>
-      <Helmet>
-        <title>
-          {profileData?.name
+      <SEO
+        title={
+          profileData?.name
             ? `${profileData.name} - Freelance MERN Stack Developer | Available for Hire`
-            : 'Freelance Full Stack Developer | MERN Stack Expert for Hire'}
-        </title>
-        <meta
-          name="description"
-          content={
-            profileData?.summary ||
-            'Professional freelance MERN stack developer with 9+ years experience. Available for hire for React, Node.js, MongoDB web development projects. Contact for custom web solutions.'
-          }
-        />
-        <meta
-          name="keywords"
-          content="freelance developer, hire MERN developer, React developer for hire, Node.js freelancer, MongoDB expert, full stack developer available, web developer Bangalore, freelance programmer"
-        />
-        <meta
-          name="keywords"
-          content="full stack developer, MERN stack, React, Node.js, MongoDB, Express"
-        />
-        <meta
-          property="og:title"
-          content={`${profile?.name || 'Portfolio'} - Full Stack Developer`}
-        />
-        <meta
-          property="og:description"
-          content={
-            profile?.summary ||
-            'Professional portfolio showcasing development experience'
-          }
-        />
-        <meta property="og:type" content="website" />
-      </Helmet>
+            : 'Freelance Full Stack Developer | MERN Stack Expert for Hire'
+        }
+        description={
+          profileData?.summary ||
+          'Professional freelance MERN stack developer with 9+ years experience. Available for hire for React, Node.js, MongoDB web development projects. Contact for custom web solutions.'
+        }
+        keywords="freelance developer, hire MERN developer, React developer for hire, Node.js freelancer, MongoDB expert, full stack developer available, web developer Bangalore, freelance programmer"
+        canonical="/"
+        schemaData={homeSchema}
+      />
 
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-secondary-50 pt-20">

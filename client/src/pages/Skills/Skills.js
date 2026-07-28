@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/SEO';
 import { useGetSkillsQuery } from '../../features/api/apiSlice';
 import SkillBadge from '../../components/SkillBadge';
 import { SkeletonSkill } from '../../components/Skeleton';
@@ -19,13 +19,11 @@ const Skills = () => {
   if (isLoading) {
     return (
       <>
-        <Helmet>
-          <title>Skills - Portfolio</title>
-          <meta
-            name="description"
-            content="My technical skills and expertise in various technologies"
-          />
-        </Helmet>
+        <SEO
+          title="Skills & Technologies - Bishal Kumar Shaw"
+          description="Technical skills, languages, frameworks, and tools mastered by Bishal Kumar Shaw: React.js, Node.js, Express, MongoDB, JavaScript, TypeScript, AWS, REST APIs."
+          canonical="/skills"
+        />
         <div className="pt-20">
           <section className="section-padding bg-gradient-to-br from-primary-50 to-secondary-50">
             <div className="container-custom text-center">
@@ -67,13 +65,12 @@ const Skills = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Skills - Portfolio</title>
-        <meta
-          name="description"
-          content="My technical skills and expertise in various technologies"
-        />
-      </Helmet>
+      <SEO
+        title="Skills & Technologies - Bishal Kumar Shaw | MERN Stack Developer"
+        description="Technical skills, languages, frameworks, and tools mastered by Bishal Kumar Shaw: React.js, Node.js, Express, MongoDB, JavaScript, TypeScript, AWS, REST APIs."
+        keywords="MERN stack skills, React developer skills, Node.js expert, MongoDB developer, JavaScript, TypeScript, Web Development"
+        canonical="/skills"
+      />
 
       <div className="pt-20">
         {/* Header */}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/SEO';
 import { ExternalLink, Award } from 'lucide-react';
 import { useGetCertificationsQuery } from '../../features/api/apiSlice';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -19,17 +19,12 @@ const Certifications = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Certifications & Badges - Portfolio</title>
-        <meta
-          name="description"
-          content="Professional certifications and recognized achievements in Six Sigma, process improvement, and quality management."
-        />
-        <meta
-          name="keywords"
-          content="certifications, Six Sigma, AIGPE, professional development, quality management"
-        />
-      </Helmet>
+      <SEO
+        title="Certifications & Badges - Bishal Kumar Shaw"
+        description="Professional certifications and credentials held by Bishal Kumar Shaw in web development, quality management, and technical standards."
+        keywords="certifications, web developer credentials, Bishal Kumar Shaw badges, professional certifications"
+        canonical="/certifications"
+      />
 
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-secondary-50 pt-20">
