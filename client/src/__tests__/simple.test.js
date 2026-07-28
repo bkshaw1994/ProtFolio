@@ -54,11 +54,7 @@ describe('NotFound Page Tests', () => {
 
   it('should handle back button functionality', () => {
     // Mock window.history.back
-    const mockBack = jest.fn();
-    Object.defineProperty(window, 'history', {
-      value: { back: mockBack },
-      writable: true
-    });
+    const mockBack = jest.spyOn(window.history, 'back').mockImplementation(() => {});
 
     render(
       <PageWrapper>
@@ -69,6 +65,7 @@ describe('NotFound Page Tests', () => {
     const backButton = screen.getByRole('button', { name: /go back/i });
     fireEvent.click(backButton);
     expect(mockBack).toHaveBeenCalled();
+    mockBack.mockRestore();
   });
 });
 
@@ -289,11 +286,7 @@ describe('NotFound Page Component Tests', () => {
 
   it('should handle back button functionality', () => {
     // Mock window.history.back
-    const mockBack = jest.fn();
-    Object.defineProperty(window, 'history', {
-      value: { back: mockBack },
-      writable: true
-    });
+    const mockBack = jest.spyOn(window.history, 'back').mockImplementation(() => {});
 
     render(
       <PageWrapper>
@@ -305,5 +298,6 @@ describe('NotFound Page Component Tests', () => {
     fireEvent.click(backButton);
 
     expect(mockBack).toHaveBeenCalled();
+    mockBack.mockRestore();
   });
 });

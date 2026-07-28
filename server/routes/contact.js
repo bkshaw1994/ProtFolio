@@ -7,6 +7,7 @@ const {
   updateContact,
   getContactStats
 } = require('../controllers/contactController');
+const { requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -122,27 +123,24 @@ router.post('/', contactRateLimit, contactValidation, submitContactForm);
 // @route   GET /api/contact
 // @desc    Get all contact messages (admin only)
 // @access  Private (Admin)
-// Note: Add authentication middleware here when implementing admin panel
-router.get('/', getAllContacts);
+router.get('/', requireAuth, getAllContacts);
 
 // @route   GET /api/contact/stats
 // @desc    Get contact statistics (admin only)
 // @access  Private (Admin)
-// Note: Add authentication middleware here when implementing admin panel
-router.get('/stats', getContactStats);
+router.get('/stats', requireAuth, getContactStats);
 
 // @route   GET /api/contact/:id
 // @desc    Get contact by ID (admin only)
 // @access  Private (Admin)
-// Note: Add authentication middleware here when implementing admin panel
-router.get('/:id', getContactById);
+router.get('/:id', requireAuth, getContactById);
 
 // @route   PUT /api/contact/:id
 // @desc    Update contact status/notes (admin only)
 // @access  Private (Admin)
-// Note: Add authentication middleware here when implementing admin panel
 router.put(
   '/:id',
+  requireAuth,
   [
     body('status')
       .optional()
