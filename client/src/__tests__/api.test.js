@@ -27,11 +27,7 @@ const mockToast = {
   success: jest.fn(),
   error: jest.fn()
 };
-jest.mock('react-hot-toast', () => ({
-  __esModule: true,
-  default: mockToast,
-  ...mockToast
-}));
+jest.mock('react-hot-toast', () => ({ default: mockToast }));
 
 // Mock localStorage
 Object.defineProperty(window, 'localStorage', {
@@ -46,7 +42,6 @@ Object.defineProperty(window, 'localStorage', {
 describe('API Services', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockAxios.create.mockReturnValue(mockApiInstance);
     mockApiInstance.get.mockResolvedValue({ data: { success: true } });
     mockApiInstance.post.mockResolvedValue({ data: { success: true } });
     mockApiInstance.put.mockResolvedValue({ data: { success: true } });
@@ -64,7 +59,7 @@ describe('API Services', () => {
       const result = await profileAPI.getProfile();
 
       expect(mockApiInstance.get).toHaveBeenCalledWith('/profile');
-      expect(result).toEqual(mockResponse);
+      expect(result).toEqual(mockResponse.data);
     });
 
     it('should make PUT request to update profile', async () => {
@@ -77,7 +72,7 @@ describe('API Services', () => {
       const result = await profileAPI.updateProfile(mockData);
 
       expect(mockApiInstance.put).toHaveBeenCalledWith('/profile', mockData);
-      expect(result).toEqual(mockResponse);
+      expect(result).toEqual(mockResponse.data);
     });
   });
 
@@ -93,7 +88,7 @@ describe('API Services', () => {
       expect(mockApiInstance.get).toHaveBeenCalledWith('/projects', {
         params: {}
       });
-      expect(result).toEqual(mockResponse);
+      expect(result).toEqual(mockResponse.data);
     });
 
     it('should make POST request to create project', async () => {
@@ -109,7 +104,7 @@ describe('API Services', () => {
         '/projects',
         projectData
       );
-      expect(result).toEqual(mockResponse);
+      expect(result).toEqual(mockResponse.data);
     });
   });
 
@@ -125,7 +120,7 @@ describe('API Services', () => {
       expect(mockApiInstance.get).toHaveBeenCalledWith('/skills', {
         params: {}
       });
-      expect(result).toEqual(mockResponse);
+      expect(result).toEqual(mockResponse.data);
     });
   });
 
@@ -139,7 +134,7 @@ describe('API Services', () => {
       const result = await experienceAPI.getAllExperience();
 
       expect(mockApiInstance.get).toHaveBeenCalledWith('/experience');
-      expect(result).toEqual(mockResponse);
+      expect(result).toEqual(mockResponse.data);
     });
   });
 
@@ -158,7 +153,7 @@ describe('API Services', () => {
       const result = await contactAPI.submitContactForm(formData);
 
       expect(mockApiInstance.post).toHaveBeenCalledWith('/contact', formData);
-      expect(result).toEqual(mockResponse);
+      expect(result).toEqual(mockResponse.data);
     });
   });
 
@@ -172,7 +167,7 @@ describe('API Services', () => {
       const result = await adminAPI.getDashboardStats();
 
       expect(mockApiInstance.get).toHaveBeenCalledWith('/admin/dashboard');
-      expect(result).toEqual(mockResponse);
+      expect(result).toEqual(mockResponse.data);
     });
   });
 
@@ -183,7 +178,9 @@ describe('API Services', () => {
       const error = new Error('Network Error');
       handleApiError(error);
 
-      expect(mockToast.error).toHaveBeenCalledWith('An error occurred');
+      expect(mockToast.error).toHaveBeenCalledWith(
+        'An error occurred. Please try again.'
+      );
     });
 
     it('should handle API success with message', () => {

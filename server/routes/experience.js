@@ -1,6 +1,5 @@
 const express = require('express');
 const Experience = require('../models/Experience');
-const { requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -53,7 +52,7 @@ const getCurrentExperience = async (req, res) => {
 
 // @route   POST /api/experience
 // @desc    Add new work experience
-// @access  Private (Admin)
+// @access  Public
 const addExperience = async (req, res) => {
   try {
     const {
@@ -97,6 +96,6 @@ const addExperience = async (req, res) => {
 
 router.get('/', getAllExperience);
 router.get('/current', getCurrentExperience);
-router.post('/', requireAuth, addExperience);
+router.post('/', addExperience);
 
 module.exports = router;

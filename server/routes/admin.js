@@ -1,10 +1,5 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const rateLimit = require('express-rate-limit');
 const router = express.Router();
-
-const { requireAuth } = require('../middleware/auth');
 
 // Import all models for admin operations
 const Profile = require('../models/Profile');
@@ -12,62 +7,6 @@ const Project = require('../models/Project');
 const Skill = require('../models/Skill');
 const Experience = require('../models/Experience');
 const Contact = require('../models/Contact');
-
-// Stricter rate limit for the login endpoint to slow credential-stuffing.
-const loginRateLimit = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 10,
-  message: {
-    success: false,
-    message: 'Too many login attempts. Please try again later.'
-  },
-  standardHeaders: true,
-  legacyHeaders: false
-});
-
-// @route   POST /api/admin/login
-// @desc    Authenticate admin and issue a JWT
-// @access  Public
-const login = async (req, res) => {
-  const { username, password } = req.body || {};
-
-  const secret = process.env.JWT_SECRET;
-  const expectedUsername = process.env.ADMIN_USERNAME;
-  const passwordHash = process.env.ADMIN_PASSWORD_HASH;
-
-  if (!secret || !expectedUsername || !passwordHash) {
-    console.error(
-      'Admin auth is not configured (JWT_SECRET, ADMIN_USERNAME, ADMIN_PASSWORD_HASH required).'
-    );
-    return res.status(500).json({
-      success: false,
-      message: 'Admin authentication is not configured.'
-    });
-  }
-
-  if (!username || !password) {
-    return res.status(400).json({
-      success: false,
-      message: 'Username and password are required.'
-    });
-  }
-
-  const usernameMatches = username === expectedUsername;
-  const passwordMatches = await bcrypt.compare(password, passwordHash);
-
-  if (!usernameMatches || !passwordMatches) {
-    return res.status(401).json({
-      success: false,
-      message: 'Invalid credentials.'
-    });
-  }
-
-  const token = jwt.sign({ sub: username, role: 'admin' }, secret, {
-    expiresIn: '2h'
-  });
-
-  return res.json({ success: true, token, expiresIn: 7200 });
-};
 
 // @route   GET /api/admin/dashboard
 // @desc    Get dashboard statistics
@@ -177,8 +116,7 @@ const getBackupData = async (req, res) => {
   }
 };
 
-router.post('/login', loginRateLimit, login);
-router.get('/dashboard', requireAuth, getDashboardStats);
-router.get('/backup', requireAuth, getBackupData);
+router.get('/dashboard', getDashboardStats);
+router.get('/backup', getBackupData);
 
 module.exports = router;

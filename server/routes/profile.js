@@ -14,7 +14,6 @@ const {
   uploadProfileImage: uploadImageMiddleware,
   uploadResume: uploadResumeMiddleware
 } = require('../middleware/upload');
-const { requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -82,27 +81,29 @@ router.get('/summary', getProfileSummary);
 // @route   POST /api/profile
 // @desc    Create or update profile
 // @access  Private (Admin)
-router.post('/', requireAuth, profileValidation, createOrUpdateProfile);
+// Note: Add authentication middleware here when implementing admin panel
+router.post('/', profileValidation, createOrUpdateProfile);
 
 // @route   PUT /api/profile
 // @desc    Update profile
 // @access  Private (Admin)
-router.put('/', requireAuth, profileValidation, createOrUpdateProfile);
+// Note: Add authentication middleware here when implementing admin panel
+router.put('/', profileValidation, createOrUpdateProfile);
 
 // @route   POST /api/profile/upload/image
 // @desc    Upload profile image
 // @access  Private (Admin)
-router.post('/upload/image', requireAuth, uploadImageMiddleware, uploadProfileImage);
+router.post('/upload/image', uploadImageMiddleware, uploadProfileImage);
 
 // @route   POST /api/profile/upload/resume
 // @desc    Upload resume
 // @access  Private (Admin)
-router.post('/upload/resume', requireAuth, uploadResumeMiddleware, uploadResume);
+router.post('/upload/resume', uploadResumeMiddleware, uploadResume);
 
 // @route   DELETE /api/profile/file/:type
 // @desc    Delete uploaded file (image or resume)
 // @access  Private (Admin)
-router.delete('/file/:type', requireAuth, deleteFile);
+router.delete('/file/:type', deleteFile);
 
 // @route   GET /api/profile/image
 // @desc    Get profile image from MongoDB

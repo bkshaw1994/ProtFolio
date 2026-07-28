@@ -189,7 +189,7 @@ export const AppProvider = ({ children }) => {
       const response = await profileAPI.getProfile();
       dispatch({
         type: actionTypes.SET_PROFILE,
-        payload: response.data?.data !== undefined ? response.data.data : response.data
+        payload: response.data.data
       });
     } catch (error) {
       setError(
@@ -205,7 +205,7 @@ export const AppProvider = ({ children }) => {
       const response = await projectsAPI.getAllProjects(params);
       dispatch({
         type: actionTypes.SET_PROJECTS,
-        payload: response.data?.data !== undefined ? response.data.data : response.data
+        payload: response.data
       });
     } catch (error) {
       setError(
@@ -220,7 +220,7 @@ export const AppProvider = ({ children }) => {
       const response = await projectsAPI.getFeaturedProjects();
       dispatch({
         type: actionTypes.SET_FEATURED_PROJECTS,
-        payload: response.data?.data !== undefined ? response.data.data : response.data
+        payload: response.data.data
       });
     } catch (error) {
       console.error('Failed to fetch featured projects:', error);
@@ -233,7 +233,7 @@ export const AppProvider = ({ children }) => {
       const response = await skillsAPI.getAllSkills(params);
       dispatch({
         type: actionTypes.SET_SKILLS,
-        payload: response.data?.data !== undefined ? response.data.data : response.data
+        payload: response.data.data
       });
     } catch (error) {
       setError(
@@ -248,7 +248,7 @@ export const AppProvider = ({ children }) => {
       const response = await skillsAPI.getCoreSkills();
       dispatch({
         type: actionTypes.SET_CORE_SKILLS,
-        payload: response.data?.data !== undefined ? response.data.data : response.data
+        payload: response.data.data
       });
     } catch (error) {
       console.error('Failed to fetch core skills:', error);
@@ -261,7 +261,7 @@ export const AppProvider = ({ children }) => {
       const response = await experienceAPI.getAllExperience();
       dispatch({
         type: actionTypes.SET_EXPERIENCE,
-        payload: response.data?.data !== undefined ? response.data.data : response.data
+        payload: response.data.data
       });
     } catch (error) {
       setError(

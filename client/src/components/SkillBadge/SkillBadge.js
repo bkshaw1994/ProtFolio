@@ -1,8 +1,6 @@
 import React from 'react';
 
 const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
-  if (!skill) return null;
-
   const sizeClasses = {
     sm: 'p-3',
     md: 'p-4',
@@ -29,7 +27,7 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
 
   // Default icon based on skill name if no icon provided
   const getDefaultIcon = (skillName) => {
-    const name = (skillName || '').toLowerCase();
+    const name = skillName.toLowerCase();
 
     // You can extend this mapping or use actual icon URLs
     const iconMap = {
@@ -101,14 +99,12 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
       </h3>
 
       {/* Proficiency Level */}
-      {showProficiency && (skill.proficiency || skill.level) && (
+      {showProficiency && skill.proficiency && (
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-secondary-600">
-              {skill.level || 'Proficiency'}
-            </span>
+            <span className="text-secondary-600">Proficiency</span>
             <span
-              className={`font-semibold ${proficiencyColor(skill.proficiency || 0)}`}
+              className={`font-semibold ${proficiencyColor(skill.proficiency)}`}
             >
               {skill.proficiency}%
             </span>

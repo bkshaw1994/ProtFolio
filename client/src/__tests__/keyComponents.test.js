@@ -84,7 +84,11 @@ describe('Component Tests', () => {
 
     it('handles back button click', () => {
       // Mock window.history.back
-      const mockBack = jest.spyOn(window.history, 'back').mockImplementation(() => {});
+      const mockBack = jest.fn();
+      Object.defineProperty(window, 'history', {
+        value: { back: mockBack },
+        writable: true
+      });
 
       render(
         <TestWrapper>
@@ -96,7 +100,6 @@ describe('Component Tests', () => {
       fireEvent.click(backButton);
 
       expect(mockBack).toHaveBeenCalled();
-      mockBack.mockRestore();
     });
   });
 

@@ -1,7 +1,6 @@
 const Contact = require('../models/Contact');
 const { validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
-const { escapeHtml } = require('../utils/escapeHtml');
 
 // Email configuration
 const createTransporter = () => {
@@ -80,37 +79,23 @@ const submitContactForm = async (req, res) => {
 
       console.log('Attempting to send emails...');
 
-      const safeName = escapeHtml(name);
-      const safeEmail = escapeHtml(email);
-      const safePhone = escapeHtml(phone) || 'Not provided';
-      const safeCompany = escapeHtml(company) || 'Not provided';
-      const safeProjectType = escapeHtml(projectType);
-      const safeTimeline = escapeHtml(timeline);
-      const safeSubject = escapeHtml(subject);
-      const safeBudget =
-        budget && currency
-          ? `${escapeHtml(currency)} ${escapeHtml(Number(budget).toLocaleString())}`
-          : 'Not provided';
-      const safeMessageBlock = escapeHtml(message).replace(/\n/g, '<br>');
-
       // Email to admin
       await transporter.sendMail({
         from: emailUser,
         to: emailUser,
-        replyTo: email,
-        subject: `New Contact Form Submission: ${safeSubject}`,
+        subject: `New Contact Form Submission: ${subject}`,
         html: `
           <h2>New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${safeName}</p>
-          <p><strong>Email:</strong> ${safeEmail}</p>
-          <p><strong>Phone:</strong> ${safePhone}</p>
-          <p><strong>Company:</strong> ${safeCompany}</p>
-          <p><strong>Project Type:</strong> ${safeProjectType}</p>
-          <p><strong>Budget:</strong> ${safeBudget}</p>
-          <p><strong>Timeline:</strong> ${safeTimeline}</p>
-          <p><strong>Subject:</strong> ${safeSubject}</p>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+          <p><strong>Company:</strong> ${company || 'Not provided'}</p>
+          <p><strong>Project Type:</strong> ${projectType}</p>
+          <p><strong>Budget:</strong> ${budget && currency ? `${currency} ${budget.toLocaleString()}` : 'Not provided'}</p>
+          <p><strong>Timeline:</strong> ${timeline}</p>
+          <p><strong>Subject:</strong> ${subject}</p>
           <p><strong>Message:</strong></p>
-          <p>${safeMessageBlock}</p>
+          <p>${message.replace(/\n/g, '<br>')}</p>
           <hr>
           <p><small>Submitted at: ${new Date().toLocaleString()}</small></p>
         `
@@ -122,12 +107,12 @@ const submitContactForm = async (req, res) => {
         to: email,
         subject: 'Thank you for contacting me!',
         html: `
-          <h2>Thank you for reaching out, ${safeName}!</h2>
+          <h2>Thank you for reaching out, ${name}!</h2>
           <p>I've received your message and will get back to you within 24-48 hours.</p>
           <p>Here's a copy of your message:</p>
           <blockquote>
-            <p><strong>Subject:</strong> ${safeSubject}</p>
-            <p><strong>Message:</strong> ${safeMessageBlock}</p>
+            <p><strong>Subject:</strong> ${subject}</p>
+            <p><strong>Message:</strong> ${message}</p>
           </blockquote>
           <p>Best regards,<br>Your Name</p>
         `

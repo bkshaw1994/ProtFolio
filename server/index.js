@@ -19,105 +19,8 @@ const adminRoutes = require('./routes/admin');
 const githubRoutes = require('./routes/github');
 const visitorRoutes = require('./routes/visitor');
 
-// Trust proxy for rate limiting and IP detection
+// Security middleware
 app.set('trust proxy', 1);
-
-// CORS configuration - MUST be mounted first before helmet or rate limiting
-const allowedClientOrigins = (process.env.CLIENT_URLS || '')
-  .split(',')
-  .concat(process.env.CLIENT_URL || [])
-  .map((value) => value.trim())
-  .filter(Boolean);
-
-const isWildcardAllowed =
-  process.env.CLIENT_URL === '*' ||
-  allowedClientOrigins.includes('*');
-
-const trustedClientOrigins = allowedClientOrigins.filter((v) => v !== '*');
-
-// Only permit permissive localhost origins outside of production.
-const isDevelopment = process.env.NODE_ENV !== 'production';
-const localDevHostnames = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
-
-// Optional exact-match suffix allowlist explicitly specified via env var (e.g. "my-org.com").
-const allowedOriginSuffixes = (process.env.ALLOWED_ORIGIN_SUFFIXES || '')
-  .split(',')
-  .map((value) => value.trim())
-  .filter(Boolean);
-
-const isTrustedOrigin = (origin) => {
-  if (!origin) return false;
-
-  let hostname;
-  try {
-    hostname = new URL(origin).hostname;
-  } catch {
-    return false;
-  }
-
-  if (isDevelopment && localDevHostnames.has(hostname)) {
-    return true;
-  }
-
-  const cleanOrigin = origin.replace(/\/$/, '').toLowerCase();
-
-  const isMatch = trustedClientOrigins.some((allowed) => {
-    let cleanAllowed = allowed.replace(/\/$/, '').toLowerCase();
-    if (!cleanAllowed.startsWith('http://') && !cleanAllowed.startsWith('https://')) {
-      cleanAllowed = `https://${cleanAllowed}`;
-    }
-    return cleanAllowed === cleanOrigin;
-  });
-
-  if (isMatch) return true;
-
-  return (
-    allowedOriginSuffixes.length > 0 &&
-    allowedOriginSuffixes.some(
-      (suffix) => hostname === suffix || hostname.endsWith(`.${suffix}`)
-    )
-  );
-};
-
-const corsOptionsDelegate = (req, callback) => {
-  const origin = req.headers.origin;
-
-  // Requests with no origin (e.g. mobile apps, cURL, server-to-server)
-  if (!origin) {
-    return callback(null, { origin: true });
-  }
-
-  // Explicitly trusted origin -> allow origin and enable credentials
-  if (isTrustedOrigin(origin)) {
-    return callback(null, {
-      origin: origin,
-      credentials: true,
-      optionsSuccessStatus: 200
-    });
-  }
-
-  // Wildcard mode -> allow wildcard origin but strictly DISABLE credentials
-  if (isWildcardAllowed) {
-    return callback(null, {
-      origin: '*',
-      credentials: false,
-      optionsSuccessStatus: 200
-    });
-  }
-
-  // Reject unallowed origins
-  return callback(null, {
-    origin: false,
-    credentials: false,
-    optionsSuccessStatus: 200
-  });
-};
-
-// Mount CORS middleware as the very first handler
-app.use(cors(corsOptionsDelegate));
-app.options('*', cors(corsOptionsDelegate));
-
-// Security middleware (Helmet)
 app.use(
   helmet({
     crossOriginResourcePolicy: { policy: 'cross-origin' }
@@ -132,6 +35,47 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
+// Middleware
+const allowedClientOrigins = (process.env.CLIENT_URLS || '')
+  .split(',')
+  .map((value) => value.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or Postman)
+      if (!origin) return callback(null, true);
+
+      // Allow localhost for development
+      if (origin.includes('localhost')) {
+        return callback(null, true);
+      }
+
+      // Allow 127.0.0.1 and common local dev hosts
+      if (origin.includes('127.0.0.1') || origin.includes('0.0.0.0')) {
+        return callback(null, true);
+      }
+
+      // Allow any Vercel deployment
+      if (origin.endsWith('.vercel.app')) {
+        return callback(null, true);
+      }
+
+      // Allow specific client URL(s) from env
+      if (process.env.CLIENT_URL && origin === process.env.CLIENT_URL) {
+        return callback(null, true);
+      }
+
+      if (allowedClientOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true
+  })
+);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -220,7 +164,8 @@ app.get('/api/test-db', async (req, res) => {
     res.status(503).json({
       success: false,
       message: 'MongoDB connection failed',
-      ...(process.env.NODE_ENV === 'development' && { error: error.message }),
+      error: error.message,
+      hasMongoUri: !!process.env.MONGODB_URI,
       readyState: mongoose.connection.readyState
     });
   }
