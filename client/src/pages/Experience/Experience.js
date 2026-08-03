@@ -1,5 +1,18 @@
 import { Helmet } from 'react-helmet-async';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Calendar,
+  MapPin,
+  Briefcase,
+  Users,
+  X,
+  ChevronRight,
+  CheckCircle2,
+  Sparkles,
+  Building2,
+  Clock
+} from 'lucide-react';
 import { useGetExperienceQuery } from '../../features/api/apiSlice';
 import { SkeletonExperience } from '../../components/Skeleton';
 
@@ -16,6 +29,19 @@ const Experience = () => {
 
   const [selectedExperience, setSelectedExperience] = useState(null);
 
+  // Lock background scroll when modal is active
+  useEffect(() => {
+    if (selectedExperience) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedExperience]);
+
   // Sort experiences by start date (newest first)
   const sortedExperience = [...experience].sort(
     (a, b) => new Date(b.startDate) - new Date(a.startDate)
@@ -31,12 +57,12 @@ const Experience = () => {
             content="My work experience and career journey"
           />
         </Helmet>
-        <div className="pt-20 min-h-screen bg-gradient-to-b from-secondary-50 to-white">
+        <div className="pt-28 sm:pt-36 min-h-screen bg-slate-50/50">
           <section className="section-padding">
             <div className="container-custom">
               <div className="text-center mb-12">
-                <div className="h-12 bg-gray-200 rounded w-64 mx-auto mb-4 animate-pulse"></div>
-                <div className="h-6 bg-gray-200 rounded w-96 mx-auto animate-pulse"></div>
+                <div className="h-12 bg-slate-200 rounded-xl w-64 mx-auto mb-4 animate-pulse"></div>
+                <div className="h-6 bg-slate-200 rounded-xl w-96 mx-auto animate-pulse"></div>
               </div>
               <div className="max-w-4xl mx-auto space-y-8">
                 {Array.from({ length: 4 }).map((_, index) => (
@@ -52,9 +78,9 @@ const Experience = () => {
 
   if (isError) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-20">
-        <div className="text-center">
-          <div className="text-red-500 mb-4">Error loading experience</div>
+      <div className="min-h-screen flex items-center justify-center pt-28 sm:pt-36">
+        <div className="text-center bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
+          <div className="text-rose-500 font-semibold mb-4 text-lg">Failed to load experience details</div>
           <button onClick={() => refetch()} className="btn-primary">
             Try Again
           </button>
@@ -96,144 +122,124 @@ const Experience = () => {
           content="My work experience and career journey"
         />
       </Helmet>
-      <div className="pt-20 min-h-screen bg-gradient-to-b from-secondary-50 to-white">
-        <section className="section-padding">
+      <div className="pt-28 sm:pt-36 min-h-screen bg-slate-50/50 bg-grid-pattern pb-20">
+        <section className="section-padding py-12">
           <div className="container-custom">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold text-secondary-900 mb-4">
+            <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
+              <div className="inline-flex items-center space-x-2 bg-primary-100/80 text-primary-800 border border-primary-200/60 px-4 py-2 rounded-full mb-4 shadow-sm">
+                <Briefcase size={16} />
+                <span className="text-xs font-bold uppercase tracking-wider">Career Journey</span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
                 Work Experience
               </h1>
-              <p className="text-lg text-secondary-600 max-w-2xl mx-auto">
-                My professional journey showcasing {experience.length}+ roles
-                across various organizations
+              <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
+                My professional career trajectory showcasing {experience.length}+ roles across tech organizations, client projects, and engineering teams.
               </p>
             </div>
 
             {experience.length === 0 ? (
-              <p className="text-lg text-secondary-600 text-center">
+              <p className="text-lg text-slate-600 text-center">
                 No experience data available.
               </p>
             ) : (
               <div className="max-w-4xl mx-auto">
                 {/* Timeline */}
                 <div className="relative">
-                  {/* Timeline line */}
-                  <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 via-primary-400 to-primary-300"></div>
+                  {/* Timeline gradient bar */}
+                  <div className="absolute left-8 md:left-1/2 top-4 bottom-4 w-1 bg-gradient-to-b from-primary-500 via-indigo-500 to-sky-400 rounded-full transform -translate-x-1/2"></div>
 
                   {sortedExperience.map((exp, index) => (
-                    <div key={exp._id} className="relative mb-8 last:mb-0">
-                      {/* Timeline dot */}
+                    <div key={exp._id} className="relative mb-12 last:mb-0">
+                      {/* Timeline dot node */}
                       <div
-                        className={`absolute left-8 md:left-1/2 w-4 h-4 rounded-full border-4 border-white shadow-md transform -translate-x-1/2 z-10 ${
+                        className={`absolute left-8 md:left-1/2 w-6 h-6 rounded-full border-4 border-white shadow-lg transform -translate-x-1/2 z-10 flex items-center justify-center ${
                           exp.isCurrent
-                            ? 'bg-primary-600 animate-pulse'
-                            : 'bg-primary-500'
+                            ? 'bg-emerald-500 ring-4 ring-emerald-500/20'
+                            : 'bg-primary-600 ring-2 ring-primary-500/20'
                         }`}
                       >
                         {exp.isCurrent && (
-                          <span className="absolute inset-0 rounded-full bg-primary-600 animate-ping"></span>
+                          <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-75"></span>
                         )}
                       </div>
 
-                      {/* Mini Card */}
+                      {/* Timeline Mini Card */}
                       <div
-                        className={`ml-20 md:ml-0 md:w-[calc(50%-3rem)] ${
+                        className={`ml-20 md:ml-0 md:w-[calc(50%-2.5rem)] ${
                           index % 2 === 0
-                            ? 'md:mr-auto md:pr-12'
-                            : 'md:ml-auto md:pl-12'
+                            ? 'md:mr-auto'
+                            : 'md:ml-auto'
                         }`}
                       >
-                        <button
+                        <motion.button
+                          whileHover={{ scale: 1.02, y: -4 }}
+                          whileTap={{ scale: 0.98 }}
                           onClick={() => setSelectedExperience(exp)}
-                          className="w-full card p-4 hover:shadow-xl transition-all duration-300 group cursor-pointer text-left hover:scale-105 transform"
+                          className="w-full glass-card p-6 border border-slate-200/80 hover:border-primary-500/40 hover:shadow-2xl hover:shadow-primary-500/15 transition-all duration-300 group text-left cursor-pointer relative overflow-hidden"
                         >
-                          {/* Mini card content */}
-                          <div className="flex items-start justify-between mb-2">
-                            <div className="flex-1">
-                              <h3 className="text-lg font-bold text-secondary-900 group-hover:text-primary-600 transition-colors">
+                          {/* Mini card header */}
+                          <div className="flex items-start justify-between gap-3 mb-3">
+                            <div>
+                              <div className="flex items-center space-x-2 text-primary-600 text-xs font-bold uppercase tracking-wider mb-1">
+                                <Building2 size={13} />
+                                <span>{exp.company}</span>
+                              </div>
+                              <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary-600 transition-colors leading-snug">
                                 {exp.position}
                               </h3>
-                              <p className="text-primary-600 font-semibold">
-                                {exp.company}
-                              </p>
                             </div>
                             {exp.isCurrent && (
-                              <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                              <span className="px-2.5 py-1 bg-emerald-100/90 text-emerald-800 border border-emerald-200/60 text-[11px] font-extrabold uppercase tracking-wider rounded-full flex-shrink-0">
                                 Current
                               </span>
                             )}
                           </div>
 
-                          <div className="flex items-center gap-2 text-sm text-secondary-600 mb-2">
-                            <svg
-                              className="w-4 h-4"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              />
-                            </svg>
-                            <span>
-                              {formatDate(exp.startDate)} -{' '}
-                              {formatDate(exp.endDate)}
-                            </span>
-                            <span className="text-secondary-400">•</span>
-                            <span className="font-medium text-primary-600">
-                              {calculateDuration(exp.startDate, exp.endDate)}
-                            </span>
+                          <div className="flex flex-wrap items-center gap-3 text-xs font-medium text-slate-500 mb-3">
+                            <div className="flex items-center gap-1.5 bg-slate-100/80 px-2.5 py-1 rounded-md">
+                              <Calendar size={13} className="text-slate-600" />
+                              <span>
+                                {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1 text-primary-600 font-semibold bg-primary-50 px-2.5 py-1 rounded-md">
+                              <Clock size={13} />
+                              <span>{calculateDuration(exp.startDate, exp.endDate)}</span>
+                            </div>
                           </div>
 
-                          <div className="flex items-center gap-1 text-sm text-secondary-500 mb-3">
-                            <svg
-                              className="w-4 h-4"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                              />
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                              />
-                            </svg>
-                            <span>{exp.location}</span>
-                          </div>
+                          {exp.location && (
+                            <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-4 font-medium">
+                              <MapPin size={13} className="text-slate-400" />
+                              <span>{exp.location}</span>
+                            </div>
+                          )}
 
-                          <div className="flex items-center justify-between">
-                            <div className="flex flex-wrap gap-1">
-                              {exp.technologies
-                                ?.slice(0, 3)
-                                .map((tech, idx) => (
-                                  <span
-                                    key={idx}
-                                    className="px-2 py-0.5 bg-primary-50 text-primary-700 text-xs font-medium rounded-full"
-                                  >
-                                    {tech}
-                                  </span>
-                                ))}
+                          {/* Tech pills & Action CTA */}
+                          <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                            <div className="flex flex-wrap gap-1.5">
+                              {exp.technologies?.slice(0, 3).map((tech, idx) => (
+                                <span
+                                  key={idx}
+                                  className="px-2 py-0.5 bg-slate-100 text-slate-700 text-[11px] font-medium rounded-md border border-slate-200/50"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
                               {exp.technologies?.length > 3 && (
-                                <span className="px-2 py-0.5 bg-secondary-100 text-secondary-600 text-xs font-medium rounded-full">
+                                <span className="px-2 py-0.5 bg-primary-50 text-primary-700 text-[11px] font-bold rounded-md">
                                   +{exp.technologies.length - 3}
                                 </span>
                               )}
                             </div>
-                            <span className="text-primary-600 text-sm font-medium group-hover:translate-x-1 transition-transform">
-                              View →
+
+                            <span className="text-xs font-bold uppercase tracking-wider text-primary-600 flex items-center group-hover:translate-x-1 transition-transform">
+                              Details
+                              <ChevronRight size={14} className="ml-0.5" />
                             </span>
                           </div>
-                        </button>
+                        </motion.button>
                       </div>
                     </div>
                   ))}
@@ -243,248 +249,208 @@ const Experience = () => {
           </div>
         </section>
 
-        {/* Modal/Popup for full details */}
-        {selectedExperience && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedExperience(null)}
-          >
-            <div
-              className="bg-white rounded-lg shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
+        {/* Modal / Popup with Rich Framing */}
+        <AnimatePresence>
+          {selectedExperience && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-slate-950/70 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+              onClick={() => setSelectedExperience(null)}
             >
-              {/* Modal header */}
-              <div className="sticky top-0 bg-white border-b border-secondary-200 p-6 flex items-start justify-between">
-                <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-secondary-900 mb-1">
-                    {selectedExperience.position}
-                  </h2>
-                  <p className="text-xl text-primary-600 font-semibold">
-                    {selectedExperience.company}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setSelectedExperience(null)}
-                  className="ml-4 p-2 hover:bg-secondary-100 rounded-full transition-colors"
-                  aria-label="Close"
-                >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ type: 'spring', duration: 0.4, bounce: 0.2 }}
+                className="bg-white rounded-3xl shadow-2xl max-w-3xl w-full max-h-[88vh] flex flex-col overflow-hidden relative my-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Modal Banner Header */}
+                <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white p-6 sm:p-8 relative">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="space-y-1 pr-6">
+                      <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-primary-400">
+                        <Building2 size={14} />
+                        <span>{selectedExperience.company}</span>
+                      </div>
+                      <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
+                        {selectedExperience.position}
+                      </h2>
+                    </div>
 
-              {/* Modal content */}
-              <div className="p-6">
-                {/* Date and duration */}
-                <div className="flex flex-wrap items-center gap-3 text-sm text-secondary-600 mb-4">
-                  <div className="flex items-center gap-1">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                    <button
+                      onClick={() => setSelectedExperience(null)}
+                      className="p-2.5 bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white rounded-full transition-all flex-shrink-0"
+                      aria-label="Close modal"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                    <span>
-                      {formatDate(selectedExperience.startDate)} -{' '}
-                      {formatDate(selectedExperience.endDate)}
-                    </span>
+                      <X size={20} />
+                    </button>
                   </div>
-                  <span className="text-secondary-400">•</span>
-                  <span className="font-medium text-primary-600">
-                    {calculateDuration(
-                      selectedExperience.startDate,
-                      selectedExperience.endDate
-                    )}
-                  </span>
-                  {selectedExperience.isCurrent && (
-                    <>
-                      <span className="text-secondary-400">•</span>
-                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+
+                  {/* Header Meta Pills */}
+                  <div className="flex flex-wrap items-center gap-2 mt-4 pt-2 border-t border-white/10 text-xs font-medium text-slate-300">
+                    <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full">
+                      <Calendar size={13} className="text-primary-400" />
+                      <span>
+                        {formatDate(selectedExperience.startDate)} - {formatDate(selectedExperience.endDate)}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-primary-300 font-semibold">
+                      <Clock size={13} />
+                      <span>{calculateDuration(selectedExperience.startDate, selectedExperience.endDate)}</span>
+                    </div>
+
+                    {selectedExperience.isCurrent && (
+                      <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold uppercase tracking-wider rounded-full">
                         Current Role
                       </span>
-                    </>
-                  )}
-                </div>
-
-                {/* Location and work mode */}
-                <div className="flex flex-wrap items-center gap-2 text-sm text-secondary-500 mb-4 pb-4 border-b border-secondary-200">
-                  <div className="flex items-center gap-1">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                    <span>{selectedExperience.location}</span>
+                    )}
                   </div>
-                  {selectedExperience.workMode && (
-                    <>
-                      <span className="text-secondary-400">•</span>
-                      <span className="capitalize">
-                        {selectedExperience.workMode}
-                      </span>
-                    </>
-                  )}
-                  {selectedExperience.employmentType && (
-                    <>
-                      <span className="text-secondary-400">•</span>
-                      <span className="capitalize">
-                        {selectedExperience.employmentType}
-                      </span>
-                    </>
-                  )}
-                  {selectedExperience.teamSize && (
-                    <>
-                      <span className="text-secondary-400">•</span>
-                      <span>Team size: {selectedExperience.teamSize}</span>
-                    </>
-                  )}
                 </div>
 
-                {/* Description */}
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-secondary-900 mb-2">
-                    About the Role
-                  </h3>
-                  <p className="text-secondary-700">
-                    {selectedExperience.description}
-                  </p>
-                </div>
+                {/* Modal Body Content */}
+                <div className="p-6 sm:p-8 space-y-6 overflow-y-auto custom-scrollbar flex-grow bg-slate-50/40">
+                  {/* Meta Chips */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {selectedExperience.location && (
+                      <div className="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-sm">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
+                          <MapPin size={12} /> Location
+                        </div>
+                        <div className="text-xs font-semibold text-slate-800 truncate">{selectedExperience.location}</div>
+                      </div>
+                    )}
 
-                {/* Responsibilities */}
-                {selectedExperience.responsibilities &&
-                  selectedExperience.responsibilities.length > 0 && (
-                  <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-secondary-900 mb-3">
-                        Key Responsibilities
-                    </h3>
-                    <ul className="space-y-2">
-                      {selectedExperience.responsibilities.map(
-                        (resp, idx) => (
-                          <li
-                            key={idx}
-                            className="text-secondary-600 flex items-start gap-3"
-                          >
-                            <span className="text-primary-500 mt-1 text-lg">
-                                ▹
-                            </span>
+                    {selectedExperience.workMode && (
+                      <div className="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-sm">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
+                          <Briefcase size={12} /> Work Mode
+                        </div>
+                        <div className="text-xs font-semibold text-slate-800 capitalize">{selectedExperience.workMode}</div>
+                      </div>
+                    )}
+
+                    {selectedExperience.employmentType && (
+                      <div className="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-sm">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
+                          <Sparkles size={12} /> Type
+                        </div>
+                        <div className="text-xs font-semibold text-slate-800 capitalize">{selectedExperience.employmentType}</div>
+                      </div>
+                    )}
+
+                    {selectedExperience.teamSize && (
+                      <div className="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-sm">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
+                          <Users size={12} /> Team Size
+                        </div>
+                        <div className="text-xs font-semibold text-slate-800">{selectedExperience.teamSize} members</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Role Overview */}
+                  {selectedExperience.description && (
+                    <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-2">
+                      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                        About the Role
+                      </h3>
+                      <p className="text-slate-700 text-sm leading-relaxed font-normal">
+                        {selectedExperience.description}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Key Responsibilities */}
+                  {selectedExperience.responsibilities &&
+                    selectedExperience.responsibilities.length > 0 && (
+                    <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+                      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                        Key Responsibilities & Contributions
+                      </h3>
+                      <ul className="space-y-2.5">
+                        {selectedExperience.responsibilities.map((resp, idx) => (
+                          <li key={idx} className="text-slate-700 text-sm flex items-start gap-3 leading-relaxed">
+                            <CheckCircle2 size={16} className="text-primary-600 flex-shrink-0 mt-0.5" />
                             <span>{resp}</span>
                           </li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Technologies */}
-                {selectedExperience.technologies &&
-                  selectedExperience.technologies.length > 0 && (
-                  <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-secondary-900 mb-3">
-                        Technologies Used
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedExperience.technologies.map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1.5 bg-primary-50 text-primary-700 text-sm font-medium rounded-full hover:bg-primary-100 transition-colors"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                        ))}
+                      </ul>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {/* Key Projects */}
-                {selectedExperience.keyProjects &&
-                  selectedExperience.keyProjects.length > 0 && (
-                  <div className="mb-4">
-                    <h3 className="text-lg font-semibold text-secondary-900 mb-3">
-                        Key Projects
-                    </h3>
-                    <div className="space-y-4">
-                      {selectedExperience.keyProjects.map((project, idx) => (
-                        <div
-                          key={idx}
-                          className="bg-secondary-50 rounded-lg p-4"
-                        >
-                          <h4 className="font-semibold text-secondary-900 mb-1">
-                            {project.name}
-                          </h4>
-                          <p className="text-sm text-secondary-600 mb-2">
-                            {project.description}
-                          </p>
-                          {project.technologies && (
-                            <div className="flex flex-wrap gap-1 mb-2">
-                              {project.technologies.map((tech, techIdx) => (
-                                <span
-                                  key={techIdx}
-                                  className="text-xs px-2 py-1 bg-white text-secondary-700 rounded"
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                          {project.impact && (
-                            <p className="text-sm text-primary-600 flex items-start gap-2">
-                              <svg
-                                className="w-4 h-4 mt-0.5 flex-shrink-0"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                              <span>
-                                <strong>Impact:</strong> {project.impact}
-                              </span>
-                            </p>
-                          )}
-                        </div>
-                      ))}
+                  {/* Technologies Used */}
+                  {selectedExperience.technologies &&
+                    selectedExperience.technologies.length > 0 && (
+                    <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+                      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                        Technologies & Tools
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedExperience.technologies.map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="px-3 py-1.5 bg-slate-100 text-slate-800 text-xs font-semibold rounded-xl border border-slate-200/80 hover:bg-primary-50 hover:text-primary-700 transition-colors"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+                  )}
+
+                  {/* Key Projects */}
+                  {selectedExperience.keyProjects &&
+                    selectedExperience.keyProjects.length > 0 && (
+                    <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+                      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                        Featured Projects & Impact
+                      </h3>
+                      <div className="space-y-3">
+                        {selectedExperience.keyProjects.map((project, idx) => (
+                          <div
+                            key={idx}
+                            className="bg-slate-50 p-4 rounded-xl border border-slate-200/60 space-y-2"
+                          >
+                            <h4 className="font-bold text-slate-900 text-sm">
+                              {project.name}
+                            </h4>
+                            {project.description && (
+                              <p className="text-xs text-slate-600 leading-relaxed">
+                                {project.description}
+                              </p>
+                            )}
+                            {project.technologies && (
+                              <div className="flex flex-wrap gap-1.5 pt-1">
+                                {project.technologies.map((tech, techIdx) => (
+                                  <span
+                                    key={techIdx}
+                                    className="text-[11px] px-2 py-0.5 bg-white text-slate-700 font-medium rounded border border-slate-200/60"
+                                  >
+                                    {tech}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                            {project.impact && (
+                              <div className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200/60 flex items-start gap-2 mt-2">
+                                <Sparkles size={14} className="flex-shrink-0 mt-0.5 text-emerald-600" />
+                                <span><strong>Impact:</strong> {project.impact}</span>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );
