@@ -11,40 +11,42 @@ const api = axios.create({
 });
 
 // Request interceptor
-api.interceptors.request.use(
-  (config) => {
-    // Add auth token if available
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+if (api && api.interceptors) {
+  api.interceptors.request.use(
+    (config) => {
+      // Add auth token if available
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
     }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+  );
 
-// Response interceptor
-api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    const _message = error.response?.data?.message || 'Something went wrong';
+  // Response interceptor
+  api.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      const _message = error.response?.data?.message || 'Something went wrong';
 
-    // Handle specific error codes
-    if (error.response?.status === 404) {
-      console.error('Resource not found:', error.config.url);
-    } else if (error.response?.status >= 500) {
-      toast.error('Server error. Please try again later.');
-    } else if (error.response?.status === 429) {
-      toast.error('Too many requests. Please wait before trying again.');
+      // Handle specific error codes
+      if (error.response?.status === 404) {
+        console.error('Resource not found:', error.config?.url);
+      } else if (error.response?.status >= 500) {
+        toast.error('Server error. Please try again later.');
+      } else if (error.response?.status === 429) {
+        toast.error('Too many requests. Please wait before trying again.');
+      }
+
+      return Promise.reject(error);
     }
-
-    return Promise.reject(error);
-  }
-);
+  );
+}
 
 // Profile API
 export const profileAPI = {
