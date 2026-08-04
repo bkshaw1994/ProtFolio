@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Github, Tag } from 'lucide-react';
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = React.memo(({ project }) => {
+  if (!project) return null;
+
   return (
     <div className="glass-card overflow-hidden group hover:-translate-y-2 transition-all duration-500 border border-slate-200/80 hover:border-primary-500/40 hover:shadow-2xl hover:shadow-primary-500/10">
       {/* Project Preview/Image */}
@@ -125,6 +127,6 @@ const ProjectCard = ({ project }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ProjectCard;

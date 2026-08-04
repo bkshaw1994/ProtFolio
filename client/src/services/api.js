@@ -28,12 +28,8 @@ if (api?.interceptors) {
 
   // Response interceptor
   api.interceptors.response.use(
-    (response) => {
-      return response;
-    },
+    (response) => response,
     (error) => {
-      const _message = error.response?.data?.message || 'Something went wrong';
-
       // Handle specific error codes
       if (error.response?.status === 404) {
         console.error('Resource not found:', error.config?.url);
