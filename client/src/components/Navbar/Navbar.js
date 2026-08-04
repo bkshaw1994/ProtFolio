@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Menu, X, Github, Linkedin, Mail, Download } from 'lucide-react';
+import { Github, Linkedin, Mail, Download } from 'lucide-react';
 import { useGetProfileSummaryQuery } from '../../features/api/apiSlice';
 import { getFileUrl } from '../../utils/apiUrl';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { data: profile } = useGetProfileSummaryQuery();
@@ -24,11 +23,6 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location]);
 
   const navLinks = [
     { path: '/', label: 'Home' },
@@ -81,7 +75,7 @@ const Navbar = () => {
               </div>
               <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"></span>
             </div>
-            <div className="hidden sm:block">
+            <div>
               <div className="font-bold text-base text-slate-900 tracking-tight group-hover:text-primary-600 transition-colors">
                 {profileData?.name || 'Portfolio'}
               </div>
@@ -119,11 +113,11 @@ const Navbar = () => {
           </div>
 
           {/* Contact Info & Social Links */}
-          <div className="hidden lg:flex items-center space-x-3">
+          <div className="flex items-center space-x-3">
             {isHome && profileData?.email && (
               <a
                 href={`mailto:${profileData.email}`}
-                className="p-2.5 text-slate-600 hover:text-primary-600 hover:bg-primary-50/80 rounded-xl transition-all duration-200"
+                className="hidden sm:flex p-2.5 text-slate-600 hover:text-primary-600 hover:bg-primary-50/80 rounded-xl transition-all duration-200"
                 title="Email"
               >
                 <Mail size={18} />
@@ -135,7 +129,7 @@ const Navbar = () => {
                 href={profileData.socialLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 text-slate-600 hover:text-primary-600 hover:bg-primary-50/80 rounded-xl transition-all duration-200"
+                className="hidden sm:flex p-2.5 text-slate-600 hover:text-primary-600 hover:bg-primary-50/80 rounded-xl transition-all duration-200"
                 title="GitHub"
               >
                 <Github size={18} />
@@ -147,7 +141,7 @@ const Navbar = () => {
                 href={profileData.socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 text-slate-600 hover:text-primary-600 hover:bg-primary-50/80 rounded-xl transition-all duration-200"
+                className="hidden sm:flex p-2.5 text-slate-600 hover:text-primary-600 hover:bg-primary-50/80 rounded-xl transition-all duration-200"
                 title="LinkedIn"
               >
                 <Linkedin size={18} />
@@ -158,112 +152,19 @@ const Navbar = () => {
               <a
                 href={getFileUrl(profileData.resume)}
                 download
-                className="flex items-center space-x-2 px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-xl transition-all duration-200 font-medium text-xs tracking-wide"
+                className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-xl transition-all duration-200 font-medium text-xs tracking-wide"
                 title="Download Resume"
               >
                 <Download size={15} />
-                <span>Resume</span>
+                <span className="hidden sm:inline">Resume</span>
               </a>
             )}
 
-            <Link to="/contact" className="btn-primary !px-5 !py-2.5 !text-xs tracking-wider uppercase ml-1">
-              Contact Me
+            <Link to="/contact" className="btn-primary !px-4 sm:!px-5 !py-2 sm:!py-2.5 !text-xs tracking-wider uppercase ml-1">
+              Contact
             </Link>
           </div>
-
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-slate-700 hover:text-primary-600 hover:bg-slate-100 rounded-xl transition-all duration-200"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden py-4 px-2 border-t border-slate-200/60 bg-white/95 backdrop-blur-lg rounded-b-2xl shadow-xl mt-2 animate-fade-in">
-            <div className="flex flex-col space-y-1">
-              {navLinks.map((link) => {
-                const active = isActive(link.path);
-                return (
-                  <Link
-                    key={link.path}
-                    to={link.path}
-                    className={`relative px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200 z-10 ${
-                      active
-                        ? 'text-primary-600 font-bold'
-                        : 'text-slate-700 hover:text-slate-900'
-                    }`}
-                  >
-                    {active && (
-                      <motion.div
-                        layoutId="activeMobileNavbarPill"
-                        className="absolute inset-0 bg-primary-50 border border-primary-200/50 rounded-xl -z-10"
-                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                      />
-                    )}
-                    {link.label}
-                  </Link>
-                );
-              })}
-
-              {/* Mobile Contact */}
-              <div className="pt-4 border-t border-slate-100 mt-2 space-y-3">
-                <Link
-                  to="/contact"
-                  className="btn-primary w-full justify-center text-xs tracking-wider uppercase py-3"
-                >
-                  Contact Me
-                </Link>
-
-                {!isHome && profileData?.resume && (
-                  <a
-                    href={getFileUrl(profileData.resume)}
-                    download
-                    className="flex items-center justify-center space-x-2 px-4 py-2.5 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-xl transition-all duration-200 font-medium text-xs tracking-wide w-full"
-                  >
-                    <Download size={16} />
-                    <span>Download Resume</span>
-                  </a>
-                )}
-
-                <div className="flex items-center justify-center space-x-6 pt-2">
-                  {profileData?.email && (
-                    <a
-                      href={`mailto:${profileData.email}`}
-                      className="p-2 text-slate-600 hover:text-primary-600 rounded-xl transition-colors"
-                    >
-                      <Mail size={20} />
-                    </a>
-                  )}
-
-                  {isHome && profileData?.socialLinks?.github && (
-                    <a
-                      href={profileData.socialLinks.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 text-slate-600 hover:text-primary-600 rounded-xl transition-colors"
-                    >
-                      <Github size={20} />
-                    </a>
-                  )}
-
-                  {isHome && profileData?.socialLinks?.linkedin && (
-                    <a
-                      href={profileData.socialLinks.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 text-slate-600 hover:text-primary-600 rounded-xl transition-colors"
-                    >
-                      <Linkedin size={20} />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );
