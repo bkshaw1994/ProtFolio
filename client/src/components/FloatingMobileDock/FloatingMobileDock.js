@@ -30,15 +30,15 @@ const FloatingMobileDock = () => {
   return (
     <div
       ref={constraintsRef}
-      className="fixed bottom-0 left-0 right-0 pointer-events-none z-50 flex justify-center pb-5 px-4 md:hidden"
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 md:hidden pointer-events-none max-w-[95vw] flex justify-center"
     >
       <motion.div
-        drag
-        dragConstraints={{ left: -100, right: 100, top: -200, bottom: 0 }}
-        dragElastic={0.1}
+        drag="x"
+        dragConstraints={{ left: -80, right: 80 }}
+        dragElastic={0.08}
         dragMomentum={false}
-        whileDrag={{ scale: 1.04, cursor: 'grabbing' }}
-        className="pointer-events-auto relative flex flex-col items-center bg-slate-900/85 backdrop-blur-xl border border-white/20 shadow-2xl shadow-slate-950/50 rounded-full px-3 py-2 text-white select-none transition-shadow"
+        whileDrag={{ scale: 1.03, cursor: 'grabbing' }}
+        className="pointer-events-auto relative flex flex-col items-center bg-slate-900/90 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-slate-950/60 rounded-full px-3.5 py-2 text-white select-none transition-shadow"
       >
         {/* Subtle Grip Drag Handle Bar */}
         <div className="w-8 h-1 bg-white/30 rounded-full mb-1.5 opacity-60 hover:opacity-100 transition-opacity" />
