@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Code2, Sparkles, Terminal } from 'lucide-react';
 import ParticleNetwork from '../ParticleNetwork';
 
-const InitialLoader = ({ name = 'Bishal Kumar Shaw' }) => {
+const InitialLoader = ({ name = 'Bishal Kumar Shaw', isDataLoading = false }) => {
   const [progress, setProgress] = useState(0);
   const [statusIndex, setStatusIndex] = useState(0);
 
@@ -15,19 +15,26 @@ const InitialLoader = ({ name = 'Bishal Kumar Shaw' }) => {
   ];
 
   useEffect(() => {
-    // Smooth progress counter from 0 to 100
+    // Smooth progress counter responding to actual data loading status
     const interval = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
+        if (isDataLoading) {
+          // If data is still loading from APIs, advance smoothly up to 92%
+          if (prev < 92) return prev + 2;
+          return 92;
+        } else {
+          // All data loaded! Fill remaining to 100%
+          if (prev >= 100) {
+            clearInterval(interval);
+            return 100;
+          }
+          return Math.min(100, prev + 5);
         }
-        return prev + 2;
       });
-    }, 20);
+    }, 25);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isDataLoading]);
 
   useEffect(() => {
     // Cycle status messages

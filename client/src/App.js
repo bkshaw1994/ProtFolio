@@ -11,7 +11,11 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import InitialLoader from './components/InitialLoader';
-import { useGetProfileQuery } from './features/api/apiSlice';
+import {
+  useGetProfileQuery,
+  useGetFeaturedProjectsQuery,
+  useGetCoreSkillsQuery
+} from './features/api/apiSlice';
 
 // Pages
 import Home from './pages/Home';
@@ -26,19 +30,41 @@ import Admin from './pages/Admin';
 import NotFound from './pages/NotFound';
 
 function App() {
-  const { data: profile, isLoading } = useGetProfileQuery();
-  const [initialLoading, setInitialLoading] = useState(true);
+  const { data: profile, isLoading: isProfileLoading, isFetching: isProfileFetching } = useGetProfileQuery();
+  const { isLoading: isProjectsLoading, isFetching: isProjectsFetching } = useGetFeaturedProjectsQuery();
+  const { isLoading: isSkillsLoading, isFetching: isSkillsFetching } = useGetCoreSkillsQuery();
+
+  const [minTimerPassed, setMinTimerPassed] = useState(false);
+  const [maxTimerPassed, setMaxTimerPassed] = useState(false);
 
   const profileData = profile?.data || profile;
 
   useEffect(() => {
-    // Show smooth landing animation on initial load
-    const timer = setTimeout(() => {
-      setInitialLoading(false);
+    // Minimum landing animation duration (1.2s)
+    const minTimer = setTimeout(() => {
+      setMinTimerPassed(true);
     }, 1200);
 
-    return () => clearTimeout(timer);
+    // Maximum fallback safety timeout (8.0s) in case API connection is slow
+    const maxTimer = setTimeout(() => {
+      setMaxTimerPassed(true);
+    }, 8000);
+
+    return () => {
+      clearTimeout(minTimer);
+      clearTimeout(maxTimer);
+    };
   }, []);
+
+  const isDataLoading =
+    !maxTimerPassed &&
+    (!minTimerPassed ||
+      isProfileLoading ||
+      isProjectsLoading ||
+      isSkillsLoading ||
+      isProfileFetching ||
+      isProjectsFetching ||
+      isSkillsFetching);
 
   return (
     <HelmetProvider>
@@ -46,8 +72,19 @@ function App() {
         <div className="App min-h-screen flex flex-col justify-between overflow-x-hidden bg-slate-50/30">
           {/* First Time Landing Splash Loader */}
           <AnimatePresence>
-            {(isLoading || initialLoading) && (
-              <InitialLoader name={profileData?.name || 'Bishal Kumar Shaw'} />
+            {isDataLoading && (
+              <InitialLoader
+                name={profileData?.name || 'Bishal Kumar Shaw'}
+                isDataLoading={
+                  !maxTimerPassed &&
+                  (isProfileLoading ||
+                    isProjectsLoading ||
+                    isSkillsLoading ||
+                    isProfileFetching ||
+                    isProjectsFetching ||
+                    isSkillsFetching)
+                }
+              />
             )}
           </AnimatePresence>
 
