@@ -6,9 +6,7 @@ import {
   FolderGit2,
   Cpu,
   Briefcase,
-  Award,
-  User,
-  Mail
+  User
 } from 'lucide-react';
 
 const navItems = [
@@ -16,9 +14,7 @@ const navItems = [
   { path: '/projects', label: 'Projects', icon: FolderGit2 },
   { path: '/skills', label: 'Skills', icon: Cpu },
   { path: '/experience', label: 'Experience', icon: Briefcase },
-  { path: '/certifications', label: 'Certifications', icon: Award },
-  { path: '/about', label: 'About', icon: User },
-  { path: '/contact', label: 'Contact', icon: Mail }
+  { path: '/about', label: 'About', icon: User }
 ];
 
 const FloatingMobileDock = () => {
