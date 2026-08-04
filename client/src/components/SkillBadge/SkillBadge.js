@@ -1,6 +1,8 @@
 import React from 'react';
 
 const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
+  if (!skill) return null;
+
   const sizeClasses = {
     sm: 'p-3',
     md: 'p-4',
@@ -93,10 +95,17 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
 
       {/* Skill Name */}
       <h3
-        className={`font-bold text-slate-900 mb-2 ${textSizes[size]} group-hover:text-primary-600 transition-colors tracking-tight`}
+        className={`font-bold text-slate-900 mb-1 ${textSizes[size]} group-hover:text-primary-600 transition-colors tracking-tight`}
       >
         {skill.name}
       </h3>
+
+      {/* Skill Level Badge */}
+      {showProficiency && skill.level && (
+        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">
+          {skill.level}
+        </span>
+      )}
 
       {/* Proficiency Level */}
       {showProficiency && skill.proficiency && (
