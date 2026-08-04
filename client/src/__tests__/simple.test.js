@@ -113,14 +113,14 @@ describe('Component Import Tests', () => {
   it('should import SkillBadge without errors', () => {
     const SkillBadge = require('../components/SkillBadge/SkillBadge').default;
     expect(SkillBadge).toBeDefined();
-    expect(typeof SkillBadge).toBe('function');
+    expect(['function', 'object']).toContain(typeof SkillBadge);
   });
 
   it('should import ProjectCard without errors', () => {
     const ProjectCard =
       require('../components/ProjectCard/ProjectCard').default;
     expect(ProjectCard).toBeDefined();
-    expect(typeof ProjectCard).toBe('function');
+    expect(['function', 'object']).toContain(typeof ProjectCard);
   });
 
   it('should import ScrollToTop without errors', () => {

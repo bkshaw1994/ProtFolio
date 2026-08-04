@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const ParticleNetwork = () => {
+const ParticleNetwork = React.memo(() => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -134,6 +134,6 @@ const ParticleNetwork = () => {
       className="absolute inset-0 pointer-events-none z-0 opacity-60"
     />
   );
-};
+});
 
 export default ParticleNetwork;

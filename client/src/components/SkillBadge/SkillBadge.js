@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
+const SkillBadge = React.memo(({ skill, showProficiency = true, size = 'md' }) => {
   if (!skill) return null;
 
   const sizeClasses = {
@@ -153,6 +153,6 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
       )}
     </div>
   );
-};
+});
 
 export default SkillBadge;
