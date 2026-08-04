@@ -28,7 +28,7 @@
     "build:dev": "react-scripts build",
     "build:prod": "npm run pre-build && react-scripts build",
     "pre-build": "npm run lint:check && npm run test:coverage:check",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
     "test:coverage": "react-scripts test --coverage --watchAll=false",
     "test:ci": "react-scripts test --ci --coverage --watchAll=false",
     "test:coverage:check": "react-scripts test --coverage --watchAll=false --passWithNoTests",

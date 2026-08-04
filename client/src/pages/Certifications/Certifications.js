@@ -32,19 +32,19 @@ const Certifications = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-secondary-50 pt-20">
+      <section className="min-h-screen bg-slate-50/50 bg-grid-pattern pt-28 sm:pt-36 pb-20">
         <div className="container-custom">
           <div className="text-center max-w-4xl mx-auto mb-12 animate-fade-in">
-            <div className="inline-flex items-center space-x-2 bg-primary-100 text-primary-700 px-4 py-2 rounded-full mb-6">
+            <div className="inline-flex items-center space-x-2 bg-primary-100/80 text-primary-800 border border-primary-200/60 px-4 py-2 rounded-full mb-6 shadow-sm">
               <Award size={18} />
               <span className="text-sm font-semibold">Professional Certifications</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-secondary-900 leading-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
               Certifications & Badges
             </h1>
 
-            <p className="text-lg sm:text-xl text-secondary-600 leading-relaxed">
+            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-normal">
               Professional credentials and recognized achievements demonstrating my commitment to excellence, continuous learning, and industry best practices.
             </p>
           </div>

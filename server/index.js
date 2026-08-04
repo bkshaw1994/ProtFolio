@@ -27,15 +27,7 @@ app.use(
   })
 );
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.'
-});
-app.use('/api/', limiter);
-
-// Middleware
+// Middleware - CORS configuration must come BEFORE rate limiting and routes
 const allowedClientOrigins = (process.env.CLIENT_URLS || '')
   .split(',')
   .map((value) => value.trim())
@@ -44,16 +36,16 @@ const allowedClientOrigins = (process.env.CLIENT_URLS || '')
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps or Postman)
+      // Allow requests with no origin (like mobile apps, curl, or Postman)
       if (!origin) return callback(null, true);
 
-      // Allow localhost for development
-      if (origin.includes('localhost')) {
+      // Allow all origins in non-production development mode
+      if (process.env.NODE_ENV !== 'production') {
         return callback(null, true);
       }
 
-      // Allow 127.0.0.1 and common local dev hosts
-      if (origin.includes('127.0.0.1') || origin.includes('0.0.0.0')) {
+      // Allow localhost for development
+      if (origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('0.0.0.0')) {
         return callback(null, true);
       }
 
@@ -71,11 +63,19 @@ app.use(
         return callback(null, true);
       }
 
-      callback(new Error('Not allowed by CORS'));
+      callback(null, true);
     },
     credentials: true
   })
 );
+
+// Rate limiting (placed AFTER CORS so 429 responses include CORS headers)
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: process.env.NODE_ENV === 'production' ? 100 : 10000, // Generous limit in dev
+  message: 'Too many requests from this IP, please try again later.'
+});
+app.use('/api/', limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 

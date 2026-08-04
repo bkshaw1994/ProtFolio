@@ -1,6 +1,8 @@
 import React from 'react';
 
 const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
+  if (!skill) return null;
+
   const sizeClasses = {
     sm: 'p-3',
     md: 'p-4',
@@ -72,7 +74,7 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
 
   return (
     <div
-      className={`card ${sizeClasses[size]} text-center card-hover group transition-all duration-300`}
+      className={`glass-card ${sizeClasses[size]} text-center group hover:-translate-y-1.5 transition-all duration-300 border border-slate-200/80 hover:border-primary-500/30 hover:shadow-xl hover:shadow-primary-500/10`}
     >
       {/* Skill Icon */}
       <div className="flex justify-center mb-3">
@@ -80,11 +82,11 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
           <img
             src={skill.icon}
             alt={skill.name}
-            className={`${iconImageSizes[size]} object-contain group-hover:scale-110 transition-transform`}
+            className={`${iconImageSizes[size]} object-contain group-hover:scale-115 transition-transform duration-300 drop-shadow-sm`}
           />
         ) : (
           <div
-            className={`${iconTextSizes[size]} group-hover:scale-110 transition-transform`}
+            className={`${iconTextSizes[size]} group-hover:scale-115 transition-transform duration-300 drop-shadow-sm`}
           >
             {skill.icon || getDefaultIcon(skill.name)}
           </div>
@@ -93,34 +95,41 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
 
       {/* Skill Name */}
       <h3
-        className={`font-semibold text-secondary-900 mb-2 ${textSizes[size]} group-hover:text-primary-600 transition-colors`}
+        className={`font-bold text-slate-900 mb-1 ${textSizes[size]} group-hover:text-primary-600 transition-colors tracking-tight`}
       >
         {skill.name}
       </h3>
 
+      {/* Skill Level Badge */}
+      {showProficiency && skill.level && (
+        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">
+          {skill.level}
+        </span>
+      )}
+
       {/* Proficiency Level */}
       {showProficiency && skill.proficiency && (
-        <div className="space-y-2">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-secondary-600">Proficiency</span>
+        <div className="space-y-2 mt-1">
+          <div className="flex items-center justify-between text-xs font-semibold">
+            <span className="text-slate-500 uppercase tracking-wider">Proficiency</span>
             <span
-              className={`font-semibold ${proficiencyColor(skill.proficiency)}`}
+              className={`font-extrabold ${proficiencyColor(skill.proficiency)}`}
             >
               {skill.proficiency}%
             </span>
           </div>
 
           {/* Progress Bar */}
-          <div className="w-full bg-secondary-200 rounded-full h-2">
+          <div className="w-full bg-slate-200/70 rounded-full h-2 overflow-hidden p-0.5">
             <div
-              className={`h-2 rounded-full transition-all duration-500 ${
+              className={`h-full rounded-full transition-all duration-700 bg-gradient-to-r ${
                 skill.proficiency >= 90
-                  ? 'bg-success-500'
+                  ? 'from-emerald-500 to-teal-400'
                   : skill.proficiency >= 75
-                    ? 'bg-primary-500'
+                    ? 'from-primary-600 to-indigo-500'
                     : skill.proficiency >= 60
-                      ? 'bg-warning-500'
-                      : 'bg-secondary-500'
+                      ? 'from-amber-500 to-yellow-400'
+                      : 'from-slate-500 to-slate-400'
               }`}
               style={{ width: `${skill.proficiency}%` }}
             ></div>
@@ -130,7 +139,7 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
 
       {/* Years of Experience */}
       {skill.yearsOfExperience && (
-        <div className="mt-2 text-xs text-secondary-600">
+        <div className="mt-2 text-xs font-medium text-slate-500">
           {skill.yearsOfExperience} year
           {skill.yearsOfExperience !== 1 ? 's' : ''} exp.
         </div>
@@ -138,15 +147,10 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
 
       {/* Core Skill Badge */}
       {skill.isCore && (
-        <div className="mt-2">
-          <span className="badge badge-primary text-xs">Core Skill</span>
+        <div className="mt-2.5">
+          <span className="badge badge-primary text-[10px] uppercase tracking-wider font-bold">Core Skill</span>
         </div>
       )}
-
-      {/* Category */}
-      <div className="mt-2 text-xs text-secondary-500 capitalize">
-        {skill.category?.replace('-', ' ')}
-      </div>
     </div>
   );
 };

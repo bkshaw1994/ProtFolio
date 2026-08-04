@@ -136,7 +136,7 @@ const Contact = () => {
         />
       </Helmet>
 
-      <div className="pt-20">
+      <div className="pt-28 sm:pt-36">
         {/* Header */}
         <section className="section-padding bg-gradient-to-br from-primary-50 to-secondary-50">
           <div className="container-custom text-center">

@@ -1,12 +1,4 @@
 // Mock axios module first
-const mockAxios = {
-  create: jest.fn(),
-  get: jest.fn(),
-  post: jest.fn(),
-  put: jest.fn(),
-  delete: jest.fn()
-};
-
 const mockApiInstance = {
   get: jest.fn(),
   post: jest.fn(),
@@ -18,7 +10,13 @@ const mockApiInstance = {
   }
 };
 
-mockAxios.create.mockReturnValue(mockApiInstance);
+const mockAxios = {
+  create: jest.fn().mockReturnValue(mockApiInstance),
+  get: jest.fn(),
+  post: jest.fn(),
+  put: jest.fn(),
+  delete: jest.fn()
+};
 
 jest.mock('axios', () => mockAxios);
 

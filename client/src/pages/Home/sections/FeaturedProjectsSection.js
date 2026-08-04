@@ -1,19 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import ProjectCard from '../../../components/ProjectCard';
 
 const FeaturedProjectsSection = ({ allFeaturedProjects }) => (
   <section className="section-padding bg-secondary-50">
     <div className="container-custom">
-      <div className="text-center mb-12">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6 }}
+        className="text-center mb-12"
+      >
         <h2 className="text-3xl sm:text-4xl font-bold text-secondary-900 mb-4">
           Featured Projects
         </h2>
         <p className="text-lg text-secondary-600 max-w-2xl mx-auto">
           A showcase of my portfolio projects and open-source contributions
         </p>
-      </div>
+      </motion.div>
 
       {allFeaturedProjects.length === 0 ? (
         <div className="text-center py-12">
@@ -23,20 +30,31 @@ const FeaturedProjectsSection = ({ allFeaturedProjects }) => (
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {allFeaturedProjects.map((project, index) => (
-            <ProjectCard
+            <motion.div
               key={project._id || project.githubUrl || index}
-              project={project}
-            />
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <ProjectCard project={project} />
+            </motion.div>
           ))}
         </div>
       )}
 
-      <div className="text-center mt-12">
-        <Link to="/projects" className="btn-primary">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="text-center mt-10"
+      >
+        <Link to="/projects" className="btn-primary group">
           View All Projects
-          <ArrowRight size={20} className="ml-2" />
+          <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
         </Link>
-      </div>
+      </motion.div>
     </div>
   </section>
 );
