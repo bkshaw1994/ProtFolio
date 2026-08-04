@@ -57,7 +57,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-slate-950 text-white overflow-hidden border-t border-slate-800/80">
+    <footer className="relative bg-slate-950 text-white overflow-hidden border-t border-slate-800/80 pb-20 md:pb-0">
       <div className="container-custom relative z-10">
         {/* Main Footer Content */}
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
