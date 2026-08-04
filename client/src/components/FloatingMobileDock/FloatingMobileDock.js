@@ -36,25 +36,44 @@ const FloatingMobileDock = () => {
                 key={item.path}
                 to={item.path}
                 aria-label={item.label}
-                className={`relative p-2.5 rounded-full flex items-center justify-center transition-colors duration-200 group ${
-                  active ? 'text-primary-600 font-bold' : 'text-slate-600 hover:text-slate-900'
-                }`}
+                className={`relative ${
+                  active ? 'px-3.5 py-2' : 'p-2.5'
+                } rounded-full flex items-center space-x-1.5 transition-all duration-300 group select-none`}
               >
                 {/* Active Indicator Pill */}
                 {active && (
                   <motion.div
                     layoutId="activeDockPill"
-                    className="absolute inset-0 bg-white shadow-md shadow-slate-200/60 border border-slate-200/80 rounded-full -z-10"
+                    className="absolute inset-0 bg-white shadow-md shadow-slate-300/80 border border-slate-200/90 rounded-full -z-10"
                     transition={{ type: 'spring', stiffness: 450, damping: 30 }}
                   />
                 )}
 
-                <IconComponent size={20} className="transition-transform duration-200 group-active:scale-90" />
+                <IconComponent
+                  size={19}
+                  className={`transition-transform duration-200 flex-shrink-0 ${
+                    active ? 'text-primary-600' : 'text-slate-600 group-hover:text-slate-900 group-active:scale-90'
+                  }`}
+                />
 
-                {/* Subtle Tooltip Label on Hover/Focus */}
-                <span className="absolute -top-8 px-2 py-0.5 bg-slate-900/90 text-white text-[10px] font-semibold rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/10 shadow-md">
-                  {item.label}
-                </span>
+                {/* Visible Label text next to icon when selected */}
+                {active && (
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-xs font-bold tracking-wide text-primary-600 whitespace-nowrap"
+                  >
+                    {item.label}
+                  </motion.span>
+                )}
+
+                {/* Subtle Tooltip Label on Hover/Focus for inactive icons */}
+                {!active && (
+                  <span className="absolute -top-8 px-2 py-0.5 bg-slate-900/90 text-white text-[10px] font-semibold rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/10 shadow-md">
+                    {item.label}
+                  </span>
+                )}
               </Link>
             );
           })}
