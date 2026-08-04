@@ -1,6 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 
 // Determine base directory based on environment
 const isVercel = process.env.VERCEL || process.env.NOW_REGION;
@@ -30,7 +31,7 @@ const storage = multer.diskStorage({
     cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const uniqueSuffix = Date.now() + '-' + crypto.randomBytes(8).toString('hex');
     const extension = path.extname(file.originalname);
     cb(null, file.fieldname + '-' + uniqueSuffix + extension);
   }
