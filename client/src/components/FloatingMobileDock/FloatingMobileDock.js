@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -23,25 +23,11 @@ const navItems = [
 
 const FloatingMobileDock = () => {
   const location = useLocation();
-  const constraintsRef = useRef(null);
-
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div
-      ref={constraintsRef}
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 md:hidden pointer-events-none max-w-[95vw] flex justify-center"
-    >
-      <motion.div
-        drag="x"
-        dragConstraints={{ left: -80, right: 80 }}
-        dragElastic={0.08}
-        dragMomentum={false}
-        whileDrag={{ scale: 1.03, cursor: 'grabbing' }}
-        className="pointer-events-auto relative flex flex-col items-center bg-slate-900/90 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-slate-950/60 rounded-full px-3.5 py-2 text-white select-none transition-shadow"
-      >
-        {/* Subtle Grip Drag Handle Bar */}
-        <div className="w-8 h-1 bg-white/30 rounded-full mb-1.5 opacity-60 hover:opacity-100 transition-opacity" />
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 md:hidden max-w-[95vw] flex justify-center">
+      <div className="relative flex items-center bg-slate-900/90 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-slate-950/60 rounded-full px-3.5 py-2 text-white select-none">
 
         {/* Icon Items Row */}
         <div className="flex items-center space-x-1 sm:space-x-2">
@@ -77,7 +63,7 @@ const FloatingMobileDock = () => {
             );
           })}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
