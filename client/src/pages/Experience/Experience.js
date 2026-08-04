@@ -5,7 +5,6 @@ import {
   Calendar,
   MapPin,
   Briefcase,
-  Users,
   X,
   ChevronRight,
   CheckCircle2,
@@ -342,38 +341,37 @@ const Experience = () => {
                       </div>
                     )}
 
-                    {selectedExperience.teamSize && (
-                      <div className="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-sm">
-                        <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
-                          <Users size={12} /> Team Size
-                        </div>
-                        <div className="text-xs font-semibold text-slate-800">{selectedExperience.teamSize} members</div>
-                      </div>
+                    <div className="flex items-center space-x-1.5">
+                      <MapPin size={15} />
+                      <span>{selectedExperience.location}</span>
+                    </div>
                     )}
                   </div>
+                </div>
 
-                  {/* Role Overview */}
+                {/* Modal Scrollable Body */}
+                <div className="p-6 sm:p-8 overflow-y-auto space-y-6 flex-grow">
+                  {/* Summary */}
                   {selectedExperience.description && (
                     <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-2">
                       <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                        About the Role
+                        Overview
                       </h3>
-                      <p className="text-slate-700 text-sm leading-relaxed font-normal">
+                      <p className="text-slate-700 text-sm leading-relaxed">
                         {selectedExperience.description}
                       </p>
                     </div>
                   )}
 
                   {/* Key Responsibilities */}
-                  {selectedExperience.responsibilities &&
-                    selectedExperience.responsibilities.length > 0 && (
+                  {selectedExperience.responsibilities?.length > 0 && (
                     <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
                       <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
                         Key Responsibilities & Contributions
                       </h3>
                       <ul className="space-y-2.5">
-                        {selectedExperience.responsibilities.map((resp, idx) => (
-                          <li key={idx} className="text-slate-700 text-sm flex items-start gap-3 leading-relaxed">
+                        {selectedExperience.responsibilities.map((resp) => (
+                          <li key={resp} className="text-slate-700 text-sm flex items-start gap-3 leading-relaxed">
                             <CheckCircle2 size={16} className="text-primary-600 flex-shrink-0 mt-0.5" />
                             <span>{resp}</span>
                           </li>
@@ -383,16 +381,15 @@ const Experience = () => {
                   )}
 
                   {/* Technologies Used */}
-                  {selectedExperience.technologies &&
-                    selectedExperience.technologies.length > 0 && (
+                  {selectedExperience.technologies?.length > 0 && (
                     <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
                       <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
                         Technologies & Tools
                       </h3>
                       <div className="flex flex-wrap gap-2">
-                        {selectedExperience.technologies.map((tech, idx) => (
+                        {selectedExperience.technologies.map((tech) => (
                           <span
-                            key={idx}
+                            key={tech}
                             className="px-3 py-1.5 bg-slate-100 text-slate-800 text-xs font-semibold rounded-xl border border-slate-200/80 hover:bg-primary-50 hover:text-primary-700 transition-colors"
                           >
                             {tech}
@@ -403,16 +400,15 @@ const Experience = () => {
                   )}
 
                   {/* Key Projects */}
-                  {selectedExperience.keyProjects &&
-                    selectedExperience.keyProjects.length > 0 && (
+                  {selectedExperience.keyProjects?.length > 0 && (
                     <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
                       <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
                         Featured Projects & Impact
                       </h3>
                       <div className="space-y-3">
-                        {selectedExperience.keyProjects.map((project, idx) => (
+                        {selectedExperience.keyProjects.map((project) => (
                           <div
-                            key={idx}
+                            key={project.name || project.id || project._id}
                             className="bg-slate-50 p-4 rounded-xl border border-slate-200/60 space-y-2"
                           >
                             <h4 className="font-bold text-slate-900 text-sm">

@@ -81,7 +81,7 @@ const ParticleNetwork = () => {
         if (mouse.x !== null && mouse.y !== null) {
           const dx = mouse.x - p1.x;
           const dy = mouse.y - p1.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const dist = Math.hypot(dx, dy);
 
           if (dist < mouseRadius) {
             const alpha = (1 - dist / mouseRadius) * 0.45;
@@ -99,7 +99,7 @@ const ParticleNetwork = () => {
           const p2 = particles[j];
           const dx = p1.x - p2.x;
           const dy = p1.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const dist = Math.hypot(dx, dy);
 
           if (dist < maxDistance) {
             const alpha = (1 - dist / maxDistance) * 0.25;

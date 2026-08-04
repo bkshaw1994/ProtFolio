@@ -69,14 +69,14 @@ const ProjectCard = ({ project }) => {
 
         {/* Technologies */}
         <div className="flex flex-wrap gap-1.5 pt-1">
-          {project.technologies.slice(0, 3).map((tech, index) => (
-            <span key={index} className="px-2.5 py-1 bg-slate-100/90 text-slate-700 rounded-lg text-xs font-medium border border-slate-200/60">
+          {project.technologies?.slice(0, 3).map((tech) => (
+            <span key={tech} className="px-2.5 py-1 bg-slate-100/90 text-slate-700 rounded-lg text-xs font-medium border border-slate-200/60">
               {tech}
             </span>
           ))}
-          {project.technologies.length > 3 && (
+          {(project.technologies?.length || 0) > 3 && (
             <span className="px-2.5 py-1 bg-primary-50 text-primary-700 rounded-lg text-xs font-semibold border border-primary-200/60">
-              +{project.technologies.length - 3} more
+              +{(project.technologies?.length || 0) - 3} more
             </span>
           )}
         </div>
