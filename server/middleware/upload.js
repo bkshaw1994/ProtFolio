@@ -1,7 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 
 // Determine base directory based on environment
 const isVercel = process.env.VERCEL || process.env.NOW_REGION;

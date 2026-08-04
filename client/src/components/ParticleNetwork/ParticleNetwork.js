@@ -28,11 +28,11 @@ const ParticleNetwork = () => {
     const mouse = { x: null, y: null };
 
     const createParticle = () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.8,
-      vy: (Math.random() - 0.5) * 0.8,
-      radius: Math.random() * 1.5 + 1.2
+      x: Math.random() * width, // NOSONAR - safe for non-security UI canvas animation
+      y: Math.random() * height, // NOSONAR - safe for non-security UI canvas animation
+      vx: (Math.random() - 0.5) * 0.8, // NOSONAR - safe for non-security UI canvas animation
+      vy: (Math.random() - 0.5) * 0.8, // NOSONAR - safe for non-security UI canvas animation
+      radius: Math.random() * 1.5 + 1.2 // NOSONAR - safe for non-security UI canvas animation
     });
 
     const updateParticle = (p) => {

@@ -11,7 +11,7 @@ const api = axios.create({
 });
 
 // Request interceptor
-if (api && api.interceptors) {
+if (api?.interceptors) {
   api.interceptors.request.use(
     (config) => {
       // Add auth token if available
