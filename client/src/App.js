@@ -92,7 +92,7 @@ function App() {
           <Navbar />
           <FloatingMobileDock />
           
-          <main className="flex-grow min-h-[calc(100vh-320px)] pb-20 md:pb-0">
+          <main className="flex-grow min-h-[calc(100vh-320px)]">
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
