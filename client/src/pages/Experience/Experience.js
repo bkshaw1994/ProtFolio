@@ -269,14 +269,20 @@ const Experience = () => {
                 {/* Modal Banner Header */}
                 <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white p-6 sm:p-8 relative">
                   <div className="flex items-start justify-between gap-4">
-                    <div className="space-y-1 pr-6">
+                    <div className="space-y-1.5 pr-6">
                       <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-primary-400">
-                        <Building2 size={14} />
+                        <Building2 size={15} />
                         <span>{selectedExperience.company}</span>
                       </div>
                       <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
                         {selectedExperience.position}
                       </h2>
+                      {selectedExperience.location && (
+                        <div className="flex items-center space-x-1.5 text-xs text-slate-300 font-medium pt-1">
+                          <MapPin size={14} className="text-primary-400 flex-shrink-0" />
+                          <span>{selectedExperience.location}</span>
+                        </div>
+                      )}
                     </div>
 
                     <button
@@ -288,22 +294,41 @@ const Experience = () => {
                     </button>
                   </div>
 
-                  {/* Header Meta Pills */}
-                  <div className="flex flex-wrap items-center gap-2 mt-4 pt-2 border-t border-white/10 text-xs font-medium text-slate-300">
-                    <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full">
+                  {/* Header Meta Pills - Working Period, Work Mode, Type */}
+                  <div className="flex flex-wrap items-center gap-2.5 mt-5 pt-3 border-t border-white/10 text-xs font-medium text-slate-200">
+                    {/* Working Period */}
+                    <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full">
                       <Calendar size={13} className="text-primary-400" />
                       <span>
                         {formatDate(selectedExperience.startDate)} - {formatDate(selectedExperience.endDate)}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-primary-300 font-semibold">
+                    {/* Duration */}
+                    <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full text-primary-300 font-semibold">
                       <Clock size={13} />
                       <span>{calculateDuration(selectedExperience.startDate, selectedExperience.endDate)}</span>
                     </div>
 
+                    {/* Work Mode */}
+                    {selectedExperience.workMode && (
+                      <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full capitalize">
+                        <Briefcase size={13} className="text-primary-400" />
+                        <span>{selectedExperience.workMode}</span>
+                      </div>
+                    )}
+
+                    {/* Employment Type */}
+                    {selectedExperience.employmentType && (
+                      <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full capitalize">
+                        <Sparkles size={13} className="text-primary-400" />
+                        <span>{selectedExperience.employmentType}</span>
+                      </div>
+                    )}
+
+                    {/* Current Badge */}
                     {selectedExperience.isCurrent && (
-                      <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold uppercase tracking-wider rounded-full">
+                      <span className="px-3 py-1.5 bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 text-xs font-bold uppercase tracking-wider rounded-full">
                         Current Role
                       </span>
                     )}
@@ -311,46 +336,7 @@ const Experience = () => {
                 </div>
 
                 {/* Modal Body Content */}
-                <div className="p-6 sm:p-8 space-y-6 overflow-y-auto custom-scrollbar flex-grow bg-slate-50/40">
-                  {/* Meta Chips */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {selectedExperience.location && (
-                      <div className="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-sm">
-                        <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
-                          <MapPin size={12} /> Location
-                        </div>
-                        <div className="text-xs font-semibold text-slate-800 truncate">{selectedExperience.location}</div>
-                      </div>
-                    )}
-
-                    {selectedExperience.workMode && (
-                      <div className="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-sm">
-                        <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
-                          <Briefcase size={12} /> Work Mode
-                        </div>
-                        <div className="text-xs font-semibold text-slate-800 capitalize">{selectedExperience.workMode}</div>
-                      </div>
-                    )}
-
-                    {selectedExperience.employmentType && (
-                      <div className="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-sm">
-                        <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
-                          <Sparkles size={12} /> Type
-                        </div>
-                        <div className="text-xs font-semibold text-slate-800 capitalize">{selectedExperience.employmentType}</div>
-                      </div>
-                    )}
-
-                    <div className="flex items-center space-x-1.5">
-                      <MapPin size={15} />
-                      <span>{selectedExperience.location}</span>
-                    </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Modal Scrollable Body */}
-                <div className="p-6 sm:p-8 overflow-y-auto space-y-6 flex-grow">
+                <div className="p-5 sm:p-8 space-y-6 overflow-y-auto custom-scrollbar flex-grow bg-slate-50/40">
                   {/* Summary */}
                   {selectedExperience.description && (
                     <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-2">

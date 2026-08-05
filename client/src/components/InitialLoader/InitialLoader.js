@@ -54,7 +54,7 @@ const InitialLoader = ({ name = 'Bishal Kumar Shaw', isDataLoading = false }) =>
       {/* Interactive Spider-Web / Constellation Canvas Background */}
       <ParticleNetwork />
 
-      <div className="relative flex flex-col items-center z-10 space-y-8 max-w-sm px-4">
+      <div className="relative flex flex-col items-center z-10 space-y-8 w-80 sm:w-96 px-4">
         {/* Animated Hex Orbit Logo Frame */}
         <div className="relative flex items-center justify-center w-28 h-28">
           {/* Outer Orbit Spinning Gradient Ring */}
@@ -75,16 +75,16 @@ const InitialLoader = ({ name = 'Bishal Kumar Shaw', isDataLoading = false }) =>
         </div>
 
         {/* User Name & High-Tech Status */}
-        <div className="text-center space-y-3">
+        <div className="text-center space-y-3 w-full flex flex-col items-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
             <span className="text-primary-700">{name}</span>
           </h2>
 
           {/* Interactive Code Terminal Line */}
-          <div className="inline-flex items-center space-x-2 bg-slate-900 text-slate-200 px-4 py-2 rounded-xl text-xs font-mono shadow-md border border-slate-800">
-            <Terminal size={14} className="text-primary-400" />
-            <span className="text-emerald-400">$</span>
-            <span className="text-slate-300">{statusMessages[statusIndex]}</span>
+          <div className="w-full flex items-center justify-center space-x-2 bg-slate-900 text-slate-200 px-4 py-2.5 rounded-xl text-xs font-mono shadow-md border border-slate-800">
+            <Terminal size={14} className="text-primary-400 flex-shrink-0" />
+            <span className="text-emerald-400 flex-shrink-0">$</span>
+            <span className="text-slate-300 truncate">{statusMessages[statusIndex]}</span>
           </div>
         </div>
 
