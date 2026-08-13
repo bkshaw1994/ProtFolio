@@ -24,7 +24,14 @@ const profileData = {
   phone: "+91-9876543210",
   linkedin: "https://www.linkedin.com/in/bkshaw1994",
   github: "https://github.com/bkshaw1994",
+  medium: "https://medium.com/@bkshaw1994",
   website: "https://bishal-portfolio-chi.vercel.app",
+  socialLinks: {
+    github: "https://github.com/bkshaw1994",
+    linkedin: "https://www.linkedin.com/in/bkshaw1994",
+    medium: "https://medium.com/@bkshaw1994",
+    portfolio: "https://bishal-portfolio-chi.vercel.app"
+  },
   summary:
     "Experienced Senior Associate with 9+ years in full-stack development, specializing in MERN stack, cloud technologies, and scalable web applications. Proven track record of leading technical initiatives and mentoring development teams.",
   skills: {

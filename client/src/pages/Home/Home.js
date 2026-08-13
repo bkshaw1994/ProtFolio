@@ -21,6 +21,7 @@ import {
 // Components
 import ProjectCard from '../../components/ProjectCard';
 import SkillBadge from '../../components/SkillBadge';
+import MediumPosts from '../../components/MediumPosts/MediumPosts';
 import Skeleton, {
   SkeletonProject,
   SkeletonSkill,
@@ -396,6 +397,9 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Blog Articles Section */}
+      <MediumPosts isHomePage={true} limit={3} />
 
       {/* CTA Section */}
       <section className="section-padding bg-gradient-to-br from-primary-600 to-primary-800 text-white">

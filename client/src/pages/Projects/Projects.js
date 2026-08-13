@@ -82,8 +82,8 @@ const Projects = () => {
           content="Browse my portfolio of projects and work"
         />
       </Helmet>
-      <div className="pt-28 sm:pt-36 min-h-screen bg-gray-50">
-        <section className="section-padding">
+      <div className="min-h-screen bg-gray-50">
+        <section className="pt-24 sm:pt-28 pb-12 sm:pb-16">
           <div className="container-custom">
             {/* Header */}
             <div className="text-center mb-12">
