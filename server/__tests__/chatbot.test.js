@@ -1,7 +1,7 @@
 const request = require('supertest');
 const express = require('express');
 const chatbotRoutes = require('../routes/chatbot');
-const { isSensitiveQuery, processChatMessage, getSuggestedQuestions } = require('../services/chatbotService');
+const { isSensitiveQuery, processChatMessage } = require('../services/chatbotService');
 
 const app = express();
 app.use(express.json());

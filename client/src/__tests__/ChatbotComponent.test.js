@@ -5,13 +5,20 @@ import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '../features/api/apiSlice';
 import Chatbot from '../components/Chatbot/Chatbot';
 
+jest.mock('../features/api/apiSlice', () => {
+  const actual = jest.requireActual('../features/api/apiSlice');
+  return {
+    ...actual,
+    useSendChatMessageMutation: () => [jest.fn(), { isLoading: false }],
+    useGetSuggestedQuestionsQuery: () => ({ data: { data: [] } })
+  };
+});
+
 const createMockStore = () =>
   configureStore({
     reducer: {
-      [apiSlice.reducerPath]: apiSlice.reducer
-    },
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(apiSlice.middleware)
+      [apiSlice?.reducerPath || 'api']: (state = {}) => state
+    }
   });
 
 describe('Chatbot Component', () => {

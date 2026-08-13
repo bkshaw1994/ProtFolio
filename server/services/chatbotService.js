@@ -92,7 +92,7 @@ const SENSITIVE_PATTERNS = [
 
 /**
  * Validates if the message is requesting critical / sensitive information.
- * @param {string} message 
+ * @param {string} message
  * @returns {boolean}
  */
 const isSensitiveQuery = (message) => {
@@ -105,10 +105,10 @@ const isSensitiveQuery = (message) => {
  */
 const GET_SAFETY_RESPONSE = () => {
   return (
-    "For privacy, security, and confidentiality reasons, I cannot disclose critical personal information such as private contact numbers, exact home address, passwords, or confidential enterprise details. " +
-    "However, I would be delighted to assist you with information regarding Bishal's professional background, core technical skills, key projects, work experience, or how to reach out via his official email (" +
+    'For privacy, security, and confidentiality reasons, I cannot disclose critical personal information such as private contact numbers, exact home address, passwords, or confidential enterprise details. ' +
+    'However, I would be delighted to assist you with information regarding Bishal\'s professional background, core technical skills, key projects, work experience, or how to reach out via his official email (' +
     FALLBACK_KNOWLEDGE.email +
-    ") or LinkedIn!"
+    ') or LinkedIn!'
   );
 };
 
@@ -142,31 +142,31 @@ const fetchPortfolioKnowledge = async () => {
 
     try {
       profileData = await Profile.findOne({ isActive: true }).lean();
-    } catch (_e) {
+    } catch {
       // DB call fallback
     }
 
     try {
       skillsData = await Skill.find({ isActive: true }).lean();
-    } catch (_e) {
+    } catch {
       // DB call fallback
     }
 
     try {
       experienceData = await Experience.find({ isActive: true }).lean();
-    } catch (_e) {
+    } catch {
       // DB call fallback
     }
 
     try {
       projectsData = await Project.find({ isActive: true }).lean();
-    } catch (_e) {
+    } catch {
       // DB call fallback
     }
 
     try {
       certificationsData = await Certification.find({ isActive: true }).lean();
-    } catch (_e) {
+    } catch {
       // DB call fallback
     }
 
@@ -230,8 +230,8 @@ const generateLocalResponse = (userMessage, knowledge) => {
   if (/\b(hi|hello|hey|greetings|good morning|good afternoon|good evening)\b/i.test(query)) {
     return (
       `Hello! 👋 I am **${knowledge.name}'s AI Portfolio Assistant**.\n\n` +
-      `I can tell you all about Bishal's 9+ years of full-stack engineering experience, core technical skills (MERN, AWS, Docker), key projects, and career highlights.\n\n` +
-      `How can I assist you today?`
+      'I can tell you all about Bishal\'s 9+ years of full-stack engineering experience, core technical skills (MERN, AWS, Docker), key projects, and career highlights.\n\n' +
+      'How can I assist you today?'
     );
   }
 
@@ -242,7 +242,7 @@ const generateLocalResponse = (userMessage, knowledge) => {
       `👨‍💻 **Role**: ${knowledge.title}\n` +
       `📍 **Location**: ${knowledge.location}\n` +
       `📝 **Summary**: ${knowledge.summary}\n\n` +
-      `Feel free to ask me about his **skills**, **projects**, **work experience**, or **certifications**!`
+      'Feel free to ask me about his **skills**, **projects**, **work experience**, or **certifications**!'
     );
   }
 
@@ -250,12 +250,12 @@ const generateLocalResponse = (userMessage, knowledge) => {
   if (/\b(skill|skills|tech|technologies|stack|framework|programming|languages|tools|frontend|backend|database)\b/i.test(query)) {
     const skillsList = knowledge.skills.slice(0, 12).join(', ');
     return (
-      `💡 **Technical Skills & Expertise**\n\n` +
-      `Bishal specializes in modern full-stack application development:\n` +
-      `• **Core Stack**: MERN (MongoDB, Express.js, React.js, Node.js)\n` +
-      `• **Languages**: JavaScript (ES6+), TypeScript, HTML5, CSS3\n` +
-      `• **Cloud & DevOps**: AWS, Docker, Git, CI/CD Pipelines\n` +
-      `• **Styling**: Tailwind CSS, CSS Modules, Framer Motion\n\n` +
+      '💡 **Technical Skills & Expertise**\n\n' +
+      'Bishal specializes in modern full-stack application development:\n' +
+      '• **Core Stack**: MERN (MongoDB, Express.js, React.js, Node.js)\n' +
+      '• **Languages**: JavaScript (ES6+), TypeScript, HTML5, CSS3\n' +
+      '• **Cloud & DevOps**: AWS, Docker, Git, CI/CD Pipelines\n' +
+      '• **Styling**: Tailwind CSS, CSS Modules, Framer Motion\n\n' +
       `Key skills: *${skillsList}*`
     );
   }
@@ -264,10 +264,10 @@ const generateLocalResponse = (userMessage, knowledge) => {
   if (/\b(experience|work|job|history|company|cognizant|role|senior associate|career)\b/i.test(query)) {
     const expText = knowledge.experience.map((e) => `• ${e}`).join('\n');
     return (
-      `💼 **Professional Experience**\n\n` +
-      `Bishal has **9+ years** of professional experience in software engineering and technical leadership:\n\n` +
+      '💼 **Professional Experience**\n\n' +
+      'Bishal has **9+ years** of professional experience in software engineering and technical leadership:\n\n' +
       `${expText}\n\n` +
-      `Key achievements include leading full-stack development teams, building high-throughput microservices, and optimizing cloud web applications.`
+      'Key achievements include leading full-stack development teams, building high-throughput microservices, and optimizing cloud web applications.'
     );
   }
 
@@ -275,10 +275,10 @@ const generateLocalResponse = (userMessage, knowledge) => {
   if (/\b(project|projects|portfolio|work samples|apps|build|e-commerce|task management|weather)\b/i.test(query)) {
     const projText = knowledge.projects.map((p) => `• ${p}`).join('\n');
     return (
-      `🚀 **Featured Projects**\n\n` +
-      `Here are some of the key projects Bishal has designed and developed:\n\n` +
+      '🚀 **Featured Projects**\n\n' +
+      'Here are some of the key projects Bishal has designed and developed:\n\n' +
       `${projText}\n\n` +
-      `You can also explore the **Projects** section on this website for detailed case studies and live demos!`
+      'You can also explore the **Projects** section on this website for detailed case studies and live demos!'
     );
   }
 
@@ -286,13 +286,13 @@ const generateLocalResponse = (userMessage, knowledge) => {
   if (/\b(contact|email|phone|reach|touch|hire|interview|connect|linkedin|github)\b/i.test(query)) {
     return (
       `📫 **Get in Touch with ${knowledge.name}**\n\n` +
-      `Bishal is always open to professional opportunities, technical collaborations, and networking!\n\n` +
+      'Bishal is always open to professional opportunities, technical collaborations, and networking!\n\n' +
       `• 📧 **Email**: [${knowledge.email}](mailto:${knowledge.email})\n` +
       `• 💼 **LinkedIn**: [linkedin.com/in/bkshaw1994](${FALLBACK_KNOWLEDGE.linkedin})\n` +
       `• 🐙 **GitHub**: [github.com/bkshaw1994](${FALLBACK_KNOWLEDGE.github})\n` +
       `• 📝 **Medium**: [medium.com/@bkshaw1994](${knowledge.medium || FALLBACK_KNOWLEDGE.medium})\n` +
       `• 🌐 **Website**: [bishal-portfolio-chi.vercel.app](${FALLBACK_KNOWLEDGE.website})\n\n` +
-      `You can also drop a direct message using the **Contact Form** on the website!`
+      'You can also drop a direct message using the **Contact Form** on the website!'
     );
   }
 
@@ -300,29 +300,29 @@ const generateLocalResponse = (userMessage, knowledge) => {
   if (/\b(certif|certificate|qualification|degree|education)\b/i.test(query)) {
     const certText = knowledge.certifications.map((c) => `• ${c}`).join('\n');
     return (
-      `🎓 **Certifications & Education**\n\n` +
+      '🎓 **Certifications & Education**\n\n' +
       `${certText}\n\n` +
-      `Bishal continuously upgrades his skill set with certifications in cloud architectures, full-stack development, and modern software design.`
+      'Bishal continuously upgrades his skill set with certifications in cloud architectures, full-stack development, and modern software design.'
     );
   }
 
   // Thank you / Gratitude
   if (/\b(thank|thanks|great|awesome|good|perfect|appreciate)\b/i.test(query)) {
     return (
-      `You're very welcome! 😊 It's a pleasure helping you. Let me know if you have any more questions about Bishal's work or experience!`
+      'You\'re very welcome! 😊 It\'s a pleasure helping you. Let me know if you have any more questions about Bishal\'s work or experience!'
     );
   }
 
   // Default fallback response
   return (
     `Thank you for asking! ${knowledge.name} is a Senior Associate at Cognizant with over 9+ years of expertise in full-stack web development (MERN, AWS, Docker).\n\n` +
-    `I can help answer questions about:\n` +
-    `• 💡 **Technical Skills & Tools**\n` +
-    `• 💼 **Work Experience & Roles**\n` +
-    `• 🚀 **Featured Projects & Demos**\n` +
-    `• 🎓 **Certifications**\n` +
-    `• 📬 **How to Contact Bishal**\n\n` +
-    `What would you like to know more about?`
+    'I can help answer questions about:\n' +
+    '• 💡 **Technical Skills & Tools**\n' +
+    '• 💼 **Work Experience & Roles**\n' +
+    '• 🚀 **Featured Projects & Demos**\n' +
+    '• 🎓 **Certifications**\n' +
+    '• 📬 **How to Contact Bishal**\n\n' +
+    'What would you like to know more about?'
   );
 };
 
@@ -433,10 +433,10 @@ const processChatMessage = async (userMessage, messageHistory = []) => {
  */
 const getSuggestedQuestions = () => {
   return [
-    "What are Bishal's core skills?",
-    "Tell me about his experience at Cognizant",
-    "What key projects has Bishal built?",
-    "How can I contact or hire Bishal?"
+    'What are Bishal\'s core skills?',
+    'Tell me about his experience at Cognizant',
+    'What key projects has Bishal built?',
+    'How can I contact or hire Bishal?'
   ];
 };
 

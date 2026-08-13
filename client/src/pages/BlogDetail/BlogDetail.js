@@ -28,7 +28,7 @@ const FALLBACK_POSTS = [
     description: 'Choosing the right rendering strategy is crucial for your app’s success. Deep dive into modern JavaScript frameworks and server side rendering.',
     categories: ['Web Architecture', 'SSR', 'React'],
     readTime: '6 min read',
-    content: `<p>Choosing the right rendering strategy is crucial for your application’s performance, SEO success, and user experience. In modern web development, rendering modes have evolved far beyond basic Client-Side Rendering.</p><h3>Client-Side Rendering (CSR)</h3><p>With CSR, the browser downloads a minimal HTML wrapper and JavaScript bundle, executing React/Vue scripts dynamically in the client browser. Great for rich interactive dashboards, but carries initial loading overhead.</p><h3>Server-Side Rendering (SSR)</h3><p>SSR generates HTML dynamically per request on a Node.js server. Pages load instantly with pre-rendered content, improving SEO and initial render speeds significantly.</p><h3>Static Site Generation (SSG) & Incremental Static Regeneration (ISR)</h3><p>SSG pre-builds HTML at build time. ISR takes this further by regenerating static pages asynchronously in the background as new requests arrive, offering static speed with dynamic updates.</p>`
+    content: '<p>Choosing the right rendering strategy is crucial for your application’s performance, SEO success, and user experience. In modern web development, rendering modes have evolved far beyond basic Client-Side Rendering.</p><h3>Client-Side Rendering (CSR)</h3><p>With CSR, the browser downloads a minimal HTML wrapper and JavaScript bundle, executing React/Vue scripts dynamically in the client browser. Great for rich interactive dashboards, but carries initial loading overhead.</p><h3>Server-Side Rendering (SSR)</h3><p>SSR generates HTML dynamically per request on a Node.js server. Pages load instantly with pre-rendered content, improving SEO and initial render speeds significantly.</p><h3>Static Site Generation (SSG) & Incremental Static Regeneration (ISR)</h3><p>SSG pre-builds HTML at build time. ISR takes this further by regenerating static pages asynchronously in the background as new requests arrive, offering static speed with dynamic updates.</p>'
   },
   {
     id: 'post-2',
@@ -39,7 +39,7 @@ const FALLBACK_POSTS = [
     description: 'Understanding CI vs CD, benefits, popular deployment tools, and how to implement zero-downtime CI/CD pipelines in any project.',
     categories: ['DevOps', 'CI/CD', 'Docker'],
     readTime: '7 min read',
-    content: `<p>Continuous Integration (CI) and Continuous Deployment (CD) form the bedrock of modern software engineering and DevOps automation.</p><h3>Continuous Integration (CI)</h3><p>Developers frequently commit code to a shared repository where automated unit tests, linters, and integration checks validate changes immediately, preventing integration hell.</p><h3>Continuous Delivery vs Continuous Deployment (CD)</h3><p>Continuous Delivery ensures code is always buildable and staging-ready. Continuous Deployment automatically pushes verified builds to production environments without manual intervention.</p>`
+    content: '<p>Continuous Integration (CI) and Continuous Deployment (CD) form the bedrock of modern software engineering and DevOps automation.</p><h3>Continuous Integration (CI)</h3><p>Developers frequently commit code to a shared repository where automated unit tests, linters, and integration checks validate changes immediately, preventing integration hell.</p><h3>Continuous Delivery vs Continuous Deployment (CD)</h3><p>Continuous Delivery ensures code is always buildable and staging-ready. Continuous Deployment automatically pushes verified builds to production environments without manual intervention.</p>'
   },
   {
     id: 'post-3',
@@ -50,14 +50,14 @@ const FALLBACK_POSTS = [
     description: 'If you have worked with React performance optimization, learn when to use React.memo vs useMemo and prevent common pitfalls.',
     categories: ['React', 'JavaScript', 'Frontend'],
     readTime: '4 min read',
-    content: `<p>React developers often confuse <strong>React.memo</strong> and <strong>useMemo</strong> when optimizing render cycles.</p><h3>React.memo</h3><p>React.memo is a Higher-Order Component (HOC) that memoizes component re-renders by shallowly comparing incoming props.</p><h3>useMemo</h3><p>useMemo is a React Hook that memoizes the computed result of an expensive calculation inside a component during render cycles.</p>`
+    content: '<p>React developers often confuse <strong>React.memo</strong> and <strong>useMemo</strong> when optimizing render cycles.</p><h3>React.memo</h3><p>React.memo is a Higher-Order Component (HOC) that memoizes component re-renders by shallowly comparing incoming props.</p><h3>useMemo</h3><p>useMemo is a React Hook that memoizes the computed result of an expensive calculation inside a component during render cycles.</p>'
   }
 ];
 
 /**
  * Strips all duplicate top images, figures, and topic headings embedded inside Medium RSS HTML content
  */
-const getCleanedContent = (htmlContent, thumbnail, title) => {
+const getCleanedContent = (htmlContent, thumbnail, _title) => {
   if (!htmlContent) return '';
   let cleaned = htmlContent;
 

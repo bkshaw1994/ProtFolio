@@ -50,7 +50,7 @@ const getMediumUsername = async () => {
       const match = mediumUrl.match(/@([^/]+)/);
       if (match && match[1]) return match[1];
     }
-  } catch (_e) {
+  } catch {
     // DB fallback
   }
   return 'bkshaw1994';

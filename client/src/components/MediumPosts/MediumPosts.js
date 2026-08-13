@@ -50,7 +50,7 @@ const FALLBACK_POSTS = [
 ];
 
 const MediumPosts = ({ limit = null, isHomePage = false }) => {
-  const { data: response, isLoading } = useGetMediumPostsQuery();
+  const { data: response } = useGetMediumPostsQuery();
   const [showAll, setShowAll] = useState(false);
 
   const posts = response?.data && response.data.length > 0 ? response.data : FALLBACK_POSTS;

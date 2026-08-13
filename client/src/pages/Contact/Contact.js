@@ -8,7 +8,6 @@ import {
   CheckCircle,
   Github,
   Linkedin,
-  ExternalLink,
   Download,
   Sparkles,
   MessageSquare,

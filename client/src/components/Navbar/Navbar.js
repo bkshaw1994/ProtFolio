@@ -31,14 +31,14 @@ const MediumIcon = ({ size = 18, className = '' }) => (
 
 // Dynamic Favicon SVGs per Route
 const ROUTE_FAVICONS = {
-  '/': `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="30" fill="%233b82f6"/><path d="M30 50L45 65L70 35" stroke="white" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`,
-  '/projects': `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="30" fill="%236366f1"/><path d="M25 35h50v40H25zM25 35l15-10h20l15 10" stroke="white" stroke-width="8" fill="none"/></svg>`,
-  '/skills': `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="30" fill="%2306b6d4"/><rect x="30" y="30" width="40" height="40" rx="8" fill="white"/><path d="M50 15v15M50 70v15M15 50h15M70 50h15" stroke="white" stroke-width="8" stroke-linecap="round"/></svg>`,
-  '/experience': `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="30" fill="%238b5cf6"/><rect x="25" y="40" width="50" height="35" rx="6" fill="white"/><path d="M38 40V30a12 12 0 0124 0v10" stroke="white" stroke-width="8" fill="none"/></svg>`,
-  '/blogs': `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="30" fill="%23ec4899"/><path d="M25 30h50M25 48h50M25 66h35" stroke="white" stroke-width="8" stroke-linecap="round"/></svg>`,
-  '/certifications': `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="30" fill="%23f59e0b"/><polygon points="50,20 60,40 82,42 65,58 71,80 50,67 29,80 35,58 18,42 40,40" fill="white"/></svg>`,
-  '/about': `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="30" fill="%2310b981"/><circle cx="50" cy="40" r="16" fill="white"/><path d="M25 75c0-14 11-22 25-22s25 8 25 22" stroke="white" stroke-width="8" fill="none"/></svg>`,
-  '/contact': `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="30" fill="%233b82f6"/><rect x="20" y="30" width="60" height="40" rx="6" fill="white"/><path d="M20 35l30 22 30-22" stroke="%233b82f6" stroke-width="6" fill="none"/></svg>`
+  '/': 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' rx=\'30\' fill=\'%233b82f6\'/><path d=\'M30 50L45 65L70 35\' stroke=\'white\' stroke-width=\'10\' stroke-linecap=\'round\' stroke-linejoin=\'round\' fill=\'none\'/></svg>',
+  '/projects': 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' rx=\'30\' fill=\'%236366f1\'/><path d=\'M25 35h50v40H25zM25 35l15-10h20l15 10\' stroke=\'white\' stroke-width=\'8\' fill=\'none\'/></svg>',
+  '/skills': 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' rx=\'30\' fill=\'%2306b6d4\'/><rect x=\'30\' y=\'30\' width=\'40\' height=\'40\' rx=\'8\' fill=\'white\'/><path d=\'M50 15v15M50 70v15M15 50h15M70 50h15\' stroke=\'white\' stroke-width=\'8\' stroke-linecap=\'round\'/></svg>',
+  '/experience': 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' rx=\'30\' fill=\'%238b5cf6\'/><rect x=\'25\' y=\'40\' width=\'50\' height=\'35\' rx=\'6\' fill=\'white\'/><path d=\'M38 40V30a12 12 0 0124 0v10\' stroke=\'white\' stroke-width=\'8\' fill=\'none\'/></svg>',
+  '/blogs': 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' rx=\'30\' fill=\'%23ec4899\'/><path d=\'M25 30h50M25 48h50M25 66h35\' stroke=\'white\' stroke-width=\'8\' stroke-linecap=\'round\'/></svg>',
+  '/certifications': 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' rx=\'30\' fill=\'%23f59e0b\'/><polygon points=\'50,20 60,40 82,42 65,58 71,80 50,67 29,80 35,58 18,42 40,40\' fill=\'white\'/></svg>',
+  '/about': 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' rx=\'30\' fill=\'%2310b981\'/><circle cx=\'50\' cy=\'40\' r=\'16\' fill=\'white\'/><path d=\'M25 75c0-14 11-22 25-22s25 8 25 22\' stroke=\'white\' stroke-width=\'8\' fill=\'none\'/></svg>',
+  '/contact': 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' rx=\'30\' fill=\'%233b82f6\'/><rect x=\'20\' y=\'30\' width=\'60\' height=\'40\' rx=\'6\' fill=\'white\'/><path d=\'M20 35l30 22 30-22\' stroke=\'%233b82f6\' stroke-width=\'6\' fill=\'none\'/></svg>'
 };
 
 const Navbar = () => {
@@ -57,7 +57,7 @@ const Navbar = () => {
     if (!svgIcon && location.pathname.startsWith('/projects')) svgIcon = ROUTE_FAVICONS['/projects'];
     if (!svgIcon) svgIcon = ROUTE_FAVICONS['/'];
 
-    let link = document.querySelector("link[rel*='icon']");
+    let link = document.querySelector('link[rel*="icon"]');
     if (!link) {
       link = document.createElement('link');
       link.rel = 'icon';

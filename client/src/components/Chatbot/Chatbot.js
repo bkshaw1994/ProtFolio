@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Bot,
-  MessageSquare,
-  X,
   Send,
   Trash2,
   Sparkles,
@@ -18,16 +16,16 @@ import {
 import './Chatbot.css';
 
 const DEFAULT_SUGGESTIONS = [
-  "What are Bishal's core skills?",
-  "Tell me about his experience at Cognizant",
-  "What key projects has Bishal built?",
-  "How can I contact Bishal?"
+  'What are Bishal\'s core skills?',
+  'Tell me about his experience at Cognizant',
+  'What key projects has Bishal built?',
+  'How can I contact Bishal?'
 ];
 
 const INITIAL_MESSAGE = {
   id: 'welcome',
   sender: 'bot',
-  text: "Hello! 👋 I am **Bishal's AI Portfolio Assistant**.\n\nHow can I help you explore Bishal's technical skills, experience, and projects today?",
+  text: 'Hello! 👋 I am **Bishal\'s AI Portfolio Assistant**.\n\nHow can I help you explore Bishal\'s technical skills, experience, and projects today?',
   timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 };
 
@@ -147,7 +145,7 @@ const Chatbot = () => {
       const botMsg = {
         id: `bot-${Date.now()}`,
         sender: 'bot',
-        text: res?.data?.reply || "I'm sorry, I couldn't process your request right now. Please try again.",
+        text: res?.data?.reply || 'I\'m sorry, I couldn\'t process your request right now. Please try again.',
         isGuardrailTriggered: res?.data?.isGuardrailTriggered || false,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
@@ -157,7 +155,7 @@ const Chatbot = () => {
       const errorMsg = {
         id: `bot-err-${Date.now()}`,
         sender: 'bot',
-        text: "I am having trouble connecting to the server. Please check your internet connection or try again shortly.",
+        text: 'I am having trouble connecting to the server. Please check your internet connection or try again shortly.',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setMessages((prev) => [...prev, errorMsg]);
