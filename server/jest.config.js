@@ -1,6 +1,7 @@
 module.exports = {
   // Test environment
   testEnvironment: 'node',
+  testEnvironmentOptions: {},
 
   // Root directory for tests
   rootDir: '.',

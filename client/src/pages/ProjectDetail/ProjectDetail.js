@@ -30,8 +30,8 @@ const ProjectDetail = () => {
         <title>{project.title} - Project Details</title>
         <meta name="description" content={project.shortDescription || 'Project details and information'} />
       </Helmet>
-      <div className="pt-28 sm:pt-36 min-h-screen">
-        <section className="section-padding">
+      <div className="min-h-screen bg-slate-50/50 pt-24 sm:pt-28 pb-16">
+        <section className="pb-12">
           <div className="container-custom">
             <h1 className="text-4xl font-bold text-secondary-900 mb-6 text-center">
               {project.title}

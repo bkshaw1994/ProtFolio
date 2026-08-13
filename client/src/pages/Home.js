@@ -10,6 +10,7 @@ import {
 
 // Components
 import LoadingSpinner from '../components/LoadingSpinner';
+import MediumPosts from '../components/MediumPosts/MediumPosts';
 import HeroSection from './Home/sections/HeroSection';
 import CoreSkillsSection from './Home/sections/CoreSkillsSection';
 import FeaturedProjectsSection from './Home/sections/FeaturedProjectsSection';
@@ -91,8 +92,9 @@ const Home = () => {
       />
       <CoreSkillsSection coreSkills={coreSkills} />
       <FeaturedProjectsSection allFeaturedProjects={allFeaturedProjects} />
-      <WhyChooseMeSection />
+      <MediumPosts isHomePage={true} limit={3} />
       <CertificationsSection certifications={featuredCertifications} />
+      <WhyChooseMeSection />
       <CtaSection />
     </>
   );

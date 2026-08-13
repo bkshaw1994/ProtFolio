@@ -19,10 +19,18 @@ const getProfile = async (req, res) => {
       });
     }
 
+    const profileObj = profile.toObject ? profile.toObject() : { ...profile };
+    const mediumVal = profileObj.medium || profileObj.socialLinks?.medium || profileObj.mediumUrl || '';
+    profileObj.medium = mediumVal;
+    profileObj.socialLinks = {
+      ...(profileObj.socialLinks || {}),
+      medium: mediumVal
+    };
+
     res.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
     res.json({
       success: true,
-      data: profile
+      data: profileObj
     });
   } catch (error) {
     console.error('Error fetching profile:', error);
@@ -58,6 +66,7 @@ const createOrUpdateProfile = async (req, res) => {
       profileImage,
       resume,
       socialLinks,
+      medium,
       yearsOfExperience,
       summary
     } = req.body;
@@ -79,6 +88,7 @@ const createOrUpdateProfile = async (req, res) => {
           profileImage,
           resume,
           socialLinks,
+          medium,
           yearsOfExperience,
           summary
         },
@@ -125,7 +135,7 @@ const createOrUpdateProfile = async (req, res) => {
 const getProfileSummary = async (req, res) => {
   try {
     const profile = await Profile.findOne({ isActive: true }).select(
-      'name title email socialLinks profileImage location resume'
+      'name title email socialLinks profileImage location resume medium'
     );
 
     if (!profile) {
@@ -135,10 +145,18 @@ const getProfileSummary = async (req, res) => {
       });
     }
 
+    const profileObj = profile.toObject ? profile.toObject() : { ...profile };
+    const mediumVal = profileObj.medium || profileObj.socialLinks?.medium || profileObj.mediumUrl || '';
+    profileObj.medium = mediumVal;
+    profileObj.socialLinks = {
+      ...(profileObj.socialLinks || {}),
+      medium: mediumVal
+    };
+
     res.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
     res.json({
       success: true,
-      data: profile
+      data: profileObj
     });
   } catch (error) {
     console.error('Error fetching profile summary:', error);

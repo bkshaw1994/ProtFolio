@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import InitialLoader from './components/InitialLoader';
 import FloatingMobileDock from './components/FloatingMobileDock';
+import Chatbot from './components/Chatbot/Chatbot';
 import {
   useGetProfileQuery,
   useGetFeaturedProjectsQuery,
@@ -27,6 +28,8 @@ import Skills from './pages/Skills';
 import Experience from './pages/Experience';
 import Certifications from './pages/Certifications';
 import Contact from './pages/Contact';
+import Blogs from './pages/Blogs/Blogs';
+import BlogDetail from './pages/BlogDetail/BlogDetail';
 import Admin from './pages/Admin';
 import NotFound from './pages/NotFound';
 
@@ -91,6 +94,7 @@ function App() {
 
           <Navbar />
           <FloatingMobileDock />
+          {!isDataLoading && <Chatbot />}
           
           <main className="flex-grow min-h-[calc(100vh-320px)]">
             <ScrollToTop />
@@ -102,6 +106,10 @@ function App() {
               <Route path="/skills" element={<Skills />} />
               <Route path="/experience" element={<Experience />} />
               <Route path="/certifications" element={<Certifications />} />
+              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/blogs/:id" element={<BlogDetail />} />
+              <Route path="/articles" element={<Blogs />} />
+              <Route path="/articles/:id" element={<BlogDetail />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />

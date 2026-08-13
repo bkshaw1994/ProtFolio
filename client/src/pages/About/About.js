@@ -74,9 +74,9 @@ const About = () => {
           content="about freelance developer, MERN stack developer Bangalore, hire React developer, experienced Node.js developer, full stack developer for hire, web development expert"
         />
       </Helmet>
-      <div className="pt-28 sm:pt-36 min-h-screen bg-gradient-to-b from-secondary-50 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-secondary-50 to-white">
         {/* Hero Section */}
-        <section className="section-padding">
+        <section className="pt-24 sm:pt-28 pb-12 sm:pb-16">
           <div className="container-custom max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-bold text-secondary-900 mb-4">

@@ -57,7 +57,7 @@ global.testUtils = {
 // Mock environment variables for testing
 process.env.NODE_ENV = 'test';
 process.env.JWT_SECRET = 'test-jwt-secret';
-process.env.MONGODB_URI = 'mongodb://localhost:27017/portfolio-test';
+process.env.MONGODB_URI = process.env.MONGODB_TEST_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio-test';
 
 // Suppress MongoDB deprecation warnings in tests
 mongoose.set('strictQuery', false);

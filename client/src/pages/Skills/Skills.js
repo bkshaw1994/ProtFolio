@@ -87,25 +87,24 @@ const Skills = () => {
         />
       </Helmet>
 
-      <div className="pt-20 sm:pt-24 min-h-screen pb-16">
+      <div className="min-h-screen pb-16">
         {/* Header Hero Banner */}
-        <section className="py-10 sm:py-14 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_50%)] pointer-events-none"></div>
+        <section className="pt-24 sm:pt-28 pb-10 sm:pb-12 bg-slate-50/50 bg-grid-pattern text-slate-900 relative overflow-hidden">
           <div className="container-custom text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-primary-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-white/10"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100/80 text-primary-800 border border-primary-200/60 text-xs font-bold uppercase tracking-wider mb-4 shadow-sm"
             >
-              <Sparkles size={13} />
+              <Sparkles size={14} />
               <span>Tech Stack & Capabilities</span>
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3 text-white"
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 text-slate-900"
             >
               Technical Expertise
             </motion.h1>
@@ -113,9 +112,9 @@ const Skills = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto font-normal"
+              className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto font-normal"
             >
-              Comprehensive breakdown of my skills, tools, and tech stack proficiency
+              Comprehensive breakdown of my skills, tools, and tech stack proficiency.
             </motion.p>
           </div>
         </section>

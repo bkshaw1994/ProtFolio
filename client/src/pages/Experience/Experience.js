@@ -56,8 +56,8 @@ const Experience = () => {
             content="My work experience and career journey"
           />
         </Helmet>
-        <div className="pt-28 sm:pt-36 min-h-screen bg-slate-50/50">
-          <section className="section-padding">
+        <div className="min-h-screen bg-slate-50/50">
+          <section className="pt-24 sm:pt-28 pb-12 sm:pb-16">
             <div className="container-custom">
               <div className="text-center mb-12">
                 <div className="h-12 bg-slate-200 rounded-xl w-64 mx-auto mb-4 animate-pulse"></div>
@@ -121,8 +121,8 @@ const Experience = () => {
           content="My work experience and career journey"
         />
       </Helmet>
-      <div className="pt-28 sm:pt-36 min-h-screen bg-slate-50/50 bg-grid-pattern pb-20">
-        <section className="section-padding py-12">
+      <div className="min-h-screen bg-slate-50/50 bg-grid-pattern pb-20">
+        <section className="pt-24 sm:pt-28 pb-12 sm:pb-16">
           <div className="container-custom">
             <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
               <div className="inline-flex items-center space-x-2 bg-primary-100/80 text-primary-800 border border-primary-200/60 px-4 py-2 rounded-full mb-4 shadow-sm">

@@ -12,7 +12,7 @@ export const apiSlice = createApi({
       return headers;
     }
   }),
-  tagTypes: ['Profile', 'Project', 'Skill', 'Experience', 'Contact', 'Visitor', 'Certification'],
+  tagTypes: ['Profile', 'Project', 'Skill', 'Experience', 'Contact', 'Visitor', 'Certification', 'Medium', 'Chatbot'],
   endpoints: (builder) => ({
     getProfile: builder.query({
       query: () => '/profile',
@@ -127,6 +127,24 @@ export const apiSlice = createApi({
         body: data
       }),
       invalidatesTags: ['Visitor']
+    }),
+    // Chatbot endpoints
+    sendChatMessage: builder.mutation({
+      query: (data) => ({
+        url: '/chatbot/message',
+        method: 'POST',
+        body: data
+      }),
+      invalidatesTags: ['Chatbot']
+    }),
+    getSuggestedQuestions: builder.query({
+      query: () => '/chatbot/suggested-questions',
+      providesTags: ['Chatbot']
+    }),
+    // Medium posts endpoint
+    getMediumPosts: builder.query({
+      query: () => '/medium/posts',
+      providesTags: ['Medium']
     })
   })
 });
@@ -153,5 +171,8 @@ export const {
   useGetGitHubRepoQuery,
   useGetGitHubStatsQuery,
   useGetVisitorCountQuery,
-  useIncrementVisitorCountMutation
+  useIncrementVisitorCountMutation,
+  useSendChatMessageMutation,
+  useGetSuggestedQuestionsQuery,
+  useGetMediumPostsQuery
 } = apiSlice;

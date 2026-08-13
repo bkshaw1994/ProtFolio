@@ -50,9 +50,14 @@ const profileSchema = new mongoose.Schema(
     socialLinks: {
       github: { type: String, default: '' },
       linkedin: { type: String, default: '' },
+      medium: { type: String, default: '' },
       twitter: { type: String, default: '' },
       portfolio: { type: String, default: '' },
       instagram: { type: String, default: '' }
+    },
+    medium: {
+      type: String,
+      default: ''
     },
     yearsOfExperience: {
       type: Number,

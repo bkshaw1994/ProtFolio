@@ -6,6 +6,7 @@ import {
   FolderGit2,
   Cpu,
   Briefcase,
+  BookOpen,
   User
 } from 'lucide-react';
 
@@ -13,6 +14,7 @@ const navItems = [
   { path: '/', label: 'Home', icon: Home },
   { path: '/projects', label: 'Projects', icon: FolderGit2 },
   { path: '/skills', label: 'Skills', icon: Cpu },
+  { path: '/blogs', label: 'Blogs', icon: BookOpen },
   { path: '/experience', label: 'Experience', icon: Briefcase },
   { path: '/about', label: 'About', icon: User }
 ];

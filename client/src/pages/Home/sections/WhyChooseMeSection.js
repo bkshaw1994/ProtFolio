@@ -64,7 +64,7 @@ const WhyChooseMeSection = () => {
   };
 
   return (
-    <section className="section-padding bg-slate-50/60 relative overflow-hidden">
+    <section className="section-padding bg-slate-50/70 relative overflow-hidden">
       <div className="container-custom relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
