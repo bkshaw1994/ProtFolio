@@ -7,7 +7,6 @@ import {
   FolderGit2,
   Search,
   X,
-  Sparkles,
   FolderOpen,
   AlertCircle,
   SlidersHorizontal
@@ -31,7 +30,7 @@ const Projects = () => {
 
   const { data: githubStats } = useGetGitHubStatsQuery();
 
-  const projects = projectsData.data || [];
+  const projects = useMemo(() => projectsData?.data || [], [projectsData]);
 
   // Extract unique categories dynamically
   const categories = useMemo(() => {

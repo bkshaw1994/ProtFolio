@@ -7,7 +7,6 @@ import {
   ExternalLink,
   Github,
   Tag,
-  Calendar,
   Layers,
   CheckCircle2,
   AlertCircle,
