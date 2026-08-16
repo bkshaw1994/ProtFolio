@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Star,
   GitFork,
@@ -20,69 +21,71 @@ import LoadingSpinner from '../LoadingSpinner';
 
 const GitHubProjectCard = ({ project }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-200 group">
-      <div className="flex justify-between items-start mb-4">
-        <h3 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">
-          {project.title}
-        </h3>
-        <div className="flex space-x-3 text-sm text-gray-500">
-          {project.stars > 0 && (
-            <span className="flex items-center bg-yellow-50 px-2 py-1 rounded-full">
-              <Star size={14} className="mr-1" /> {String(project.stars)}
-            </span>
-          )}
-          {project.forks > 0 && (
-            <span className="flex items-center bg-blue-50 px-2 py-1 rounded-full">
-              <GitFork size={14} className="mr-1" /> {String(project.forks)}
-            </span>
-          )}
+    <div className="glass-card p-6 border border-slate-200/80 hover:border-primary-500/40 hover:shadow-2xl hover:shadow-primary-500/10 hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between h-full">
+      <div>
+        <div className="flex justify-between items-start mb-3 gap-2">
+          <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary-600 transition-colors line-clamp-1">
+            {project.title}
+          </h3>
+          <div className="flex space-x-2 text-xs font-semibold flex-shrink-0">
+            {project.stars > 0 && (
+              <span className="flex items-center bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-1 rounded-full">
+                <Star size={13} className="mr-1 fill-amber-400 text-amber-500" /> {String(project.stars)}
+              </span>
+            )}
+            {project.forks > 0 && (
+              <span className="flex items-center bg-primary-50 text-primary-700 border border-primary-200 px-2.5 py-1 rounded-full">
+                <GitFork size={13} className="mr-1" /> {String(project.forks)}
+              </span>
+            )}
+          </div>
         </div>
+
+        <p className="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3 min-h-[3rem]">
+          {project.description}
+        </p>
+
+        {project.technologies && project.technologies.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {project.technologies.slice(0, 4).map((tech, index) => (
+              <span
+                key={index}
+                className="px-2.5 py-1 bg-slate-100/90 text-slate-700 rounded-lg text-xs font-medium border border-slate-200/60"
+              >
+                {tech}
+              </span>
+            ))}
+            {project.technologies.length > 4 && (
+              <span className="px-2.5 py-1 bg-primary-50 text-primary-700 rounded-lg text-xs font-semibold border border-primary-200/60">
+                +{project.technologies.length - 4} more
+              </span>
+            )}
+          </div>
+        )}
+
+        {project.language && (
+          <div className="mb-4">
+            <span className="inline-flex items-center px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200/60 text-xs font-semibold rounded-lg">
+              <Code2 size={13} className="mr-1 text-emerald-600" /> {project.language}
+            </span>
+          </div>
+        )}
       </div>
 
-      <p className="text-gray-600 mb-4 line-clamp-3 min-h-[3rem]">
-        {project.description}
-      </p>
-
-      {project.technologies && project.technologies.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.technologies.slice(0, 4).map((tech, index) => (
-            <span
-              key={index}
-              className="px-3 py-1 bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 text-sm rounded-full font-medium"
-            >
-              {tech}
-            </span>
-          ))}
-          {project.technologies.length > 4 && (
-            <span className="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">
-              +{project.technologies.length - 4} more
-            </span>
-          )}
-        </div>
-      )}
-
-      {project.language && (
-        <div className="mb-4">
-          <span className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-green-100 to-green-200 text-green-800 text-sm rounded-full font-medium">
-            <Code2 size={14} className="mr-1" /> {project.language}
-          </span>
-        </div>
-      )}
-
-      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-        <div className="flex items-center text-sm text-gray-500">
-          <Calendar size={14} className="mr-1" />
-          Updated {new Date(project.updatedAt).toLocaleDateString()}
+      <div className="flex items-center justify-between pt-4 border-t border-slate-100 text-xs text-slate-500 font-medium">
+        <div className="flex items-center">
+          <Calendar size={13} className="mr-1 text-slate-400" />
+          Updated {new Date(project.updatedAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
         </div>
 
-        <div className="flex space-x-3">
+        <div className="flex space-x-2">
           <a
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 bg-gray-900 text-white text-sm rounded-lg hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center px-3 py-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors font-medium"
           >
-            <Github size={16} className="mr-2" />
+            <Github size={14} className="mr-1.5" />
             Code
           </a>
           {project.liveUrl && (
@@ -90,9 +93,9 @@ const GitHubProjectCard = ({ project }) => {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition-colors"
+              className="inline-flex items-center px-3 py-1.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium shadow-xs"
             >
-              <ExternalLink size={16} className="mr-2" />
+              <ExternalLink size={14} className="mr-1.5" />
               Live
             </a>
           )}
@@ -107,23 +110,23 @@ const GitHubStats = ({ stats }) => {
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-      <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-4 rounded-lg text-center">
-        <div className="text-2xl font-bold">{stats.totalRepos}</div>
-        <div className="text-sm opacity-90">Repositories</div>
+      <div className="glass-card bg-gradient-to-br from-primary-600 to-indigo-700 text-white p-5 rounded-2xl text-center shadow-lg">
+        <div className="text-3xl font-extrabold mb-1">{stats.totalRepos}</div>
+        <div className="text-xs font-medium uppercase tracking-wider opacity-90">Repositories</div>
       </div>
-      <div className="bg-gradient-to-br from-yellow-500 to-yellow-600 text-white p-4 rounded-lg text-center">
-        <div className="text-2xl font-bold">{stats.totalStars}</div>
-        <div className="text-sm opacity-90">Total Stars</div>
+      <div className="glass-card bg-gradient-to-br from-amber-500 to-orange-600 text-white p-5 rounded-2xl text-center shadow-lg">
+        <div className="text-3xl font-extrabold mb-1">{stats.totalStars}</div>
+        <div className="text-xs font-medium uppercase tracking-wider opacity-90">Total Stars</div>
       </div>
-      <div className="bg-gradient-to-br from-green-500 to-green-600 text-white p-4 rounded-lg text-center">
-        <div className="text-2xl font-bold">{stats.totalForks}</div>
-        <div className="text-sm opacity-90">Total Forks</div>
+      <div className="glass-card bg-gradient-to-br from-emerald-500 to-teal-700 text-white p-5 rounded-2xl text-center shadow-lg">
+        <div className="text-3xl font-extrabold mb-1">{stats.totalForks}</div>
+        <div className="text-xs font-medium uppercase tracking-wider opacity-90">Total Forks</div>
       </div>
-      <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-4 rounded-lg text-center">
-        <div className="text-2xl font-bold">
+      <div className="glass-card bg-gradient-to-br from-purple-600 to-indigo-800 text-white p-5 rounded-2xl text-center shadow-lg">
+        <div className="text-3xl font-extrabold mb-1">
           {Object.keys(stats.languages || {}).length}
         </div>
-        <div className="text-sm opacity-90">Languages</div>
+        <div className="text-xs font-medium uppercase tracking-wider opacity-90">Languages</div>
       </div>
     </div>
   );
@@ -150,25 +153,25 @@ const GitHubProjects = () => {
   const isError = showAll ? allError : featuredError;
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner message="Fetching GitHub repositories..." />;
   }
 
   if (isError) {
     return (
       <div className="text-center py-12">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
-          <AlertTriangle className="mx-auto text-red-600 mb-4" size={64} />
-          <p className="text-red-800 font-medium mb-4">
+        <div className="glass-card bg-white p-8 max-w-md mx-auto border border-rose-200">
+          <AlertTriangle className="mx-auto text-rose-500 mb-4" size={48} />
+          <h3 className="text-lg font-bold text-slate-900 mb-2">
             Error loading GitHub repositories
-          </p>
-          <p className="text-red-600 text-sm mb-4">
-            Please check your internet connection or try again later.
+          </h3>
+          <p className="text-slate-600 text-sm mb-6">
+            Please check your network connection or API setup and try again.
           </p>
           <button
             onClick={() => window.location.reload()}
-            className="inline-flex items-center px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+            className="btn-primary text-xs"
           >
-            <RefreshCw size={16} className="mr-2" /> Retry
+            <RefreshCw size={14} className="mr-2" /> Retry
           </button>
         </div>
       </div>
@@ -176,33 +179,33 @@ const GitHubProjects = () => {
   }
 
   return (
-    <div className="space-y-6">
-      {/* GitHub Stats */}
+    <div className="space-y-8">
+      {/* GitHub Stats Header */}
       {statsData?.data && <GitHubStats stats={statsData.data} />}
 
-      {/* Header with Toggle */}
-      <div className="flex justify-between items-center">
+      {/* Header with Toggle Button */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white/80 backdrop-blur-md p-6 rounded-2xl border border-slate-200/80 shadow-sm">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">
-            {showAll ? 'All GitHub Projects' : 'Featured GitHub Projects'}
+          <h2 className="text-2xl font-extrabold text-slate-900">
+            {showAll ? 'All GitHub Repositories' : 'Featured GitHub Repositories'}
           </h2>
-          <p className="text-gray-600 mt-1">
+          <p className="text-slate-600 text-sm mt-1">
             {showAll
-              ? 'Complete collection of my repositories'
-              : 'Highlighted projects with community engagement'}
+              ? 'Comprehensive list of open source repositories and activity'
+              : 'Highlighted open source projects with community engagement'}
           </p>
         </div>
         <button
           onClick={() => setShowAll(!showAll)}
-          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl"
+          className="btn-primary text-xs flex-shrink-0"
         >
           {showAll ? (
             <>
-              <Star size={16} className="mr-2" /> Show Featured Only
+              <Star size={15} className="mr-2 fill-white" /> Show Featured Only
             </>
           ) : (
             <>
-              <BookOpen size={16} className="mr-2" /> View All Projects
+              <BookOpen size={15} className="mr-2" /> View All Repositories
             </>
           )}
         </button>
@@ -210,39 +213,47 @@ const GitHubProjects = () => {
 
       {/* Projects Grid */}
       {repos.length === 0 ? (
-        <div className="text-center py-16">
-          <FolderOpen className="mx-auto text-gray-400 mb-4" size={80} />
-          <h3 className="text-xl font-semibold text-gray-700 mb-2">
+        <div className="glass-card text-center py-16 px-6 max-w-md mx-auto">
+          <FolderOpen className="mx-auto text-slate-400 mb-4" size={64} />
+          <h3 className="text-xl font-bold text-slate-800 mb-2">
             No GitHub repositories found
           </h3>
-          <p className="text-gray-500">
+          <p className="text-slate-600 text-sm">
             {showAll
               ? 'No repositories available'
-              : 'No featured repositories available'}
+              : 'No featured repositories available currently.'}
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {repos.map((project, index) => (
-            <GitHubProjectCard
-              key={project._id || project.githubUrl || index}
-              project={project}
-            />
-          ))}
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {repos.map((project, index) => (
+              <motion.div
+                key={project._id || project.githubUrl || index}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.04 }}
+              >
+                <GitHubProjectCard project={project} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       )}
 
-      {/* Load More Info */}
+      {/* Load More Banner */}
       {!showAll && featuredRepos?.data?.length > 0 && (
-        <div className="text-center pt-8">
-          <p className="text-gray-600 mb-4">
-            Showing {featuredRepos.data.length} featured repositories
-          </p>
+        <div className="text-center pt-4">
           <button
             onClick={() => setShowAll(true)}
-            className="text-blue-600 hover:text-blue-800 font-medium"
+            className="btn-secondary text-xs"
           >
-            View all repositories →
+            View all {allRepos?.data?.length || ''} repositories →
           </button>
         </div>
       )}
