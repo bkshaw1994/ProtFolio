@@ -18,6 +18,7 @@ const contactRoutes = require('./routes/contact');
 const adminRoutes = require('./routes/admin');
 const githubRoutes = require('./routes/github');
 const visitorRoutes = require('./routes/visitor');
+const recommendationRoutes = require('./routes/recommendations');
 
 // Security middleware
 app.set('trust proxy', 1);
@@ -210,6 +211,7 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/github', githubRoutes);
 app.use('/api/visitor', visitorRoutes);
+app.use('/api/recommendations', recommendationRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {

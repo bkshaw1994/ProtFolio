@@ -12,8 +12,35 @@ export const apiSlice = createApi({
       return headers;
     }
   }),
-  tagTypes: ['Profile', 'Project', 'Skill', 'Experience', 'Contact', 'Visitor', 'Certification'],
+  tagTypes: ['Profile', 'Project', 'Skill', 'Experience', 'Contact', 'Visitor', 'Certification', 'Recommendation'],
   endpoints: (builder) => ({
+    getRecommendations: builder.query({
+      query: (params) => ({ url: '/recommendations', params }),
+      providesTags: ['Recommendation']
+    }),
+    createRecommendation: builder.mutation({
+      query: (data) => ({
+        url: '/recommendations',
+        method: 'POST',
+        body: data
+      }),
+      invalidatesTags: ['Recommendation']
+    }),
+    updateRecommendation: builder.mutation({
+      query: ({ id, ...data }) => ({
+        url: `/recommendations/${id}`,
+        method: 'PUT',
+        body: data
+      }),
+      invalidatesTags: ['Recommendation']
+    }),
+    deleteRecommendation: builder.mutation({
+      query: (id) => ({
+        url: `/recommendations/${id}`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: ['Recommendation']
+    }),
     getProfile: builder.query({
       query: () => '/profile',
       providesTags: ['Profile']
@@ -153,5 +180,9 @@ export const {
   useGetGitHubRepoQuery,
   useGetGitHubStatsQuery,
   useGetVisitorCountQuery,
-  useIncrementVisitorCountMutation
+  useIncrementVisitorCountMutation,
+  useGetRecommendationsQuery,
+  useCreateRecommendationMutation,
+  useUpdateRecommendationMutation,
+  useDeleteRecommendationMutation
 } = apiSlice;
