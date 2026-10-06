@@ -96,6 +96,8 @@ const projectValidation = [
     .withMessage('Featured flag must be boolean')
 ];
 
+const { protect } = require('../middleware/auth');
+
 // @route   GET /api/projects
 // @desc    Get all projects with filtering and pagination
 // @access  Public
@@ -119,19 +121,16 @@ router.get('/:id', getProjectById);
 // @route   POST /api/projects
 // @desc    Create new project
 // @access  Private (Admin)
-// Note: Add authentication middleware here when implementing admin panel
-router.post('/', projectValidation, createProject);
+router.post('/', protect, projectValidation, createProject);
 
 // @route   PUT /api/projects/:id
 // @desc    Update project
 // @access  Private (Admin)
-// Note: Add authentication middleware here when implementing admin panel
-router.put('/:id', projectValidation, updateProject);
+router.put('/:id', protect, projectValidation, updateProject);
 
 // @route   DELETE /api/projects/:id
 // @desc    Soft delete project (set isActive to false)
 // @access  Private (Admin)
-// Note: Add authentication middleware here when implementing admin panel
-router.delete('/:id', deleteProject);
+router.delete('/:id', protect, deleteProject);
 
 module.exports = router;

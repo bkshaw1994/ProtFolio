@@ -3,12 +3,31 @@ const axios = require('axios');
 class GitHubService {
   constructor() {
     this.baseURL = 'https://api.github.com';
-    this.username = 'bkshaw1994'; // Your GitHub username
+    this.username = process.env.GITHUB_USERNAME || 'bkshaw1994';
+    this.cache = new Map();
+    this.cacheTTL = 10 * 60 * 1000; // 10 minutes cache TTL
+  }
+
+  getHeaders() {
+    const headers = {
+      'User-Agent': 'Portfolio-App'
+    };
+    if (process.env.GITHUB_TOKEN) {
+      headers.Authorization = `token ${process.env.GITHUB_TOKEN}`;
+    }
+    return headers;
   }
 
   async getUserRepositories(page = 1, perPage = 30) {
+    const cacheKey = `repos_${page}_${perPage}`;
+    const cached = this.cache.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < this.cacheTTL) {
+      return cached.data;
+    }
+
     try {
       const response = await axios.get(`${this.baseURL}/users/${this.username}/repos`, {
+        headers: this.getHeaders(),
         params: {
           page,
           per_page: perPage,
@@ -16,26 +35,46 @@ class GitHubService {
           direction: 'desc'
         }
       });
+
+      this.cache.set(cacheKey, {
+        timestamp: Date.now(),
+        data: response.data
+      });
+
       return response.data;
     } catch (error) {
       console.error('Error fetching GitHub repositories:', error.message);
+      // Return cached data if available on error
+      if (cached) return cached.data;
       throw error;
     }
   }
 
   async getRepository(repoName) {
+    const cacheKey = `repo_${repoName}`;
+    const cached = this.cache.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < this.cacheTTL) {
+      return cached.data;
+    }
+
     try {
-      const response = await axios.get(`${this.baseURL}/repos/${this.username}/${repoName}`);
+      const response = await axios.get(`${this.baseURL}/repos/${this.username}/${repoName}`, {
+        headers: this.getHeaders()
+      });
+      this.cache.set(cacheKey, { timestamp: Date.now(), data: response.data });
       return response.data;
     } catch (error) {
       console.error(`Error fetching repository ${repoName}:`, error.message);
+      if (cached) return cached.data;
       throw error;
     }
   }
 
   async getRepositoryLanguages(repoName) {
     try {
-      const response = await axios.get(`${this.baseURL}/repos/${this.username}/${repoName}/languages`);
+      const response = await axios.get(`${this.baseURL}/repos/${this.username}/${repoName}/languages`, {
+        headers: this.getHeaders()
+      });
       return response.data;
     } catch (error) {
       console.error(`Error fetching languages for ${repoName}:`, error.message);
@@ -45,7 +84,9 @@ class GitHubService {
 
   async getRepositoryReadme(repoName) {
     try {
-      const response = await axios.get(`${this.baseURL}/repos/${this.username}/${repoName}/readme`);
+      const response = await axios.get(`${this.baseURL}/repos/${this.username}/${repoName}/readme`, {
+        headers: this.getHeaders()
+      });
       return response.data;
     } catch (error) {
       console.error(`Error fetching README for ${repoName}:`, error.message);
@@ -97,7 +138,6 @@ class GitHubService {
   }
 
   getRepositoryImage(repo) {
-    // Default GitHub repository image or generate one based on language
     const language = repo.language?.toLowerCase();
     const languageColors = {
       javascript: '#f7df1e',

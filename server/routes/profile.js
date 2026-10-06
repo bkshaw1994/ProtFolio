@@ -78,32 +78,32 @@ router.get('/', getProfile);
 // @access  Public
 router.get('/summary', getProfileSummary);
 
+const { protect } = require('../middleware/auth');
+
 // @route   POST /api/profile
 // @desc    Create or update profile
 // @access  Private (Admin)
-// Note: Add authentication middleware here when implementing admin panel
-router.post('/', profileValidation, createOrUpdateProfile);
+router.post('/', protect, profileValidation, createOrUpdateProfile);
 
 // @route   PUT /api/profile
 // @desc    Update profile
 // @access  Private (Admin)
-// Note: Add authentication middleware here when implementing admin panel
-router.put('/', profileValidation, createOrUpdateProfile);
+router.put('/', protect, profileValidation, createOrUpdateProfile);
 
 // @route   POST /api/profile/upload/image
 // @desc    Upload profile image
 // @access  Private (Admin)
-router.post('/upload/image', uploadImageMiddleware, uploadProfileImage);
+router.post('/upload/image', protect, uploadImageMiddleware, uploadProfileImage);
 
 // @route   POST /api/profile/upload/resume
 // @desc    Upload resume
 // @access  Private (Admin)
-router.post('/upload/resume', uploadResumeMiddleware, uploadResume);
+router.post('/upload/resume', protect, uploadResumeMiddleware, uploadResume);
 
 // @route   DELETE /api/profile/file/:type
 // @desc    Delete uploaded file (image or resume)
 // @access  Private (Admin)
-router.delete('/file/:type', deleteFile);
+router.delete('/file/:type', protect, deleteFile);
 
 // @route   GET /api/profile/image
 // @desc    Get profile image from MongoDB

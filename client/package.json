@@ -37,6 +37,16 @@
     "lint:fix": "eslint src/ --fix",
     "lint:check": "eslint src/ --max-warnings=0"
   },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 15,
+        "functions": 15,
+        "lines": 20,
+        "statements": 20
+      }
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",

@@ -63,6 +63,10 @@ app.use(
         return callback(null, true);
       }
 
+      if (process.env.NODE_ENV === 'production') {
+        return callback(new Error('Not allowed by CORS'));
+      }
+
       callback(null, true);
     },
     credentials: true

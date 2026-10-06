@@ -94,8 +94,10 @@ const addExperience = async (req, res) => {
   }
 };
 
+const { protect } = require('../middleware/auth');
+
 router.get('/', getAllExperience);
 router.get('/current', getCurrentExperience);
-router.post('/', addExperience);
+router.post('/', protect, addExperience);
 
 module.exports = router;

@@ -12,23 +12,24 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import InitialLoader from './components/InitialLoader';
 import FloatingMobileDock from './components/FloatingMobileDock';
+import LoadingSpinner from './components/LoadingSpinner';
 import {
   useGetProfileQuery,
   useGetFeaturedProjectsQuery,
   useGetCoreSkillsQuery
 } from './features/api/apiSlice';
 
-// Pages
-import Home from './pages/Home';
-import About from './pages/About';
-import Projects from './pages/Projects';
-import ProjectDetail from './pages/ProjectDetail';
-import Skills from './pages/Skills';
-import Experience from './pages/Experience';
-import Certifications from './pages/Certifications';
-import Contact from './pages/Contact';
-import Admin from './pages/Admin';
-import NotFound from './pages/NotFound';
+// Lazy-loaded Pages for bundle optimization
+const Home = React.lazy(() => import('./pages/Home'));
+const About = React.lazy(() => import('./pages/About'));
+const Projects = React.lazy(() => import('./pages/Projects'));
+const ProjectDetail = React.lazy(() => import('./pages/ProjectDetail'));
+const Skills = React.lazy(() => import('./pages/Skills'));
+const Experience = React.lazy(() => import('./pages/Experience'));
+const Certifications = React.lazy(() => import('./pages/Certifications'));
+const Contact = React.lazy(() => import('./pages/Contact'));
+const Admin = React.lazy(() => import('./pages/Admin'));
+const NotFound = React.lazy(() => import('./pages/NotFound'));
 
 function App() {
   const { data: profile, isLoading: isProfileLoading, isFetching: isProfileFetching } = useGetProfileQuery();
@@ -94,18 +95,20 @@ function App() {
           
           <main className="flex-grow min-h-[calc(100vh-320px)]">
             <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/projects/:id" element={<ProjectDetail />} />
-              <Route path="/skills" element={<Skills />} />
-              <Route path="/experience" element={<Experience />} />
-              <Route path="/certifications" element={<Certifications />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <React.Suspense fallback={<LoadingSpinner message="Loading..." />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/projects/:id" element={<ProjectDetail />} />
+                <Route path="/skills" element={<Skills />} />
+                <Route path="/experience" element={<Experience />} />
+                <Route path="/certifications" element={<Certifications />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </React.Suspense>
           </main>
 
           <Footer />
