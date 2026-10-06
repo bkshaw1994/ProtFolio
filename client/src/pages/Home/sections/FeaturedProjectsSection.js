@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import ProjectCard from '../../../components/ProjectCard';
 
 const FeaturedProjectsSection = ({ allFeaturedProjects }) => (
-  <section className="section-padding bg-secondary-50">
+  <section className="section-padding bg-white">
     <div className="container-custom">
       <motion.div
         initial={{ opacity: 0, y: 30 }}

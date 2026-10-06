@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { useGetProfileQuery } from '../../features/api/apiSlice';
 import { SkeletonProfile } from '../../components/Skeleton';
 import { getFileUrl } from '../../utils/apiUrl';
+import ResumeCustomizer from '../../components/ResumeCustomizer/ResumeCustomizer';
 
 const About = () => {
   const {
@@ -298,6 +299,11 @@ const About = () => {
                   </div>
                 </div>
               )}
+            </div>
+
+            {/* Interactive Resume Customizer Tool */}
+            <div className="mt-12">
+              <ResumeCustomizer />
             </div>
           </div>
         </section>

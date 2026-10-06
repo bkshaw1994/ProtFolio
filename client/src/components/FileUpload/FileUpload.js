@@ -1,5 +1,12 @@
 import React, { useRef, useState } from 'react';
-import './FileUpload.css';
+import {
+  UploadCloud,
+  Image as ImageIcon,
+  FileText,
+  File,
+  Trash2,
+  Loader2
+} from 'lucide-react';
 
 const FileUpload = ({
   accept,
@@ -29,7 +36,7 @@ const FileUpload = ({
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleFiles(e.dataTransfer.files);
     }
@@ -53,9 +60,12 @@ const FileUpload = ({
     }
 
     // Validate file type
-    if (accept && !accept.split(',').some(type => 
-      file.type.match(type.trim().replace('*', '.*'))
-    )) {
+    if (
+      accept &&
+      !accept.split(',').some((type) =>
+        file.type.match(type.trim().replace('*', '.*'))
+      )
+    ) {
       setError(`Invalid file type. Accepted types: ${accept}`);
       return;
     }
@@ -89,37 +99,46 @@ const FileUpload = ({
   const getIcon = () => {
     switch (uploadType) {
       case 'image':
-        return '🖼️';
+        return <ImageIcon className="w-8 h-8 text-primary-500" />;
       case 'resume':
-        return '📄';
+        return <FileText className="w-8 h-8 text-indigo-500" />;
       default:
-        return '📁';
+        return <File className="w-8 h-8 text-slate-500" />;
     }
   };
 
   return (
-    <div className={`file-upload-container ${className}`}>
+    <div className={`space-y-3 ${className}`}>
       {currentFile && (
-        <div className="current-file">
-          <div className="current-file-info">
-            <span className="file-icon">{getIcon()}</span>
-            <span className="file-name">Current {uploadType}: {currentFile}</span>
-            {onDelete && (
-              <button
-                type="button"
-                onClick={onDelete}
-                className="delete-btn"
-                disabled={isLoading}
-              >
-                🗑️ Remove
-              </button>
-            )}
+        <div className="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-xl shadow-sm text-xs">
+          <div className="flex items-center space-x-2 truncate">
+            {getIcon()}
+            <span className="font-semibold text-slate-700 truncate">
+              {currentFile}
+            </span>
           </div>
+
+          {onDelete && (
+            <button
+              type="button"
+              onClick={onDelete}
+              disabled={isLoading}
+              className="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors flex items-center space-x-1 shrink-0 ml-2"
+              title="Remove File"
+            >
+              <Trash2 size={15} />
+              <span className="hidden sm:inline font-medium">Remove</span>
+            </button>
+          )}
         </div>
       )}
-      
+
       <div
-        className={`file-upload ${dragActive ? 'drag-active' : ''} ${isLoading ? 'loading' : ''}`}
+        className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all duration-200 flex flex-col items-center justify-center space-y-2 ${
+          dragActive
+            ? 'border-primary-500 bg-primary-50/50'
+            : 'border-slate-300 hover:border-primary-400 bg-white hover:bg-slate-50/80'
+        } ${isLoading ? 'opacity-60 cursor-not-allowed' : ''}`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
         onDragOver={handleDrag}
@@ -134,25 +153,25 @@ const FileUpload = ({
           style={{ display: 'none' }}
           disabled={isLoading}
         />
-        
+
         {isLoading ? (
-          <div className="upload-content">
-            <div className="loading-spinner"></div>
-            <p>Uploading...</p>
+          <div className="flex flex-col items-center space-y-2 text-slate-500 text-xs">
+            <Loader2 className="w-7 h-7 text-primary-600 animate-spin" />
+            <span>Uploading asset...</span>
           </div>
         ) : (
-          <div className="upload-content">
-            <div className="upload-icon">{getIcon()}</div>
-            <p className="upload-text">{getUploadText()}</p>
-            <p className="upload-hint">
+          <>
+            <div className="p-3 bg-slate-100 rounded-full">{getIcon()}</div>
+            <p className="text-xs font-semibold text-slate-700">{getUploadText()}</p>
+            <p className="text-[11px] text-slate-400">
               Max size: {formatFileSize(maxSize)}
-              {accept && ` • Formats: ${accept}`}
+              {accept && ` • ${accept}`}
             </p>
-          </div>
+          </>
         )}
       </div>
-      
-      {error && <div className="upload-error">{error}</div>}
+
+      {error && <div className="text-xs text-rose-600 font-semibold">{error}</div>}
     </div>
   );
 };

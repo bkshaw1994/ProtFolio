@@ -39,7 +39,7 @@ const CoreSkillsSection = ({ coreSkills }) => {
   };
 
   return (
-    <section className="section-padding bg-white relative overflow-hidden">
+    <section className="section-padding bg-slate-100/70 relative overflow-hidden">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

@@ -16,6 +16,7 @@ import FeaturedProjectsSection from './Home/sections/FeaturedProjectsSection';
 import WhyChooseMeSection from './Home/sections/WhyChooseMeSection';
 import CertificationsSection from './Home/sections/CertificationsSection';
 import CtaSection from './Home/sections/CtaSection';
+import Testimonials from '../components/Testimonials/Testimonials';
 
 const Home = () => {
   const { data: profile, isLoading: loadingProfile } = useGetProfileQuery();
@@ -36,8 +37,6 @@ const Home = () => {
   const featuredCertifications = Array.isArray(featuredCertificationsResponse)
     ? featuredCertificationsResponse
     : featuredCertificationsResponse?.data || [];
-
-  // Debug logging
 
   // Extract profile data - handle both direct data and nested data structure
   const profileData = profile?.data || profile;
@@ -93,6 +92,7 @@ const Home = () => {
       <FeaturedProjectsSection allFeaturedProjects={allFeaturedProjects} />
       <WhyChooseMeSection />
       <CertificationsSection certifications={featuredCertifications} />
+      <Testimonials />
       <CtaSection />
     </>
   );

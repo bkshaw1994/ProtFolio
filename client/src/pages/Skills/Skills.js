@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useGetSkillsQuery } from '../../features/api/apiSlice';
 import SkillBadge from '../../components/SkillBadge';
 import { SkeletonSkill } from '../../components/Skeleton';
+import SkillRadarChart from '../../components/SkillRadarChart/SkillRadarChart';
 import { Sparkles, Code2, Layers, Cpu } from 'lucide-react';
 
 const Skills = () => {
@@ -89,14 +90,14 @@ const Skills = () => {
 
       <div className="pt-20 sm:pt-24 min-h-screen pb-16">
         {/* Header Hero Banner */}
-        <section className="py-10 sm:py-14 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_50%)] pointer-events-none"></div>
+        <section className="py-10 sm:py-14 bg-gradient-to-br from-slate-50 via-primary-50/40 to-indigo-50/30 text-slate-900 relative overflow-hidden border-b border-slate-200/80">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.08),transparent_50%)] pointer-events-none"></div>
           <div className="container-custom text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-primary-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-white/10"
+              className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary-100/80 text-primary-700 text-xs font-semibold uppercase tracking-wider mb-3 border border-primary-200/60"
             >
               <Sparkles size={13} />
               <span>Tech Stack & Capabilities</span>
@@ -105,7 +106,7 @@ const Skills = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3 text-white"
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3 text-slate-900"
             >
               Technical Expertise
             </motion.h1>
@@ -113,7 +114,7 @@ const Skills = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto font-normal"
+              className="text-sm sm:text-base text-slate-600 max-w-xl mx-auto font-normal"
             >
               Comprehensive breakdown of my skills, tools, and tech stack proficiency
             </motion.p>
@@ -181,6 +182,13 @@ const Skills = () => {
                 );
               })}
             </div>
+          </div>
+        </section>
+
+        {/* Skill Domain Radar Chart */}
+        <section className="py-6">
+          <div className="container-custom max-w-4xl mx-auto px-4">
+            <SkillRadarChart />
           </div>
         </section>
 

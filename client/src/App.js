@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import InitialLoader from './components/InitialLoader';
 import FloatingMobileDock from './components/FloatingMobileDock';
+import AIChatbot from './components/AIChatbot/AIChatbot';
 import {
   useGetProfileQuery,
   useGetFeaturedProjectsQuery,
@@ -70,7 +71,7 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
-        <div className="App min-h-screen flex flex-col justify-between overflow-x-hidden bg-slate-50/30">
+        <div className="App min-h-screen flex flex-col justify-between overflow-x-hidden bg-slate-50/30 text-slate-900">
           {/* First Time Landing Splash Loader */}
           <AnimatePresence>
             {isDataLoading && (
@@ -108,6 +109,7 @@ function App() {
             </Routes>
           </main>
 
+          <AIChatbot />
           <Footer />
 
           <Toaster

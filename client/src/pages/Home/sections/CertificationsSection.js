@@ -40,7 +40,7 @@ const CertificationsSection = ({ certifications }) => {
   };
 
   return (
-    <section className="section-padding bg-gradient-to-br from-slate-50 via-indigo-50/30 to-slate-50 relative overflow-hidden">
+    <section className="section-padding bg-white relative overflow-hidden">
       <div className="container-custom relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
