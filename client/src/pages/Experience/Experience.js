@@ -73,7 +73,7 @@ const Experience = () => {
   };
 
   const calculateTenureSpacing = (exp) => {
-    if (!exp?.startDate) return 48;
+    if (!exp?.startDate) return 24;
     const start = new Date(exp.startDate);
     const end = exp.endDate ? new Date(exp.endDate) : new Date();
     const months = Math.max(
@@ -81,9 +81,9 @@ const Experience = () => {
       (end.getFullYear() - start.getFullYear()) * 12 +
         (end.getMonth() - start.getMonth())
     );
-    const baseSpacing = 48;
-    const maxSpacing = 120;
-    return baseSpacing + Math.min(maxSpacing - baseSpacing, Math.round(months * 1.8));
+    const baseSpacing = 24;
+    const maxSpacing = 48;
+    return baseSpacing + Math.min(maxSpacing - baseSpacing, Math.round(months * 0.8));
   };
 
   if (isLoading) {
@@ -96,10 +96,10 @@ const Experience = () => {
             content="My work experience and career journey"
           />
         </Helmet>
-        <div className="pt-24 sm:pt-28 min-h-screen bg-white bg-dot-pattern pb-20">
-          <div className="container-custom max-w-5xl mx-auto py-10">
+        <div className="pt-20 sm:pt-24 min-h-screen bg-white bg-dot-pattern pb-16">
+          <div className="container-custom max-w-5xl mx-auto py-8">
             <div className="h-10 bg-slate-200 rounded w-64 mb-4 animate-pulse" />
-            <div className="h-5 bg-slate-200 rounded w-96 mb-12 animate-pulse" />
+            <div className="h-5 bg-slate-200 rounded w-96 mb-8 animate-pulse" />
             <div className="space-y-6">
               {Array.from({ length: 4 }).map((_, index) => (
                 <SkeletonExperience key={index} />
@@ -113,7 +113,7 @@ const Experience = () => {
 
   if (isError) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28 bg-white">
+      <div className="min-h-screen flex items-center justify-center pt-20 sm:pt-24 bg-white">
         <div className="text-center bg-white p-8 rounded-xl shadow-2xs border border-slate-200">
           <div className="text-rose-500 font-mono text-sm mb-4 font-semibold">Failed to load experience details</div>
           <button onClick={() => refetch()} className="btn-primary">
@@ -134,10 +134,10 @@ const Experience = () => {
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 min-h-screen bg-white bg-dot-pattern pb-20">
+      <div className="pt-20 sm:pt-24 min-h-screen bg-white bg-dot-pattern pb-16">
         <div className="container-custom max-w-5xl mx-auto">
           {/* Header */}
-          <div className="max-w-3xl mb-14 space-y-2">
+          <div className="max-w-3xl mb-8 sm:mb-10 space-y-2">
             <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
               Career Journey
             </div>

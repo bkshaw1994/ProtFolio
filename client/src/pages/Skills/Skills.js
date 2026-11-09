@@ -34,18 +34,18 @@ const Skills = () => {
             content="My technical skills and expertise in various technologies"
           />
         </Helmet>
-        <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white">
-          <section className="section-padding py-10 sm:py-14">
+        <div className="pt-20 sm:pt-24 pb-16 min-h-screen bg-white">
+          <section className="py-6 sm:py-8">
             <div className="container-custom text-center">
               <div className="h-6 bg-slate-100 rounded w-48 mx-auto mb-4 animate-pulse"></div>
               <div className="h-10 bg-slate-100 rounded w-64 mx-auto mb-4 animate-pulse"></div>
               <div className="h-5 bg-slate-100 rounded w-96 mx-auto animate-pulse"></div>
             </div>
           </section>
-          <section className="section-padding py-4">
+          <section className="py-4">
             <div className="container-custom">
               {Array.from({ length: 3 }).map((_, categoryIndex) => (
-                <div key={categoryIndex} className="mb-14">
+                <div key={categoryIndex} className="mb-10">
                   <div className="h-6 bg-slate-100 rounded w-48 mb-6 animate-pulse"></div>
                   <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
                     {Array.from({ length: 8 }).map((_, index) => (
@@ -63,7 +63,7 @@ const Skills = () => {
 
   if (isError) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-20 bg-white">
+      <div className="min-h-screen flex items-center justify-center pt-20 sm:pt-24 pb-16 bg-white">
         <div className="text-center bg-white p-8 rounded-xl border border-slate-200 shadow-2xs max-w-md mx-auto">
           <div className="text-rose-500 font-semibold mb-4">Error loading skills</div>
           <button onClick={() => refetch()} className="btn-primary">
@@ -89,9 +89,9 @@ const Skills = () => {
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white bg-dot-pattern">
+      <div className="pt-20 sm:pt-24 pb-16 min-h-screen bg-white bg-dot-pattern">
         {/* Header Hero Banner */}
-        <section className="py-10 sm:py-14 bg-transparent text-center">
+        <section className="pt-4 pb-6 sm:pt-6 sm:pb-8 bg-transparent text-center">
           <div className="container-custom relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
@@ -121,7 +121,7 @@ const Skills = () => {
         </section>
 
         {/* Category Filter Tabs Section */}
-        <section className="pt-2 pb-6">
+        <section className="pb-6">
           <div className="container-custom px-4 text-center">
             <div className="inline-flex items-center sm:justify-center overflow-x-auto scrollbar-none flex-nowrap sm:flex-wrap gap-1.5 p-1.5 bg-slate-50 rounded-xl border border-slate-200 w-fit max-w-full mx-auto">
               {/* 'All' Tab */}

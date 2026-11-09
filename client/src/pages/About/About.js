@@ -75,11 +75,11 @@ const About = () => {
           content="about freelance developer, MERN stack developer Bangalore, hire React developer, experienced Node.js developer, full stack developer for hire, web development expert"
         />
       </Helmet>
-      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white bg-dot-pattern">
+      <div className="pt-20 sm:pt-24 pb-16 min-h-screen bg-white bg-dot-pattern">
         {/* Hero Section */}
-        <section className="section-padding py-10 sm:py-14">
+        <section className="py-6 sm:py-8">
           <div className="container-custom max-w-5xl mx-auto">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
               <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
                 Background & Engineering Profile
               </div>
@@ -93,7 +93,7 @@ const About = () => {
 
             {/* Profile Image */}
             {profile.profileImage && (
-              <div className="flex justify-center mb-12">
+              <div className="flex justify-center mb-8">
                 <div className="relative">
                   <img
                     src={getFileUrl(profile.profileImage)}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { Analytics } from '@vercel/analytics/react';
@@ -29,6 +29,91 @@ import Certifications from './pages/Certifications';
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
 import NotFound from './pages/NotFound';
+
+const AppContent = ({
+  profileData,
+  isDataLoading,
+  maxTimerPassed,
+  isProfileLoading,
+  isProjectsLoading,
+  isSkillsLoading,
+  isProfileFetching,
+  isProjectsFetching,
+  isSkillsFetching
+}) => {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
+  return (
+    <div className="App min-h-screen flex flex-col justify-between overflow-x-hidden bg-white text-slate-900">
+      {/* First Time Landing Splash Loader - Only on Home Page with AnimatePresence */}
+      <AnimatePresence>
+        {isHomePage && isDataLoading && (
+          <InitialLoader
+            name={profileData?.name || 'Bishal Kumar Shaw'}
+            isDataLoading={
+              !maxTimerPassed &&
+              (isProfileLoading ||
+                isProjectsLoading ||
+                isSkillsLoading ||
+                isProfileFetching ||
+                isProjectsFetching ||
+                isSkillsFetching)
+            }
+          />
+        )}
+      </AnimatePresence>
+
+      <Navbar />
+      <FloatingMobileDock />
+
+      <main className="flex-grow min-h-[calc(100vh-320px)]">
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:id" element={<ProjectDetail />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/certifications" element={<Certifications />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+
+      <Footer />
+
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: '#363636',
+            color: '#fff'
+          },
+          success: {
+            duration: 3000,
+            theme: {
+              primary: '#4ade80',
+              secondary: '#000'
+            }
+          },
+          error: {
+            duration: 4000,
+            theme: {
+              primary: '#ef4444',
+              secondary: '#fff'
+            }
+          }
+        }}
+      />
+      <Analytics />
+      <SpeedInsights />
+    </div>
+  );
+};
 
 function App() {
   const { data: profile, isLoading: isProfileLoading, isFetching: isProfileFetching } = useGetProfileQuery();
@@ -70,73 +155,17 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
-        <div className="App min-h-screen flex flex-col justify-between overflow-x-hidden bg-white text-slate-900">
-          {/* First Time Landing Splash Loader */}
-          <AnimatePresence>
-            {isDataLoading && (
-              <InitialLoader
-                name={profileData?.name || 'Bishal Kumar Shaw'}
-                isDataLoading={
-                  !maxTimerPassed &&
-                  (isProfileLoading ||
-                    isProjectsLoading ||
-                    isSkillsLoading ||
-                    isProfileFetching ||
-                    isProjectsFetching ||
-                    isSkillsFetching)
-                }
-              />
-            )}
-          </AnimatePresence>
-
-          <Navbar />
-          <FloatingMobileDock />
-          
-          <main className="flex-grow min-h-[calc(100vh-320px)]">
-            <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/projects/:id" element={<ProjectDetail />} />
-              <Route path="/skills" element={<Skills />} />
-              <Route path="/experience" element={<Experience />} />
-              <Route path="/certifications" element={<Certifications />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-
-          <Footer />
-
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#363636',
-                color: '#fff'
-              },
-              success: {
-                duration: 3000,
-                theme: {
-                  primary: '#4ade80',
-                  secondary: '#000'
-                }
-              },
-              error: {
-                duration: 4000,
-                theme: {
-                  primary: '#ef4444',
-                  secondary: '#fff'
-                }
-              }
-            }}
-          />
-          <Analytics />
-          <SpeedInsights />
-        </div>
+        <AppContent
+          profileData={profileData}
+          isDataLoading={isDataLoading}
+          maxTimerPassed={maxTimerPassed}
+          isProfileLoading={isProfileLoading}
+          isProjectsLoading={isProjectsLoading}
+          isSkillsLoading={isSkillsLoading}
+          isProfileFetching={isProfileFetching}
+          isProjectsFetching={isProjectsFetching}
+          isSkillsFetching={isSkillsFetching}
+        />
       </Router>
     </HelmetProvider>
   );

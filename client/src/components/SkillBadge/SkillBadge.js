@@ -81,38 +81,6 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
     return logoMap[name] || null;
   };
 
-  const getDefaultIcon = (skillName) => {
-    const name = skillName.toLowerCase();
-    const iconMap = {
-      react: '⚛️',
-      javascript: '⚡',
-      typescript: '🔷',
-      nodejs: '🟢',
-      'node.js': '🟢',
-      mongodb: '🍃',
-      express: '🚂',
-      css: '🎨',
-      html: '📄',
-      python: '🐍',
-      java: '☕',
-      git: '📂',
-      docker: '🐳',
-      aws: '☁️',
-      azure: '☁️',
-      mysql: '🗄️',
-      postgresql: '🐘',
-      redis: '🔴',
-      vue: '💚',
-      angular: '🔺',
-      php: '🐘',
-      graphql: '💜',
-      rest: '🌐',
-      api: '🔌'
-    };
-
-    return iconMap[name] || '💻';
-  };
-
   const getLevelBadge = (level, proficiency) => {
     const lvl =
       level ||
@@ -157,7 +125,7 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
               : 85);
 
   const rawLogo =
-    skill.icon && skill.icon.startsWith('http')
+    skill.icon && (skill.icon.startsWith('http') || skill.icon.startsWith('/'))
       ? skill.icon
       : getSkillLogoUrl(skill.name);
   const logoUrl = imgError ? null : rawLogo;
@@ -176,17 +144,13 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
               iconContainerSizes[size] || 'w-10 h-10 sm:w-12 sm:h-12'
             } rounded-xl bg-slate-50 border border-slate-200/80 group-hover:border-slate-300 group-hover:bg-white flex items-center justify-center p-2 shadow-2xs transition-all duration-200 flex-shrink-0`}
           >
-            {logoUrl ? (
+            {logoUrl && (
               <img
                 src={logoUrl}
                 alt={skill.name}
                 onError={() => setImgError(true)}
                 className={`${iconImageSizes[size] || 'w-6 h-6 sm:w-7 sm:h-7'} object-contain transition-transform duration-200 group-hover:scale-110`}
               />
-            ) : (
-              <div className="text-lg sm:text-xl transition-transform duration-200 group-hover:scale-110 select-none">
-                {skill.icon || getDefaultIcon(skill.name)}
-              </div>
             )}
           </div>
 
@@ -222,9 +186,7 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
             {/* Progress Bar Track */}
             <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
               <div
-                className={`h-full rounded-full transition-all duration-500 ${
-                  currentProficiency >= 90 ? 'bg-emerald-500' : 'bg-slate-900'
-                }`}
+                className="h-full rounded-full transition-all duration-500 bg-slate-950"
                 style={{ width: `${currentProficiency}%` }}
               />
             </div>

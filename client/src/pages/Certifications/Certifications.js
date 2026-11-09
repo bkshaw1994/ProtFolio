@@ -32,9 +32,9 @@ const Certifications = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="min-h-screen bg-white bg-dot-pattern pt-24 sm:pt-28 pb-20">
+      <section className="min-h-screen bg-white bg-dot-pattern pt-20 sm:pt-24 pb-16">
         <div className="container-custom">
-          <div className="text-center max-w-4xl mx-auto mb-12">
+          <div className="text-center max-w-4xl mx-auto mb-8 sm:mb-10">
             <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
               Professional Certifications
             </div>
@@ -50,7 +50,7 @@ const Certifications = () => {
 
           {/* Featured Certifications - Borderless Cards */}
           {featuredCerts.length > 0 && (
-            <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
               {featuredCerts.map((cert) => (
                 <div
                   key={cert.id}

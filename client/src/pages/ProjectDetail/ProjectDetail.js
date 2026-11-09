@@ -67,14 +67,14 @@ const ProjectDetail = () => {
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white bg-dot-pattern">
-        <section className="section-padding py-10 sm:py-14">
+      <div className="pt-20 sm:pt-24 pb-16 min-h-screen bg-white bg-dot-pattern">
+        <section className="py-6 sm:py-8">
           <div className="container-custom max-w-6xl mx-auto">
             {/* Back Button */}
             <motion.div
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              className="mb-8"
+              className="mb-6"
             >
               <Link
                 to="/projects"

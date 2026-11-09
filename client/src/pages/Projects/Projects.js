@@ -89,15 +89,15 @@ const Projects = () => {
             content="Browse my portfolio of projects and open source work"
           />
         </Helmet>
-        <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white bg-dot-pattern">
-          <section className="section-padding py-10 sm:py-14">
+        <div className="pt-20 sm:pt-24 pb-16 min-h-screen bg-white bg-dot-pattern">
+          <section className="py-6 sm:py-8">
             <div className="container-custom">
-              <div className="text-center max-w-3xl mx-auto mb-12">
+              <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
                 <div className="h-6 bg-slate-100 rounded w-48 mx-auto mb-4 animate-pulse"></div>
                 <div className="h-10 bg-slate-100 rounded w-72 sm:w-96 mx-auto mb-4 animate-pulse"></div>
                 <div className="h-5 bg-slate-100 rounded w-full max-w-lg mx-auto animate-pulse"></div>
               </div>
-              <div className="max-w-4xl mx-auto mb-10 h-12 bg-slate-100 rounded-xl animate-pulse"></div>
+              <div className="max-w-4xl mx-auto mb-8 h-12 bg-slate-100 rounded-xl animate-pulse"></div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
                 {Array.from({ length: 6 }).map((_, index) => (
                   <SkeletonProject key={index} />
@@ -112,7 +112,7 @@ const Projects = () => {
 
   if (isError && activeTab === 'portfolio') {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-20 bg-white">
+      <div className="min-h-screen flex items-center justify-center pt-20 sm:pt-24 pb-16 bg-white">
         <div className="text-center bg-white p-8 rounded-xl border border-slate-200 shadow-2xs max-w-md mx-auto">
           <AlertCircle className="mx-auto text-rose-500 mb-4" size={40} />
           <h3 className="text-lg font-bold text-slate-950 mb-2">Failed to load projects</h3>
@@ -141,11 +141,11 @@ const Projects = () => {
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white bg-dot-pattern">
-        <section className="section-padding py-10 sm:py-14">
+      <div className="pt-20 sm:pt-24 pb-16 min-h-screen bg-white bg-dot-pattern">
+        <section className="py-6 sm:py-8">
           <div className="container-custom">
             {/* Hero Header */}
-            <div className="text-center max-w-3xl mx-auto mb-12">
+            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
               <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
                 Portfolio & Open Source
               </div>
@@ -158,7 +158,7 @@ const Projects = () => {
             </div>
 
             {/* Main Tabs Navigation */}
-            <div className="flex justify-center mb-10">
+            <div className="flex justify-center mb-6 sm:mb-8">
               <div className="bg-slate-50 p-1.5 rounded-xl border border-slate-200 inline-flex flex-wrap sm:flex-nowrap gap-1">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
