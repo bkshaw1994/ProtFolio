@@ -12,14 +12,14 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
 
   const iconImageSizes = {
     sm: 'w-5 h-5 sm:w-6 sm:h-6',
-    md: 'w-7 h-7 sm:w-10 sm:h-10',
-    lg: 'w-10 h-10 sm:w-14 sm:h-14'
+    md: 'w-7 h-7 sm:w-9 sm:h-9',
+    lg: 'w-10 h-10 sm:w-12 sm:h-12'
   };
 
   const iconTextSizes = {
-    sm: 'text-xl sm:text-2xl',
-    md: 'text-2xl sm:text-4xl',
-    lg: 'text-4xl sm:text-6xl'
+    sm: 'text-lg sm:text-xl',
+    md: 'text-xl sm:text-2xl',
+    lg: 'text-3xl sm:text-4xl'
   };
 
   // Official SVG tech logos mapped by skill name
@@ -70,60 +70,65 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
     return logoMap[name] || null;
   };
 
-  // Default icon based on skill name if no icon provided
   const getDefaultIcon = (skillName) => {
     const name = skillName.toLowerCase();
-
     const iconMap = {
       react: '⚛️',
-      javascript: '🟨',
-      typescript: '🔷',
-      nodejs: '🟢',
-      'node.js': '🟢',
+      javascript: 'JS',
+      typescript: 'TS',
+      nodejs: 'Node',
+      'node.js': 'Node',
       mongodb: '🍃',
-      express: '🚀',
-      css: '🎨',
-      html: '📄',
-      python: '🐍',
-      java: '☕',
-      git: '📂',
+      express: 'Ex',
+      css: 'CSS',
+      html: 'HTML',
+      python: 'Py',
+      java: 'Java',
+      git: 'Git',
       docker: '🐳',
-      aws: '☁️',
-      azure: '☁️',
-      mysql: '🗄️',
-      postgresql: '🐘',
-      redis: '🔴',
-      vue: '💚',
-      angular: '🔴',
-      php: '🐘',
-      laravel: '🎵',
-      django: '🐍',
-      flask: '🍶',
-      graphql: '💜',
-      rest: '🌐',
-      api: '🔌'
+      aws: 'AWS',
+      azure: 'Cloud',
+      mysql: 'SQL',
+      postgresql: 'PG',
+      redis: 'Redis',
+      vue: 'Vue',
+      angular: 'NG',
+      php: 'PHP',
+      laravel: 'Laravel',
+      django: 'Django',
+      flask: 'Flask',
+      graphql: 'GQL',
+      rest: 'REST',
+      api: 'API'
     };
 
     return iconMap[name] || '💻';
   };
 
-  const proficiencyColor = (proficiency) => {
-    if (proficiency >= 90) return 'text-emerald-600';
-    if (proficiency >= 75) return 'text-primary-600';
-    if (proficiency >= 60) return 'text-amber-600';
-    return 'text-slate-600';
-  };
-
   const getLevelBadge = (level, proficiency) => {
-    const lvl = level || (proficiency >= 90 ? 'Expert' : proficiency >= 75 ? 'Advanced' : proficiency >= 60 ? 'Intermediate' : 'Beginner');
-    const badgeColors = {
-      Expert: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/30',
-      Advanced: 'bg-primary-500/10 text-primary-600 border-primary-500/30',
-      Intermediate: 'bg-amber-500/10 text-amber-600 border-amber-500/30',
-      Beginner: 'bg-slate-500/10 text-slate-600 border-slate-500/30'
+    const lvl =
+      level ||
+      (proficiency >= 90
+        ? 'Expert'
+        : proficiency >= 75
+          ? 'Advanced'
+          : proficiency >= 60
+            ? 'Intermediate'
+            : 'Beginner');
+
+    const badgeStyles = {
+      Expert: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      Advanced: 'bg-slate-900 text-white border-slate-900',
+      Intermediate: 'bg-slate-100 text-slate-700 border-slate-200',
+      Beginner: 'bg-slate-50 text-slate-500 border-slate-200'
     };
+
     return (
-      <span className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border flex-shrink-0 ${badgeColors[lvl] || badgeColors.Advanced}`}>
+      <span
+        className={`text-2xs font-mono font-semibold uppercase tracking-wider px-2 py-0.5 rounded border flex-shrink-0 ${
+          badgeStyles[lvl] || badgeStyles.Advanced
+        }`}
+      >
         {lvl}
       </span>
     );
@@ -143,26 +148,31 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
               ? 90
               : 85);
 
-  const rawLogo = (skill.icon && skill.icon.startsWith('http')) ? skill.icon : getSkillLogoUrl(skill.name);
+  const rawLogo =
+    skill.icon && skill.icon.startsWith('http')
+      ? skill.icon
+      : getSkillLogoUrl(skill.name);
   const logoUrl = imgError ? null : rawLogo;
 
   return (
     <div
-      className={`glass-card ${sizeClasses[size] || 'p-3.5 sm:p-5'} group hover:-translate-y-1.5 transition-all duration-300 border border-slate-200/80 hover:border-primary-400/40 hover:shadow-xl hover:shadow-primary-500/10 rounded-2xl flex flex-col justify-between relative bg-white/90 backdrop-blur-xl h-full min-h-[140px]`}
+      className={`bg-white rounded-xl border border-slate-200 ${
+        sizeClasses[size] || 'p-3.5 sm:p-5'
+      } shadow-2xs hover:border-slate-400 transition-colors flex flex-col justify-between h-full min-h-[140px] group`}
     >
       <div>
         {/* Top Header: Skill Icon & Level Badge Pill */}
-        <div className="flex items-center justify-between gap-1.5 mb-2">
-          <div className="p-1.5 sm:p-2 bg-slate-100/80 rounded-xl group-hover:bg-primary-50 transition-colors flex-shrink-0">
+        <div className="flex items-center justify-between gap-1.5 mb-2.5">
+          <div className="p-1.5 bg-slate-50 border border-slate-100 rounded-lg group-hover:bg-slate-100 transition-colors flex-shrink-0">
             {logoUrl ? (
               <img
                 src={logoUrl}
                 alt={skill.name}
                 onError={() => setImgError(true)}
-                className={`${iconImageSizes[size]} object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-sm`}
+                className={`${iconImageSizes[size]} object-contain`}
               />
             ) : (
-              <div className={`${iconTextSizes[size]} group-hover:scale-110 transition-transform duration-300 drop-shadow-sm`}>
+              <div className={`${iconTextSizes[size]} font-mono font-bold text-slate-700`}>
                 {skill.icon || getDefaultIcon(skill.name)}
               </div>
             )}
@@ -172,57 +182,55 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
         </div>
 
         {/* Skill Name */}
-        <h3 className="font-bold text-slate-900 text-sm sm:text-base group-hover:text-primary-600 transition-colors tracking-tight truncate leading-snug">
+        <h3 className="font-bold text-slate-950 text-sm sm:text-base tracking-tight truncate leading-snug">
           {skill.name}
         </h3>
 
-        {/* Category or Experience Subtitle */}
+        {/* Category */}
         {skill.category && (
-          <p className="text-[10px] sm:text-[11px] font-medium text-slate-400 capitalize mb-1 truncate">
+          <p className="text-2xs font-mono text-slate-500 uppercase tracking-wider mb-1 truncate">
             {skill.category.replace('-', ' ')}
           </p>
         )}
       </div>
 
-      <div className="mt-2">
+      <div className="mt-2.5">
         {/* Proficiency Bar & Percentage */}
         {showProficiency && (
-          <div className="space-y-1 pt-1.5 border-t border-slate-100">
-            <div className="flex items-center justify-between text-[11px] sm:text-xs font-semibold">
-              <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-wider">Proficiency</span>
-              <span className={`text-[11px] sm:text-xs font-extrabold ${proficiencyColor(currentProficiency)}`}>
+          <div className="space-y-1.5 pt-2 border-t border-slate-100">
+            <div className="flex items-center justify-between text-2xs font-mono">
+              <span className="uppercase tracking-wider text-slate-500">
+                Proficiency
+              </span>
+              <span className="font-bold text-slate-950">
                 {currentProficiency}%
               </span>
             </div>
 
             {/* Progress Bar Track */}
-            <div className="w-full bg-slate-200/90 rounded-full h-2 overflow-hidden p-0.5 border border-slate-300/50">
+            <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
               <div
-                className={`h-full rounded-full transition-all duration-700 bg-gradient-to-r ${
-                  currentProficiency >= 90
-                    ? 'from-emerald-500 to-teal-400'
-                    : currentProficiency >= 75
-                      ? 'from-primary-600 to-indigo-500'
-                      : currentProficiency >= 60
-                        ? 'from-amber-500 to-yellow-400'
-                        : 'from-slate-500 to-slate-400'
+                className={`h-full rounded-full transition-all duration-500 ${
+                  currentProficiency >= 90 ? 'bg-emerald-500' : 'bg-slate-900'
                 }`}
                 style={{ width: `${currentProficiency}%` }}
-              ></div>
+              />
             </div>
           </div>
         )}
 
         {/* Years of Experience / Core Badge */}
-        <div className="flex items-center justify-between gap-1 mt-1.5">
+        <div className="flex items-center justify-between gap-1 mt-2">
           {skill.yearsOfExperience ? (
-            <span className="text-[10px] sm:text-[11px] font-medium text-slate-400 truncate">
+            <span className="text-2xs font-mono text-slate-500 truncate">
               {skill.yearsOfExperience}y exp.
             </span>
-          ) : <span />}
+          ) : (
+            <span />
+          )}
 
           {skill.isCore && (
-            <span className="bg-primary-500/10 text-primary-600 text-[8px] sm:text-[9px] uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded border border-primary-500/20 flex-shrink-0">
+            <span className="bg-slate-950 text-white text-2xs font-mono uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded flex-shrink-0">
               Core
             </span>
           )}

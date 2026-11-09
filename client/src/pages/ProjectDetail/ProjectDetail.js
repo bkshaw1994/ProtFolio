@@ -27,7 +27,7 @@ const ProjectDetail = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50/50 bg-grid-pattern pt-28 sm:pt-36 pb-20 flex items-center justify-center">
+      <div className="min-h-screen bg-white pt-24 sm:pt-28 pb-20 flex items-center justify-center">
         <LoadingSpinner size="lg" message="Loading project details..." />
       </div>
     );
@@ -35,10 +35,10 @@ const ProjectDetail = () => {
 
   if (isError || !project) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-28 sm:pt-36 bg-slate-50/50 bg-grid-pattern">
-        <div className="text-center bg-white p-8 rounded-2xl shadow-xl border border-slate-200 max-w-md mx-auto">
-          <AlertCircle className="mx-auto text-rose-500 mb-4" size={48} />
-          <h3 className="text-xl font-bold text-slate-900 mb-2">Project Not Found</h3>
+      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-20 bg-white">
+        <div className="text-center bg-white p-8 rounded-xl border border-slate-200 shadow-2xs max-w-md mx-auto">
+          <AlertCircle className="mx-auto text-rose-500 mb-4" size={40} />
+          <h3 className="text-lg font-bold text-slate-950 mb-2">Project Not Found</h3>
           <p className="text-slate-600 text-sm mb-6">
             Unable to load the requested project details. It may have been removed or updated.
           </p>
@@ -67,7 +67,7 @@ const ProjectDetail = () => {
         />
       </Helmet>
 
-      <div className="pt-28 sm:pt-36 min-h-screen bg-slate-50/50 bg-grid-pattern pb-24">
+      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white">
         <section className="section-padding py-10 sm:py-14">
           <div className="container-custom max-w-6xl mx-auto">
             {/* Back Button */}
@@ -78,7 +78,7 @@ const ProjectDetail = () => {
             >
               <Link
                 to="/projects"
-                className="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-slate-600 hover:text-primary-600 transition-colors bg-white/80 backdrop-blur-md px-4 py-2 rounded-xl border border-slate-200/80 shadow-xs"
+                className="inline-flex items-center text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 hover:text-slate-950 transition-colors bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-2xs hover:border-slate-400"
               >
                 <ArrowLeft size={14} className="mr-2" />
                 Back to Projects
@@ -87,23 +87,23 @@ const ProjectDetail = () => {
 
             {/* Header Hero */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              className="glass-card p-6 sm:p-10 mb-10 relative overflow-hidden"
+              className="bg-white rounded-xl border border-slate-200 p-6 sm:p-10 mb-8 shadow-2xs"
             >
               <div className="flex flex-wrap items-center gap-2 mb-4">
                 {project.category && (
-                  <span className="inline-flex items-center space-x-1.5 bg-primary-100/80 text-primary-800 border border-primary-200/60 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                  <span className="inline-flex items-center space-x-1.5 bg-slate-100 text-slate-800 border border-slate-200 px-3 py-1 rounded text-xs font-mono font-semibold uppercase tracking-wider">
                     <Tag size={12} />
                     <span>{project.category}</span>
                   </span>
                 )}
                 {project.status && (
                   <span
-                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider ${
+                    className={`inline-flex items-center px-3 py-1 rounded text-xs font-mono font-semibold uppercase tracking-wider border ${
                       project.status === 'completed'
-                        ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
-                        : 'bg-amber-100 text-amber-800 border border-amber-200'
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                        : 'bg-slate-100 text-slate-700 border-slate-200'
                     }`}
                   >
                     {project.status}
@@ -111,11 +111,11 @@ const ProjectDetail = () => {
                 )}
               </div>
 
-              <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+              <h1 className="text-3xl sm:text-5xl font-bold text-slate-950 tracking-tight mb-4">
                 {project.title}
               </h1>
 
-              <p className="text-lg sm:text-xl text-slate-600 font-normal leading-relaxed max-w-3xl mb-8">
+              <p className="text-lg text-slate-600 font-normal leading-relaxed max-w-3xl mb-8">
                 {project.shortDescription || project.description}
               </p>
 
@@ -149,18 +149,18 @@ const ProjectDetail = () => {
 
             {/* Media Showcase (Live Frame or Image Gallery) */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="mb-12"
+              className="mb-10"
             >
               {project.liveUrl ? (
-                <div className="glass-card overflow-hidden border border-slate-200/90 shadow-xl">
+                <div className="rounded-xl border border-slate-800 bg-slate-950 overflow-hidden shadow-xl">
                   <div className="bg-slate-900 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <span className="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
-                      <span className="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
-                      <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                      <span className="w-3 h-3 rounded-full bg-slate-700 inline-block"></span>
+                      <span className="w-3 h-3 rounded-full bg-slate-700 inline-block"></span>
+                      <span className="w-3 h-3 rounded-full bg-slate-700 inline-block"></span>
                       <span className="ml-2 text-xs font-mono text-slate-400 truncate max-w-xs sm:max-w-md">
                         {project.liveUrl}
                       </span>
@@ -169,7 +169,7 @@ const ProjectDetail = () => {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-primary-400 hover:text-primary-300 flex items-center gap-1 font-mono"
+                      className="text-xs text-slate-300 hover:text-white flex items-center gap-1 font-mono"
                     >
                       Open in new tab <ExternalLink size={12} />
                     </a>
@@ -184,8 +184,8 @@ const ProjectDetail = () => {
                   </div>
                 </div>
               ) : images.length > 0 ? (
-                <div className="glass-card p-4 overflow-hidden border border-slate-200/90 shadow-xl">
-                  <div className="relative h-[350px] sm:h-[480px] rounded-xl overflow-hidden bg-slate-950 mb-4">
+                <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-2xs">
+                  <div className="relative h-[350px] sm:h-[480px] rounded-lg overflow-hidden bg-slate-950 mb-4">
                     <img
                       src={getFileUrl(images[activeImageIndex])}
                       alt={`${project.title} preview`}
@@ -198,9 +198,9 @@ const ProjectDetail = () => {
                         <button
                           key={idx}
                           onClick={() => setActiveImageIndex(idx)}
-                          className={`relative h-20 w-32 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${
+                          className={`relative h-20 w-32 rounded-lg overflow-hidden border transition-all flex-shrink-0 ${
                             activeImageIndex === idx
-                              ? 'border-primary-600 ring-2 ring-primary-500/30'
+                              ? 'border-slate-950 ring-1 ring-slate-950'
                               : 'border-slate-200 opacity-60 hover:opacity-100'
                           }`}
                         >
@@ -215,11 +215,11 @@ const ProjectDetail = () => {
                   )}
                 </div>
               ) : (
-                <div className="glass-card h-64 bg-gradient-to-br from-primary-600 via-indigo-600 to-slate-900 flex items-center justify-center text-white p-8 text-center rounded-2xl shadow-lg">
+                <div className="h-64 bg-slate-950 border border-slate-800 flex items-center justify-center text-white p-8 text-center rounded-xl shadow-xl">
                   <div>
-                    <Code2 size={48} className="mx-auto mb-3 opacity-80" />
-                    <h3 className="text-2xl font-extrabold">{project.title}</h3>
-                    <p className="text-sm opacity-80 mt-1">Full-stack software engineering project</p>
+                    <Code2 size={40} className="mx-auto mb-3 text-slate-400" />
+                    <h3 className="text-xl font-bold font-mono">{project.title}</h3>
+                    <p className="text-xs font-mono text-slate-400 mt-1">Full-stack software engineering project</p>
                   </div>
                 </div>
               )}
@@ -230,9 +230,9 @@ const ProjectDetail = () => {
               {/* Left Main Content Column */}
               <div className="lg:col-span-2 space-y-8">
                 {/* Full Description */}
-                <div className="glass-card p-6 sm:p-8 space-y-4">
-                  <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                    <Layers size={20} className="text-primary-600" />
+                <div className="bg-white rounded-xl border border-slate-200 p-6 sm:p-8 space-y-4 shadow-2xs">
+                  <h2 className="text-xl font-bold text-slate-950 flex items-center gap-2">
+                    <Layers size={18} className="text-slate-800" />
                     Project Overview
                   </h2>
                   <div className="text-slate-600 leading-relaxed space-y-4 text-base">
@@ -242,19 +242,19 @@ const ProjectDetail = () => {
 
                 {/* Key Features (if available) */}
                 {project.features && project.features.length > 0 && (
-                  <div className="glass-card p-6 sm:p-8 space-y-4">
-                    <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                      <Sparkles size={20} className="text-amber-500" />
+                  <div className="bg-white rounded-xl border border-slate-200 p-6 sm:p-8 space-y-4 shadow-2xs">
+                    <h2 className="text-xl font-bold text-slate-950 flex items-center gap-2">
+                      <Sparkles size={18} className="text-slate-800" />
                       Key Features & Architecture
                     </h2>
                     <div className="grid grid-cols-1 gap-3">
                       {project.features.map((feature, idx) => (
                         <div
                           key={idx}
-                          className="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200/60"
+                          className="flex items-start gap-3 p-3.5 bg-slate-50/70 rounded-lg border border-slate-100"
                         >
-                          <CheckCircle2 size={18} className="text-emerald-500 flex-shrink-0 mt-0.5" />
-                          <span className="text-slate-700 text-sm font-medium">{feature}</span>
+                          <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                          <span className="text-slate-800 text-sm font-medium">{feature}</span>
                         </div>
                       ))}
                     </div>
@@ -265,16 +265,16 @@ const ProjectDetail = () => {
               {/* Right Sidebar Column */}
               <div className="space-y-6">
                 {/* Tech Stack Card */}
-                <div className="glass-card p-6 space-y-4">
-                  <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                    <Code2 size={18} className="text-primary-600" />
+                <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4 shadow-2xs">
+                  <h3 className="text-lg font-bold text-slate-950 flex items-center gap-2">
+                    <Code2 size={18} className="text-slate-800" />
                     Technologies Used
                   </h3>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {project.technologies?.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1.5 bg-slate-100 text-slate-800 border border-slate-200 rounded-xl text-xs font-semibold"
+                        className="font-mono text-xs px-2.5 py-1 bg-slate-100 text-slate-700 border border-slate-200 rounded"
                       >
                         {tech}
                       </span>
@@ -283,25 +283,25 @@ const ProjectDetail = () => {
                 </div>
 
                 {/* Metadata Sidebar Card */}
-                <div className="glass-card p-6 space-y-4">
-                  <h3 className="text-lg font-bold text-slate-900">Project Details</h3>
+                <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4 shadow-2xs">
+                  <h3 className="text-lg font-bold text-slate-950">Project Details</h3>
                   <div className="space-y-3 text-sm">
                     {project.category && (
                       <div className="flex justify-between py-2 border-b border-slate-100">
-                        <span className="text-slate-500 font-medium">Category</span>
-                        <span className="text-slate-900 font-bold capitalize">{project.category}</span>
+                        <span className="text-slate-500 font-mono text-xs uppercase tracking-wider">Category</span>
+                        <span className="text-slate-950 font-semibold capitalize">{project.category}</span>
                       </div>
                     )}
                     {project.status && (
                       <div className="flex justify-between py-2 border-b border-slate-100">
-                        <span className="text-slate-500 font-medium">Status</span>
-                        <span className="text-slate-900 font-bold capitalize">{project.status}</span>
+                        <span className="text-slate-500 font-mono text-xs uppercase tracking-wider">Status</span>
+                        <span className="text-slate-950 font-semibold capitalize">{project.status}</span>
                       </div>
                     )}
                     {project.startDate && (
                       <div className="flex justify-between py-2 border-b border-slate-100">
-                        <span className="text-slate-500 font-medium">Timeline</span>
-                        <span className="text-slate-900 font-medium">
+                        <span className="text-slate-500 font-mono text-xs uppercase tracking-wider">Timeline</span>
+                        <span className="text-slate-950 font-mono text-xs">
                           {new Date(project.startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                         </span>
                       </div>

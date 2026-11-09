@@ -57,27 +57,27 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-slate-950 text-white overflow-hidden border-t border-slate-800/80 pb-20 md:pb-0">
+    <footer className="relative bg-slate-950 text-white overflow-hidden border-t border-slate-800 pb-20 md:pb-0">
       <div className="container-custom relative z-10">
         {/* Main Footer Content */}
-        <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* About Section */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-tr from-primary-600 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md shadow-primary-500/20">
+              <div className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-white font-bold text-sm tracking-tight">
                 {profileData?.name ? profileData.name.charAt(0).toUpperCase() : 'P'}
               </div>
               <div>
-                <h3 className="text-xl font-bold tracking-tight text-white">
+                <h3 className="text-base font-bold tracking-tight text-white leading-tight">
                   {profileData?.name || 'Full Stack Developer'}
                 </h3>
-                <p className="text-slate-400 text-xs font-medium">
+                <p className="text-slate-400 text-xs font-mono mt-0.5">
                   {profileData?.title || 'MERN Stack Developer'}
                 </p>
               </div>
             </div>
 
-            <p className="text-slate-400 text-sm max-w-md leading-relaxed font-normal">
+            <p className="text-slate-400 text-xs sm:text-sm max-w-md leading-relaxed font-normal">
               {profileData?.summary ||
                 'Passionate full-stack developer with 9 years of experience in building scalable web applications using modern technologies.'}
             </p>
@@ -85,13 +85,15 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 mb-4">Quick Links</h3>
-            <nav className="space-y-2.5">
+            <h3 className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-400 mb-3">
+              Quick Links
+            </h3>
+            <nav className="space-y-2">
               {quickLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className="block text-slate-400 hover:text-white hover:translate-x-1 transition-all text-sm font-medium"
+                  className="block text-slate-400 hover:text-white transition-colors text-xs font-medium"
                 >
                   {link.label}
                 </Link>
@@ -101,14 +103,16 @@ const Footer = () => {
 
           {/* Connect Section - Contact Details */}
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 mb-4">Connect</h3>
-            <div className="space-y-3 text-sm text-slate-300 font-medium">
+            <h3 className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-400 mb-3">
+              Connect
+            </h3>
+            <div className="space-y-2.5 text-xs text-slate-300">
               {profileData?.email && (
-                <div className="flex items-center space-x-3">
-                  <Mail size={16} className="text-primary-400 flex-shrink-0" />
+                <div className="flex items-center space-x-2.5">
+                  <Mail size={14} className="text-slate-400 flex-shrink-0" />
                   <a
                     href={`mailto:${profileData.email}`}
-                    className="hover:text-primary-400 transition-colors"
+                    className="hover:text-white transition-colors font-mono"
                   >
                     {profileData.email}
                   </a>
@@ -116,11 +120,11 @@ const Footer = () => {
               )}
 
               {profileData?.phone && (
-                <div className="flex items-center space-x-3">
-                  <Phone size={16} className="text-primary-400 flex-shrink-0" />
+                <div className="flex items-center space-x-2.5">
+                  <Phone size={14} className="text-slate-400 flex-shrink-0" />
                   <a
                     href={`tel:${profileData.phone}`}
-                    className="hover:text-primary-400 transition-colors"
+                    className="hover:text-white transition-colors font-mono"
                   >
                     {profileData.phone}
                   </a>
@@ -128,16 +132,19 @@ const Footer = () => {
               )}
 
               {profileData?.location && (
-                <div className="flex items-center space-x-3">
-                  <MapPin size={16} className="text-primary-400 flex-shrink-0" />
+                <div className="flex items-center space-x-2.5 text-slate-400">
+                  <MapPin size={14} className="text-slate-400 flex-shrink-0" />
                   <span>{profileData.location}</span>
                 </div>
               )}
             </div>
 
             {/* Call to Action */}
-            <div className="mt-6">
-              <Link to="/contact" className="btn-primary w-full justify-center text-xs tracking-wider uppercase py-3">
+            <div className="mt-5">
+              <Link
+                to="/contact"
+                className="w-full inline-flex items-center justify-center py-2.5 px-4 rounded-lg text-xs font-semibold text-slate-950 bg-white hover:bg-slate-100 transition-colors uppercase tracking-wider font-mono"
+              >
                 Start a Project
               </Link>
             </div>
@@ -146,18 +153,17 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="py-6 border-t border-slate-800/80">
-          <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 text-slate-400 text-xs font-medium">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-slate-400 font-mono">
+            <div className="flex flex-col sm:flex-row items-center gap-3">
               <span>
-                © {currentYear} {profileData?.name || 'Portfolio'}. All rights
-                reserved.
+                © {currentYear} {profileData?.name || 'Portfolio'}. All rights reserved.
               </span>
 
               {/* Visitor Counter */}
               {visitorData?.data && (
-                <div className="flex items-center space-x-2 px-3 py-1 bg-slate-900 border border-slate-800 rounded-full">
-                  <Eye size={13} className="text-primary-400" />
-                  <span className="text-slate-300">
+                <div className="flex items-center space-x-1.5 px-2.5 py-0.5 bg-slate-900 border border-slate-800 rounded-md text-slate-300 text-[11px]">
+                  <Eye size={12} className="text-emerald-400" />
+                  <span>
                     {visitorData.data.totalVisits.toLocaleString()}{' '}
                     {visitorData.data.totalVisits === 1 ? 'visit' : 'visits'}
                   </span>
@@ -165,9 +171,9 @@ const Footer = () => {
               )}
             </div>
 
-            <div className="flex items-center space-x-2 text-slate-400 text-xs font-medium">
+            <div className="flex items-center space-x-2 text-slate-400 text-xs">
               <span>Crafted with</span>
-              <Heart size={15} className="text-rose-500 animate-pulse" />
+              <Heart size={13} className="text-rose-500 animate-pulse" />
               <span>using MERN Stack</span>
             </div>
           </div>

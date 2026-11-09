@@ -19,7 +19,7 @@ const Skeleton = ({
     }
   };
 
-  const skeletonClasses = `bg-gradient-to-r from-secondary-200 via-secondary-300 to-secondary-200 animate-pulse ${getVariantClasses()} ${className}`;
+  const skeletonClasses = `bg-slate-100 animate-pulse ${getVariantClasses()} ${className}`;
 
   const style = {
     width: width || '100%',
@@ -74,8 +74,8 @@ export const SkeletonProject = () => (
 );
 
 export const SkeletonExperience = () => (
-  <div className="border-l-4 border-primary-500 pl-6 pb-8 relative">
-    <div className="absolute left-[-8px] top-0 w-4 h-4 bg-secondary-300 rounded-full animate-pulse" />
+  <div className="border-l-2 border-slate-900 pl-6 pb-8 relative">
+    <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 bg-slate-950 rounded-full animate-pulse" />
     <div className="space-y-3">
       <Skeleton variant="text" width="50%" height="20px" />
       <Skeleton variant="text" width="40%" height="16px" />

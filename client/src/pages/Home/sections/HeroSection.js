@@ -10,83 +10,84 @@ import {
   Mail,
   MapPin
 } from 'lucide-react';
-import ParticleNetwork from '../../../components/ParticleNetwork';
+import { getFileUrl } from '../../../utils/apiUrl';
 
 const HeroSection = ({ profileData, featuredProjectsCount }) => {
   const resumeUrl = profileData?.resume
-    ? `${process.env.REACT_APP_API_URL?.replace('/api', '') || 'http://localhost:5000'}${profileData.resume}`
+    ? getFileUrl(profileData.resume)
     : null;
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center bg-slate-50/50 bg-grid-pattern pt-24 pb-16 overflow-hidden">
-      {/* Interactive Spider-Web / Constellation Canvas Background */}
-      <ParticleNetwork />
+    <section className="relative min-h-[85vh] flex items-center justify-center bg-white pt-24 pb-16 overflow-hidden border-b border-slate-100">
+      {/* Linear-style subtle background grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
       <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Content */}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* Left Content (7 cols) */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8"
+            transition={{ duration: 0.5 }}
+            className="lg:col-span-7 space-y-6"
           >
             <div className="space-y-4">
-              <div className="inline-flex items-center space-x-3 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200/80 shadow-sm">
-                <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-                </span>
-                <span className="text-xs font-semibold uppercase tracking-wider text-slate-700">Available for Opportunities</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/90 text-xs font-mono font-medium text-slate-800">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Available for Opportunities</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-snug">
-                <span className="block text-slate-700 font-medium text-xl sm:text-2xl mb-1">Hi, I'm</span>
-                <span className="text-primary-700 block break-words">{profileData?.name}</span>
+              <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
+                Portfolio • Full Stack Development
+              </div>
+
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight leading-tight">
+                <span className="block text-slate-600 font-medium text-xl sm:text-2xl mb-1">Hi, I'm</span>
+                <span className="text-slate-950 block break-words">{profileData?.name || 'Bishal Kumar Shaw'}</span>
               </h1>
 
-              <h2 className="text-lg sm:text-xl text-slate-600 font-semibold tracking-wide">
-                {profileData?.title}
+              <h2 className="text-base sm:text-lg text-slate-600 font-mono font-medium">
+                {profileData?.title || 'Full Stack Developer'}
               </h2>
             </div>
 
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-normal">
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
               {profileData?.summary}
             </p>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-5 pt-2">
-              <div className="glass-card p-3.5 sm:p-4 text-center">
-                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                  {profileData?.yearsOfExperience}+
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-1">
+              <div className="p-3.5 sm:p-4 rounded-xl border border-slate-200/90 bg-slate-50/70 text-center">
+                <div className="text-2xl sm:text-3xl font-bold font-mono text-slate-950">
+                  {profileData?.yearsOfExperience || 9}+
                 </div>
-                <div className="text-xs font-medium text-slate-500 mt-1">Years Exp.</div>
+                <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mt-1">Years Exp.</div>
               </div>
-              <div className="glass-card p-3.5 sm:p-4 text-center">
-                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                  {featuredProjectsCount}+
+              <div className="p-3.5 sm:p-4 rounded-xl border border-slate-200/90 bg-slate-50/70 text-center">
+                <div className="text-2xl sm:text-3xl font-bold font-mono text-slate-950">
+                  {featuredProjectsCount || 6}+
                 </div>
-                <div className="text-xs font-medium text-slate-500 mt-1">Projects Built</div>
+                <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mt-1">Projects Built</div>
               </div>
-              <div className="glass-card p-3.5 sm:p-4 text-center">
-                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+              <div className="p-3.5 sm:p-4 rounded-xl border border-slate-200/90 bg-slate-50/70 text-center">
+                <div className="text-2xl sm:text-3xl font-bold font-mono text-slate-950">
                   100%
                 </div>
-                <div className="text-xs font-medium text-slate-500 mt-1">Satisfaction</div>
+                <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mt-1">Satisfaction</div>
               </div>
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              <Link to="/projects" className="btn-primary group">
-                View Projects
+              <Link to="/projects" className="btn-primary group font-mono text-xs uppercase tracking-wider">
+                <span>View Projects</span>
                 <ArrowRight
-                  size={16}
-                  className="ml-2 group-hover:translate-x-1 transition-transform"
+                  size={14}
+                  className="ml-1.5 group-hover:translate-x-1 transition-transform"
                 />
               </Link>
 
-              <Link to="/contact" className="btn-outline">
+              <Link to="/contact" className="btn-secondary font-mono text-xs uppercase tracking-wider">
                 Get In Touch
               </Link>
 
@@ -95,31 +96,31 @@ const HeroSection = ({ profileData, featuredProjectsCount }) => {
                   href={resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary group"
+                  className="btn-secondary group font-mono text-xs uppercase tracking-wider"
                 >
                   <Download
-                    size={16}
-                    className="mr-2 group-hover:-translate-y-0.5 transition-transform"
+                    size={14}
+                    className="mr-1.5 group-hover:-translate-y-0.5 transition-transform"
                   />
-                  Download CV
+                  <span>CV</span>
                 </a>
               )}
             </div>
 
             {/* Contact Info */}
-            <div className="flex flex-wrap gap-6 text-sm text-slate-500 pt-2 font-medium">
+            <div className="flex flex-wrap gap-5 text-xs font-mono text-slate-500 pt-1">
               {profileData?.location && (
                 <div className="flex items-center space-x-2">
-                  <MapPin size={16} className="text-primary-600" />
+                  <MapPin size={14} className="text-slate-400" />
                   <span>{profileData.location}</span>
                 </div>
               )}
               {profileData?.email && (
                 <div className="flex items-center space-x-2">
-                  <Mail size={16} className="text-primary-600" />
+                  <Mail size={14} className="text-slate-400" />
                   <a
                     href={`mailto:${profileData.email}`}
-                    className="hover:text-primary-600 transition-colors"
+                    className="hover:text-slate-900 transition-colors"
                   >
                     {profileData.email}
                   </a>
@@ -128,46 +129,44 @@ const HeroSection = ({ profileData, featuredProjectsCount }) => {
             </div>
           </motion.div>
 
-          {/* Right Content - Profile Image */}
+          {/* Right Content - Profile Image (5 cols) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative flex justify-center"
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="lg:col-span-5 flex justify-center"
           >
             <div className="relative">
-              {/* Outer Glowing Halo Ring */}
-              <div className="absolute -inset-4 bg-gradient-to-tr from-primary-600 via-indigo-500 to-sky-400 rounded-full opacity-30 blur-2xl animate-pulse-slow"></div>
-
-              <div className="relative w-72 h-72 sm:w-88 sm:h-88 bg-gradient-to-tr from-slate-100 to-white rounded-full p-2.5 shadow-2xl ring-1 ring-slate-200/80">
-                <div className="w-full h-full rounded-full overflow-hidden bg-slate-100">
-                  {profileData?.profileImage ? (
-                    <img
-                      src={`${process.env.REACT_APP_API_URL?.replace('/api', '') || 'http://localhost:5000'}${profileData.profileImage}`}
-                      alt={profileData.name || 'Profile'}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-7xl font-bold bg-gradient-to-br from-primary-500 to-indigo-700 text-white">
-                      {profileData?.name
-                        ? profileData.name.charAt(0).toUpperCase()
-                        : 'P'}
-                    </div>
-                  )}
-                </div>
+              <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 shadow-2xs">
+                {profileData?.profileImage ? (
+                  <img
+                    src={getFileUrl(profileData.profileImage)}
+                    alt={profileData.name || 'Profile'}
+                    className="w-full h-full object-cover"
+                    crossOrigin="anonymous"
+                    width="320"
+                    height="320"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-7xl font-bold font-mono bg-slate-900 text-white">
+                    {profileData?.name
+                      ? profileData.name.charAt(0).toUpperCase()
+                      : 'P'}
+                  </div>
+                )}
               </div>
 
-              {/* Floating Tech Badges */}
-              <div className="absolute -top-2 -right-2 w-14 h-14 bg-gradient-to-tr from-primary-600 to-sky-500 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-primary-500/30 animate-float">
-                <Code size={26} />
+              {/* Minimalist Tech Badges */}
+              <div className="absolute -top-3 -right-3 w-11 h-11 bg-slate-950 text-white rounded-xl flex items-center justify-center shadow-xl border border-slate-800">
+                <Code size={18} />
               </div>
 
-              <div className="absolute -bottom-2 -left-2 w-14 h-14 bg-gradient-to-tr from-slate-800 to-slate-900 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-slate-900/30 animate-float [animation-delay:1.5s]">
-                <Database size={24} />
+              <div className="absolute -bottom-3 -left-3 w-11 h-11 bg-slate-950 text-white rounded-xl flex items-center justify-center shadow-xl border border-slate-800">
+                <Database size={18} />
               </div>
 
-              <div className="absolute top-1/2 -left-6 w-12 h-12 bg-gradient-to-tr from-emerald-500 to-teal-400 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-emerald-500/30 animate-float [animation-delay:2.5s]">
-                <Zap size={22} />
+              <div className="absolute top-1/2 -left-5 -translate-y-1/2 w-10 h-10 bg-slate-950 text-emerald-400 rounded-xl flex items-center justify-center shadow-xl border border-slate-800">
+                <Zap size={16} />
               </div>
             </div>
           </motion.div>

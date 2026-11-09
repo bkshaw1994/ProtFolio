@@ -10,25 +10,16 @@ const WhyChooseMeSection = () => {
   const features = [
     {
       icon: Code,
-      gradient: 'from-primary-600 to-sky-400',
-      shadow: 'shadow-primary-500/25',
-      border: 'hover:border-primary-500/30',
       title: 'Clean Architecture',
       desc: 'Writing maintainable, robust, and well-documented code following industry best practices and design patterns.'
     },
     {
       icon: Zap,
-      gradient: 'from-emerald-600 to-teal-400',
-      shadow: 'shadow-emerald-500/25',
-      border: 'hover:border-emerald-500/30',
       title: 'Fast Execution',
       desc: 'Optimized development workflow ensuring rapid turnaround and high performance without compromising quality.'
     },
     {
       icon: Palette,
-      gradient: 'from-indigo-600 to-purple-400',
-      shadow: 'shadow-indigo-500/25',
-      border: 'hover:border-indigo-500/30',
       title: 'Modern UI / UX',
       desc: 'Crafting pixel-perfect, responsive, and intuitive interfaces with modern aesthetic design systems.'
     }
@@ -64,77 +55,76 @@ const WhyChooseMeSection = () => {
   };
 
   return (
-    <section className="section-padding bg-slate-50/60 relative overflow-hidden">
+    <section className="section-padding bg-white border-t border-slate-100 relative overflow-hidden">
       <div className="container-custom relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+          <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
+            Engineering Philosophy
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-950 mb-3 tracking-tight">
             Why Choose Me
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto font-normal">
+          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-normal">
             Delivering high-quality engineering with clean architecture, speed, and modern user experience.
           </p>
         </motion.div>
 
         {/* Mobile Carousel / Desktop Grid Container */}
         <div className="relative">
-          {/* Left Edge Arrow & Fade Strip */}
+          {/* Left Edge Arrow */}
           <div
             onClick={() => handleScroll('left')}
-            className={`sm:hidden absolute -left-4 top-0 bottom-0 w-14 z-30 flex items-center justify-start bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent transition-opacity duration-300 ${
+            className={`sm:hidden absolute -left-2 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-10 h-10 rounded-full bg-white border border-slate-200 shadow-2xs text-slate-800 transition-opacity duration-300 ${
               canScrollLeft
                 ? 'opacity-100 pointer-events-auto cursor-pointer'
                 : 'opacity-0 pointer-events-none'
             }`}
             aria-label="Scroll left"
           >
-            <div className="text-slate-800 drop-shadow flex items-center justify-center pl-2">
-              <ChevronLeft size={28} className="stroke-[2.5]" />
-            </div>
+            <ChevronLeft size={20} className="stroke-[2.5]" />
           </div>
 
-          {/* Right Edge Arrow & Fade Strip */}
+          {/* Right Edge Arrow */}
           <div
             onClick={() => handleScroll('right')}
-            className={`sm:hidden absolute -right-4 top-0 bottom-0 w-14 z-30 flex items-center justify-end bg-gradient-to-l from-slate-50 via-slate-50/90 to-transparent transition-opacity duration-300 ${
+            className={`sm:hidden absolute -right-2 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-10 h-10 rounded-full bg-white border border-slate-200 shadow-2xs text-slate-800 transition-opacity duration-300 ${
               canScrollRight
                 ? 'opacity-100 pointer-events-auto cursor-pointer'
                 : 'opacity-0 pointer-events-none'
             }`}
             aria-label="Scroll right"
           >
-            <div className="text-slate-800 drop-shadow flex items-center justify-center pr-2">
-              <ChevronRight size={28} className="stroke-[2.5]" />
-            </div>
+            <ChevronRight size={20} className="stroke-[2.5]" />
           </div>
 
           {/* Scrollable Track / Desktop Grid */}
           <div
             ref={scrollRef}
             onScroll={checkScroll}
-            className="flex sm:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 overflow-x-auto sm:overflow-x-visible scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth snap-x snap-proximity pl-4 pr-4 sm:px-0 py-3 items-stretch"
+            className="flex sm:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 overflow-x-auto sm:overflow-x-visible scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth snap-x snap-proximity pl-4 pr-4 sm:px-0 py-2 items-stretch"
           >
             {features.map((feature, idx) => {
               const IconComp = feature.icon;
               return (
                 <motion.div
                   key={feature.title}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className={`glass-card p-6 sm:p-8 text-center group hover:-translate-y-1 transition-all duration-300 border border-slate-200/80 ${feature.border} flex-shrink-0 w-[270px] sm:w-auto snap-start flex flex-col justify-between min-h-[250px]`}
+                  className="bg-white rounded-xl border border-slate-200 p-6 sm:p-8 text-center group hover:border-slate-400 transition-colors shadow-2xs flex-shrink-0 w-[270px] sm:w-auto snap-start flex flex-col justify-between min-h-[250px]"
                 >
                   <div>
-                    <div className={`w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-tr ${feature.gradient} rounded-2xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg ${feature.shadow} group-hover:scale-110 transition-transform`}>
-                      <IconComp size={28} />
+                    <div className="w-12 h-12 bg-slate-950 border border-slate-800 text-slate-200 rounded-lg flex items-center justify-center mx-auto mb-6 group-hover:bg-slate-900 transition-colors">
+                      <IconComp size={24} />
                     </div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-tight">
+                    <h3 className="text-xl font-bold text-slate-950 mb-3 tracking-tight">
                       {feature.title}
                     </h3>
                     <p className="text-slate-600 leading-relaxed text-sm font-normal">

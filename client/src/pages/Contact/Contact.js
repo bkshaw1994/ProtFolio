@@ -96,22 +96,24 @@ const Contact = () => {
           <title>Contact - Thank You</title>
         </Helmet>
 
-        <div className="pt-20 min-h-screen flex items-center justify-center bg-gradient-to-br from-success-50 to-primary-50">
+        <div className="pt-24 sm:pt-28 pb-20 min-h-screen flex items-center justify-center bg-white">
           <div className="container-custom text-center">
-            <CheckCircle size={64} className="text-success-500 mx-auto mb-6" />
-            <h1 className="text-4xl font-bold text-secondary-900 mb-4">
-              Thank You!
-            </h1>
-            <p className="text-lg text-secondary-600 mb-8">
-              Your message has been sent successfully. I'll get back to you
-              within 24-48 hours.
-            </p>
-            <button
-              onClick={() => setIsSubmitted(false)}
-              className="btn-primary"
-            >
-              Send Another Message
-            </button>
+            <div className="bg-white p-8 sm:p-12 max-w-md mx-auto rounded-xl border border-slate-200 shadow-2xs">
+              <CheckCircle size={56} className="text-emerald-600 mx-auto mb-6" />
+              <h1 className="text-3xl font-bold text-slate-950 mb-3 tracking-tight">
+                Thank You!
+              </h1>
+              <p className="text-slate-600 text-sm leading-relaxed mb-8">
+                Your message has been sent successfully. I'll get back to you
+                within 24-48 hours.
+              </p>
+              <button
+                onClick={() => setIsSubmitted(false)}
+                className="btn-primary"
+              >
+                Send Another Message
+              </button>
+            </div>
           </div>
         </div>
       </>
@@ -136,14 +138,17 @@ const Contact = () => {
         />
       </Helmet>
 
-      <div className="pt-28 sm:pt-36">
+      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white">
         {/* Header */}
-        <section className="section-padding bg-gradient-to-br from-primary-50 to-secondary-50">
-          <div className="container-custom text-center">
-            <h1 className="text-4xl sm:text-5xl font-bold text-secondary-900 mb-6">
+        <section className="section-padding py-10 sm:py-14 bg-white text-center">
+          <div className="container-custom">
+            <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
               Get In Touch
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-bold text-slate-950 mb-3 tracking-tight">
+              Contact Me
             </h1>
-            <p className="text-lg text-secondary-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-normal">
               Let's discuss your next project and bring your ideas to life.
               {profileData?.name && ` I'm ${profileData.name}, `}
               ready to help you create amazing digital experiences.
@@ -152,22 +157,24 @@ const Contact = () => {
         </section>
 
         {/* Contact Form */}
-        <section className="section-padding">
-          <div className="container-custom max-w-4xl">
-            <div className="grid lg:grid-cols-3 gap-12">
-              {/* Contact Info */}
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-xl font-semibold text-secondary-900 mb-4">
+        <section className="section-padding py-4">
+          <div className="container-custom max-w-5xl">
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Contact Info Sidebar */}
+              <div className="space-y-6">
+                <div className="bg-slate-50/70 p-6 rounded-xl border border-slate-200">
+                  <h3 className="text-base font-bold text-slate-950 mb-4">
                     Contact Information
                   </h3>
                   <div className="space-y-4">
                     {profileData?.email && (
                       <div className="flex items-center space-x-3">
-                        <Mail className="text-primary-600" size={20} />
+                        <div className="w-8 h-8 bg-slate-950 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Mail size={16} />
+                        </div>
                         <a
                           href={`mailto:${profileData.email}`}
-                          className="text-secondary-700 hover:text-primary-600"
+                          className="text-sm font-medium text-slate-800 hover:text-emerald-600 transition-colors truncate"
                         >
                           {profileData.email}
                         </a>
@@ -175,10 +182,12 @@ const Contact = () => {
                     )}
                     {profileData?.phone && (
                       <div className="flex items-center space-x-3">
-                        <Phone className="text-primary-600" size={20} />
+                        <div className="w-8 h-8 bg-slate-950 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Phone size={16} />
+                        </div>
                         <a
                           href={`tel:${profileData.phone}`}
-                          className="text-secondary-700 hover:text-primary-600"
+                          className="text-sm font-medium text-slate-800 hover:text-emerald-600 transition-colors"
                         >
                           {profileData.phone}
                         </a>
@@ -186,8 +195,10 @@ const Contact = () => {
                     )}
                     {profileData?.location && (
                       <div className="flex items-center space-x-3">
-                        <MapPin className="text-primary-600" size={20} />
-                        <span className="text-secondary-700">
+                        <div className="w-8 h-8 bg-slate-950 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                          <MapPin size={16} />
+                        </div>
+                        <span className="text-sm font-medium text-slate-800">
                           {profileData.location}
                         </span>
                       </div>
@@ -195,18 +206,18 @@ const Contact = () => {
                     {!profileData?.email &&
                       !profileData?.phone &&
                       !profileData?.location && (
-                      <div className="text-secondary-600">
-                          Please use the contact form to get in touch.
+                      <div className="text-slate-500 text-sm">
+                        Please use the contact form to get in touch.
                       </div>
                     )}
                   </div>
                 </div>
 
-                <div>
-                  <h3 className="text-xl font-semibold text-secondary-900 mb-4">
+                <div className="bg-slate-50/70 p-6 rounded-xl border border-slate-200">
+                  <h3 className="text-base font-bold text-slate-950 mb-2">
                     Response Time
                   </h3>
-                  <p className="text-secondary-600">
+                  <p className="text-slate-600 text-sm leading-relaxed font-normal">
                     I typically respond to all inquiries within 24-48 hours.
                     {profileData?.phone &&
                       ' For urgent matters, please call directly.'}
@@ -216,16 +227,16 @@ const Contact = () => {
 
                 {/* Resume Download */}
                 {profileData?.resume && (
-                  <div>
-                    <h3 className="text-xl font-semibold text-secondary-900 mb-4">
+                  <div className="bg-slate-50/70 p-6 rounded-xl border border-slate-200">
+                    <h3 className="text-base font-bold text-slate-950 mb-3">
                       Download Resume
                     </h3>
                     <a
                       href={getFileUrl(profileData.resume)}
                       download
-                      className="inline-flex items-center space-x-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors shadow-lg"
+                      className="inline-flex items-center space-x-2 px-4 py-2.5 bg-slate-950 text-white rounded-lg hover:bg-slate-800 transition-colors font-mono text-xs font-semibold shadow-xs"
                     >
-                      <Download size={20} />
+                      <Download size={16} />
                       <span>Download Resume</span>
                     </a>
                   </div>
@@ -235,20 +246,20 @@ const Contact = () => {
                 {(profileData?.socialLinks?.github ||
                   profileData?.socialLinks?.linkedin ||
                   profileData?.socialLinks?.portfolio) && (
-                  <div>
-                    <h3 className="text-xl font-semibold text-secondary-900 mb-4">
+                  <div className="bg-slate-50/70 p-6 rounded-xl border border-slate-200">
+                    <h3 className="text-base font-bold text-slate-950 mb-3">
                       Connect With Me
                     </h3>
-                    <div className="flex space-x-4">
+                    <div className="flex space-x-3">
                       {profileData.socialLinks.github && (
                         <a
                           href={profileData.socialLinks.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center w-10 h-10 bg-secondary-100 rounded-lg hover:bg-primary-100 hover:text-primary-600 transition-colors"
+                          className="flex items-center justify-center w-10 h-10 bg-white border border-slate-200 rounded-lg hover:bg-slate-950 hover:text-white transition-colors"
                           aria-label="GitHub"
                         >
-                          <Github size={20} />
+                          <Github size={18} />
                         </a>
                       )}
                       {profileData.socialLinks.linkedin && (
@@ -256,10 +267,10 @@ const Contact = () => {
                           href={profileData.socialLinks.linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center w-10 h-10 bg-secondary-100 rounded-lg hover:bg-primary-100 hover:text-primary-600 transition-colors"
+                          className="flex items-center justify-center w-10 h-10 bg-white border border-slate-200 rounded-lg hover:bg-slate-950 hover:text-white transition-colors"
                           aria-label="LinkedIn"
                         >
-                          <Linkedin size={20} />
+                          <Linkedin size={18} />
                         </a>
                       )}
                       {profileData.socialLinks.portfolio && (
@@ -267,10 +278,10 @@ const Contact = () => {
                           href={profileData.socialLinks.portfolio}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center w-10 h-10 bg-secondary-100 rounded-lg hover:bg-primary-100 hover:text-primary-600 transition-colors"
+                          className="flex items-center justify-center w-10 h-10 bg-white border border-slate-200 rounded-lg hover:bg-slate-950 hover:text-white transition-colors"
                           aria-label="Portfolio"
                         >
-                          <ExternalLink size={20} />
+                          <ExternalLink size={18} />
                         </a>
                       )}
                     </div>
@@ -280,12 +291,12 @@ const Contact = () => {
 
               {/* Contact Form */}
               <div className="lg:col-span-2">
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-2xs space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-secondary-700 mb-2"
+                        className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 mb-2"
                       >
                         Name *
                       </label>
@@ -304,7 +315,7 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium text-secondary-700 mb-2"
+                        className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 mb-2"
                       >
                         Email *
                       </label>
@@ -325,7 +336,7 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="phone"
-                        className="block text-sm font-medium text-secondary-700 mb-2"
+                        className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 mb-2"
                       >
                         Phone
                       </label>
@@ -343,7 +354,7 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="company"
-                        className="block text-sm font-medium text-secondary-700 mb-2"
+                        className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 mb-2"
                       >
                         Company
                       </label>
@@ -362,7 +373,7 @@ const Contact = () => {
                   <div>
                     <label
                       htmlFor="subject"
-                      className="block text-sm font-medium text-secondary-700 mb-2"
+                      className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 mb-2"
                     >
                       Subject *
                     </label>
@@ -382,7 +393,7 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="projectType"
-                        className="block text-sm font-medium text-secondary-700 mb-2"
+                        className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 mb-2"
                       >
                         Project Type
                       </label>
@@ -405,7 +416,7 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="timeline"
-                        className="block text-sm font-medium text-secondary-700 mb-2"
+                        className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 mb-2"
                       >
                         Timeline
                       </label>
@@ -430,7 +441,7 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="budget"
-                        className="block text-sm font-medium text-secondary-700 mb-2"
+                        className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 mb-2"
                       >
                         Budget
                       </label>
@@ -440,7 +451,7 @@ const Contact = () => {
                           name="currency"
                           value={formData.currency}
                           onChange={handleChange}
-                          className="absolute left-0 top-0 h-full pl-3 pr-2 border-r border-secondary-300 bg-secondary-50 text-secondary-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary-500 appearance-none cursor-pointer z-10"
+                          className="absolute left-0 top-0 h-full pl-3 pr-2 border-r border-slate-200 bg-slate-50 text-slate-700 rounded-l-lg focus:outline-none text-xs font-mono appearance-none cursor-pointer z-10"
                           style={{ width: '85px' }}
                         >
                           {currencies.map((curr) => (
@@ -467,7 +478,7 @@ const Contact = () => {
                   <div>
                     <label
                       htmlFor="message"
-                      className="block text-sm font-medium text-secondary-700 mb-2"
+                      className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 mb-2"
                     >
                       Message *
                     </label>
@@ -497,7 +508,7 @@ const Contact = () => {
                       <>
                         Send Message
                         <Send
-                          size={20}
+                          size={18}
                           className="ml-2 group-hover:translate-x-1 transition-transform"
                         />
                       </>

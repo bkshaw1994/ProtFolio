@@ -70,7 +70,7 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
-        <div className="App min-h-screen flex flex-col justify-between overflow-x-hidden bg-slate-50/30">
+        <div className="App min-h-screen flex flex-col justify-between overflow-x-hidden bg-white text-slate-900">
           {/* First Time Landing Splash Loader */}
           <AnimatePresence>
             {isDataLoading && (

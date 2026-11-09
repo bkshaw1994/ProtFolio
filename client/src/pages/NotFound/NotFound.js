@@ -11,72 +11,72 @@ const NotFound = () => {
         <meta name="description" content="The page you're looking for doesn't exist." />
       </Helmet>
 
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-secondary-50 pt-20">
+      <div className="min-h-screen flex items-center justify-center bg-white pt-24 pb-16">
         <div className="container-custom text-center">
-          <div className="max-w-md mx-auto">
+          <div className="max-w-md mx-auto bg-white p-8 sm:p-12 rounded-xl border border-slate-200 shadow-2xs">
             {/* 404 Illustration */}
             <div className="mb-8">
-              <div className="text-9xl font-bold text-primary-200">404</div>
-              <div className="text-2xl font-semibold text-secondary-900 mb-2">
+              <div className="text-8xl sm:text-9xl font-mono font-bold text-slate-200 mb-2">404</div>
+              <div className="text-2xl font-bold text-slate-950 mb-2">
                 Page Not Found
               </div>
-              <p className="text-secondary-600">
+              <p className="text-slate-600 text-sm leading-relaxed">
                 The page you're looking for doesn't exist or has been moved.
               </p>
             </div>
 
             {/* Navigation Options */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 to="/"
                 className="btn-primary group"
               >
-                <Home size={20} className="mr-2" />
+                <Home size={18} className="mr-2" />
                 Go Home
               </Link>
-              
+
               <button
                 onClick={() => window.history.back()}
                 className="btn-outline group"
               >
-                <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+                <ArrowLeft size={18} className="mr-2 group-hover:-translate-x-1 transition-transform" />
                 Go Back
               </button>
             </div>
 
             {/* Quick Links */}
-            <div className="mt-8 pt-8 border-t border-secondary-200">
-              <p className="text-sm text-secondary-600 mb-4">
+            <div className="mt-8 pt-8 border-t border-slate-100">
+              <p className="text-xs font-mono font-medium text-slate-500 uppercase tracking-wider mb-4">
                 Or explore these sections:
               </p>
               <div className="flex flex-wrap gap-2 justify-center">
-                <Link 
-                  to="/about" 
-                  className="text-primary-600 hover:text-primary-700 text-sm underline"
+                <Link
+                  to="/about"
+                  className="text-xs font-mono font-medium text-slate-700 hover:text-emerald-600 px-2 py-1 rounded bg-slate-50 border border-slate-200/60 transition-colors"
                 >
                   About
                 </Link>
-                <Link 
-                  to="/projects" 
-                  className="text-primary-600 hover:text-primary-700 text-sm underline"
+                <Link
+                  to="/projects"
+                  className="text-xs font-mono font-medium text-slate-700 hover:text-emerald-600 px-2 py-1 rounded bg-slate-50 border border-slate-200/60 transition-colors"
                 >
                   Projects
                 </Link>
-                <Link 
-                  to="/skills" 
-                  className="text-primary-600 hover:text-primary-700 text-sm underline"
+                <Link
+                  to="/skills"
+                  className="text-xs font-mono font-medium text-slate-700 hover:text-emerald-600 px-2 py-1 rounded bg-slate-50 border border-slate-200/60 transition-colors"
                 >
                   Skills
                 </Link>
-                <Link 
-                  to="/experience" 
-                  className="text-primary-600 hover:text-primary-700 text-sm underline"
+                <Link
+                  to="/experience"
+                  className="text-xs font-mono font-medium text-slate-700 hover:text-emerald-600 px-2 py-1 rounded bg-slate-50 border border-slate-200/60 transition-colors"
                 >
                   Experience
                 </Link>
-                <Link 
-                  to="/contact" 
-                  className="text-primary-600 hover:text-primary-700 text-sm underline"
+                <Link
+                  to="/contact"
+                  className="text-xs font-mono font-medium text-slate-700 hover:text-emerald-600 px-2 py-1 rounded bg-slate-50 border border-slate-200/60 transition-colors"
                 >
                   Contact
                 </Link>

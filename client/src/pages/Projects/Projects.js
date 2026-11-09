@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Briefcase,
   Github,
-  FolderGit2,
   Search,
   X,
   FolderOpen,
@@ -90,16 +89,16 @@ const Projects = () => {
             content="Browse my portfolio of projects and open source work"
           />
         </Helmet>
-        <div className="pt-28 sm:pt-36 min-h-screen bg-slate-50/50 bg-grid-pattern pb-20">
-          <section className="section-padding py-12">
+        <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white">
+          <section className="section-padding py-10 sm:py-14">
             <div className="container-custom">
               <div className="text-center max-w-3xl mx-auto mb-12">
-                <div className="h-8 bg-slate-200 rounded-full w-48 mx-auto mb-4 animate-pulse"></div>
-                <div className="h-12 bg-slate-200 rounded-xl w-72 sm:w-96 mx-auto mb-4 animate-pulse"></div>
-                <div className="h-6 bg-slate-200 rounded-xl w-full max-w-lg mx-auto animate-pulse"></div>
+                <div className="h-6 bg-slate-100 rounded w-48 mx-auto mb-4 animate-pulse"></div>
+                <div className="h-10 bg-slate-100 rounded w-72 sm:w-96 mx-auto mb-4 animate-pulse"></div>
+                <div className="h-5 bg-slate-100 rounded w-full max-w-lg mx-auto animate-pulse"></div>
               </div>
-              <div className="max-w-4xl mx-auto mb-10 h-14 bg-slate-200 rounded-2xl animate-pulse"></div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              <div className="max-w-4xl mx-auto mb-10 h-12 bg-slate-100 rounded-xl animate-pulse"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
                 {Array.from({ length: 6 }).map((_, index) => (
                   <SkeletonProject key={index} />
                 ))}
@@ -113,10 +112,10 @@ const Projects = () => {
 
   if (isError && activeTab === 'portfolio') {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-28 sm:pt-36 bg-slate-50/50 bg-grid-pattern">
-        <div className="text-center bg-white p-8 rounded-2xl shadow-xl border border-slate-200 max-w-md mx-auto">
-          <AlertCircle className="mx-auto text-rose-500 mb-4" size={48} />
-          <h3 className="text-xl font-bold text-slate-900 mb-2">Failed to load projects</h3>
+      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-20 bg-white">
+        <div className="text-center bg-white p-8 rounded-xl border border-slate-200 shadow-2xs max-w-md mx-auto">
+          <AlertCircle className="mx-auto text-rose-500 mb-4" size={40} />
+          <h3 className="text-lg font-bold text-slate-950 mb-2">Failed to load projects</h3>
           <p className="text-slate-600 text-sm mb-6">
             There was an error loading portfolio projects. Please try refreshing.
           </p>
@@ -142,18 +141,15 @@ const Projects = () => {
         />
       </Helmet>
 
-      <div className="pt-28 sm:pt-36 min-h-screen bg-slate-50/50 bg-grid-pattern pb-24">
+      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white">
         <section className="section-padding py-10 sm:py-14">
           <div className="container-custom">
             {/* Hero Header */}
-            <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
-              <div className="inline-flex items-center space-x-2 bg-primary-100/80 text-primary-800 border border-primary-200/60 px-4 py-2 rounded-full mb-4 shadow-sm">
-                <FolderGit2 size={16} className="text-primary-600" />
-                <span className="text-xs font-bold uppercase tracking-wider">
-                  Portfolio & Open Source
-                </span>
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
+                Portfolio & Open Source
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-4">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-950 tracking-tight mb-4">
                 Featured Projects
               </h1>
               <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
@@ -163,7 +159,7 @@ const Projects = () => {
 
             {/* Main Tabs Navigation */}
             <div className="flex justify-center mb-10">
-              <div className="bg-white/90 backdrop-blur-md p-1.5 rounded-2xl shadow-lg border border-slate-200/80 inline-flex flex-wrap sm:flex-nowrap gap-1">
+              <div className="bg-slate-50 p-1.5 rounded-xl border border-slate-200 inline-flex flex-wrap sm:flex-nowrap gap-1">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
@@ -171,28 +167,28 @@ const Projects = () => {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`relative flex items-center space-x-3 px-5 py-3 rounded-xl transition-all duration-300 font-medium text-sm ${
+                      className={`relative flex items-center space-x-2.5 px-5 py-2.5 rounded-lg transition-colors font-mono text-xs font-semibold ${
                         isActive
-                          ? 'text-primary-700 font-semibold'
-                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/60'
+                          ? 'text-white'
+                          : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
                       }`}
                     >
                       {isActive && (
                         <motion.div
                           layoutId="activeTabBadge"
-                          className="absolute inset-0 bg-primary-50 border border-primary-200/70 rounded-xl shadow-sm"
-                          transition={{ type: 'spring', duration: 0.5 }}
+                          className="absolute inset-0 bg-slate-950 rounded-lg shadow-xs"
+                          transition={{ type: 'spring', duration: 0.4 }}
                         />
                       )}
                       <span className="relative z-10 flex items-center gap-2">
-                        <Icon size={18} className={isActive ? 'text-primary-600' : 'text-slate-500'} />
+                        <Icon size={16} />
                         <span>{tab.label}</span>
                         {tab.count !== null && tab.count !== undefined && (
                           <span
-                            className={`px-2 py-0.5 text-xs rounded-full font-bold ${
+                            className={`px-1.5 py-0.5 text-2xs rounded font-bold ${
                               isActive
-                                ? 'bg-primary-600 text-white shadow-xs'
-                                : 'bg-slate-100 text-slate-600 border border-slate-200'
+                                ? 'bg-white/20 text-white'
+                                : 'bg-slate-200 text-slate-700'
                             }`}
                           >
                             {tab.count}
@@ -209,11 +205,11 @@ const Projects = () => {
             {activeTab === 'portfolio' && (
               <div className="max-w-7xl mx-auto space-y-8">
                 {/* Search & Category Filter Controls */}
-                <div className="bg-white/80 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-slate-200/80 shadow-md space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:gap-4">
+                <div className="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:gap-4">
                   {/* Search Input */}
                   <div className="relative flex-1 max-w-md">
                     <Search
-                      size={18}
+                      size={16}
                       className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
                     />
                     <input
@@ -221,35 +217,35 @@ const Projects = () => {
                       placeholder="Search by title, tech stack..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
+                      className="w-full pl-9 pr-9 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-slate-400 transition-colors"
                     />
                     {searchTerm && (
                       <button
                         onClick={() => setSearchTerm('')}
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                       >
-                        <X size={16} />
+                        <X size={15} />
                       </button>
                     )}
                   </div>
 
                   {/* Category Filter Pills */}
                   {categories.length > 1 && (
-                    <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-1">
-                      <SlidersHorizontal size={16} className="text-slate-400 flex-shrink-0 hidden lg:block" />
+                    <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-1">
+                      <SlidersHorizontal size={15} className="text-slate-400 flex-shrink-0 hidden lg:block mr-1" />
                       {categories.map((cat) => {
                         const isSelected = selectedCategory.toLowerCase() === cat.toLowerCase();
                         return (
                           <button
                             key={cat}
                             onClick={() => setSelectedCategory(cat)}
-                            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-200 whitespace-nowrap ${
+                            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold uppercase tracking-wider transition-colors whitespace-nowrap ${
                               isSelected
-                                ? 'bg-primary-600 text-white shadow-md shadow-primary-600/20'
+                                ? 'bg-slate-950 text-white shadow-xs'
                                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900 border border-slate-200/60'
                             }`}
                           >
-                            {cat === 'all' ? 'All Categories' : cat}
+                            {cat === 'all' ? 'All' : cat}
                           </button>
                         );
                       })}
@@ -264,10 +260,10 @@ const Projects = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="glass-card text-center py-16 px-6 max-w-xl mx-auto"
+                      className="bg-white text-center py-16 px-6 max-w-xl mx-auto rounded-xl border border-slate-200 shadow-2xs"
                     >
-                      <FolderOpen className="mx-auto text-slate-400 mb-4" size={64} />
-                      <h3 className="text-xl font-bold text-slate-800 mb-2">
+                      <FolderOpen className="mx-auto text-slate-400 mb-4" size={48} />
+                      <h3 className="text-lg font-bold text-slate-950 mb-2">
                         No portfolio projects found
                       </h3>
                       <p className="text-slate-600 text-sm mb-6">
@@ -292,14 +288,14 @@ const Projects = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
                     >
                       {filteredProjects.map((project, index) => (
                         <motion.div
                           key={project._id}
-                          initial={{ opacity: 0, y: 20 }}
+                          initial={{ opacity: 0, y: 15 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3, delay: index * 0.05 }}
+                          transition={{ duration: 0.3, delay: index * 0.04 }}
                         >
                           <ProjectCard project={project} />
                         </motion.div>
