@@ -205,30 +205,30 @@ const Contact = () => {
           <title>Inquiry Received · Bishal Shaw</title>
         </Helmet>
 
-        <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white dark:bg-slate-950 flex items-center justify-center px-4">
-          <div className="max-w-lg w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 sm:p-10 text-center shadow-2xs">
-            <div className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto mb-5 text-slate-900 dark:text-white">
-              <CheckCircle size={28} className="text-emerald-600 dark:text-emerald-400" />
+        <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white flex items-center justify-center px-4">
+          <div className="max-w-lg w-full bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 text-center shadow-2xs">
+            <div className="w-14 h-14 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center mx-auto mb-5 text-slate-900">
+              <CheckCircle size={28} className="text-emerald-600" />
             </div>
 
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400 font-mono text-xs mb-3">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               SPECIFICATION TRANSMITTED
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-950 dark:text-white tracking-tight mb-3">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-950 tracking-tight mb-3">
               Inquiry Received
             </h1>
 
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+            <p className="text-sm text-slate-600 leading-relaxed mb-6">
               Thank you for reaching out. Your project specifications have been sent directly to Lead Architect Bishal Shaw. You will receive an initial technical diagnosis and response within 24 hours.
             </p>
 
-            <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 text-left text-xs space-y-2 mb-6">
+            <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-left text-xs space-y-2 mb-6">
               <div className="font-mono text-slate-500 uppercase tracking-wider text-[11px]">Next Steps Protocol:</div>
-              <div className="text-slate-700 dark:text-slate-300">1. Async review of your app URL, tech stack, and performance metrics.</div>
-              <div className="text-slate-700 dark:text-slate-300">2. 15-minute technical strategy sync with Lead Engineer.</div>
-              <div className="text-slate-700 dark:text-slate-300">3. Fixed-fee sprint proposal with guaranteed deliverables.</div>
+              <div className="text-slate-700">1. Async review of your app URL, tech stack, and performance metrics.</div>
+              <div className="text-slate-700">2. 15-minute technical strategy sync with Lead Engineer.</div>
+              <div className="text-slate-700">3. Fixed-fee sprint proposal with guaranteed deliverables.</div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
@@ -261,18 +261,18 @@ const Contact = () => {
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white text-slate-900">
         <div className="container-custom max-w-6xl">
           {/* Header */}
           <div className="max-w-3xl mb-10">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-mono text-xs text-slate-700 dark:text-slate-300 mb-3">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 font-mono text-xs text-slate-700 mb-3">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               DIRECT ARCHITECTURE ENGAGEMENT
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight mb-3">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight mb-3">
               Book an Architecture Audit or Sprint
             </h1>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 font-normal leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
               Direct technical collaboration with Lead Full-Stack Architect Bishal Shaw. Review bottlenecks, plan 2-to-4 week fixed-scope sprints, or establish fractional governance. No sales reps.
             </p>
           </div>
@@ -281,12 +281,12 @@ const Contact = () => {
             {/* Left Column: Direct Channels & SLA (5 cols) */}
             <div className="lg:col-span-5 space-y-6">
               {/* Direct Access Card */}
-              <div className="p-6 bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl space-y-5">
-                <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+              <div className="p-6 bg-slate-50/70 border border-slate-200 rounded-xl space-y-5">
+                <div className="flex items-center justify-between pb-4 border-b border-slate-200">
                   <span className="font-mono text-xs uppercase tracking-wider text-slate-500">
                     Direct Channel
                   </span>
-                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400 font-mono text-[11px]">
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-[11px]">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                     Available for Sprints
                   </span>
@@ -295,17 +295,17 @@ const Contact = () => {
                 {/* Email with copy */}
                 <div>
                   <div className="text-xs text-slate-500 mb-1 font-mono">Lead Engineer Email</div>
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-white border border-slate-200">
                     <a
                       href={`mailto:${contactEmail}`}
-                      className="text-xs sm:text-sm font-mono text-slate-900 dark:text-white hover:underline flex items-center gap-2 truncate"
+                      className="text-xs sm:text-sm font-mono text-slate-900 hover:underline flex items-center gap-2 truncate"
                     >
                       <Mail size={16} className="text-slate-500 shrink-0" />
                       <span className="truncate">{contactEmail}</span>
                     </a>
                     <button
                       onClick={() => handleCopyEmail(contactEmail)}
-                      className="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors shrink-0"
+                      className="p-1.5 rounded hover:bg-slate-100 text-slate-500 hover:text-slate-900 transition-colors shrink-0"
                       title="Copy email address"
                     >
                       {copiedEmail ? (
@@ -323,7 +323,7 @@ const Contact = () => {
                     <div className="text-xs text-slate-500 mb-1 font-mono">Direct Phone / WhatsApp</div>
                     <a
                       href={`tel:${profileData.phone}`}
-                      className="flex items-center gap-2 p-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm font-mono text-slate-900 dark:text-white hover:underline"
+                      className="flex items-center gap-2 p-3 rounded-lg bg-white border border-slate-200 text-xs sm:text-sm font-mono text-slate-900 hover:underline"
                     >
                       <Phone size={16} className="text-slate-500 shrink-0" />
                       <span>{profileData.phone}</span>
@@ -332,18 +332,18 @@ const Contact = () => {
                 )}
 
                 {/* Location */}
-                <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 font-mono pt-1">
+                <div className="flex items-center gap-2 text-xs text-slate-600 font-mono pt-1">
                   <MapPin size={15} className="text-slate-400 shrink-0" />
                   <span>{profileData?.location || 'Bangalore, India'} · UTC+5:30 (Async Worldwide)</span>
                 </div>
 
                 {/* Resume Download & Social */}
-                <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-2">
+                <div className="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
                   {profileData?.resume && (
                     <a
                       href={getFileUrl(profileData.resume)}
                       download
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-700 dark:text-slate-300 hover:border-slate-400 transition-colors shadow-2xs"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-700 hover:border-slate-400 transition-colors shadow-2xs"
                     >
                       <Download size={13} />
                       <span>Download Resume (PDF)</span>
@@ -355,7 +355,7 @@ const Contact = () => {
                       href={profileData.socialLinks.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-700 dark:text-slate-300 hover:border-slate-400 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-700 hover:border-slate-400 transition-colors"
                     >
                       <Github size={13} />
                       <span>GitHub</span>
@@ -367,7 +367,7 @@ const Contact = () => {
                       href={profileData.socialLinks.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-700 dark:text-slate-300 hover:border-slate-400 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-700 hover:border-slate-400 transition-colors"
                     >
                       <Linkedin size={13} />
                       <span>LinkedIn</span>
@@ -377,49 +377,49 @@ const Contact = () => {
               </div>
 
               {/* Engagement Specification SLA Card */}
-              <div className="p-6 bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl space-y-4">
+              <div className="p-6 bg-slate-50/70 border border-slate-200 rounded-xl space-y-4">
                 <div className="text-xs font-mono uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-                  <ShieldCheck size={14} className="text-slate-900 dark:text-white" />
+                  <ShieldCheck size={14} className="text-slate-900" />
                   Sprint Engagement SLA
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 text-xs">
-                  <div className="p-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                  <div className="p-3 rounded-lg bg-white border border-slate-200">
                     <div className="text-slate-500 font-mono text-[11px] mb-0.5">Response Time</div>
-                    <div className="font-semibold text-slate-950 dark:text-white flex items-center gap-1">
+                    <div className="font-semibold text-slate-950 flex items-center gap-1">
                       <Clock size={13} className="text-slate-500" /> &lt; 24h Guaranteed
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                  <div className="p-3 rounded-lg bg-white border border-slate-200">
                     <div className="text-slate-500 font-mono text-[11px] mb-0.5">Direct Access</div>
-                    <div className="font-semibold text-slate-950 dark:text-white">Lead Engineer 1-on-1</div>
+                    <div className="font-semibold text-slate-950">Lead Engineer 1-on-1</div>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                  <div className="p-3 rounded-lg bg-white border border-slate-200">
                     <div className="text-slate-500 font-mono text-[11px] mb-0.5">IP Ownership</div>
-                    <div className="font-semibold text-slate-950 dark:text-white">100% Client Owned</div>
+                    <div className="font-semibold text-slate-950">100% Client Owned</div>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                  <div className="p-3 rounded-lg bg-white border border-slate-200">
                     <div className="text-slate-500 font-mono text-[11px] mb-0.5">Confidentiality</div>
-                    <div className="font-semibold text-slate-950 dark:text-white">Mutual NDA Bound</div>
+                    <div className="font-semibold text-slate-950">Mutual NDA Bound</div>
                   </div>
                 </div>
 
                 {/* 3-Step Protocol */}
-                <div className="pt-2 text-xs text-slate-600 dark:text-slate-400 space-y-2 border-t border-slate-200 dark:border-slate-800">
+                <div className="pt-2 text-xs text-slate-600 space-y-2 border-t border-slate-200">
                   <div className="font-mono text-slate-500 text-[11px] uppercase tracking-wider">How We Work Together:</div>
                   <div className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-slate-900 dark:text-white">01</span>
+                    <span className="font-mono font-bold text-slate-900">01</span>
                     <span>Submit your application specs or Core Web Vitals problem.</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-slate-900 dark:text-white">02</span>
+                    <span className="font-mono font-bold text-slate-900">02</span>
                     <span>15-min technical sync to pinpoint bottlenecks and review architecture.</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-slate-900 dark:text-white">03</span>
+                    <span className="font-mono font-bold text-slate-900">03</span>
                     <span>Fixed-scope sprint proposal with guaranteed delivery milestones.</span>
                   </div>
                 </div>
@@ -428,9 +428,9 @@ const Contact = () => {
 
             {/* Right Column: Intake Form (7 cols) */}
             <div className="lg:col-span-7">
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 sm:p-8 shadow-2xs space-y-6">
+              <div className="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 shadow-2xs space-y-6">
                 <div>
-                  <h2 className="text-xl font-bold text-slate-950 dark:text-white tracking-tight mb-1">
+                  <h2 className="text-xl font-bold text-slate-950 tracking-tight mb-1">
                     Sprint Intake & Scope Definition
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-500">
@@ -453,8 +453,8 @@ const Contact = () => {
                           onClick={() => selectPreset(preset)}
                           className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-150 border text-left ${
                             isActive
-                              ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 border-slate-900 dark:border-white shadow-2xs font-semibold'
-                              : 'bg-slate-50 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-400'
+                              ? 'bg-slate-900 text-white border-slate-900 shadow-2xs font-semibold'
+                              : 'bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-400'
                           }`}
                         >
                           {preset.label}
@@ -471,7 +471,7 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="name"
-                        className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5"
+                        className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5"
                       >
                         Your Name *
                       </label>
@@ -490,7 +490,7 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5"
+                        className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5"
                       >
                         Work Email *
                       </label>
@@ -512,7 +512,7 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="company"
-                        className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5"
+                        className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5"
                       >
                         Company / Project Name
                       </label>
@@ -530,7 +530,7 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="phone"
-                        className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5"
+                        className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5"
                       >
                         Phone / Telegram (Optional)
                       </label>
@@ -551,7 +551,7 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="projectType"
-                        className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5"
+                        className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5"
                       >
                         Scope Category
                       </label>
@@ -576,7 +576,7 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="timeline"
-                        className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5"
+                        className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5"
                       >
                         Target Kickoff / Delivery
                       </label>
@@ -599,7 +599,7 @@ const Contact = () => {
                   <div>
                     <label
                       htmlFor="budget"
-                      className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5"
+                      className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5"
                     >
                       Estimated Budget / Capital Allocation (Optional)
                     </label>
@@ -635,7 +635,7 @@ const Contact = () => {
                   <div>
                     <label
                       htmlFor="subject"
-                      className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5"
+                      className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5"
                     >
                       Subject Line *
                     </label>
@@ -655,7 +655,7 @@ const Contact = () => {
                   <div>
                     <label
                       htmlFor="message"
-                      className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5"
+                      className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5"
                     >
                       Technical Overview & Key Bottlenecks *
                     </label>
