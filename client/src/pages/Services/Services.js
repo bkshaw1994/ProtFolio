@@ -328,49 +328,61 @@ const Services = () => {
           </div>
 
           {/* Frequently Asked Questions (Accordion) */}
-          <div className="max-w-3xl mb-16 space-y-6">
-            <div>
-              <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-1">
-                FAQ
+          <div className="w-full max-w-4xl lg:max-w-5xl mx-auto mb-20 space-y-8">
+            <div className="text-center max-w-2xl mx-auto space-y-2">
+              <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500">
+                Frequently Asked Questions
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
                 Frequently Asked Procurement Questions
-              </h3>
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                Clear answers on sprint kickoffs, Core Web Vitals guarantees, team integration, and code ownership.
+              </p>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3.5">
               {faqs.map((faq, i) => {
                 const isOpen = openFaqIndex === i;
 
                 return (
                   <div
                     key={i}
-                    className={`rounded-xl border transition-colors bg-white overflow-hidden ${
+                    className={`rounded-xl border transition-all duration-200 bg-white overflow-hidden ${
                       isOpen
-                        ? 'border-slate-300 shadow-2xs'
-                        : 'border-slate-200 hover:border-slate-300'
+                        ? 'border-slate-300 shadow-xs ring-1 ring-slate-950/5'
+                        : 'border-slate-200 hover:border-slate-300 hover:shadow-2xs'
                     }`}
                   >
                     <button
                       type="button"
                       onClick={() => toggleFaq(i)}
                       aria-expanded={isOpen}
-                      className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+                      className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
                     >
-                      <span className="flex items-center gap-3">
-                        <span className="font-mono text-xs text-slate-400 font-semibold flex-shrink-0">
+                      <span className="flex items-center gap-3.5 sm:gap-4">
+                        <span
+                          className={`font-mono text-xs font-semibold px-2 py-0.5 rounded transition-colors ${
+                            isOpen
+                              ? 'bg-slate-900 text-white'
+                              : 'bg-slate-100 text-slate-500'
+                          }`}
+                        >
                           0{i + 1}
                         </span>
-                        <span className="font-bold text-slate-950 text-sm sm:text-base tracking-tight">
+                        <span className="font-bold text-slate-950 text-sm sm:text-base tracking-tight leading-snug">
                           {faq.q}
                         </span>
                       </span>
-                      <ChevronDown
-                        size={18}
-                        className={`text-slate-400 flex-shrink-0 transition-transform duration-200 ${
-                          isOpen ? 'rotate-180 text-slate-900' : ''
+                      <div
+                        className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 transition-all ${
+                          isOpen
+                            ? 'bg-slate-100 text-slate-950 rotate-180'
+                            : 'text-slate-400 group-hover:text-slate-600'
                         }`}
-                      />
+                      >
+                        <ChevronDown size={16} />
+                      </div>
                     </button>
 
                     <AnimatePresence initial={false}>
@@ -383,7 +395,7 @@ const Services = () => {
                           transition={{ duration: 0.22, ease: 'easeInOut' }}
                           className="overflow-hidden"
                         >
-                          <div className="px-4 pb-5 pt-1 sm:px-5 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pl-9 sm:pl-11 border-t border-slate-100">
+                          <div className="px-5 pb-6 pt-1 sm:px-6 sm:pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal border-t border-slate-100 pl-14 sm:pl-16">
                             {faq.a}
                           </div>
                         </motion.div>
