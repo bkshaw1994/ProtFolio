@@ -49,7 +49,7 @@ const InitialLoader = ({ name = 'Bishal Kumar Shaw', isDataLoading = false }) =>
     <motion.div
       initial={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 1.02, transition: { duration: 0.4, ease: 'easeOut' } }}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white/95 backdrop-blur-xl text-slate-950 select-none overflow-hidden"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white text-slate-950 select-none overflow-hidden bg-dot-pattern"
     >
       {/* Particle Network Canvas Background */}
       <ParticleNetwork />
@@ -87,12 +87,12 @@ const InitialLoader = ({ name = 'Bishal Kumar Shaw', isDataLoading = false }) =>
         <div className="w-full space-y-2">
           <div className="flex items-center justify-between text-xs font-mono font-medium text-slate-500 uppercase tracking-wider px-1">
             <span className="flex items-center gap-1.5">
-              <Sparkles size={12} className="text-slate-700" /> Loading
+              <Sparkles size={12} className="text-emerald-600" /> Loading
             </span>
             <span className="text-slate-950 font-bold">{progress}%</span>
           </div>
 
-          <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+          <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/80">
             <motion.div
               className="h-full bg-slate-950 rounded-full transition-all duration-150"
               style={{ width: `${progress}%` }}

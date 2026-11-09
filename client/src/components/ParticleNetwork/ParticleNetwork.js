@@ -46,7 +46,7 @@ const ParticleNetwork = () => {
     const drawParticle = (p) => {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(2, 132, 199, 0.6)';
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.4)';
       ctx.fill();
     };
 
@@ -88,7 +88,7 @@ const ParticleNetwork = () => {
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(mouse.x, mouse.y);
-            ctx.strokeStyle = `rgba(14, 165, 233, ${alpha})`;
+            ctx.strokeStyle = `rgba(16, 185, 129, ${alpha})`;
             ctx.lineWidth = 1;
             ctx.stroke();
           }
@@ -106,7 +106,7 @@ const ParticleNetwork = () => {
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(99, 102, 241, ${alpha})`;
+            ctx.strokeStyle = `rgba(148, 163, 184, ${alpha})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
