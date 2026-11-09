@@ -313,33 +313,33 @@ const About = () => {
               </div>
 
               {/* Open-Source Tool Spotlight: AuditPulse */}
-              <div className="p-6 rounded-xl bg-slate-50 border border-slate-200 space-y-3 font-mono shadow-2xs">
+              <div className="p-6 rounded-xl bg-slate-950 text-white border border-slate-800 space-y-3 font-mono shadow-xl">
                 <div className="flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2 text-slate-700">
-                    <Terminal size={14} className="text-slate-800" />
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <Terminal size={14} className="text-emerald-400" />
                     <span className="font-semibold">Open-Source Leadership</span>
                   </div>
-                  <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold">
+                  <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold">
                     ACTIVE PROJECT
                   </span>
                 </div>
 
                 <div className="space-y-1">
-                  <h3 className="text-lg font-bold font-sans text-slate-950 tracking-tight">
+                  <h3 className="text-lg font-bold font-sans text-white tracking-tight">
                     AuditPulse: Headless Core Web Vitals & SPA SEO Engine
                   </h3>
-                  <p className="text-xs text-slate-600 font-sans leading-relaxed font-normal">
+                  <p className="text-xs text-slate-300 font-sans leading-relaxed font-normal">
                     Automated performance monitoring engine built with Next.js, Puppeteer, Redis, and MongoDB. Designed to prevent SPA SEO indexation drops and detect Core Web Vitals regressions prior to staging deploys.
                   </p>
                 </div>
 
-                <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs border-t border-slate-200/80">
-                  <span className="text-slate-500 text-[11px]">Next.js • Puppeteer • Redis • BullMQ</span>
+                <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs border-t border-slate-800">
+                  <span className="text-slate-400 text-[11px]">Next.js • Puppeteer • Redis • BullMQ</span>
                   <a
                     href="https://github.com/bkshaw1994/AuditPulse"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-slate-900 hover:text-slate-600 gap-1 font-sans font-semibold text-xs transition-colors"
+                    className="inline-flex items-center text-white hover:text-slate-300 gap-1 font-sans font-semibold text-xs transition-colors"
                   >
                     <span>View Repository</span>
                     <ArrowRight size={12} />

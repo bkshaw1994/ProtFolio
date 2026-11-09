@@ -142,20 +142,20 @@ const EngineeringCredibilitySection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="mt-10 p-6 rounded-xl bg-white text-slate-900 border border-slate-200 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-5"
+          className="mt-10 p-6 rounded-xl bg-slate-950 text-white border border-slate-800 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-5"
         >
           <div className="space-y-1 text-center sm:text-left">
-            <h4 className="text-base font-bold tracking-tight text-slate-950">
+            <h4 className="text-base font-bold tracking-tight text-white">
               Ready to verify your frontend architecture?
             </h4>
-            <p className="text-xs text-slate-600 font-normal">
+            <p className="text-xs text-slate-300 font-normal">
               Book a zero-fluff diagnostic on your Core Web Vitals, bundle breakdown, and rendering waterfalls.
             </p>
           </div>
 
           <Link
             to="/contact?service=audit"
-            className="btn-primary text-xs py-2.5 px-4 whitespace-nowrap inline-flex items-center"
+            className="bg-white text-slate-950 hover:bg-slate-100 font-semibold text-xs py-2.5 px-4 rounded-lg whitespace-nowrap inline-flex items-center shadow-xs transition-colors"
           >
             <span>Book 15-Min Audit</span>
             <ArrowRight size={13} className="ml-1.5" />

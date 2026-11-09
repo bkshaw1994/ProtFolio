@@ -21,7 +21,12 @@
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: 700;
     line-height: 1.25;
     letter-spacing: -0.02em;
@@ -117,6 +122,7 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -146,15 +152,19 @@
   0% {
     background-position: -468px 0;
   }
+
   100% {
     background-position: 468px 0;
   }
 }
 
 @keyframes float-slow {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
   }
+
   50% {
     transform: translateY(-8px) rotate(2deg);
   }
@@ -165,10 +175,12 @@
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
   }
+
   70% {
     transform: scale(1);
     box-shadow: 0 0 0 12px rgba(14, 165, 233, 0);
   }
+
   100% {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
@@ -186,24 +198,32 @@
 }
 
 @keyframes blob-drift-1 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0px, 0px) scale(1);
   }
+
   33% {
     transform: translate(40px, -50px) scale(1.1);
   }
+
   66% {
     transform: translate(-30px, 30px) scale(0.95);
   }
 }
 
 @keyframes blob-drift-2 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0px, 0px) scale(1);
   }
+
   33% {
     transform: translate(-50px, 40px) scale(1.15);
   }
+
   66% {
     transform: translate(30px, -35px) scale(0.9);
   }
@@ -213,6 +233,7 @@
   0% {
     background-position: 0 0;
   }
+
   100% {
     background-position: 64px 64px;
   }
@@ -229,4 +250,3 @@
 .animate-grid-move {
   animation: bg-grid-move 20s linear infinite;
 }
-
