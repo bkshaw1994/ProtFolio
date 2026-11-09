@@ -11,7 +11,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import InitialLoader from './components/InitialLoader';
-import FloatingMobileDock from './components/FloatingMobileDock';
 import {
   useGetProfileQuery,
   useGetFeaturedProjectsQuery,
@@ -21,6 +20,8 @@ import {
 // Pages
 import Home from './pages/Home';
 import About from './pages/About';
+import CaseStudies from './pages/CaseStudies';
+import Services from './pages/Services';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
 import Skills from './pages/Skills';
@@ -70,7 +71,7 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
-        <div className="App min-h-screen flex flex-col justify-between overflow-x-hidden bg-slate-50/30">
+        <div className="App min-h-screen flex flex-col justify-between overflow-x-hidden bg-white text-slate-900">
           {/* First Time Landing Splash Loader */}
           <AnimatePresence>
             {isDataLoading && (
@@ -90,12 +91,14 @@ function App() {
           </AnimatePresence>
 
           <Navbar />
-          <FloatingMobileDock />
           
           <main className="flex-grow min-h-[calc(100vh-320px)]">
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/case-studies" element={<CaseStudies />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/packages" element={<Services />} />
               <Route path="/about" element={<About />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/projects/:id" element={<ProjectDetail />} />

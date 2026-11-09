@@ -4,23 +4,11 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
   const [imgError, setImgError] = React.useState(false);
   if (!skill) return null;
 
-  const sizeClasses = {
-    sm: 'p-3 sm:p-4',
-    md: 'p-3.5 sm:p-5',
-    lg: 'p-5 sm:p-6'
-  };
-
-  const iconImageSizes = {
-    sm: 'w-5 h-5 sm:w-6 sm:h-6',
-    md: 'w-7 h-7 sm:w-10 sm:h-10',
-    lg: 'w-10 h-10 sm:w-14 sm:h-14'
-  };
-
-  const iconTextSizes = {
-    sm: 'text-xl sm:text-2xl',
-    md: 'text-2xl sm:text-4xl',
-    lg: 'text-4xl sm:text-6xl'
-  };
+  const sizePadding = {
+    sm: 'p-3',
+    md: 'p-3.5 sm:p-4',
+    lg: 'p-5'
+  }[size] || 'p-3.5 sm:p-4';
 
   // Official SVG tech logos mapped by skill name
   const getSkillLogoUrl = (skillName) => {
@@ -70,10 +58,8 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
     return logoMap[name] || null;
   };
 
-  // Default icon based on skill name if no icon provided
   const getDefaultIcon = (skillName) => {
-    const name = skillName.toLowerCase();
-
+    const name = (skillName || '').toLowerCase();
     const iconMap = {
       react: '⚛️',
       javascript: '🟨',
@@ -96,37 +82,11 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
       vue: '💚',
       angular: '🔴',
       php: '🐘',
-      laravel: '🎵',
-      django: '🐍',
-      flask: '🍶',
       graphql: '💜',
       rest: '🌐',
       api: '🔌'
     };
-
     return iconMap[name] || '💻';
-  };
-
-  const proficiencyColor = (proficiency) => {
-    if (proficiency >= 90) return 'text-emerald-600';
-    if (proficiency >= 75) return 'text-primary-600';
-    if (proficiency >= 60) return 'text-amber-600';
-    return 'text-slate-600';
-  };
-
-  const getLevelBadge = (level, proficiency) => {
-    const lvl = level || (proficiency >= 90 ? 'Expert' : proficiency >= 75 ? 'Advanced' : proficiency >= 60 ? 'Intermediate' : 'Beginner');
-    const badgeColors = {
-      Expert: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/30',
-      Advanced: 'bg-primary-500/10 text-primary-600 border-primary-500/30',
-      Intermediate: 'bg-amber-500/10 text-amber-600 border-amber-500/30',
-      Beginner: 'bg-slate-500/10 text-slate-600 border-slate-500/30'
-    };
-    return (
-      <span className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border flex-shrink-0 ${badgeColors[lvl] || badgeColors.Advanced}`}>
-        {lvl}
-      </span>
-    );
   };
 
   const currentProficiency =
@@ -143,72 +103,73 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
               ? 90
               : 85);
 
-  const rawLogo = (skill.icon && skill.icon.startsWith('http')) ? skill.icon : getSkillLogoUrl(skill.name);
-  const logoUrl = imgError ? null : rawLogo;
+  const levelText =
+    skill.level ||
+    (currentProficiency >= 90
+      ? 'Expert'
+      : currentProficiency >= 75
+        ? 'Advanced'
+        : currentProficiency >= 60
+          ? 'Intermediate'
+          : 'Proficient');
+
+  const logoUrl = !imgError ? getSkillLogoUrl(skill.name) : null;
 
   return (
-    <div
-      className={`glass-card ${sizeClasses[size] || 'p-3.5 sm:p-5'} group hover:-translate-y-1.5 transition-all duration-300 border border-slate-200/80 hover:border-primary-400/40 hover:shadow-xl hover:shadow-primary-500/10 rounded-2xl flex flex-col justify-between relative bg-white/90 backdrop-blur-xl h-full min-h-[140px]`}
-    >
+    <div className={`rounded-xl border border-slate-200 bg-white ${sizePadding} shadow-2xs hover:border-slate-400 transition-colors flex flex-col justify-between h-full min-h-[135px]`}>
       <div>
-        {/* Top Header: Skill Icon & Level Badge Pill */}
-        <div className="flex items-center justify-between gap-1.5 mb-2">
-          <div className="p-1.5 sm:p-2 bg-slate-100/80 rounded-xl group-hover:bg-primary-50 transition-colors flex-shrink-0">
+        {/* Top Header: Logo & Level Badge */}
+        <div className="flex items-center justify-between gap-1.5 mb-2.5">
+          <div className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-200/80 p-1 flex items-center justify-center shrink-0">
             {logoUrl ? (
               <img
                 src={logoUrl}
                 alt={skill.name}
                 onError={() => setImgError(true)}
-                className={`${iconImageSizes[size]} object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-sm`}
+                className="w-5 h-5 object-contain"
               />
             ) : (
-              <div className={`${iconTextSizes[size]} group-hover:scale-110 transition-transform duration-300 drop-shadow-sm`}>
+              <span className="text-base leading-none">
                 {skill.icon || getDefaultIcon(skill.name)}
-              </div>
+              </span>
             )}
           </div>
 
-          {showProficiency && getLevelBadge(skill.level, currentProficiency)}
+          {showProficiency && (
+            <span className="text-[10px] font-mono uppercase font-semibold text-slate-700 bg-slate-100 border border-slate-200/80 px-2 py-0.5 rounded">
+              {levelText}
+            </span>
+          )}
         </div>
 
         {/* Skill Name */}
-        <h3 className="font-bold text-slate-900 text-sm sm:text-base group-hover:text-primary-600 transition-colors tracking-tight truncate leading-snug">
+        <h3 className="font-bold text-slate-900 text-sm tracking-tight truncate leading-snug">
           {skill.name}
         </h3>
 
-        {/* Category or Experience Subtitle */}
+        {/* Category */}
         {skill.category && (
-          <p className="text-[10px] sm:text-[11px] font-medium text-slate-400 capitalize mb-1 truncate">
+          <p className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1 truncate">
             {skill.category.replace('-', ' ')}
           </p>
         )}
       </div>
 
-      <div className="mt-2">
+      <div className="mt-2.5">
         {/* Proficiency Bar & Percentage */}
         {showProficiency && (
           <div className="space-y-1 pt-1.5 border-t border-slate-100">
-            <div className="flex items-center justify-between text-[11px] sm:text-xs font-semibold">
-              <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-wider">Proficiency</span>
-              <span className={`text-[11px] sm:text-xs font-extrabold ${proficiencyColor(currentProficiency)}`}>
-                {currentProficiency}%
-              </span>
+            <div className="flex items-center justify-between text-[10px] font-mono text-slate-500">
+              <span className="uppercase">Proficiency</span>
+              <span className="font-semibold text-slate-900">{currentProficiency}%</span>
             </div>
 
             {/* Progress Bar Track */}
-            <div className="w-full bg-slate-200/90 rounded-full h-2 overflow-hidden p-0.5 border border-slate-300/50">
+            <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
               <div
-                className={`h-full rounded-full transition-all duration-700 bg-gradient-to-r ${
-                  currentProficiency >= 90
-                    ? 'from-emerald-500 to-teal-400'
-                    : currentProficiency >= 75
-                      ? 'from-primary-600 to-indigo-500'
-                      : currentProficiency >= 60
-                        ? 'from-amber-500 to-yellow-400'
-                        : 'from-slate-500 to-slate-400'
-                }`}
+                className="h-full rounded-full bg-slate-900 transition-all duration-500"
                 style={{ width: `${currentProficiency}%` }}
-              ></div>
+              />
             </div>
           </div>
         )}
@@ -216,14 +177,16 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
         {/* Years of Experience / Core Badge */}
         <div className="flex items-center justify-between gap-1 mt-1.5">
           {skill.yearsOfExperience ? (
-            <span className="text-[10px] sm:text-[11px] font-medium text-slate-400 truncate">
+            <span className="text-[10px] font-mono text-slate-400 truncate">
               {skill.yearsOfExperience}y exp.
             </span>
-          ) : <span />}
+          ) : (
+            <span />
+          )}
 
           {skill.isCore && (
-            <span className="bg-primary-500/10 text-primary-600 text-[8px] sm:text-[9px] uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded border border-primary-500/20 flex-shrink-0">
-              Core
+            <span className="bg-slate-900 text-white text-[9px] uppercase font-mono font-semibold px-1.5 py-0.2 rounded">
+              Core Stack
             </span>
           )}
         </div>

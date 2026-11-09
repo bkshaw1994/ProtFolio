@@ -8,6 +8,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import LoadingSpinner from '../components/LoadingSpinner';
 import NotFound from '../pages/NotFound/NotFound';
 import SkillBadge from '../components/SkillBadge/SkillBadge';
+import Services from '../pages/Services/Services';
 
 // Test wrapper for components that need routing
 const TestWrapper = ({ children }) => (
@@ -141,6 +142,34 @@ describe('Component Tests', () => {
       // This test checks that the component doesn't crash with undefined skill
       const { container } = render(<SkillBadge skill={undefined} />);
       expect(container).toBeInTheDocument();
+    });
+  });
+
+  describe('Services FAQ Accordion', () => {
+    it('renders FAQ questions and allows expanding/collapsing items', () => {
+      render(
+        <TestWrapper>
+          <Services />
+        </TestWrapper>
+      );
+
+      const firstQuestionBtn = screen.getByRole('button', {
+        name: /How quickly can we kick off a sprint/i
+      });
+      expect(firstQuestionBtn).toBeInTheDocument();
+      expect(firstQuestionBtn).toHaveAttribute('aria-expanded', 'true');
+
+      // Click to collapse
+      fireEvent.click(firstQuestionBtn);
+      expect(firstQuestionBtn).toHaveAttribute('aria-expanded', 'false');
+
+      // Click second question to expand
+      const secondQuestionBtn = screen.getByRole('button', {
+        name: /What is your Core Web Vitals guarantee/i
+      });
+      expect(secondQuestionBtn).toHaveAttribute('aria-expanded', 'false');
+      fireEvent.click(secondQuestionBtn);
+      expect(secondQuestionBtn).toHaveAttribute('aria-expanded', 'true');
     });
   });
 });

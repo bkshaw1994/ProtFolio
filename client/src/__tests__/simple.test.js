@@ -218,6 +218,18 @@ describe('Page Import Tests', () => {
     expect(NotFound).toBeDefined();
     expect(typeof NotFound).toBe('function');
   });
+
+  it('should import CaseStudies page without errors', () => {
+    const CaseStudies = require('../pages/CaseStudies').default;
+    expect(CaseStudies).toBeDefined();
+    expect(typeof CaseStudies).toBe('function');
+  });
+
+  it('should import Services page without errors', () => {
+    const Services = require('../pages/Services').default;
+    expect(Services).toBeDefined();
+    expect(typeof Services).toBe('function');
+  });
 });
 
 describe('Context and App Structure Tests', () => {

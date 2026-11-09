@@ -2,16 +2,16 @@ import React from 'react';
 
 const LoadingSpinner = ({ size = 'md', message = 'Loading...' }) => {
   const sizeClasses = {
-    sm: 'h-6 w-6',
-    md: 'h-8 w-8',
-    lg: 'h-12 w-12',
-    xl: 'h-16 w-16'
+    sm: 'h-5 w-5',
+    md: 'h-7 w-7',
+    lg: 'h-10 w-10',
+    xl: 'h-14 w-14'
   };
 
   const containerClasses = {
-    sm: 'py-8',
-    md: 'py-12',
-    lg: 'py-16',
+    sm: 'py-6',
+    md: 'py-10',
+    lg: 'py-14',
     xl: 'py-20'
   };
 
@@ -19,7 +19,7 @@ const LoadingSpinner = ({ size = 'md', message = 'Loading...' }) => {
     <div className={`flex flex-col items-center justify-center ${containerClasses[size]}`}>
       <div className={`loader ${sizeClasses[size]}`}></div>
       {message && (
-        <p className="mt-4 text-secondary-600 text-sm font-medium">
+        <p className="mt-3 text-slate-500 font-mono text-xs">
           {message}
         </p>
       )}

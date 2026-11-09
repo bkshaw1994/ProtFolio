@@ -53,6 +53,10 @@ const contactValidation = [
       'consultation',
       'freelance',
       'full-time',
+      'architecture-audit',
+      'performance-overhaul',
+      'mvp-sprint',
+      'fractional-retainer',
       'other'
     ])
     .withMessage('Invalid project type'),

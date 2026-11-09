@@ -1,98 +1,64 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import {
-  useGetProfileQuery,
-  useGetFeaturedProjectsQuery,
-  useGetCoreSkillsQuery,
-  useGetFeaturedGitHubReposQuery,
-  useGetFeaturedCertificationsQuery
-} from '../features/api/apiSlice';
+import { useGetProfileQuery } from '../features/api/apiSlice';
 
 // Components
 import LoadingSpinner from '../components/LoadingSpinner';
 import HeroSection from './Home/sections/HeroSection';
-import CoreSkillsSection from './Home/sections/CoreSkillsSection';
-import FeaturedProjectsSection from './Home/sections/FeaturedProjectsSection';
-import WhyChooseMeSection from './Home/sections/WhyChooseMeSection';
-import CertificationsSection from './Home/sections/CertificationsSection';
+import TrustBanner from './Home/sections/TrustBanner';
+import CaseStudiesSnapshot from './Home/sections/CaseStudiesSnapshot';
+import ServicesSnapshot from './Home/sections/ServicesSnapshot';
+import EngineeringCredibilitySection from './Home/sections/EngineeringCredibilitySection';
 import CtaSection from './Home/sections/CtaSection';
 
 const Home = () => {
   const { data: profile, isLoading: loadingProfile } = useGetProfileQuery();
-  const { data: featuredProjectsResponse, isLoading: loadingProjects } =
-    useGetFeaturedProjectsQuery();
-  const featuredProjects = Array.isArray(featuredProjectsResponse)
-    ? featuredProjectsResponse
-    : featuredProjectsResponse?.data || [];
-  const { data: coreSkillsResponse, isLoading: loadingSkills } =
-    useGetCoreSkillsQuery();
-  const coreSkills = Array.isArray(coreSkillsResponse)
-    ? coreSkillsResponse
-    : coreSkillsResponse?.data || [];
-  const { data: githubReposResponse } = useGetFeaturedGitHubReposQuery();
-  const githubRepos = githubReposResponse?.data || [];
-  const { data: featuredCertificationsResponse } =
-    useGetFeaturedCertificationsQuery();
-  const featuredCertifications = Array.isArray(featuredCertificationsResponse)
-    ? featuredCertificationsResponse
-    : featuredCertificationsResponse?.data || [];
-
-  // Debug logging
 
   // Extract profile data - handle both direct data and nested data structure
   const profileData = profile?.data || profile;
 
-  // Combine portfolio projects and GitHub repos for featured section
-  const allFeaturedProjects = [
-    ...featuredProjects.slice(0, 3), // Top 3 portfolio projects
-    ...githubRepos.slice(0, 3) // Top 3 GitHub repos
-  ].slice(0, 6); // Show max 6 featured projects
-
-  if (loadingProfile || loadingProjects || loadingSkills) {
+  if (loadingProfile && !profileData) {
     return <LoadingSpinner />;
   }
+
+  const pageTitle = profileData?.name
+    ? `${profileData.name} - Senior Frontend & Full-Stack Architect | Next.js & Performance`
+    : 'Bishal Kumar Shaw - Senior Frontend & Full-Stack Architect | Next.js & Performance';
+
+  const pageDescription =
+    'Senior Frontend & Full-Stack Architect helping fast-growing SaaS and e-commerce brands eliminate UI lag, slash load times, and ship bulletproof Next.js applications.';
 
   return (
     <>
       <Helmet>
-        <title>
-          {profileData?.name
-            ? `${profileData.name} - Full Stack Developer`
-            : 'Portfolio - Full Stack Developer'}
-        </title>
-        <meta
-          name="description"
-          content={
-            profileData?.summary ||
-            'Professional portfolio showcasing 9 years of MERN stack development experience'
-          }
-        />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
         <meta
           name="keywords"
-          content="full stack developer, MERN stack, React, Node.js, MongoDB, Express"
+          content="Next.js architect, Core Web Vitals overhaul, frontend architect, hire Next.js developer, web performance consultant, MVP sprint, AuditPulse creator, React performance, full stack freelance architect"
         />
-        <meta
-          property="og:title"
-          content={`${profile?.name || 'Portfolio'} - Full Stack Developer`}
-        />
-        <meta
-          property="og:description"
-          content={
-            profile?.summary ||
-            'Professional portfolio showcasing development experience'
-          }
-        />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://bishal-portfolio-chi.vercel.app/" />
       </Helmet>
 
-      <HeroSection
-        profileData={profileData}
-        featuredProjectsCount={featuredProjects.length}
-      />
-      <CoreSkillsSection coreSkills={coreSkills} />
-      <FeaturedProjectsSection allFeaturedProjects={allFeaturedProjects} />
-      <WhyChooseMeSection />
-      <CertificationsSection certifications={featuredCertifications} />
+      {/* 1. HERO SECTION (The 3-Second Hook) */}
+      <HeroSection profileData={profileData} />
+
+      {/* 2. PRODUCTION TECH STACK & CREDIBILITY MARQUEE */}
+      <TrustBanner />
+
+      {/* 3. FLAGSHIP PROOF-OF-WORK SNAPSHOT */}
+      <CaseStudiesSnapshot />
+
+      {/* 4. FIXED-SCOPE PACKAGES & SPRINTS SNAPSHOT */}
+      <ServicesSnapshot />
+
+      {/* 5. SENIOR ARCHITECTURAL STANDARDS & CREDIBILITY */}
+      <EngineeringCredibilitySection />
+
+      {/* 6. CONVERSION CLOSER CTA */}
       <CtaSection />
     </>
   );
