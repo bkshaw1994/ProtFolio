@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   Zap,
@@ -10,7 +10,8 @@ import {
   ArrowRight,
   Clock,
   Calendar,
-  ArrowUpRight
+  ArrowUpRight,
+  ChevronDown
 } from 'lucide-react';
 
 const packages = [
@@ -102,6 +103,12 @@ const faqs = [
 ];
 
 const Services = () => {
+  const [openFaqIndex, setOpenFaqIndex] = useState(0);
+
+  const toggleFaq = (index) => {
+    setOpenFaqIndex((prev) => (prev === index ? null : index));
+  };
+
   return (
     <>
       <Helmet>
@@ -320,7 +327,7 @@ const Services = () => {
             </div>
           </div>
 
-          {/* Frequently Asked Questions */}
+          {/* Frequently Asked Questions (Accordion) */}
           <div className="max-w-3xl mb-16 space-y-6">
             <div>
               <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-1">
@@ -332,20 +339,59 @@ const Services = () => {
             </div>
 
             <div className="space-y-3">
-              {faqs.map((faq, i) => (
-                <div
-                  key={i}
-                  className="rounded-lg p-5 border border-slate-200 bg-white space-y-1.5"
-                >
-                  <h4 className="font-semibold text-slate-950 text-sm flex items-start gap-2">
-                    <span className="text-slate-400 font-mono">Q:</span>
-                    <span>{faq.q}</span>
-                  </h4>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-5 font-normal">
-                    {faq.a}
-                  </p>
-                </div>
-              ))}
+              {faqs.map((faq, i) => {
+                const isOpen = openFaqIndex === i;
+
+                return (
+                  <div
+                    key={i}
+                    className={`rounded-xl border transition-colors bg-white overflow-hidden ${
+                      isOpen
+                        ? 'border-slate-300 shadow-2xs'
+                        : 'border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => toggleFaq(i)}
+                      aria-expanded={isOpen}
+                      className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+                    >
+                      <span className="flex items-center gap-3">
+                        <span className="font-mono text-xs text-slate-400 font-semibold flex-shrink-0">
+                          0{i + 1}
+                        </span>
+                        <span className="font-bold text-slate-950 text-sm sm:text-base tracking-tight">
+                          {faq.q}
+                        </span>
+                      </span>
+                      <ChevronDown
+                        size={18}
+                        className={`text-slate-400 flex-shrink-0 transition-transform duration-200 ${
+                          isOpen ? 'rotate-180 text-slate-900' : ''
+                        }`}
+                      />
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key="faq-content"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.22, ease: 'easeInOut' }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-4 pb-5 pt-1 sm:px-5 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pl-9 sm:pl-11 border-t border-slate-100">
+                            {faq.a}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
