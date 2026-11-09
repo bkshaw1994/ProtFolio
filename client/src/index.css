@@ -3,12 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
   html {
     scroll-behavior: smooth;
   }
@@ -16,8 +10,8 @@
   body {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
-    color: #0f172a;
-    background-color: #f8fafc;
+    color: #020617;
+    background-color: #ffffff;
     overflow-x: hidden;
   }
 
@@ -131,122 +125,4 @@
     mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
     -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
   }
-}
-
-/* Custom background pattern utilities */
-.bg-grid-pattern {
-  background-size: 32px 32px;
-  background-image: radial-gradient(circle, rgba(100, 116, 139, 0.12) 1px, transparent 1px);
-}
-
-.glow-blob {
-  position: absolute;
-  filter: blur(80px);
-  opacity: 0.45;
-  border-radius: 9999px;
-  pointer-events: none;
-}
-
-/* Custom animations for enhanced UX */
-@keyframes shimmer {
-  0% {
-    background-position: -468px 0;
-  }
-
-  100% {
-    background-position: 468px 0;
-  }
-}
-
-@keyframes float-slow {
-
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-8px) rotate(2deg);
-  }
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
-  }
-
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 12px rgba(14, 165, 233, 0);
-  }
-
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
-  }
-}
-
-.animate-float {
-  animation: float-slow 4s ease-in-out infinite;
-}
-
-.shimmer {
-  animation: shimmer 2s infinite;
-  background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
-  background-size: 800px 104px;
-}
-
-@keyframes blob-drift-1 {
-
-  0%,
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
-
-  33% {
-    transform: translate(40px, -50px) scale(1.1);
-  }
-
-  66% {
-    transform: translate(-30px, 30px) scale(0.95);
-  }
-}
-
-@keyframes blob-drift-2 {
-
-  0%,
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
-
-  33% {
-    transform: translate(-50px, 40px) scale(1.15);
-  }
-
-  66% {
-    transform: translate(30px, -35px) scale(0.9);
-  }
-}
-
-@keyframes bg-grid-move {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 64px 64px;
-  }
-}
-
-.animate-blob-1 {
-  animation: blob-drift-1 16s ease-in-out infinite;
-}
-
-.animate-blob-2 {
-  animation: blob-drift-2 22s ease-in-out infinite;
-}
-
-.animate-grid-move {
-  animation: bg-grid-move 20s linear infinite;
 }
