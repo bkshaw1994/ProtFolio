@@ -104,7 +104,7 @@ const CertificationsSection = ({ certifications }) => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className="inline-block flex-shrink-0 snap-start p-2 hover:scale-105 transition-transform duration-300"
+                className="group/badge inline-block flex-shrink-0 snap-start p-4 rounded-2xl bg-white shadow-2xs hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer"
               >
                 <img
                   src={certification.badge}
@@ -113,7 +113,7 @@ const CertificationsSection = ({ certifications }) => {
                       ? `${certification.title} Badge`
                       : 'Certification Badge'
                   }
-                  className="w-36 h-36 sm:w-44 sm:h-44 object-contain mx-auto drop-shadow-sm"
+                  className="w-36 h-36 sm:w-44 sm:h-44 object-contain mx-auto drop-shadow-sm group-hover/badge:scale-108 group-hover/badge:drop-shadow-md transition-all duration-300"
                 />
               </motion.a>
             ))}

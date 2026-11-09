@@ -54,7 +54,7 @@ const Certifications = () => {
               {featuredCerts.map((cert) => (
                 <div
                   key={cert.id}
-                  className="rounded-2xl bg-white shadow-xs hover:shadow-md transition-all duration-300 p-8 flex flex-col justify-between"
+                  className="rounded-2xl bg-white shadow-xs hover:shadow-xl hover:-translate-y-2 transition-all duration-300 p-8 flex flex-col justify-between group cursor-pointer"
                 >
                   <div>
                     {/* Badge Image */}
@@ -63,12 +63,12 @@ const Certifications = () => {
                         href={cert.verificationUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/badge relative"
+                        className="group/badge relative inline-block"
                       >
                         <img
                           src={cert.badge}
                           alt={cert.title}
-                          className="relative w-44 h-44 object-contain hover:scale-105 transition-transform duration-300 drop-shadow-sm"
+                          className="relative w-44 h-44 object-contain group-hover/badge:scale-108 group-hover/badge:-translate-y-1 transition-all duration-300 drop-shadow-sm group-hover/badge:drop-shadow-md"
                         />
                       </a>
                     </div>
@@ -79,7 +79,7 @@ const Certifications = () => {
                         {cert.issuer}
                       </div>
 
-                      <h3 className="text-2xl font-bold text-slate-950 mb-2">
+                      <h3 className="text-2xl font-bold text-slate-950 mb-2 group-hover:text-emerald-600 transition-colors">
                         {cert.title}
                       </h3>
 
@@ -169,14 +169,14 @@ const Certifications = () => {
                 {otherCerts.map((cert) => (
                   <div
                     key={cert.id}
-                    className="rounded-xl bg-white shadow-xs hover:shadow-md transition-all duration-300 p-6 flex flex-col justify-between"
+                    className="rounded-xl bg-white shadow-xs hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 p-6 flex flex-col justify-between group cursor-pointer"
                   >
                     <div>
                       <div className="inline-block px-2.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono text-xs font-semibold mb-3">
                         {cert.issuer}
                       </div>
 
-                      <h3 className="text-lg font-bold text-slate-950 mb-2">
+                      <h3 className="text-lg font-bold text-slate-950 mb-2 group-hover:text-emerald-600 transition-colors">
                         {cert.title}
                       </h3>
 
