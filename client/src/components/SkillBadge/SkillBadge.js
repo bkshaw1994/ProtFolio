@@ -164,9 +164,9 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
 
   return (
     <div
-      className={`bg-white rounded-xl border border-slate-200/90 hover:border-slate-400 ${
+      className={`bg-white rounded-xl border border-slate-200 hover:border-slate-400 ${
         sizeClasses[size] || 'p-4 sm:p-5'
-      } shadow-2xs hover:shadow-xs transition-all duration-200 flex flex-col justify-between h-full min-h-[155px] group hover:-translate-y-0.5`}
+      } shadow-2xs hover:shadow-md hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between h-full min-h-[155px] group cursor-pointer`}
     >
       <div>
         {/* Top Header: Elevated Tech Icon & Level Badge */}

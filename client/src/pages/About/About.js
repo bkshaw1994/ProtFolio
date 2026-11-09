@@ -24,7 +24,7 @@ const About = () => {
             content="Learn more about my background and experience"
           />
         </Helmet>
-        <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white">
+        <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white bg-dot-pattern">
           <section className="section-padding">
             <div className="container-custom max-w-5xl mx-auto">
               <div className="text-center mb-12">
@@ -75,7 +75,7 @@ const About = () => {
           content="about freelance developer, MERN stack developer Bangalore, hire React developer, experienced Node.js developer, full stack developer for hire, web development expert"
         />
       </Helmet>
-      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white">
+      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white bg-dot-pattern">
         {/* Hero Section */}
         <section className="section-padding py-10 sm:py-14">
           <div className="container-custom max-w-5xl mx-auto">
@@ -133,7 +133,7 @@ const About = () => {
 
               {/* Key Highlights */}
               <div className="grid md:grid-cols-3 gap-6 mt-12 pt-12 border-t border-slate-200">
-                <div className="text-center p-4 bg-slate-50/70 rounded-xl border border-slate-100">
+                <div className="text-center p-4 bg-slate-50/70 rounded-xl border border-slate-100 hover:border-slate-300 hover:shadow-xs hover:-translate-y-1 transition-all duration-300">
                   <div className="text-4xl font-mono font-bold text-slate-950 mb-1">
                     {profile.statistics?.yearsExperience ||
                       profile.yearsOfExperience ||
@@ -144,7 +144,7 @@ const About = () => {
                     Years Experience
                   </div>
                 </div>
-                <div className="text-center p-4 bg-slate-50/70 rounded-xl border border-slate-100">
+                <div className="text-center p-4 bg-slate-50/70 rounded-xl border border-slate-100 hover:border-slate-300 hover:shadow-xs hover:-translate-y-1 transition-all duration-300">
                   <div className="text-4xl font-mono font-bold text-slate-950 mb-1">
                     {profile.statistics?.projectsCompleted || 50}+
                   </div>
@@ -152,7 +152,7 @@ const About = () => {
                     Projects Completed
                   </div>
                 </div>
-                <div className="text-center p-4 bg-slate-50/70 rounded-xl border border-slate-100">
+                <div className="text-center p-4 bg-slate-50/70 rounded-xl border border-slate-100 hover:border-slate-300 hover:shadow-xs hover:-translate-y-1 transition-all duration-300">
                   <div className="text-4xl font-mono font-bold text-slate-950 mb-1">
                     {profile.statistics?.technologiesMastered || 20}+
                   </div>

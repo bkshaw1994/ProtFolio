@@ -4,7 +4,7 @@ import { ExternalLink, Github, Tag } from 'lucide-react';
 
 const ProjectCard = ({ project }) => {
   return (
-    <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-2xs hover:border-slate-400 transition-colors group flex flex-col justify-between h-full">
+    <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-2xs hover:shadow-md hover:border-slate-400 hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between h-full cursor-pointer">
       {/* Project Preview/Image */}
       <div className="relative h-48 overflow-hidden bg-slate-950 border-b border-slate-100">
         {project.liveUrl ? (

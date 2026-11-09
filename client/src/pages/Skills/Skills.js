@@ -89,9 +89,9 @@ const Skills = () => {
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white">
+      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white bg-dot-pattern">
         {/* Header Hero Banner */}
-        <section className="py-10 sm:py-14 bg-white text-center">
+        <section className="py-10 sm:py-14 bg-transparent text-center">
           <div className="container-custom relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 15 }}

@@ -32,7 +32,7 @@ const Certifications = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="min-h-screen bg-white pt-24 sm:pt-28 pb-20">
+      <section className="min-h-screen bg-white bg-dot-pattern pt-24 sm:pt-28 pb-20">
         <div className="container-custom">
           <div className="text-center max-w-4xl mx-auto mb-12">
             <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">

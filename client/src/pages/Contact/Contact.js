@@ -138,9 +138,9 @@ const Contact = () => {
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white">
+      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white bg-dot-pattern">
         {/* Header */}
-        <section className="section-padding py-10 sm:py-14 bg-white text-center">
+        <section className="section-padding py-10 sm:py-14 bg-transparent text-center">
           <div className="container-custom">
             <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
               Get In Touch

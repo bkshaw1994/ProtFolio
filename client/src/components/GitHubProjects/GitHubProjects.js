@@ -21,7 +21,7 @@ import LoadingSpinner from '../LoadingSpinner';
 
 const GitHubProjectCard = ({ project }) => {
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-2xs hover:border-slate-400 transition-colors group flex flex-col justify-between h-full">
+    <div className="bg-white rounded-xl border border-slate-200 hover:border-slate-400 p-6 shadow-2xs hover:shadow-md hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between h-full cursor-pointer">
       <div>
         <div className="flex justify-between items-start mb-3 gap-2">
           <h3 className="text-lg font-bold text-slate-950 group-hover:text-slate-800 transition-colors line-clamp-1">
@@ -110,19 +110,19 @@ const GitHubStats = ({ stats }) => {
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-      <div className="bg-white rounded-xl border border-slate-200 p-5 text-center shadow-2xs">
+      <div className="bg-white rounded-xl border border-slate-200 hover:border-slate-400 p-5 text-center shadow-2xs hover:shadow-md hover:-translate-y-1 transition-all duration-300">
         <div className="text-3xl font-mono font-bold text-slate-950 mb-1">{stats.totalRepos}</div>
         <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500">Repositories</div>
       </div>
-      <div className="bg-white rounded-xl border border-slate-200 p-5 text-center shadow-2xs">
+      <div className="bg-white rounded-xl border border-slate-200 hover:border-slate-400 p-5 text-center shadow-2xs hover:shadow-md hover:-translate-y-1 transition-all duration-300">
         <div className="text-3xl font-mono font-bold text-slate-950 mb-1">{stats.totalStars}</div>
         <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500">Total Stars</div>
       </div>
-      <div className="bg-white rounded-xl border border-slate-200 p-5 text-center shadow-2xs">
+      <div className="bg-white rounded-xl border border-slate-200 hover:border-slate-400 p-5 text-center shadow-2xs hover:shadow-md hover:-translate-y-1 transition-all duration-300">
         <div className="text-3xl font-mono font-bold text-slate-950 mb-1">{stats.totalForks}</div>
         <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500">Total Forks</div>
       </div>
-      <div className="bg-white rounded-xl border border-slate-200 p-5 text-center shadow-2xs">
+      <div className="bg-white rounded-xl border border-slate-200 hover:border-slate-400 p-5 text-center shadow-2xs hover:shadow-md hover:-translate-y-1 transition-all duration-300">
         <div className="text-3xl font-mono font-bold text-slate-950 mb-1">
           {Object.keys(stats.languages || {}).length}
         </div>

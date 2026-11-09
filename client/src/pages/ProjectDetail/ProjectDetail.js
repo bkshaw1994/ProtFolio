@@ -67,7 +67,7 @@ const ProjectDetail = () => {
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white">
+      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white bg-dot-pattern">
         <section className="section-padding py-10 sm:py-14">
           <div className="container-custom max-w-6xl mx-auto">
             {/* Back Button */}

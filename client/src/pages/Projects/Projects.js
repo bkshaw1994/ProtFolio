@@ -89,7 +89,7 @@ const Projects = () => {
             content="Browse my portfolio of projects and open source work"
           />
         </Helmet>
-        <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white">
+        <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white bg-dot-pattern">
           <section className="section-padding py-10 sm:py-14">
             <div className="container-custom">
               <div className="text-center max-w-3xl mx-auto mb-12">
@@ -141,7 +141,7 @@ const Projects = () => {
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white">
+      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white bg-dot-pattern">
         <section className="section-padding py-10 sm:py-14">
           <div className="container-custom">
             {/* Hero Header */}

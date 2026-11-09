@@ -118,7 +118,7 @@ const WhyChooseMeSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className="bg-white rounded-xl border border-slate-200 p-6 sm:p-8 text-center group hover:border-slate-400 transition-colors shadow-2xs flex-shrink-0 w-[270px] sm:w-auto snap-start flex flex-col justify-between min-h-[250px]"
+                  className="bg-white rounded-xl border border-slate-200 hover:border-slate-400 p-6 sm:p-8 text-center group hover:shadow-md hover:-translate-y-1.5 transition-all duration-300 shadow-2xs flex-shrink-0 w-[270px] sm:w-auto snap-start flex flex-col justify-between min-h-[250px] cursor-pointer"
                 >
                   <div>
                     <div className="w-12 h-12 bg-slate-950 border border-slate-800 text-slate-200 rounded-lg flex items-center justify-center mx-auto mb-6 group-hover:bg-slate-900 transition-colors">

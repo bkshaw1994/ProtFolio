@@ -96,7 +96,7 @@ const Experience = () => {
             content="My work experience and career journey"
           />
         </Helmet>
-        <div className="pt-24 sm:pt-28 min-h-screen bg-white pb-20">
+        <div className="pt-24 sm:pt-28 min-h-screen bg-white bg-dot-pattern pb-20">
           <div className="container-custom max-w-5xl mx-auto py-10">
             <div className="h-10 bg-slate-200 rounded w-64 mb-4 animate-pulse" />
             <div className="h-5 bg-slate-200 rounded w-96 mb-12 animate-pulse" />
@@ -134,7 +134,7 @@ const Experience = () => {
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 min-h-screen bg-white pb-20">
+      <div className="pt-24 sm:pt-28 min-h-screen bg-white bg-dot-pattern pb-20">
         <div className="container-custom max-w-5xl mx-auto">
           {/* Header */}
           <div className="max-w-3xl mb-14 space-y-2">
@@ -257,7 +257,7 @@ const Experience = () => {
                               whileHover={{ y: -2 }}
                               whileTap={{ scale: 0.99 }}
                               onClick={() => setSelectedExperience(exp)}
-                              className="w-full text-left bg-white rounded-xl border border-slate-200 hover:border-slate-400 transition-colors duration-200 p-6 shadow-2xs space-y-4 cursor-pointer"
+                              className="w-full text-left bg-white rounded-xl border border-slate-200 hover:border-slate-400 hover:shadow-md transition-all duration-300 p-6 shadow-2xs space-y-4 cursor-pointer"
                             >
                               {/* Position & Company Header */}
                               <div className="border-b border-slate-100 pb-3">
@@ -370,7 +370,7 @@ const Experience = () => {
                               whileHover={{ y: -2 }}
                               whileTap={{ scale: 0.99 }}
                               onClick={() => setSelectedExperience(exp)}
-                              className="w-full text-left bg-white rounded-xl border border-slate-200 hover:border-slate-400 transition-colors duration-200 p-6 shadow-2xs space-y-4 cursor-pointer"
+                              className="w-full text-left bg-white rounded-xl border border-slate-200 hover:border-slate-400 hover:shadow-md transition-all duration-300 p-6 shadow-2xs space-y-4 cursor-pointer"
                             >
                               {/* Position & Company Header */}
                               <div className="border-b border-slate-100 pb-3">
