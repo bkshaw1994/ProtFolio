@@ -245,47 +245,47 @@ const Projects = () => {
           {activeTab === 'portfolio' && (
             <div className="max-w-7xl mx-auto space-y-8">
               {/* Search & Category Filter Controls */}
-              <div className="bg-white/80 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-slate-200/80 shadow-md space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:gap-4">
+              <div className="bg-slate-50/50 p-3.5 sm:p-4 rounded-xl border border-slate-200/90 space-y-3 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:gap-4">
                 {/* Search Input */}
                 <div className="relative flex-1 max-w-md">
                   <Search
-                    size={18}
-                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                    size={16}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                   />
                   <input
                     type="text"
-                    placeholder="Search by title, tech stack..."
+                    placeholder="Search by title, architecture stack..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
+                    className="w-full pl-9 pr-9 py-2 bg-white border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 text-xs font-mono focus:outline-none focus:border-slate-500 transition-colors"
                   />
                   {searchTerm && (
                     <button
                       onClick={() => setSearchTerm('')}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                     >
-                      <X size={16} />
+                      <X size={14} />
                     </button>
                   )}
                 </div>
 
                 {/* Category Filter Pills */}
                 {categories.length > 1 && (
-                  <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-1">
-                    <SlidersHorizontal size={16} className="text-slate-400 flex-shrink-0 hidden lg:block" />
+                  <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide py-1">
+                    <SlidersHorizontal size={14} className="text-slate-400 flex-shrink-0 hidden lg:block mr-1" />
                     {categories.map((cat) => {
                       const isSelected = selectedCategory.toLowerCase() === cat.toLowerCase();
                       return (
                         <button
                           key={cat}
                           onClick={() => setSelectedCategory(cat)}
-                          className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-200 whitespace-nowrap ${
+                          className={`px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-colors whitespace-nowrap ${
                             isSelected
-                              ? 'bg-primary-600 text-white shadow-md shadow-primary-600/20'
-                              : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900 border border-slate-200/60'
+                              ? 'bg-slate-900 text-white shadow-2xs'
+                              : 'bg-slate-100 text-slate-600 hover:text-slate-950'
                           }`}
                         >
-                          {cat === 'all' ? 'All Categories' : cat}
+                          {cat === 'all' ? 'All' : cat}
                         </button>
                       );
                     })}
@@ -300,7 +300,7 @@ const Projects = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="glass-card text-center py-16 px-6 max-w-xl mx-auto"
+                    className="bg-white rounded-xl border border-slate-200 text-center py-16 px-6 max-w-xl mx-auto"
                   >
                     <FolderOpen className="mx-auto text-slate-400 mb-4" size={64} />
                     <h3 className="text-xl font-bold text-slate-800 mb-2">

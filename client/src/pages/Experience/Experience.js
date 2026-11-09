@@ -1,83 +1,48 @@
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
+  Building2,
   Calendar,
-  MapPin,
-  Briefcase,
-  X,
-  ChevronRight,
   CheckCircle2,
   Sparkles,
-  Building2,
-  Clock
+  ArrowRight
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useGetExperienceQuery } from '../../features/api/apiSlice';
 import { SkeletonExperience } from '../../components/Skeleton';
 
 const Experience = () => {
-  const {
-    data: experienceResponse,
-    isLoading,
-    isError,
-    refetch
-  } = useGetExperienceQuery();
-  const experience = Array.isArray(experienceResponse)
-    ? experienceResponse
-    : experienceResponse?.data || [];
+  const { data: experienceData = { data: [] }, isLoading, isError, refetch } = useGetExperienceQuery();
+  const experience = experienceData?.data || [];
 
-  const [selectedExperience, setSelectedExperience] = useState(null);
-
-  // Lock background scroll when modal is active
-  useEffect(() => {
-    if (selectedExperience) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [selectedExperience]);
-
-  // Sort experiences by start date (newest first)
-  const sortedExperience = [...experience].sort(
-    (a, b) => new Date(b.startDate) - new Date(a.startDate)
-  );
+  const sortedExperience = [...experience].sort((a, b) => {
+    if (a.isCurrent && !b.isCurrent) return -1;
+    if (!a.isCurrent && b.isCurrent) return 1;
+    return new Date(b.startDate || 0) - new Date(a.startDate || 0);
+  });
 
   if (isLoading) {
     return (
-      <>
-        <Helmet>
-          <title>Experience - Portfolio</title>
-          <meta
-            name="description"
-            content="My work experience and career journey"
-          />
-        </Helmet>
-        <div className="pt-24 sm:pt-28 min-h-screen bg-slate-50/50">
-          <div className="container-custom">
-            <div className="text-center mb-12">
-              <div className="h-12 bg-slate-200 rounded-xl w-64 mx-auto mb-4 animate-pulse"></div>
-              <div className="h-6 bg-slate-200 rounded-xl w-96 mx-auto animate-pulse"></div>
-            </div>
-            <div className="max-w-4xl mx-auto space-y-8">
-              {Array.from({ length: 4 }).map((_, index) => (
-                <SkeletonExperience key={index} />
-              ))}
-            </div>
+      <div className="pt-24 sm:pt-28 min-h-screen bg-white">
+        <div className="container-custom max-w-4xl mx-auto py-10">
+          <div className="h-10 bg-slate-200 rounded w-64 mb-4 animate-pulse" />
+          <div className="h-5 bg-slate-200 rounded w-96 mb-12 animate-pulse" />
+          <div className="space-y-6">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <SkeletonExperience key={index} />
+            ))}
           </div>
         </div>
-      </>
+      </div>
     );
   }
 
   if (isError) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28">
-        <div className="text-center bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
-          <div className="text-rose-500 font-semibold mb-4 text-lg">Failed to load experience details</div>
+      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28 bg-white">
+        <div className="text-center">
+          <div className="text-red-500 font-mono text-sm mb-4">Failed to load experience details</div>
           <button onClick={() => refetch()} className="btn-primary">
             Try Again
           </button>
@@ -113,321 +78,181 @@ const Experience = () => {
   return (
     <>
       <Helmet>
-        <title>Experience - Portfolio</title>
+        <title>Engineering Experience & Track Record - Bishal Kumar Shaw</title>
         <meta
           name="description"
-          content="My work experience and career journey"
+          content="9+ years of professional engineering leadership delivering high-concurrency systems, micro-frontends, and sub-second performance overhauls."
         />
       </Helmet>
+
       <div className="pt-24 sm:pt-28 min-h-screen bg-white pb-20">
-        <div className="container-custom">
-          <div className="max-w-3xl mb-12">
-            <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
-              Career Trajectory & Engineering Leadership
+        <div className="container-custom max-w-4xl mx-auto">
+          {/* Header */}
+          <div className="max-w-3xl mb-12 space-y-2">
+            <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500">
+              Career Trajectory & Track Record
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight mb-3">
-              Work Experience & Track Record
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
+              Engineering Leadership & Experience
             </h1>
             <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
-              9+ years of professional engineering leadership delivering high-concurrency systems, micro-frontends, and sub-second performance overhauls.
+              9+ years of hands-on technical leadership: scaling web architectures, micro-frontends, and high-concurrency systems for high-growth tech brands.
             </p>
           </div>
 
-          {experience.length === 0 ? (
-            <p className="text-lg text-slate-600 text-center font-mono">
-                No experience data available.
+          {sortedExperience.length === 0 ? (
+            <p className="text-sm text-slate-500 font-mono py-12 text-center">
+              No experience records available.
             </p>
           ) : (
-            <div className="max-w-4xl mx-auto">
-              {/* Timeline */}
-              <div className="relative">
-                {/* Timeline vertical bar */}
-                <div className="absolute left-8 md:left-1/2 top-4 bottom-4 w-0.5 bg-slate-200 transform -translate-x-1/2"></div>
+            /* Left-Anchored Continuous Linear Timeline */
+            <div className="relative pl-6 sm:pl-8 space-y-10 before:absolute before:left-2 sm:before:left-3 before:top-3 before:bottom-3 before:w-px before:bg-slate-200">
+              {sortedExperience.map((exp, index) => (
+                <motion.div
+                  key={exp._id || index}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ duration: 0.35, delay: index * 0.05 }}
+                  className="relative group"
+                >
+                  {/* Timeline Node Indicator */}
+                  <div
+                    className={`absolute -left-[1.85rem] sm:-left-[2.35rem] top-1.5 w-3 h-3 rounded-full border-2 border-white transition-all ${
+                      exp.isCurrent
+                        ? 'bg-emerald-500 ring-4 ring-emerald-100'
+                        : 'bg-slate-400 group-hover:bg-slate-900'
+                    }`}
+                  />
 
-                {sortedExperience.map((exp, index) => (
-                  <div key={exp._id} className="relative mb-12 last:mb-0">
-                    {/* Timeline dot node */}
-                    <div
-                      className={`absolute left-8 md:left-1/2 w-6 h-6 rounded-full border-4 border-white shadow-lg transform -translate-x-1/2 z-10 flex items-center justify-center ${
-                        exp.isCurrent
-                          ? 'bg-emerald-500 ring-4 ring-emerald-500/20'
-                          : 'bg-primary-600 ring-2 ring-primary-500/20'
-                      }`}
-                    >
-                      {exp.isCurrent && (
-                        <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-75"></span>
-                      )}
-                    </div>
-
-                    {/* Timeline Mini Card */}
-                    <div
-                      className={`ml-20 md:ml-0 md:w-[calc(50%-2.5rem)] ${
-                        index % 2 === 0
-                          ? 'md:mr-auto'
-                          : 'md:ml-auto'
-                      }`}
-                    >
-                      <motion.button
-                        whileHover={{ scale: 1.02, y: -4 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => setSelectedExperience(exp)}
-                        className="w-full glass-card p-6 border border-slate-200/80 hover:border-primary-500/40 hover:shadow-2xl hover:shadow-primary-500/15 transition-all duration-300 group text-left cursor-pointer relative overflow-hidden"
-                      >
-                        {/* Mini card header */}
-                        <div className="flex items-start justify-between gap-3 mb-3">
-                          <div>
-                            <div className="flex items-center space-x-2 text-primary-600 text-xs font-bold uppercase tracking-wider mb-1">
-                              <Building2 size={13} />
-                              <span>{exp.company}</span>
-                            </div>
-                            <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary-600 transition-colors leading-snug">
-                              {exp.position}
-                            </h3>
-                          </div>
-                          {exp.isCurrent && (
-                            <span className="px-2.5 py-1 bg-emerald-100/90 text-emerald-800 border border-emerald-200/60 text-[11px] font-extrabold uppercase tracking-wider rounded-full flex-shrink-0">
-                                Current
-                            </span>
+                  {/* Experience Card */}
+                  <div className="bg-white rounded-xl border border-slate-200/90 hover:border-slate-400 transition-colors duration-200 p-6 sm:p-7 shadow-2xs space-y-4">
+                    {/* Position & Company Header */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+                      <div>
+                        <div className="flex items-center space-x-2 text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-1">
+                          <Building2 size={13} className="text-slate-400" />
+                          <span>{exp.company}</span>
+                          {exp.location && (
+                            <>
+                              <span className="text-slate-300">•</span>
+                              <span className="text-slate-400 font-normal lowercase">{exp.location}</span>
+                            </>
                           )}
                         </div>
+                        <h2 className="text-xl font-bold text-slate-950 tracking-tight">
+                          {exp.position}
+                        </h2>
+                      </div>
 
-                        <div className="flex flex-wrap items-center gap-3 text-xs font-medium text-slate-500 mb-3">
-                          <div className="flex items-center gap-1.5 bg-slate-100/80 px-2.5 py-1 rounded-md">
-                            <Calendar size={13} className="text-slate-600" />
-                            <span>
-                              {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1 text-primary-600 font-semibold bg-primary-50 px-2.5 py-1 rounded-md">
-                            <Clock size={13} />
-                            <span>{calculateDuration(exp.startDate, exp.endDate)}</span>
-                          </div>
-                        </div>
-
-                        {exp.location && (
-                          <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-4 font-medium">
-                            <MapPin size={13} className="text-slate-400" />
-                            <span>{exp.location}</span>
-                          </div>
-                        )}
-
-                        {/* Tech pills & Action CTA */}
-                        <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-                          <div className="flex flex-wrap gap-1.5">
-                            {exp.technologies?.slice(0, 3).map((tech, idx) => (
-                              <span
-                                key={idx}
-                                className="px-2 py-0.5 bg-slate-100 text-slate-700 text-[11px] font-medium rounded-md border border-slate-200/50"
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                            {exp.technologies?.length > 3 && (
-                              <span className="px-2 py-0.5 bg-primary-50 text-primary-700 text-[11px] font-bold rounded-md">
-                                  +{exp.technologies.length - 3}
-                              </span>
-                            )}
-                          </div>
-
-                          <span className="text-xs font-bold uppercase tracking-wider text-primary-600 flex items-center group-hover:translate-x-1 transition-transform">
-                              Details
-                            <ChevronRight size={14} className="ml-0.5" />
+                      <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-slate-500">
+                        {exp.isCurrent && (
+                          <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded text-[11px] font-semibold uppercase tracking-wider">
+                            Current Role
                           </span>
-                        </div>
-                      </motion.button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Modal / Popup with Rich Framing */}
-        <AnimatePresence>
-          {selectedExperience && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-slate-950/70 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
-              onClick={() => setSelectedExperience(null)}
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                transition={{ type: 'spring', duration: 0.4, bounce: 0.2 }}
-                className="bg-white rounded-3xl shadow-2xl max-w-3xl w-full max-h-[88vh] flex flex-col overflow-hidden relative my-auto"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* Modal Banner Header */}
-                <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white p-6 sm:p-8 relative">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="space-y-1.5 pr-6">
-                      <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-primary-400">
-                        <Building2 size={15} />
-                        <span>{selectedExperience.company}</span>
+                        )}
+                        <span className="px-2.5 py-1 bg-slate-100 rounded text-slate-700 flex items-center gap-1.5">
+                          <Calendar size={12} className="text-slate-400" />
+                          <span>
+                            {formatDate(exp.startDate)} — {formatDate(exp.endDate)}
+                          </span>
+                        </span>
+                        <span className="text-slate-400 text-[11px]">
+                          ({calculateDuration(exp.startDate, exp.endDate)})
+                        </span>
                       </div>
-                      <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
-                        {selectedExperience.position}
-                      </h2>
-                      {selectedExperience.location && (
-                        <div className="flex items-center space-x-1.5 text-xs text-slate-300 font-medium pt-1">
-                          <MapPin size={14} className="text-primary-400 flex-shrink-0" />
-                          <span>{selectedExperience.location}</span>
-                        </div>
-                      )}
                     </div>
 
-                    <button
-                      onClick={() => setSelectedExperience(null)}
-                      className="p-2.5 bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white rounded-full transition-all flex-shrink-0"
-                      aria-label="Close modal"
-                    >
-                      <X size={20} />
-                    </button>
-                  </div>
-
-                  {/* Header Meta Pills - Working Period, Work Mode, Type */}
-                  <div className="flex flex-wrap items-center gap-2.5 mt-5 pt-3 border-t border-white/10 text-xs font-medium text-slate-200">
-                    {/* Working Period */}
-                    <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full">
-                      <Calendar size={13} className="text-primary-400" />
-                      <span>
-                        {formatDate(selectedExperience.startDate)} - {formatDate(selectedExperience.endDate)}
-                      </span>
-                    </div>
-
-                    {/* Duration */}
-                    <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full text-primary-300 font-semibold">
-                      <Clock size={13} />
-                      <span>{calculateDuration(selectedExperience.startDate, selectedExperience.endDate)}</span>
-                    </div>
-
-                    {/* Work Mode */}
-                    {selectedExperience.workMode && (
-                      <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full capitalize">
-                        <Briefcase size={13} className="text-primary-400" />
-                        <span>{selectedExperience.workMode}</span>
-                      </div>
-                    )}
-
-                    {/* Employment Type */}
-                    {selectedExperience.employmentType && (
-                      <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full capitalize">
-                        <Sparkles size={13} className="text-primary-400" />
-                        <span>{selectedExperience.employmentType}</span>
-                      </div>
-                    )}
-
-                    {/* Current Badge */}
-                    {selectedExperience.isCurrent && (
-                      <span className="px-3 py-1.5 bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 text-xs font-bold uppercase tracking-wider rounded-full">
-                        Current Role
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Modal Body Content */}
-                <div className="p-5 sm:p-8 space-y-6 overflow-y-auto custom-scrollbar flex-grow bg-slate-50/40">
-                  {/* Summary */}
-                  {selectedExperience.description && (
-                    <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-2">
-                      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                        Overview
-                      </h3>
-                      <p className="text-slate-700 text-sm leading-relaxed">
-                        {selectedExperience.description}
+                    {/* Role Description */}
+                    {exp.description && (
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                        {exp.description}
                       </p>
-                    </div>
-                  )}
+                    )}
 
-                  {/* Key Responsibilities */}
-                  {selectedExperience.responsibilities?.length > 0 && (
-                    <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
-                      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                        Key Responsibilities & Contributions
-                      </h3>
-                      <ul className="space-y-2.5">
-                        {selectedExperience.responsibilities.map((resp) => (
-                          <li key={resp} className="text-slate-700 text-sm flex items-start gap-3 leading-relaxed">
-                            <CheckCircle2 size={16} className="text-primary-600 flex-shrink-0 mt-0.5" />
-                            <span>{resp}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                    {/* Key Responsibilities & Contributions */}
+                    {exp.responsibilities && exp.responsibilities.length > 0 && (
+                      <div className="space-y-2 pt-1">
+                        <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500">
+                          Key Deliverables & Architectural Impact:
+                        </div>
+                        <ul className="space-y-2">
+                          {exp.responsibilities.map((resp, i) => (
+                            <li key={i} className="text-xs sm:text-sm text-slate-700 flex items-start gap-2.5 leading-relaxed">
+                              <CheckCircle2 size={14} className="text-slate-400 flex-shrink-0 mt-0.5" />
+                              <span>{resp}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
 
-                  {/* Technologies Used */}
-                  {selectedExperience.technologies?.length > 0 && (
-                    <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
-                      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                        Technologies & Tools
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedExperience.technologies.map((tech) => (
+                    {/* Featured Projects in Role (if available) */}
+                    {exp.keyProjects && exp.keyProjects.length > 0 && (
+                      <div className="space-y-2.5 pt-2">
+                        <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500">
+                          Highlighted Projects:
+                        </div>
+                        <div className="grid sm:grid-cols-2 gap-2.5">
+                          {exp.keyProjects.map((proj, pIdx) => (
+                            <div key={pIdx} className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
+                              <div className="text-xs font-bold text-slate-900">{proj.name}</div>
+                              {proj.description && (
+                                <p className="text-[11px] text-slate-600 leading-normal">{proj.description}</p>
+                              )}
+                              {proj.impact && (
+                                <div className="text-[11px] font-mono text-emerald-700 flex items-center gap-1 mt-1">
+                                  <Sparkles size={11} className="text-emerald-600" />
+                                  <span>{proj.impact}</span>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Technologies & Tools */}
+                    {exp.technologies && exp.technologies.length > 0 && (
+                      <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mr-1">
+                          Stack:
+                        </span>
+                        {exp.technologies.map((tech, tIdx) => (
                           <span
-                            key={tech}
-                            className="px-3 py-1.5 bg-slate-100 text-slate-800 text-xs font-semibold rounded-xl border border-slate-200/80 hover:bg-primary-50 hover:text-primary-700 transition-colors"
+                            key={tIdx}
+                            className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-mono"
                           >
                             {tech}
                           </span>
                         ))}
                       </div>
-                    </div>
-                  )}
-
-                  {/* Key Projects */}
-                  {selectedExperience.keyProjects?.length > 0 && (
-                    <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-                      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                        Featured Projects & Impact
-                      </h3>
-                      <div className="space-y-3">
-                        {selectedExperience.keyProjects.map((project) => (
-                          <div
-                            key={project.name || project.id || project._id}
-                            className="bg-slate-50 p-4 rounded-xl border border-slate-200/60 space-y-2"
-                          >
-                            <h4 className="font-bold text-slate-900 text-sm">
-                              {project.name}
-                            </h4>
-                            {project.description && (
-                              <p className="text-xs text-slate-600 leading-relaxed">
-                                {project.description}
-                              </p>
-                            )}
-                            {project.technologies && (
-                              <div className="flex flex-wrap gap-1.5 pt-1">
-                                {project.technologies.map((tech, techIdx) => (
-                                  <span
-                                    key={techIdx}
-                                    className="text-[11px] px-2 py-0.5 bg-white text-slate-700 font-medium rounded border border-slate-200/60"
-                                  >
-                                    {tech}
-                                  </span>
-                                ))}
-                              </div>
-                            )}
-                            {project.impact && (
-                              <div className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200/60 flex items-start gap-2 mt-2">
-                                <Sparkles size={14} className="flex-shrink-0 mt-0.5 text-emerald-600" />
-                                <span><strong>Impact:</strong> {project.impact}</span>
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            </motion.div>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           )}
-        </AnimatePresence>
+
+          {/* Bottom Conversion Prompt */}
+          <div className="mt-14 p-6 sm:p-7 rounded-xl bg-slate-950 text-white flex flex-col sm:flex-row items-center justify-between gap-5 border border-slate-800">
+            <div className="space-y-1 text-center sm:text-left">
+              <h3 className="text-base font-bold text-white">
+                Looking for senior frontend architecture leadership?
+              </h3>
+              <p className="text-xs text-slate-400 font-normal">
+                Available for high-velocity 2-week performance overhauls, 4-week MVP sprints, or fractional advisory.
+              </p>
+            </div>
+            <Link
+              to="/contact?service=audit"
+              className="inline-flex items-center px-4 py-2.5 rounded-lg text-xs font-semibold text-slate-950 bg-white hover:bg-slate-100 transition-colors whitespace-nowrap"
+            >
+              <span>Book 15-Min Audit</span>
+              <ArrowRight size={13} className="ml-1.5" />
+            </Link>
+          </div>
+        </div>
       </div>
     </>
   );
