@@ -36,23 +36,16 @@ const ProjectCard = ({ project = {} }) => {
         <div className="flex items-center gap-2">
           {project.status ? (
             <span
-              className={`inline-flex items-center gap-1.5 font-mono text-2xs uppercase tracking-wider px-2 py-0.5 rounded border ${
+              className={`font-mono text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded border leading-none ${
                 project.status.toLowerCase() === 'completed'
                   ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
-                  : 'bg-slate-900 text-slate-300 border-slate-700'
+                  : 'bg-slate-900 text-slate-400 border-slate-800'
               }`}
             >
-              <span
-                className={`w-1.5 h-1.5 rounded-full ${
-                  project.status.toLowerCase() === 'completed'
-                    ? 'bg-emerald-400 animate-pulse'
-                    : 'bg-slate-400'
-                }`}
-              />
               {project.status}
             </span>
           ) : project.category ? (
-            <span className="font-mono text-2xs uppercase tracking-wider text-slate-400">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 leading-none">
               {project.category}
             </span>
           ) : null}
