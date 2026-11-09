@@ -34,7 +34,7 @@ const Skills = () => {
             content="My technical skills and expertise in various technologies"
           />
         </Helmet>
-        <div className="pt-20">
+        <div className="pt-24 sm:pt-28">
           <section className="section-padding bg-gradient-to-br from-primary-50 to-secondary-50">
             <div className="container-custom text-center">
               <div className="h-12 bg-gray-200 rounded w-64 mx-auto mb-6 animate-pulse"></div>
@@ -62,7 +62,7 @@ const Skills = () => {
 
   if (isError) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-20">
+      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28">
         <div className="text-center">
           <div className="text-red-500 mb-4">Error loading skills</div>
           <button onClick={() => refetch()} className="btn-primary">
@@ -87,7 +87,7 @@ const Skills = () => {
         />
       </Helmet>
 
-      <div className="pt-20 sm:pt-24 min-h-screen pb-16">
+      <div className="pt-24 sm:pt-28 min-h-screen pb-16">
         {/* Header Hero Banner */}
         <section className="py-10 sm:py-14 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_50%)] pointer-events-none"></div>

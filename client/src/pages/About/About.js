@@ -23,26 +23,24 @@ const About = () => {
             content="Learn more about my background and experience"
           />
         </Helmet>
-        <div className="pt-20 min-h-screen bg-gradient-to-b from-secondary-50 to-white">
-          <section className="section-padding">
-            <div className="container-custom max-w-5xl mx-auto">
-              <div className="text-center mb-12">
-                <div className="h-12 bg-gray-200 rounded w-48 mx-auto mb-6 animate-pulse"></div>
-                <div className="h-6 bg-gray-200 rounded w-96 mx-auto animate-pulse"></div>
-              </div>
-              <div className="flex justify-center mb-12">
-                <SkeletonProfile />
-              </div>
-              <div className="space-y-4">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="h-4 bg-gray-200 rounded animate-pulse"
-                  ></div>
-                ))}
-              </div>
+        <div className="pt-24 sm:pt-28 min-h-screen bg-gradient-to-b from-secondary-50 to-white pb-16">
+          <div className="container-custom max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="h-12 bg-gray-200 rounded w-48 mx-auto mb-6 animate-pulse"></div>
+              <div className="h-6 bg-gray-200 rounded w-96 mx-auto animate-pulse"></div>
             </div>
-          </section>
+            <div className="flex justify-center mb-12">
+              <SkeletonProfile />
+            </div>
+            <div className="space-y-4">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="h-4 bg-gray-200 rounded animate-pulse"
+                ></div>
+              ))}
+            </div>
+          </div>
         </div>
       </>
     );
@@ -50,7 +48,7 @@ const About = () => {
 
   if (isError || !profile) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-20">
+      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28">
         <div className="text-center">
           <div className="text-red-500 mb-4">Error loading profile</div>
           <button onClick={() => refetch()} className="btn-primary">
@@ -74,9 +72,9 @@ const About = () => {
           content="about freelance developer, MERN stack developer Bangalore, hire React developer, experienced Node.js developer, full stack developer for hire, web development expert"
         />
       </Helmet>
-      <div className="pt-28 sm:pt-36 min-h-screen bg-gradient-to-b from-secondary-50 to-white">
+      <div className="pt-24 sm:pt-28 min-h-screen bg-gradient-to-b from-secondary-50 to-white pb-20">
         {/* Hero Section */}
-        <section className="section-padding">
+        <section className="py-4 sm:py-8">
           <div className="container-custom max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-bold text-secondary-900 mb-4">

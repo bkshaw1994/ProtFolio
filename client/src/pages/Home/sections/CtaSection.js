@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Calendar, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 const CtaSection = () => (
-  <section className="section-padding bg-gradient-to-br from-slate-900 via-primary-950 to-indigo-950 text-white relative overflow-hidden">
+  <section className="py-16 sm:py-20 bg-gradient-to-br from-slate-900 via-primary-950 to-indigo-950 text-white relative overflow-hidden">
     {/* Subtle gradient glow */}
     <div className="absolute inset-0 bg-radial-gradient from-primary-600/15 via-transparent to-transparent pointer-events-none" />
 
@@ -40,12 +40,12 @@ const CtaSection = () => (
             <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
           </Link>
 
-          <a
-            href="#packages"
+          <Link
+            to="/services"
             className="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-sm sm:text-base text-slate-200 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 backdrop-blur-md transition-all duration-300"
           >
             Explore Sprints & Packages
-          </a>
+          </Link>
         </div>
 
         {/* Reassurance points */}

@@ -11,7 +11,7 @@ const NotFound = () => {
         <meta name="description" content="The page you're looking for doesn't exist." />
       </Helmet>
 
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-secondary-50 pt-20">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-secondary-50 pt-24 sm:pt-28 pb-16">
         <div className="container-custom text-center">
           <div className="max-w-md mx-auto">
             {/* 404 Illustration */}

@@ -76,7 +76,7 @@ const credibilityPillars = [
 
 const EngineeringCredibilitySection = () => {
   return (
-    <section className="section-padding bg-slate-50/80 relative overflow-hidden">
+    <section className="py-16 sm:py-20 bg-slate-50/80 relative overflow-hidden">
       <div className="container-custom relative z-10">
         {/* Section Header */}
         <motion.div

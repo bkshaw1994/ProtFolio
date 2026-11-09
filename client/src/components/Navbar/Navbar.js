@@ -26,10 +26,10 @@ const Navbar = () => {
 
   const navLinks = [
     { path: '/', label: 'Home' },
+    { path: '/case-studies', label: 'Case Studies' },
+    { path: '/services', label: 'Services' },
     { path: '/projects', label: 'Projects' },
-    { path: '/skills', label: 'Skills' },
     { path: '/experience', label: 'Experience' },
-    { path: '/certifications', label: 'Certifications' },
     { path: '/about', label: 'About' }
   ];
 
@@ -38,14 +38,14 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/80 backdrop-blur-md shadow-md border-b border-slate-200/50 py-1'
-          : 'bg-white/60 backdrop-blur-sm border-b border-transparent py-2'
+          ? 'bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200/60'
+          : 'bg-white/75 backdrop-blur-sm border-b border-slate-100/50'
       }`}
     >
-      <div className="container-custom">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+      <div className="container-custom h-full">
+        <div className="flex items-center justify-between h-full">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="relative">

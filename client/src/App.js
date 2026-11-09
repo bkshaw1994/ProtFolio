@@ -21,6 +21,8 @@ import {
 // Pages
 import Home from './pages/Home';
 import About from './pages/About';
+import CaseStudies from './pages/CaseStudies';
+import Services from './pages/Services';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
 import Skills from './pages/Skills';
@@ -96,6 +98,9 @@ function App() {
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/case-studies" element={<CaseStudies />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/packages" element={<Services />} />
               <Route path="/about" element={<About />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/projects/:id" element={<ProjectDetail />} />

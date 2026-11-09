@@ -142,7 +142,7 @@ const Contact = () => {
           <title>Contact - Thank You</title>
         </Helmet>
 
-        <div className="pt-20 min-h-screen flex items-center justify-center bg-gradient-to-br from-success-50 to-primary-50">
+        <div className="pt-24 sm:pt-28 min-h-screen flex items-center justify-center bg-gradient-to-br from-success-50 to-primary-50">
           <div className="container-custom text-center">
             <CheckCircle size={64} className="text-success-500 mx-auto mb-6" />
             <h1 className="text-4xl font-bold text-secondary-900 mb-4">
@@ -182,9 +182,9 @@ const Contact = () => {
         />
       </Helmet>
 
-      <div className="pt-28 sm:pt-36">
+      <div className="pt-24 sm:pt-28 pb-16">
         {/* Header */}
-        <section className="section-padding bg-gradient-to-br from-primary-50 to-secondary-50">
+        <section className="py-8 sm:py-12 bg-gradient-to-br from-primary-50/70 to-secondary-50">
           <div className="container-custom text-center">
             <h1 className="text-4xl sm:text-5xl font-bold text-secondary-900 mb-6">
               Get In Touch

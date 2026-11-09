@@ -1,33 +1,18 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import {
-  useGetProfileQuery,
-  useGetCoreSkillsQuery,
-  useGetFeaturedCertificationsQuery
-} from '../features/api/apiSlice';
+import { useGetProfileQuery } from '../features/api/apiSlice';
 
 // Components
 import LoadingSpinner from '../components/LoadingSpinner';
 import HeroSection from './Home/sections/HeroSection';
 import TrustBanner from './Home/sections/TrustBanner';
-import CaseStudiesSection from './Home/sections/CaseStudiesSection';
-import OutcomePackagesSection from './Home/sections/OutcomePackagesSection';
+import CaseStudiesSnapshot from './Home/sections/CaseStudiesSnapshot';
+import ServicesSnapshot from './Home/sections/ServicesSnapshot';
 import EngineeringCredibilitySection from './Home/sections/EngineeringCredibilitySection';
-import CoreSkillsSection from './Home/sections/CoreSkillsSection';
-import CertificationsSection from './Home/sections/CertificationsSection';
 import CtaSection from './Home/sections/CtaSection';
 
 const Home = () => {
   const { data: profile, isLoading: loadingProfile } = useGetProfileQuery();
-  const { data: coreSkillsResponse } = useGetCoreSkillsQuery();
-  const coreSkills = Array.isArray(coreSkillsResponse)
-    ? coreSkillsResponse
-    : coreSkillsResponse?.data || [];
-  const { data: featuredCertificationsResponse } =
-    useGetFeaturedCertificationsQuery();
-  const featuredCertifications = Array.isArray(featuredCertificationsResponse)
-    ? featuredCertificationsResponse
-    : featuredCertificationsResponse?.data || [];
 
   // Extract profile data - handle both direct data and nested data structure
   const profileData = profile?.data || profile;
@@ -58,30 +43,22 @@ const Home = () => {
         <meta property="og:url" content="https://bishal-portfolio-chi.vercel.app/" />
       </Helmet>
 
-      {/* 1. HERO SECTION REDESIGN (The 3-Second Hook) */}
+      {/* 1. HERO SECTION (The 3-Second Hook) */}
       <HeroSection profileData={profileData} />
 
-      {/* Trust & Production Stack Credibility Marquee */}
+      {/* 2. PRODUCTION TECH STACK & CREDIBILITY MARQUEE */}
       <TrustBanner />
 
-      {/* 2. ELITE PROOF-OF-WORK SECTION (SAR Framework Showcase) */}
-      <CaseStudiesSection />
+      {/* 3. FLAGSHIP PROOF-OF-WORK SNAPSHOT */}
+      <CaseStudiesSnapshot />
 
-      {/* 3. OUTCOME-BASED PACKAGES & PRICING SECTION ("How We Can Work Together") */}
-      <OutcomePackagesSection />
+      {/* 4. FIXED-SCOPE PACKAGES & SPRINTS SNAPSHOT */}
+      <ServicesSnapshot />
 
-      {/* 4. TECHNICAL CREDIBILITY & RIGOROUS ENGINEERING STANDARDS */}
+      {/* 5. SENIOR ARCHITECTURAL STANDARDS & CREDIBILITY */}
       <EngineeringCredibilitySection />
 
-      {/* Core Technical Capabilities */}
-      {coreSkills.length > 0 && <CoreSkillsSection coreSkills={coreSkills} />}
-
-      {/* Verified Certifications */}
-      {featuredCertifications.length > 0 && (
-        <CertificationsSection certifications={featuredCertifications} />
-      )}
-
-      {/* Final High-Converting Conversion Closer CTA */}
+      {/* 6. CONVERSION CLOSER CTA */}
       <CtaSection />
     </>
   );

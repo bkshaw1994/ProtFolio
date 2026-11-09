@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
-  ArrowDown,
   Calendar,
   Download,
   Gauge,
@@ -22,7 +21,7 @@ const HeroSection = ({ profileData }) => {
     : null;
 
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center bg-slate-50/60 bg-grid-pattern pt-24 pb-16 overflow-hidden">
+    <section className="relative bg-slate-50/60 bg-grid-pattern pt-24 sm:pt-28 pb-12 sm:pb-16 overflow-hidden">
       {/* Interactive Spider-Web / Constellation Canvas Background */}
       <ParticleNetwork />
 
@@ -81,13 +80,13 @@ const HeroSection = ({ profileData }) => {
                 <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
 
-              <a
-                href="#case-studies"
+              <Link
+                to="/case-studies"
                 className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base text-slate-800 bg-white hover:bg-slate-50 border-2 border-slate-200 hover:border-primary-500/50 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-300 group"
               >
                 <span>View Case Studies</span>
-                <ArrowDown size={18} className="ml-2 text-slate-500 group-hover:translate-y-1 transition-transform" />
-              </a>
+                <ArrowRight size={18} className="ml-2 text-slate-500 group-hover:translate-x-1 transition-transform" />
+              </Link>
 
               {resumeUrl && (
                 <a
