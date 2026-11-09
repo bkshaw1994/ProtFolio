@@ -96,19 +96,19 @@
   }
 
   .badge-primary {
-    @apply bg-primary-100/80 text-primary-800 border border-primary-200/60;
+    @apply bg-slate-900 text-white border border-slate-900;
   }
 
   .badge-secondary {
-    @apply bg-slate-100 text-slate-700 border border-slate-200/60;
+    @apply bg-slate-100 text-slate-700 border border-slate-200;
   }
 
   .badge-success {
-    @apply bg-emerald-100/80 text-emerald-800 border border-emerald-200/60;
+    @apply bg-emerald-50 text-emerald-800 border border-emerald-200;
   }
 
   .loader {
-    @apply animate-spin rounded-full h-8 w-8 border-2 border-primary-600 border-t-transparent;
+    @apply animate-spin rounded-full h-8 w-8 border-2 border-slate-900 border-t-transparent;
   }
 }
 

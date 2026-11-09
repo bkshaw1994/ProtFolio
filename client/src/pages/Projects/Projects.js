@@ -141,7 +141,7 @@ const Projects = () => {
             content="Browse my portfolio of projects and open source work"
           />
         </Helmet>
-        <div className="pt-24 sm:pt-28 min-h-screen bg-slate-50/50 bg-grid-pattern pb-20">
+        <div className="pt-24 sm:pt-28 min-h-screen bg-white pb-20">
           <div className="container-custom">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <div className="h-8 bg-slate-200 rounded-full w-48 mx-auto mb-4 animate-pulse"></div>
@@ -162,8 +162,8 @@ const Projects = () => {
 
   if (isError && activeTab === 'portfolio') {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28 bg-slate-50/50 bg-grid-pattern">
-        <div className="text-center bg-white p-8 rounded-2xl shadow-xl border border-slate-200 max-w-md mx-auto">
+      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28 bg-white">
+        <div className="text-center bg-white p-8 rounded-2xl shadow-2xs border border-slate-200 max-w-md mx-auto">
           <AlertCircle className="mx-auto text-rose-500 mb-4" size={48} />
           <h3 className="text-xl font-bold text-slate-900 mb-2">Failed to load projects</h3>
           <p className="text-slate-600 text-sm mb-6">

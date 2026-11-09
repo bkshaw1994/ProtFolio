@@ -151,19 +151,19 @@ const HeroSection = ({ profileData }) => {
             transition={{ duration: 0.5, delay: 0.15 }}
             className="lg:col-span-5"
           >
-            <div className="rounded-xl border border-slate-800 bg-slate-950 text-slate-300 shadow-xl overflow-hidden font-mono text-xs">
+            <div className="rounded-xl border border-slate-200 bg-white text-slate-800 shadow-2xs overflow-hidden font-mono text-xs">
               {/* Window Header */}
-              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-900 border-b border-slate-800">
+              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-50 border-b border-slate-200">
                 <div className="flex items-center space-x-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-slate-700" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-slate-700" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-slate-700" />
-                  <span className="text-[11px] text-slate-400 ml-2 font-mono flex items-center gap-1.5">
-                    <Terminal size={12} className="text-slate-400" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+                  <span className="text-[11px] text-slate-600 ml-2 font-mono flex items-center gap-1.5 font-medium">
+                    <Terminal size={12} className="text-slate-500" />
                     architecture-audit.spec.ts
                   </span>
                 </div>
-                <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-950/80 text-emerald-400 border border-emerald-800/80 flex items-center gap-1">
+                <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
                   <Check size={10} />
                   PASS
                 </span>
@@ -176,52 +176,52 @@ const HeroSection = ({ profileData }) => {
                 </div>
 
                 <div className="space-y-2.5">
-                  <div className="flex items-start justify-between p-2.5 rounded-lg bg-slate-900/70 border border-slate-800/80">
+                  <div className="flex items-start justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200/80">
                     <div className="space-y-0.5">
-                      <div className="text-slate-400 text-[10px] uppercase tracking-wider">Framework & SSR</div>
-                      <div className="text-slate-100 font-semibold text-xs">Next.js 14+ (App Router & RSC)</div>
+                      <div className="text-slate-500 text-[10px] uppercase tracking-wider font-semibold">Framework & SSR</div>
+                      <div className="text-slate-900 font-semibold text-xs">Next.js 14+ (App Router & RSC)</div>
                     </div>
-                    <span className="text-emerald-400 text-[11px] font-semibold">Tiered ISR</span>
+                    <span className="text-emerald-700 text-[11px] font-semibold">Tiered ISR</span>
                   </div>
 
-                  <div className="flex items-start justify-between p-2.5 rounded-lg bg-slate-900/70 border border-slate-800/80">
+                  <div className="flex items-start justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200/80">
                     <div className="space-y-0.5">
-                      <div className="text-slate-400 text-[10px] uppercase tracking-wider">Core Web Vitals Metric</div>
-                      <div className="text-slate-100 font-semibold text-xs">LCP: 0.82s • INP: 38ms • CLS: 0.00</div>
+                      <div className="text-slate-500 text-[10px] uppercase tracking-wider font-semibold">Core Web Vitals Metric</div>
+                      <div className="text-slate-900 font-semibold text-xs">LCP: 0.82s • INP: 38ms • CLS: 0.00</div>
                     </div>
-                    <span className="text-emerald-400 text-[11px] font-semibold">CWV 100%</span>
+                    <span className="text-emerald-700 text-[11px] font-semibold">CWV 100%</span>
                   </div>
 
-                  <div className="flex items-start justify-between p-2.5 rounded-lg bg-slate-900/70 border border-slate-800/80">
+                  <div className="flex items-start justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200/80">
                     <div className="space-y-0.5">
-                      <div className="text-slate-400 text-[10px] uppercase tracking-wider">Bundle Reduction</div>
-                      <div className="text-slate-100 font-semibold text-xs">-45% JS payload via tree-shaking</div>
+                      <div className="text-slate-500 text-[10px] uppercase tracking-wider font-semibold">Bundle Reduction</div>
+                      <div className="text-slate-900 font-semibold text-xs">-45% JS payload via tree-shaking</div>
                     </div>
-                    <span className="text-slate-300 text-[11px] font-semibold">Zero Hydration Debt</span>
+                    <span className="text-slate-700 text-[11px] font-semibold">Zero Hydration Debt</span>
                   </div>
 
-                  <div className="flex items-start justify-between p-2.5 rounded-lg bg-slate-900/70 border border-slate-800/80">
+                  <div className="flex items-start justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200/80">
                     <div className="space-y-0.5">
-                      <div className="text-slate-400 text-[10px] uppercase tracking-wider">Testing & Guardrails</div>
-                      <div className="text-slate-100 font-semibold text-xs">Playwright E2E + Jest CI/CD</div>
+                      <div className="text-slate-500 text-[10px] uppercase tracking-wider font-semibold">Testing & Guardrails</div>
+                      <div className="text-slate-900 font-semibold text-xs">Playwright E2E + Jest CI/CD</div>
                     </div>
-                    <span className="text-emerald-400 text-[11px] font-semibold">94%+ Guard</span>
+                    <span className="text-emerald-700 text-[11px] font-semibold">94%+ Guard</span>
                   </div>
                 </div>
 
                 {/* Open-Source Tool Reference */}
-                <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
-                  <span className="text-slate-400 flex items-center gap-1.5">
-                    <Activity size={12} className="text-primary-400" />
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                  <span className="text-slate-500 flex items-center gap-1.5">
+                    <Activity size={12} className="text-emerald-600" />
                     Open Source: AuditPulse
                   </span>
-                  <span className="text-slate-300 font-mono">Headless CWV Engine</span>
+                  <span className="text-slate-700 font-mono font-medium">Headless CWV Engine</span>
                 </div>
 
                 {/* Profile Card Footer */}
-                <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                   <div className="flex items-center space-x-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-slate-800 overflow-hidden border border-slate-700 flex items-center justify-center text-white text-xs font-bold">
+                    <div className="w-8 h-8 rounded-lg bg-slate-100 overflow-hidden border border-slate-200 flex items-center justify-center text-slate-800 text-xs font-bold">
                       {profileData?.profileImage ? (
                         <img
                           src={getFileUrl(profileData.profileImage)}
@@ -236,7 +236,7 @@ const HeroSection = ({ profileData }) => {
                       )}
                     </div>
                     <div>
-                      <div className="text-slate-200 font-semibold text-xs">
+                      <div className="text-slate-900 font-semibold text-xs">
                         {profileData?.name || 'Bishal Kumar Shaw'}
                       </div>
                       <div className="text-slate-500 text-[10px]">
@@ -247,7 +247,7 @@ const HeroSection = ({ profileData }) => {
 
                   <Link
                     to="/services"
-                    className="text-[11px] text-slate-400 hover:text-white transition-colors flex items-center gap-1 font-sans"
+                    className="text-[11px] text-slate-600 hover:text-slate-950 transition-colors flex items-center gap-1 font-sans font-medium"
                   >
                     <span>View Sprints</span>
                     <ArrowRight size={11} />

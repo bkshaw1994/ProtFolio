@@ -84,10 +84,10 @@ const ServicesSnapshot = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.35, delay: idx * 0.08 }}
-                className={`rounded-xl p-6 flex flex-col justify-between transition-colors duration-200 shadow-2xs ${
+                className={`rounded-xl p-6 flex flex-col justify-between transition-all duration-200 bg-white ${
                   service.highlight
-                    ? 'bg-slate-950 text-white border border-slate-900'
-                    : 'bg-white border border-slate-200 hover:border-slate-400'
+                    ? 'border-2 border-slate-950 shadow-md ring-4 ring-slate-950/5 relative'
+                    : 'border border-slate-200 hover:border-slate-400 shadow-2xs'
                 }`}
               >
                 <div>
@@ -95,73 +95,41 @@ const ServicesSnapshot = () => {
                     <span
                       className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded ${
                         service.highlight
-                          ? 'bg-white/10 text-slate-200 border border-white/15'
+                          ? 'bg-slate-900 text-white font-semibold'
                           : 'bg-slate-100 text-slate-700'
                       }`}
                     >
                       {service.badge}
                     </span>
-                    <span
-                      className={`text-xs font-mono flex items-center gap-1 ${
-                        service.highlight ? 'text-slate-400' : 'text-slate-500'
-                      }`}
-                    >
+                    <span className="text-xs font-mono flex items-center gap-1 text-slate-500">
                       <Clock size={12} />
                       {service.timeline}
                     </span>
                   </div>
 
                   <div className="flex items-center space-x-3 mb-3">
-                    <div
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                        service.highlight
-                          ? 'bg-white/10 text-white'
-                          : 'bg-slate-100 text-slate-800'
-                      }`}
-                    >
+                    <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-slate-100 text-slate-800">
                       <IconComp size={18} />
                     </div>
-                    <h3
-                      className={`text-base sm:text-lg font-bold tracking-tight ${
-                        service.highlight ? 'text-white' : 'text-slate-950'
-                      }`}
-                    >
+                    <h3 className="text-base sm:text-lg font-bold tracking-tight text-slate-950">
                       {service.title}
                     </h3>
                   </div>
 
-                  <p
-                    className={`text-xs sm:text-sm leading-relaxed mb-5 font-normal ${
-                      service.highlight ? 'text-slate-300' : 'text-slate-600'
-                    }`}
-                  >
+                  <p className="text-xs sm:text-sm leading-relaxed mb-5 font-normal text-slate-600">
                     {service.description}
                   </p>
 
-                  <div
-                    className={`p-2.5 rounded-lg text-xs flex items-center gap-2 mb-5 ${
-                      service.highlight
-                        ? 'bg-white/5 border border-white/10 text-slate-200'
-                        : 'bg-slate-50 border border-slate-200/80 text-slate-700'
-                    }`}
-                  >
-                    <CheckCircle2 size={14} className="text-emerald-500 flex-shrink-0" />
+                  <div className="p-2.5 rounded-lg text-xs flex items-center gap-2 mb-5 bg-slate-50 border border-slate-200/80 text-slate-700">
+                    <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0" />
                     <span className="text-[11px] font-mono">{service.guarantee}</span>
                   </div>
                 </div>
 
-                <div
-                  className={`pt-4 border-t flex items-center justify-between ${
-                    service.highlight ? 'border-slate-800' : 'border-slate-100'
-                  }`}
-                >
+                <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     to={service.link}
-                    className={`text-xs font-semibold flex items-center gap-1 transition-colors ${
-                      service.highlight
-                        ? 'text-white hover:text-slate-300'
-                        : 'text-slate-950 hover:text-slate-600'
-                    }`}
+                    className="text-xs font-semibold flex items-center gap-1 text-slate-950 hover:text-slate-600 transition-colors"
                   >
                     <span>View Deliverables & Scope</span>
                     <ArrowUpRight size={13} />

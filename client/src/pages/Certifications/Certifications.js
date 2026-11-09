@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { ExternalLink, Award } from 'lucide-react';
+import { ExternalLink, ShieldCheck, Check, Award } from 'lucide-react';
 import { useGetCertificationsQuery } from '../../features/api/apiSlice';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
@@ -10,8 +10,8 @@ const Certifications = () => {
     ? certificationsResponse
     : certificationsResponse?.data || [];
 
-  const featuredCerts = allCertifications.filter(cert => cert.featured);
-  const otherCerts = allCertifications.filter(cert => !cert.featured);
+  const featuredCerts = allCertifications.filter((cert) => cert.featured);
+  const otherCerts = allCertifications.filter((cert) => !cert.featured);
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -20,235 +20,211 @@ const Certifications = () => {
   return (
     <>
       <Helmet>
-        <title>Certifications & Badges - Portfolio</title>
+        <title>Certifications & Quality Standards · Bishal Shaw</title>
         <meta
           name="description"
-          content="Professional certifications and recognized achievements in Six Sigma, process improvement, and quality management."
+          content="Verified professional credentials in Six Sigma quality management, process optimization, and software engineering standards."
         />
         <meta
           name="keywords"
-          content="certifications, Six Sigma, AIGPE, professional development, quality management"
+          content="Six Sigma certifications, quality management, software architecture standards, AIGPE, process optimization"
         />
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="min-h-screen bg-slate-50/50 bg-grid-pattern pt-24 sm:pt-28 pb-16">
-        <div className="container-custom">
-          <div className="text-center max-w-4xl mx-auto mb-12 animate-fade-in">
-            <div className="inline-flex items-center space-x-2 bg-primary-100/80 text-primary-800 border border-primary-200/60 px-4 py-2 rounded-full mb-6 shadow-sm">
-              <Award size={18} />
-              <span className="text-sm font-semibold">Professional Certifications</span>
+      <div className="pt-24 sm:pt-28 pb-20 min-h-screen bg-white text-slate-900">
+        <div className="container-custom max-w-6xl">
+          {/* Header */}
+          <div className="max-w-3xl mb-12">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 font-mono text-xs text-slate-700 mb-3">
+              <ShieldCheck size={14} className="text-slate-900" />
+              <span>QUALITY GOVERNANCE & ENGINEERING ACCREDITATION</span>
             </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
-              Certifications & Badges
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight mb-3">
+              Certifications & Standards Compliance
             </h1>
-
-            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-normal">
-              Professional credentials and recognized achievements demonstrating my commitment to excellence, continuous learning, and industry best practices.
+            <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+              Formal credentials and quality management certifications ensuring rigorous defect elimination, statistical process control (Six Sigma), and clean architectural governance.
             </p>
           </div>
 
           {/* Featured Certifications */}
           {featuredCerts.length > 0 && (
-            <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-              {featuredCerts.map((cert) => (
-                <div
-                  key={cert.id}
-                  className="group relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 p-8"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-500 opacity-0 group-hover:opacity-5 transition-opacity"></div>
+            <div className="mb-14">
+              <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 mb-5">
+                <span>Featured Credentials</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
+                <span className="text-slate-400 font-normal">Primary Governance</span>
+              </div>
 
-                  <div className="relative z-10">
-                    {/* Badge Image */}
-                    <div className="mb-8 flex justify-center">
-                      <a
-                        href={cert.verificationUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/badge relative"
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl blur opacity-0 group-hover/badge:opacity-20 transition duration-300"></div>
-                        <img
-                          src={cert.badge}
-                          alt={cert.title}
-                          className="relative w-48 h-48 object-contain hover:scale-110 transition-transform duration-300"
-                        />
-                      </a>
-                    </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                {featuredCerts.map((cert) => (
+                  <div
+                    key={cert.id || cert._id || cert.title}
+                    className="rounded-xl border border-slate-200 bg-white p-6 sm:p-7 shadow-2xs hover:border-slate-400 transition-colors flex flex-col justify-between"
+                  >
+                    <div>
+                      {/* Top Bar with Badge & Issuer */}
+                      <div className="flex items-start justify-between gap-4 mb-4">
+                        <div className="w-16 h-16 rounded-lg bg-slate-50 border border-slate-200 p-2 flex items-center justify-center shrink-0">
+                          {cert.badge ? (
+                            <img
+                              src={cert.badge}
+                              alt={cert.title}
+                              className="w-full h-full object-contain"
+                            />
+                          ) : (
+                            <Award size={24} className="text-slate-400" />
+                          )}
+                        </div>
 
-                    {/* Content */}
-                    <div className="text-center mb-6">
-                      <div className="inline-block px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-xs font-semibold mb-3">
-                        {cert.issuer}
+                        <div className="text-right">
+                          <span className="inline-block px-2.5 py-0.5 rounded bg-slate-100 border border-slate-200 font-mono text-[11px] font-semibold text-slate-700 uppercase">
+                            {cert.issuer}
+                          </span>
+                          {cert.issueDate && (
+                            <div className="text-[11px] font-mono text-slate-400 mt-1">
+                              Awarded {cert.issueDate}
+                            </div>
+                          )}
+                        </div>
                       </div>
 
-                      <h3 className="text-2xl font-bold text-secondary-900 mb-2">
+                      {/* Title & Description */}
+                      <h3 className="text-xl font-bold text-slate-950 tracking-tight mb-2">
                         {cert.title}
                       </h3>
 
-                      {cert.issueDate && (
-                        <p className="text-secondary-600 font-medium mb-4">
-                          Awarded {cert.issueDate}
-                        </p>
-                      )}
-
-                      <p className="text-secondary-600 leading-relaxed mb-6">
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal mb-4">
                         {cert.description}
                       </p>
 
                       {cert.credentialDescription && (
-                        <div className="mb-6 p-4 bg-secondary-50 rounded-lg">
-                          <p className="text-secondary-600 leading-relaxed text-sm">
-                            {cert.credentialDescription}
-                          </p>
+                        <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-600 leading-relaxed mb-4">
+                          {cert.credentialDescription}
                         </div>
                       )}
 
+                      {/* Learning Objectives */}
                       {cert.learningObjectives && cert.learningObjectives.length > 0 && (
-                        <div className="mb-6">
-                          <p className="text-sm font-semibold text-secondary-900 mb-3">
-                            Key Learning Objectives:
-                          </p>
-                          <ul className="space-y-2">
-                            {cert.learningObjectives.map((objective, index) => (
-                              <li key={index} className="flex items-start space-x-3">
-                                <div className="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center text-white flex-shrink-0 mt-0.5">
-                                  <span className="text-xs">✓</span>
-                                </div>
-                                <span className="text-secondary-600 text-sm">{objective}</span>
+                        <div className="mb-4">
+                          <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-2">
+                            Key Competencies Verified:
+                          </div>
+                          <ul className="space-y-1.5">
+                            {cert.learningObjectives.map((obj, i) => (
+                              <li key={i} className="flex items-start gap-2 text-xs text-slate-700">
+                                <Check size={14} className="text-emerald-600 shrink-0 mt-0.5" />
+                                <span>{obj}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
                       )}
-                    </div>
 
-                    {/* Skills */}
-                    {cert.skills && cert.skills.length > 0 && (
-                      <div className="mb-6">
-                        <p className="text-sm font-semibold text-secondary-900 mb-3">
-                          Key Skills:
-                        </p>
-                        <div className="flex flex-wrap gap-2 justify-center">
-                          {cert.skills.map((skill, index) => (
+                      {/* Skills Tags */}
+                      {cert.skills && cert.skills.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
+                          {cert.skills.map((skill, i) => (
                             <span
-                              key={index}
-                              className="px-3 py-1 bg-secondary-100 text-secondary-700 rounded-full text-xs font-medium"
+                              key={i}
+                              className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[11px] border border-slate-200/80"
                             >
                               {skill}
                             </span>
                           ))}
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
 
                     {/* Verification Link */}
-                    <div className="flex justify-center">
-                      <a
-                        href={cert.verificationUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg font-semibold hover:shadow-lg hover:from-primary-600 hover:to-primary-700 transition-all duration-300 group/link"
-                      >
-                        <span>Verify Credential</span>
-                        <ExternalLink
-                          size={18}
-                          className="group-hover/link:translate-x-1 transition-transform"
-                        />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* All Certifications Grid */}
-          {otherCerts.length > 0 && (
-            <div className="mb-16">
-              <h2 className="text-3xl font-bold text-secondary-900 mb-8 text-center">
-                Additional Certifications
-              </h2>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {otherCerts.map((cert) => (
-                  <div
-                    key={cert.id}
-                    className="group relative overflow-hidden rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 p-6"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-500 opacity-0 group-hover:opacity-5 transition-opacity"></div>
-
-                    <div className="relative z-10">
-                      <div className="inline-block px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-xs font-semibold mb-3">
-                        {cert.issuer}
-                      </div>
-
-                      <h3 className="text-lg font-bold text-secondary-900 mb-2">
-                        {cert.title}
-                      </h3>
-
-                      {cert.issueDate && (
-                        <p className="text-sm text-secondary-600 font-medium mb-3">
-                          {cert.issueDate}
-                        </p>
-                      )}
-
-                      <p className="text-sm text-secondary-600 leading-relaxed mb-4">
-                        {cert.description}
-                      </p>
-
-                      {cert.skills && cert.skills.length > 0 && (
-                        <div className="mb-4">
-                          <div className="flex flex-wrap gap-1">
-                            {cert.skills.map((skill, index) => (
-                              <span
-                                key={index}
-                                className="px-2 py-1 bg-secondary-100 text-secondary-700 rounded text-xs"
-                              >
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {cert.verificationUrl && (
+                    {cert.verificationUrl && (
+                      <div className="pt-5 mt-4 border-t border-slate-100">
                         <a
                           href={cert.verificationUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-semibold text-sm group/link"
+                          className="btn-secondary w-full py-2.5 text-xs font-mono inline-flex items-center justify-center gap-1.5"
                         >
-                          <span>Verify</span>
-                          <ExternalLink
-                            size={14}
-                            className="group-hover/link:translate-x-1 transition-transform"
-                          />
+                          <span>Verify Credential on Issuer Site</span>
+                          <ExternalLink size={13} />
                         </a>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          {/* CTA Section */}
-          {/* <div className="mt-20 text-center bg-gradient-to-r from-primary-50 to-secondary-50 rounded-2xl p-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-secondary-900 mb-4">
-              Interested in Working Together?
-            </h2>
-            <p className="text-lg text-secondary-600 mb-8 max-w-2xl mx-auto">
-              My certifications and commitment to excellence ensure high-quality solutions for your projects.
-            </p>
-            <Link to="/contact" className="btn-primary group inline-flex">
-              Get In Touch
-              <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div> */}
+          {/* Additional Certifications Grid */}
+          {otherCerts.length > 0 && (
+            <div>
+              <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 mb-5">
+                <span>Additional Accreditations</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
+                <span className="text-slate-400 font-normal">Continuing Education</span>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {otherCerts.map((cert) => (
+                  <div
+                    key={cert.id || cert._id || cert.title}
+                    className="rounded-xl border border-slate-200 bg-white p-5 shadow-2xs hover:border-slate-400 transition-colors flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className="px-2 py-0.5 rounded bg-slate-100 border border-slate-200 font-mono text-[10px] font-semibold text-slate-700 uppercase">
+                          {cert.issuer}
+                        </span>
+                        {cert.issueDate && (
+                          <span className="text-[11px] font-mono text-slate-400">
+                            {cert.issueDate}
+                          </span>
+                        )}
+                      </div>
+
+                      <h3 className="text-base font-bold text-slate-950 tracking-tight mb-2">
+                        {cert.title}
+                      </h3>
+
+                      <p className="text-xs text-slate-600 leading-relaxed font-normal mb-3">
+                        {cert.description}
+                      </p>
+
+                      {cert.skills && cert.skills.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-4">
+                          {cert.skills.map((skill, i) => (
+                            <span
+                              key={i}
+                              className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-mono text-[10px]"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {cert.verificationUrl && (
+                      <div className="pt-3 border-t border-slate-100">
+                        <a
+                          href={cert.verificationUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-mono text-slate-700 hover:text-slate-950 font-medium inline-flex items-center gap-1 hover:underline"
+                        >
+                          <span>Verify Credential</span>
+                          <ExternalLink size={12} />
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-      </section>
+      </div>
     </>
   );
 };

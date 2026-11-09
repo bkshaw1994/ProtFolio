@@ -27,16 +27,16 @@ const ProjectDetail = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50/50 bg-grid-pattern pt-24 sm:pt-28 pb-16 flex items-center justify-center">
-        <LoadingSpinner size="lg" message="Loading project details..." />
+      <div className="min-h-screen bg-white pt-24 sm:pt-28 pb-16 flex items-center justify-center">
+        <LoadingSpinner size="lg" message="Loading project specifications..." />
       </div>
     );
   }
 
   if (isError || !project) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28 bg-slate-50/50 bg-grid-pattern">
-        <div className="text-center bg-white p-8 rounded-2xl shadow-xl border border-slate-200 max-w-md mx-auto">
+      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28 bg-white">
+        <div className="text-center bg-white p-8 rounded-2xl shadow-2xs border border-slate-200 max-w-md mx-auto">
           <AlertCircle className="mx-auto text-rose-500 mb-4" size={48} />
           <h3 className="text-xl font-bold text-slate-900 mb-2">Project Not Found</h3>
           <p className="text-slate-600 text-sm mb-6">

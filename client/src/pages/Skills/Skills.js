@@ -77,15 +77,16 @@ const Skills = () => {
       <div className="pt-24 sm:pt-28 min-h-screen bg-white pb-20">
         <div className="container-custom max-w-6xl mx-auto">
           {/* Header */}
-          <div className="mb-8 space-y-2">
-            <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500">
-              Technical Arsenal & Core Stack
+          <div className="max-w-3xl mb-8">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 font-mono text-xs text-slate-700 mb-3">
+              <Cpu size={14} className="text-slate-900" />
+              <span>TECHNICAL ARSENAL & ARCHITECTURE SPECS</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight mb-3">
               Architecture Capabilities & Stack
             </h1>
-            <p className="text-sm sm:text-base text-slate-600 font-normal max-w-2xl">
-              Comprehensive breakdown of production-tested frameworks, state management engines, distributed caching systems, and automated test suites.
+            <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+              Production-tested frameworks, state management engines, distributed caching systems, and automated test suites architected for sub-second Core Web Vitals.
             </p>
           </div>
 

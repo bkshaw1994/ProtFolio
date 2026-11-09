@@ -147,10 +147,10 @@ const Services = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.15 }}
                   transition={{ duration: 0.35, delay: idx * 0.08 }}
-                  className={`rounded-xl p-6 sm:p-7 flex flex-col justify-between transition-colors duration-200 shadow-2xs scroll-mt-24 ${
+                  className={`rounded-xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-200 bg-white scroll-mt-24 ${
                     pkg.highlight
-                      ? 'bg-slate-950 text-white border border-slate-900'
-                      : 'bg-white border border-slate-200 hover:border-slate-400'
+                      ? 'border-2 border-slate-950 shadow-md ring-4 ring-slate-950/5 relative'
+                      : 'border border-slate-200 hover:border-slate-400 shadow-2xs'
                   }`}
                 >
                   <div>
@@ -158,17 +158,13 @@ const Services = () => {
                       <span
                         className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded ${
                           pkg.highlight
-                            ? 'bg-white/10 text-slate-200 border border-white/15'
+                            ? 'bg-slate-900 text-white font-semibold'
                             : 'bg-slate-100 text-slate-700'
                         }`}
                       >
                         {pkg.badge}
                       </span>
-                      <span
-                        className={`text-xs font-mono flex items-center gap-1 ${
-                          pkg.highlight ? 'text-slate-400' : 'text-slate-500'
-                        }`}
-                      >
+                      <span className="text-xs font-mono flex items-center gap-1 text-slate-500">
                         <Clock size={12} />
                         {pkg.timeline}
                       </span>
@@ -176,76 +172,40 @@ const Services = () => {
 
                     <div className="space-y-3 mb-6">
                       <div className="flex items-center space-x-3">
-                        <div
-                          className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                            pkg.highlight
-                              ? 'bg-white/10 text-white'
-                              : 'bg-slate-100 text-slate-800'
-                          }`}
-                        >
+                        <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-slate-100 text-slate-800">
                           <IconComponent size={18} />
                         </div>
-                        <h2
-                          className={`text-lg font-bold tracking-tight leading-snug ${
-                            pkg.highlight ? 'text-white' : 'text-slate-950'
-                          }`}
-                        >
+                        <h2 className="text-lg font-bold tracking-tight leading-snug text-slate-950">
                           {pkg.name}
                         </h2>
                       </div>
 
-                      <div
-                        className={`text-[11px] font-mono ${
-                          pkg.highlight ? 'text-slate-400' : 'text-slate-500'
-                        }`}
-                      >
+                      <div className="text-[11px] font-mono text-slate-500">
                         {pkg.target}
                       </div>
 
-                      <p
-                        className={`text-xs sm:text-sm leading-relaxed font-normal ${
-                          pkg.highlight ? 'text-slate-300' : 'text-slate-600'
-                        }`}
-                      >
+                      <p className="text-xs sm:text-sm leading-relaxed font-normal text-slate-600">
                         {pkg.tagline}
                       </p>
 
-                      <div
-                        className={`p-3 rounded-lg text-xs flex items-center gap-2 ${
-                          pkg.highlight
-                            ? 'bg-white/5 border border-white/10 text-slate-200'
-                            : 'bg-slate-50 border border-slate-200/80 text-slate-700'
-                        }`}
-                      >
-                        <CheckCircle2 size={14} className="text-emerald-500 flex-shrink-0" />
+                      <div className="p-3 rounded-lg text-xs flex items-center gap-2 bg-slate-50 border border-slate-200/80 text-slate-700">
+                        <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0" />
                         <span className="text-[11px] font-mono">{pkg.guarantee}</span>
                       </div>
                     </div>
 
-                    <div
-                      className={`pt-4 border-t space-y-2 mb-6 ${
-                        pkg.highlight ? 'border-slate-800' : 'border-slate-100'
-                      }`}
-                    >
-                      <div
-                        className={`text-[11px] font-mono uppercase tracking-wider mb-2 ${
-                          pkg.highlight ? 'text-slate-400' : 'text-slate-500'
-                        }`}
-                      >
+                    <div className="pt-4 border-t border-slate-100 space-y-2 mb-6">
+                      <div className="text-[11px] font-mono uppercase tracking-wider mb-2 text-slate-500">
                         Deliverables:
                       </div>
                       {pkg.deliverables.map((item, i) => (
                         <div
                           key={i}
-                          className={`flex items-start space-x-2 text-xs leading-normal ${
-                            pkg.highlight ? 'text-slate-300' : 'text-slate-600'
-                          }`}
+                          className="flex items-start space-x-2 text-xs leading-normal text-slate-600"
                         >
                           <CheckCircle2
                             size={13}
-                            className={`flex-shrink-0 mt-0.5 ${
-                              pkg.highlight ? 'text-slate-400' : 'text-slate-900'
-                            }`}
+                            className="flex-shrink-0 mt-0.5 text-slate-900"
                           />
                           <span>{item}</span>
                         </div>
@@ -253,13 +213,13 @@ const Services = () => {
                     </div>
                   </div>
 
-                  <div className={`pt-4 border-t ${pkg.highlight ? 'border-slate-800' : 'border-slate-100'}`}>
+                  <div className="pt-4 border-t border-slate-100">
                     <Link
                       to={pkg.ctaLink}
                       className={`w-full py-2.5 px-4 rounded-lg font-semibold text-xs flex items-center justify-center transition-colors ${
                         pkg.highlight
-                          ? 'bg-white text-slate-950 hover:bg-slate-100'
-                          : 'bg-slate-900 text-white hover:bg-slate-800'
+                          ? 'bg-slate-900 text-white hover:bg-slate-800 shadow-2xs'
+                          : 'bg-white text-slate-700 border border-slate-200 hover:border-slate-400 hover:text-slate-950'
                       }`}
                     >
                       <span>{pkg.ctaText}</span>
