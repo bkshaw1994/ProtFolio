@@ -68,11 +68,11 @@
   }
 
   .input-field {
-    @apply w-full px-4 py-3 text-secondary-900 bg-white/90 border border-secondary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all duration-200 placeholder:text-secondary-400;
+    @apply w-full px-3.5 py-2.5 text-sm text-slate-900 bg-slate-50/70 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-colors duration-150 placeholder:text-slate-400;
   }
 
   .textarea-field {
-    @apply w-full px-4 py-3 text-secondary-900 bg-white/90 border border-secondary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all duration-200 resize-y min-h-[120px] placeholder:text-secondary-400;
+    @apply w-full px-3.5 py-2.5 text-sm text-slate-900 bg-slate-50/70 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-colors duration-150 resize-y min-h-[120px] placeholder:text-slate-400;
   }
 
   .section-padding {
