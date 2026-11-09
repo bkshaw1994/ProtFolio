@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
   Mail,
@@ -38,6 +39,8 @@ const Contact = () => {
     { code: 'SGD', symbol: 'S$', name: 'Singapore Dollar' }
   ];
 
+  const location = useLocation();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -47,12 +50,55 @@ const Contact = () => {
     company: '',
     projectType: 'other',
     budget: '',
-    currency: 'INR',
+    currency: 'USD',
     timeline: 'flexible'
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitContact, { isLoading: isSubmitting }] =
     useSubmitContactMutation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const service = params.get('service');
+
+    if (service === 'audit') {
+      setFormData((prev) => ({
+        ...prev,
+        projectType: 'architecture-audit',
+        subject: '15-Min Architecture Audit Request',
+        timeline: 'asap',
+        message:
+          'Hi Bishal, I would like to book a 15-minute architecture audit for our application. Here are some details about our tech stack, current Core Web Vitals, and performance bottlenecks:\n- Live URL / App: \n- Tech Stack: \n- Main Performance Challenges: '
+      }));
+    } else if (service === 'mvp') {
+      setFormData((prev) => ({
+        ...prev,
+        projectType: 'mvp-sprint',
+        subject: 'Full-Stack MVP Launchpad (4-Week Sprint) Inquiry',
+        timeline: '1-month',
+        message:
+          'Hi Bishal, we are looking to launch an MVP in the next 30 days and would like to partner on the full-stack architecture build.\n- Product Vision: \n- Target Launch Date: \n- Key Core Features: '
+      }));
+    } else if (service === 'retainer') {
+      setFormData((prev) => ({
+        ...prev,
+        projectType: 'fractional-retainer',
+        subject: 'Senior Fractional Engineering Retainer Inquiry',
+        timeline: 'flexible',
+        message:
+          'Hi Bishal, our engineering team is interested in senior fractional frontend architecture oversight and code performance governance.\n- Team Size: \n- Core Engineering Focus: '
+      }));
+    } else if (service === 'custom') {
+      setFormData((prev) => ({
+        ...prev,
+        projectType: 'consultation',
+        subject: 'Custom Architecture Engagement Inquiry',
+        timeline: 'flexible',
+        message:
+          'Hi Bishal, we would like to discuss a custom architectural engagement tailored to our infrastructure.'
+      }));
+    }
+  }, [location.search]);
 
   const handleChange = (e) => {
     setFormData({
@@ -393,12 +439,15 @@ const Contact = () => {
                         onChange={handleChange}
                         className="input-field"
                       >
-                        <option value="web-development">Web Development</option>
-                        <option value="mobile-app">Mobile App</option>
-                        <option value="consultation">Consultation</option>
-                        <option value="freelance">Freelance</option>
-                        <option value="full-time">Full-time</option>
-                        <option value="other">Other</option>
+                        <option value="architecture-audit">15-Min Architecture Audit (Free for Qualified Founders)</option>
+                        <option value="performance-overhaul">The Core Web Vitals & Performance Overhaul (2-Week Sprint)</option>
+                        <option value="mvp-sprint">The Full-Stack MVP Launchpad (4-Week Sprint)</option>
+                        <option value="fractional-retainer">Senior Fractional Engineering Retainer</option>
+                        <option value="web-development">Web Application Development</option>
+                        <option value="consultation">Consultation & Architecture Advisory</option>
+                        <option value="freelance">Freelance Contract</option>
+                        <option value="full-time">Full-time Senior Role</option>
+                        <option value="other">Other Scope</option>
                       </select>
                     </div>
 
@@ -416,7 +465,7 @@ const Contact = () => {
                         onChange={handleChange}
                         className="input-field"
                       >
-                        <option value="asap">ASAP</option>
+                        <option value="asap">ASAP (Immediate Sprint)</option>
                         <option value="1-month">1 Month</option>
                         <option value="2-3-months">2-3 Months</option>
                         <option value="3-6-months">3-6 Months</option>
@@ -426,7 +475,7 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  {formData.projectType === 'freelance' && (
+                  {['freelance', 'performance-overhaul', 'mvp-sprint', 'fractional-retainer', 'web-development'].includes(formData.projectType) && (
                     <div>
                       <label
                         htmlFor="budget"

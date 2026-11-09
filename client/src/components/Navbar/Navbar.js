@@ -80,7 +80,7 @@ const Navbar = () => {
                 {profileData?.name || 'Portfolio'}
               </div>
               <div className="text-xs text-slate-500 font-medium -mt-0.5">
-                {profileData?.title || 'Full Stack Developer'}
+                {profileData?.title || 'Senior Frontend Architect'}
               </div>
             </div>
           </Link>

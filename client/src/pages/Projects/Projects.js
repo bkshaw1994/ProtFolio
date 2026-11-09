@@ -16,6 +16,54 @@ import ProjectCard from '../../components/ProjectCard';
 import GitHubProjects from '../../components/GitHubProjects';
 import { SkeletonProject } from '../../components/Skeleton';
 
+const defaultFlagshipProjects = [
+  {
+    _id: 'auditpulse-showcase',
+    title: 'AuditPulse: Open-Source Core Web Vitals & SPA SEO Monitor',
+    shortDescription:
+      'Open-source Core Web Vitals & SPA SEO performance monitoring engine built with Next.js, Puppeteer, Redis, and MongoDB.',
+    description:
+      'Automated headless performance profiling engine built with Next.js, Puppeteer, Redis, and MongoDB to eliminate SPA SEO crawl drops and detect rendering regressions before staging deployments.',
+    technologies: ['Next.js', 'Puppeteer', 'Redis', 'MongoDB', 'WebSockets', 'Tailwind CSS'],
+    category: 'fullstack',
+    isFeatured: true,
+    status: 'completed',
+    role: 'Creator & Core Architect',
+    githubUrl: 'https://github.com/bkshaw1994/AuditPulse',
+    liveUrl: 'https://bishal-portfolio-chi.vercel.app/projects'
+  },
+  {
+    _id: 'ecommerce-showcase',
+    title: 'High-Performance E-Commerce & SaaS Architecture Platform',
+    shortDescription:
+      'Sub-second LCP (720ms), multi-tier ISR caching, and zero hydration debt storefront handling high-concurrency scale.',
+    description:
+      'Enterprise e-commerce and SaaS architecture featuring Next.js App Router, React Server Components, tiered ISR caching, and atomic state management for high-concurrency scale events.',
+    technologies: ['Next.js', 'React', 'TypeScript', 'Redis', 'Tailwind CSS', 'Zustand'],
+    category: 'fullstack',
+    isFeatured: true,
+    status: 'completed',
+    role: 'Lead Frontend Architect',
+    githubUrl: 'https://github.com/bkshaw1994',
+    liveUrl: 'https://bishal-portfolio-chi.vercel.app/projects'
+  },
+  {
+    _id: 'microfrontend-showcase',
+    title: 'Enterprise Micro-Frontend & Scalable Component System',
+    shortDescription:
+      'Monorepo design system architecture with strict TypeScript, Playwright CI, and 84% faster build pipelines.',
+    description:
+      'Turborepo monorepo design system with strictly typed TypeScript component packages, Module Federation, automated visual regression gates, and 84% faster CI/CD build pipelines.',
+    technologies: ['TypeScript', 'Next.js', 'Turborepo', 'Playwright', 'Jest', 'Tailwind CSS'],
+    category: 'fullstack',
+    isFeatured: true,
+    status: 'completed',
+    role: 'Principal Frontend Architect',
+    githubUrl: 'https://github.com/bkshaw1994',
+    liveUrl: 'https://bishal-portfolio-chi.vercel.app/projects'
+  }
+];
+
 const Projects = () => {
   const [activeTab, setActiveTab] = useState('portfolio'); // 'portfolio' or 'github'
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,7 +78,11 @@ const Projects = () => {
 
   const { data: githubStats } = useGetGitHubStatsQuery();
 
-  const projects = useMemo(() => projectsData?.data || [], [projectsData]);
+  const projects = useMemo(() => {
+    const raw = projectsData?.data || [];
+    if (raw.length > 0) return raw;
+    return defaultFlagshipProjects;
+  }, [projectsData]);
 
   // Extract unique categories dynamically
   const categories = useMemo(() => {
