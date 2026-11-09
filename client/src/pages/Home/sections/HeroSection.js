@@ -13,90 +13,95 @@ import {
 import { getFileUrl } from '../../../utils/apiUrl';
 
 const HeroSection = ({ profileData, featuredProjectsCount }) => {
-  const resumeUrl = profileData?.resume
-    ? getFileUrl(profileData.resume)
-    : null;
-
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center bg-white pt-24 pb-16 overflow-hidden border-b border-slate-100">
-      {/* Linear-style subtle background grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+    <section className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center bg-white border-b border-slate-100 overflow-hidden">
+      {/* Subtle Linear Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] pointer-events-none" />
 
-      <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <div className="container-custom relative z-10 py-12 lg:py-20">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Content (7 cols) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-7 space-y-6"
+            className="lg:col-span-7 space-y-6 text-left"
           >
-            <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/90 text-xs font-mono font-medium text-slate-800">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Available for Opportunities</span>
-              </div>
-
-              <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
-                Portfolio • Full Stack Development
-              </div>
-
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight leading-tight">
-                <span className="block text-slate-600 font-medium text-xl sm:text-2xl mb-1">Hi, I'm</span>
-                <span className="text-slate-950 block break-words">{profileData?.name || 'Bishal Kumar Shaw'}</span>
-              </h1>
-
-              <h2 className="text-base sm:text-lg text-slate-600 font-mono font-medium">
-                {profileData?.title || 'Full Stack Developer'}
-              </h2>
+            {/* Live Status Badge */}
+            <div className="inline-flex items-center space-x-2 bg-emerald-50 border border-emerald-200/80 px-3 py-1 rounded-full text-xs font-mono font-medium text-emerald-800">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Available for Hire</span>
+              <span className="text-emerald-300">•</span>
+              <span className="text-emerald-700">Full-Stack / MERN</span>
             </div>
 
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
-              {profileData?.summary}
+            {/* Main Heading */}
+            <div className="space-y-2">
+              <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500">
+                Staff Software Engineer & Architect
+              </div>
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-950 leading-[1.08]">
+                {profileData?.name || 'Bishal Kumar Shaw'}
+              </h1>
+            </div>
+
+            {/* Bio / Summary */}
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl font-normal leading-relaxed">
+              {profileData?.summary ||
+                'Full-stack engineer with 9+ years of experience architecting resilient distributed systems, modern React frontends, and enterprise cloud applications.'}
             </p>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-1">
-              <div className="p-3.5 sm:p-4 rounded-xl border border-slate-200/90 bg-slate-50/70 text-center">
-                <div className="text-2xl sm:text-3xl font-bold font-mono text-slate-950">
-                  {profileData?.yearsOfExperience || 9}+
+            {/* SLA / Stat Numbers (Strictly Monospace) */}
+            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-100 max-w-xl">
+              <div>
+                <div className="text-2xl sm:text-3xl font-mono font-bold text-slate-950">
+                  {profileData?.statistics?.yearsExperience ||
+                    profileData?.yearsOfExperience ||
+                    8}
+                  +
                 </div>
-                <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mt-1">Years Exp.</div>
+                <div className="text-xs font-mono text-slate-500 uppercase tracking-wider mt-0.5">
+                  Years Exp
+                </div>
               </div>
-              <div className="p-3.5 sm:p-4 rounded-xl border border-slate-200/90 bg-slate-50/70 text-center">
-                <div className="text-2xl sm:text-3xl font-bold font-mono text-slate-950">
-                  {featuredProjectsCount || 6}+
+              <div>
+                <div className="text-2xl sm:text-3xl font-mono font-bold text-slate-950">
+                  {profileData?.statistics?.projectsCompleted ||
+                    featuredProjectsCount ||
+                    50}
+                  +
                 </div>
-                <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mt-1">Projects Built</div>
+                <div className="text-xs font-mono text-slate-500 uppercase tracking-wider mt-0.5">
+                  Production Apps
+                </div>
               </div>
-              <div className="p-3.5 sm:p-4 rounded-xl border border-slate-200/90 bg-slate-50/70 text-center">
-                <div className="text-2xl sm:text-3xl font-bold font-mono text-slate-950">
-                  100%
+              <div>
+                <div className="text-2xl sm:text-3xl font-mono font-bold text-slate-950">
+                  {profileData?.statistics?.technologiesMastered || 20}+
                 </div>
-                <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mt-1">Satisfaction</div>
+                <div className="text-xs font-mono text-slate-500 uppercase tracking-wider mt-0.5">
+                  Tech Stacks
+                </div>
               </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <Link to="/projects" className="btn-primary group font-mono text-xs uppercase tracking-wider">
-                <span>View Projects</span>
+            {/* CTA Group */}
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Link to="/contact" className="btn-primary group">
+                <span>Start a Project</span>
                 <ArrowRight
-                  size={14}
+                  size={15}
                   className="ml-1.5 group-hover:translate-x-1 transition-transform"
                 />
               </Link>
-
-              <Link to="/contact" className="btn-secondary font-mono text-xs uppercase tracking-wider">
-                Get In Touch
+              <Link to="/projects" className="btn-secondary">
+                View Work
               </Link>
-
-              {resumeUrl && (
+              {profileData?.resume && (
                 <a
-                  href={resumeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary group font-mono text-xs uppercase tracking-wider"
+                  href={getFileUrl(profileData.resume)}
+                  download
+                  className="btn-outline group inline-flex items-center"
                 >
                   <Download
                     size={14}
@@ -137,7 +142,8 @@ const HeroSection = ({ profileData, featuredProjectsCount }) => {
             className="lg:col-span-5 flex justify-center"
           >
             <div className="relative">
-              <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 shadow-2xs">
+              {/* Circular Avatar Container */}
+              <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-2 border-slate-200 bg-slate-50 shadow-md">
                 {profileData?.profileImage ? (
                   <img
                     src={getFileUrl(profileData.profileImage)}
@@ -156,16 +162,16 @@ const HeroSection = ({ profileData, featuredProjectsCount }) => {
                 )}
               </div>
 
-              {/* Minimalist Tech Badges */}
-              <div className="absolute -top-3 -right-3 w-11 h-11 bg-slate-950 text-white rounded-xl flex items-center justify-center shadow-xl border border-slate-800">
+              {/* Minimalist Circular Tech Badges */}
+              <div className="absolute top-2 right-2 w-11 h-11 bg-slate-950 text-white rounded-full flex items-center justify-center shadow-lg border border-slate-800">
                 <Code size={18} />
               </div>
 
-              <div className="absolute -bottom-3 -left-3 w-11 h-11 bg-slate-950 text-white rounded-xl flex items-center justify-center shadow-xl border border-slate-800">
+              <div className="absolute bottom-2 left-2 w-11 h-11 bg-slate-950 text-white rounded-full flex items-center justify-center shadow-lg border border-slate-800">
                 <Database size={18} />
               </div>
 
-              <div className="absolute top-1/2 -left-5 -translate-y-1/2 w-10 h-10 bg-slate-950 text-emerald-400 rounded-xl flex items-center justify-center shadow-xl border border-slate-800">
+              <div className="absolute top-1/2 -left-4 -translate-y-1/2 w-10 h-10 bg-slate-950 text-emerald-400 rounded-full flex items-center justify-center shadow-lg border border-slate-800">
                 <Zap size={16} />
               </div>
             </div>

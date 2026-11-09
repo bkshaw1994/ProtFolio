@@ -1,36 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
-  const [imgError, setImgError] = React.useState(false);
+  const [imgError, setImgError] = useState(false);
   if (!skill) return null;
 
   const sizeClasses = {
-    sm: 'p-3 sm:p-4',
-    md: 'p-3.5 sm:p-5',
+    sm: 'p-3.5 sm:p-4',
+    md: 'p-4 sm:p-5',
     lg: 'p-5 sm:p-6'
+  };
+
+  const iconContainerSizes = {
+    sm: 'w-9 h-9 sm:w-10 sm:h-10',
+    md: 'w-10 h-10 sm:w-12 sm:h-12',
+    lg: 'w-12 h-12 sm:w-14 sm:h-14'
   };
 
   const iconImageSizes = {
     sm: 'w-5 h-5 sm:w-6 sm:h-6',
-    md: 'w-7 h-7 sm:w-9 sm:h-9',
-    lg: 'w-10 h-10 sm:w-12 sm:h-12'
+    md: 'w-6 h-6 sm:w-7 sm:h-7',
+    lg: 'w-8 h-8 sm:w-9 sm:h-9'
   };
 
-  const iconTextSizes = {
-    sm: 'text-lg sm:text-xl',
-    md: 'text-xl sm:text-2xl',
-    lg: 'text-3xl sm:text-4xl'
-  };
-
-  // Official SVG tech logos mapped by skill name
+  // Comprehensive official SVG tech logos mapped by skill name
   const getSkillLogoUrl = (skillName) => {
     if (!skillName) return null;
     const name = skillName.toLowerCase().replace(/[^a-z0-9]/g, '');
     const logoMap = {
       react: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
       reactjs: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+      reactnative: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
       javascript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
       js: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+      es6: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
       typescript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
       ts: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
       nodejs: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
@@ -49,7 +51,9 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
       github: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg',
       docker: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
       aws: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg',
+      amazonwebservices: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg',
       redux: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg',
+      reduxtoolkit: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg',
       tailwind: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg',
       tailwindcss: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg',
       nextjs: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
@@ -65,7 +69,14 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
       bootstrap: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg',
       figma: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg',
       graphql: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg',
-      vscode: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg'
+      vscode: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg',
+      jest: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg',
+      webpack: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg',
+      npm: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg',
+      linux: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg',
+      postman: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg',
+      socketio: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original.svg',
+      firebase: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg'
     };
     return logoMap[name] || null;
   };
@@ -74,32 +85,29 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
     const name = skillName.toLowerCase();
     const iconMap = {
       react: '⚛️',
-      javascript: 'JS',
-      typescript: 'TS',
-      nodejs: 'Node',
-      'node.js': 'Node',
+      javascript: '⚡',
+      typescript: '🔷',
+      nodejs: '🟢',
+      'node.js': '🟢',
       mongodb: '🍃',
-      express: 'Ex',
-      css: 'CSS',
-      html: 'HTML',
-      python: 'Py',
-      java: 'Java',
-      git: 'Git',
+      express: '🚂',
+      css: '🎨',
+      html: '📄',
+      python: '🐍',
+      java: '☕',
+      git: '📂',
       docker: '🐳',
-      aws: 'AWS',
-      azure: 'Cloud',
-      mysql: 'SQL',
-      postgresql: 'PG',
-      redis: 'Redis',
-      vue: 'Vue',
-      angular: 'NG',
-      php: 'PHP',
-      laravel: 'Laravel',
-      django: 'Django',
-      flask: 'Flask',
-      graphql: 'GQL',
-      rest: 'REST',
-      api: 'API'
+      aws: '☁️',
+      azure: '☁️',
+      mysql: '🗄️',
+      postgresql: '🐘',
+      redis: '🔴',
+      vue: '💚',
+      angular: '🔺',
+      php: '🐘',
+      graphql: '💜',
+      rest: '🌐',
+      api: '🔌'
     };
 
     return iconMap[name] || '💻';
@@ -117,15 +125,15 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
             : 'Beginner');
 
     const badgeStyles = {
-      Expert: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-      Advanced: 'bg-slate-900 text-white border-slate-900',
-      Intermediate: 'bg-slate-100 text-slate-700 border-slate-200',
-      Beginner: 'bg-slate-50 text-slate-500 border-slate-200'
+      Expert: 'bg-emerald-50 text-emerald-700 border-emerald-200/90',
+      Advanced: 'bg-slate-100 text-slate-800 border-slate-200',
+      Intermediate: 'bg-amber-50 text-amber-700 border-amber-200/90',
+      Beginner: 'bg-slate-50 text-slate-600 border-slate-200'
     };
 
     return (
       <span
-        className={`text-2xs font-mono font-semibold uppercase tracking-wider px-2 py-0.5 rounded border flex-shrink-0 ${
+        className={`text-[10px] font-mono font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full border flex-shrink-0 ${
           badgeStyles[lvl] || badgeStyles.Advanced
         }`}
       >
@@ -156,23 +164,27 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
 
   return (
     <div
-      className={`bg-white rounded-xl border border-slate-200 ${
-        sizeClasses[size] || 'p-3.5 sm:p-5'
-      } shadow-2xs hover:border-slate-400 transition-colors flex flex-col justify-between h-full min-h-[140px] group`}
+      className={`bg-white rounded-xl border border-slate-200/90 hover:border-slate-400 ${
+        sizeClasses[size] || 'p-4 sm:p-5'
+      } shadow-2xs hover:shadow-xs transition-all duration-200 flex flex-col justify-between h-full min-h-[155px] group hover:-translate-y-0.5`}
     >
       <div>
-        {/* Top Header: Skill Icon & Level Badge Pill */}
-        <div className="flex items-center justify-between gap-1.5 mb-2.5">
-          <div className="p-1.5 bg-slate-50 border border-slate-100 rounded-lg group-hover:bg-slate-100 transition-colors flex-shrink-0">
+        {/* Top Header: Elevated Tech Icon & Level Badge */}
+        <div className="flex items-center justify-between gap-1.5 mb-3">
+          <div
+            className={`${
+              iconContainerSizes[size] || 'w-10 h-10 sm:w-12 sm:h-12'
+            } rounded-xl bg-slate-50 border border-slate-200/80 group-hover:border-slate-300 group-hover:bg-white flex items-center justify-center p-2 shadow-2xs transition-all duration-200 flex-shrink-0`}
+          >
             {logoUrl ? (
               <img
                 src={logoUrl}
                 alt={skill.name}
                 onError={() => setImgError(true)}
-                className={`${iconImageSizes[size]} object-contain`}
+                className={`${iconImageSizes[size] || 'w-6 h-6 sm:w-7 sm:h-7'} object-contain transition-transform duration-200 group-hover:scale-110`}
               />
             ) : (
-              <div className={`${iconTextSizes[size]} font-mono font-bold text-slate-700`}>
+              <div className="text-lg sm:text-xl transition-transform duration-200 group-hover:scale-110 select-none">
                 {skill.icon || getDefaultIcon(skill.name)}
               </div>
             )}
@@ -182,24 +194,24 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
         </div>
 
         {/* Skill Name */}
-        <h3 className="font-bold text-slate-950 text-sm sm:text-base tracking-tight truncate leading-snug">
+        <h3 className="font-bold text-slate-950 text-sm sm:text-base tracking-tight truncate leading-tight group-hover:text-slate-900">
           {skill.name}
         </h3>
 
         {/* Category */}
         {skill.category && (
-          <p className="text-2xs font-mono text-slate-500 uppercase tracking-wider mb-1 truncate">
+          <p className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mt-0.5 truncate">
             {skill.category.replace('-', ' ')}
           </p>
         )}
       </div>
 
-      <div className="mt-2.5">
+      <div className="mt-3">
         {/* Proficiency Bar & Percentage */}
         {showProficiency && (
-          <div className="space-y-1.5 pt-2 border-t border-slate-100">
-            <div className="flex items-center justify-between text-2xs font-mono">
-              <span className="uppercase tracking-wider text-slate-500">
+          <div className="space-y-1.5 pt-2.5 border-t border-slate-100">
+            <div className="flex items-center justify-between text-[11px] font-mono">
+              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-medium">
                 Proficiency
               </span>
               <span className="font-bold text-slate-950">
@@ -220,9 +232,9 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
         )}
 
         {/* Years of Experience / Core Badge */}
-        <div className="flex items-center justify-between gap-1 mt-2">
+        <div className="flex items-center justify-between gap-1 mt-2.5">
           {skill.yearsOfExperience ? (
-            <span className="text-2xs font-mono text-slate-500 truncate">
+            <span className="text-[11px] font-mono text-slate-400 truncate">
               {skill.yearsOfExperience}y exp.
             </span>
           ) : (
@@ -230,7 +242,8 @@ const SkillBadge = ({ skill, showProficiency = true, size = 'md' }) => {
           )}
 
           {skill.isCore && (
-            <span className="bg-slate-950 text-white text-2xs font-mono uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded flex-shrink-0">
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-950 text-white shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Core
             </span>
           )}

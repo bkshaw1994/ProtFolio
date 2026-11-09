@@ -100,7 +100,7 @@ const CoreSkillsSection = ({ coreSkills }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.4, delay: index * 0.04 }}
-                className="flex-shrink-0 w-[165px] sm:w-auto snap-start h-full"
+                className="flex-shrink-0 w-[180px] sm:w-auto snap-start h-full"
               >
                 <SkillBadge skill={skill} size="sm" />
               </motion.div>
