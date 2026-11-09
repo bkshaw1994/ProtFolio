@@ -25,7 +25,7 @@ const Experience = () => {
   if (isLoading) {
     return (
       <div className="pt-24 sm:pt-28 min-h-screen bg-white">
-        <div className="container-custom max-w-4xl mx-auto py-10">
+        <div className="container-custom max-w-5xl mx-auto py-10">
           <div className="h-10 bg-slate-200 rounded w-64 mb-4 animate-pulse" />
           <div className="h-5 bg-slate-200 rounded w-96 mb-12 animate-pulse" />
           <div className="space-y-6">
@@ -75,6 +75,24 @@ const Experience = () => {
     }
   };
 
+  const calculateTenureSpacing = (exp) => {
+    if (!exp?.startDate) return 48;
+    const start = new Date(exp.startDate);
+    const end = exp.endDate ? new Date(exp.endDate) : new Date();
+    const months = Math.max(
+      1,
+      (end.getFullYear() - start.getFullYear()) * 12 +
+        (end.getMonth() - start.getMonth())
+    );
+
+    // Spacing scales dynamically as per the tenure period:
+    // Base spacing: 48px (< 6 months)
+    // Scale up to 120px max for long tenures (3+ years)
+    const baseSpacing = 48;
+    const maxSpacing = 120;
+    return baseSpacing + Math.min(maxSpacing - baseSpacing, Math.round(months * 1.8));
+  };
+
   return (
     <>
       <Helmet>
@@ -86,9 +104,9 @@ const Experience = () => {
       </Helmet>
 
       <div className="pt-24 sm:pt-28 min-h-screen bg-white pb-20">
-        <div className="container-custom max-w-4xl mx-auto">
+        <div className="container-custom max-w-5xl mx-auto">
           {/* Header */}
-          <div className="max-w-3xl mb-12 space-y-2">
+          <div className="max-w-3xl mb-14 space-y-2">
             <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500">
               Career Trajectory & Track Record
             </div>
@@ -105,137 +123,379 @@ const Experience = () => {
               No experience records available.
             </p>
           ) : (
-            /* Left-Anchored Continuous Linear Timeline */
-            <div className="relative pl-6 sm:pl-8 space-y-10 before:absolute before:left-2 sm:before:left-3 before:top-3 before:bottom-3 before:w-px before:bg-slate-200">
-              {sortedExperience.map((exp, index) => (
-                <motion.div
-                  key={exp._id || index}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.35, delay: index * 0.05 }}
-                  className="relative group"
-                >
-                  {/* Timeline Node Indicator */}
-                  <div
-                    className={`absolute -left-[1.85rem] sm:-left-[2.35rem] top-1.5 w-3 h-3 rounded-full border-2 border-white transition-all ${
-                      exp.isCurrent
-                        ? 'bg-emerald-500 ring-4 ring-emerald-100'
-                        : 'bg-slate-400 group-hover:bg-slate-900'
-                    }`}
-                  />
+            /* Zigzag Timeline Container */
+            <div className="relative">
+              {sortedExperience.map((exp, index) => {
+                const isEven = index % 2 === 0;
+                const tenureSpacing = calculateTenureSpacing(exp);
+                const isLast = index === sortedExperience.length - 1;
 
-                  {/* Experience Card */}
-                  <div className="bg-white rounded-xl border border-slate-200/90 hover:border-slate-400 transition-colors duration-200 p-6 sm:p-7 shadow-2xs space-y-4">
-                    {/* Position & Company Header */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
-                      <div>
-                        <div className="flex items-center space-x-2 text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-1">
-                          <Building2 size={13} className="text-slate-400" />
-                          <span>{exp.company}</span>
-                          {exp.location && (
-                            <>
-                              <span className="text-slate-300">•</span>
-                              <span className="text-slate-400 font-normal lowercase">{exp.location}</span>
-                            </>
-                          )}
-                        </div>
-                        <h2 className="text-xl font-bold text-slate-950 tracking-tight">
-                          {exp.position}
-                        </h2>
-                      </div>
+                return (
+                  <motion.div
+                    key={exp._id || index}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.1 }}
+                    transition={{ duration: 0.35, delay: index * 0.05 }}
+                    style={{ marginBottom: isLast ? 0 : `${tenureSpacing}px` }}
+                    className="relative group"
+                  >
+                    {/* Spine Line Segments connecting dots exactly */}
+                    {/* Incoming top segment from previous item */}
+                    {index > 0 && (
+                      <>
+                        <div
+                          className="hidden md:block absolute left-1/2 -translate-x-1/2 w-px bg-slate-200 z-0"
+                          style={{ top: '0px', height: '36px' }}
+                        />
+                        <div
+                          className="md:hidden absolute left-4 -translate-x-1/2 w-px bg-slate-200 z-0"
+                          style={{ top: '0px', height: '36px' }}
+                        />
+                      </>
+                    )}
 
-                      <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-slate-500">
-                        {exp.isCurrent && (
-                          <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded text-[11px] font-semibold uppercase tracking-wider">
-                            Current Role
-                          </span>
-                        )}
-                        <span className="px-2.5 py-1 bg-slate-100 rounded text-slate-700 flex items-center gap-1.5">
-                          <Calendar size={12} className="text-slate-400" />
-                          <span>
-                            {formatDate(exp.startDate)} — {formatDate(exp.endDate)}
-                          </span>
-                        </span>
-                        <span className="text-slate-400 text-[11px]">
-                          ({calculateDuration(exp.startDate, exp.endDate)})
-                        </span>
-                      </div>
+                    {/* Outgoing downward segment to next item */}
+                    {!isLast && (
+                      <>
+                        <div
+                          className="hidden md:block absolute left-1/2 -translate-x-1/2 w-px bg-slate-200 z-0"
+                          style={{ top: '36px', bottom: `-${tenureSpacing}px` }}
+                        />
+                        <div
+                          className="md:hidden absolute left-4 -translate-x-1/2 w-px bg-slate-200 z-0"
+                          style={{ top: '36px', bottom: `-${tenureSpacing}px` }}
+                        />
+                      </>
+                    )}
+
+                    {/* Horizontal Connectors from Dot to Card & Metadata */}
+                    {isEven ? (
+                      <>
+                        {/* Desktop connector line from center dot to left card */}
+                        <div
+                          className="hidden md:block absolute right-1/2 w-10 h-px bg-slate-200 z-0"
+                          style={{ top: '36px' }}
+                        />
+                        {/* Desktop connector line from center dot to right metadata */}
+                        <div
+                          className="hidden md:block absolute left-1/2 w-10 h-px bg-slate-200/60 z-0"
+                          style={{ top: '36px' }}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        {/* Desktop connector line from center dot to left metadata */}
+                        <div
+                          className="hidden md:block absolute right-1/2 w-10 h-px bg-slate-200/60 z-0"
+                          style={{ top: '36px' }}
+                        />
+                        {/* Desktop connector line from center dot to right card */}
+                        <div
+                          className="hidden md:block absolute left-1/2 w-10 h-px bg-slate-200 z-0"
+                          style={{ top: '36px' }}
+                        />
+                      </>
+                    )}
+
+                    {/* Mobile horizontal connector line from left dot to card */}
+                    <div
+                      className="md:hidden absolute left-4 w-6 h-px bg-slate-200 z-0"
+                      style={{ top: '36px' }}
+                    />
+
+                    {/* Central / Left Timeline Node Dot */}
+                    <div
+                      style={{ top: '28px' }}
+                      className={`absolute z-10 w-4 h-4 rounded-full border-2 border-white transition-all flex items-center justify-center left-4 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 ${
+                        exp.isCurrent
+                          ? 'bg-emerald-500 ring-4 ring-emerald-100 shadow-xs'
+                          : 'bg-slate-900 ring-4 ring-slate-100 group-hover:bg-slate-950 shadow-2xs'
+                      }`}
+                    >
+                      {exp.isCurrent && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      )}
                     </div>
 
-                    {/* Role Description */}
-                    {exp.description && (
-                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                        {exp.description}
-                      </p>
-                    )}
+                    {/* Row Grid: 2 Columns on Desktop, 1 Column on Mobile */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 items-start">
+                      {isEven ? (
+                        <>
+                          {/* Left Column: Experience Card */}
+                          <div className="pl-10 md:pl-0 md:pr-10 w-full">
+                            <div className="bg-white rounded-xl border border-slate-200/90 hover:border-slate-400 transition-colors duration-200 p-6 sm:p-7 shadow-2xs space-y-4">
+                              {/* Position & Company Header */}
+                              <div className="border-b border-slate-100 pb-4">
+                                <div className="flex items-center space-x-2 text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-1">
+                                  <Building2 size={13} className="text-slate-400" />
+                                  <span>{exp.company}</span>
+                                  {exp.location && (
+                                    <>
+                                      <span className="text-slate-300">•</span>
+                                      <span className="text-slate-400 font-normal lowercase">{exp.location}</span>
+                                    </>
+                                  )}
+                                </div>
+                                <h2 className="text-xl font-bold text-slate-950 tracking-tight">
+                                  {exp.position}
+                                </h2>
 
-                    {/* Key Responsibilities & Contributions */}
-                    {exp.responsibilities && exp.responsibilities.length > 0 && (
-                      <div className="space-y-2 pt-1">
-                        <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500">
-                          Key Deliverables & Architectural Impact:
-                        </div>
-                        <ul className="space-y-2">
-                          {exp.responsibilities.map((resp, i) => (
-                            <li key={i} className="text-xs sm:text-sm text-slate-700 flex items-start gap-2.5 leading-relaxed">
-                              <CheckCircle2 size={14} className="text-slate-400 flex-shrink-0 mt-0.5" />
-                              <span>{resp}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                                {/* Mobile Date Display */}
+                                <div className="md:hidden flex flex-wrap items-center gap-2 font-mono text-xs text-slate-500 mt-2.5">
+                                  {exp.isCurrent && (
+                                    <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded text-[11px] font-semibold uppercase tracking-wider">
+                                      Current Role
+                                    </span>
+                                  )}
+                                  <span className="px-2.5 py-1 bg-slate-100 rounded text-slate-700 flex items-center gap-1.5">
+                                    <Calendar size={12} className="text-slate-400" />
+                                    <span>
+                                      {formatDate(exp.startDate)} — {formatDate(exp.endDate)}
+                                    </span>
+                                  </span>
+                                  <span className="text-slate-400 text-[11px]">
+                                    ({calculateDuration(exp.startDate, exp.endDate)})
+                                  </span>
+                                </div>
+                              </div>
 
-                    {/* Featured Projects in Role (if available) */}
-                    {exp.keyProjects && exp.keyProjects.length > 0 && (
-                      <div className="space-y-2.5 pt-2">
-                        <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500">
-                          Highlighted Projects:
-                        </div>
-                        <div className="grid sm:grid-cols-2 gap-2.5">
-                          {exp.keyProjects.map((proj, pIdx) => (
-                            <div key={pIdx} className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
-                              <div className="text-xs font-bold text-slate-900">{proj.name}</div>
-                              {proj.description && (
-                                <p className="text-[11px] text-slate-600 leading-normal">{proj.description}</p>
+                              {/* Role Description */}
+                              {exp.description && (
+                                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                                  {exp.description}
+                                </p>
                               )}
-                              {proj.impact && (
-                                <div className="text-[11px] font-mono text-emerald-700 flex items-center gap-1 mt-1">
-                                  <Sparkles size={11} className="text-emerald-600" />
-                                  <span>{proj.impact}</span>
+
+                              {/* Key Responsibilities & Contributions */}
+                              {exp.responsibilities && exp.responsibilities.length > 0 && (
+                                <div className="space-y-2 pt-1">
+                                  <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500">
+                                    Key Deliverables & Architectural Impact:
+                                  </div>
+                                  <ul className="space-y-2">
+                                    {exp.responsibilities.map((resp, i) => (
+                                      <li key={i} className="text-xs sm:text-sm text-slate-700 flex items-start gap-2.5 leading-relaxed">
+                                        <CheckCircle2 size={14} className="text-slate-400 flex-shrink-0 mt-0.5" />
+                                        <span>{resp}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {/* Featured Projects in Role */}
+                              {exp.keyProjects && exp.keyProjects.length > 0 && (
+                                <div className="space-y-2.5 pt-2">
+                                  <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500">
+                                    Highlighted Projects:
+                                  </div>
+                                  <div className="grid sm:grid-cols-2 gap-2.5">
+                                    {exp.keyProjects.map((proj, pIdx) => (
+                                      <div key={pIdx} className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
+                                        <div className="text-xs font-bold text-slate-900">{proj.name}</div>
+                                        {proj.description && (
+                                          <p className="text-[11px] text-slate-600 leading-normal">{proj.description}</p>
+                                        )}
+                                        {proj.impact && (
+                                          <div className="text-[11px] font-mono text-emerald-700 flex items-center gap-1 mt-1">
+                                            <Sparkles size={11} className="text-emerald-600" />
+                                            <span>{proj.impact}</span>
+                                          </div>
+                                        )}
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* Technologies & Tools */}
+                              {exp.technologies && exp.technologies.length > 0 && (
+                                <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
+                                  <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mr-1">
+                                    Stack:
+                                  </span>
+                                  {exp.technologies.map((tech, tIdx) => (
+                                    <span
+                                      key={tIdx}
+                                      className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-mono"
+                                    >
+                                      {tech}
+                                    </span>
+                                  ))}
                                 </div>
                               )}
                             </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                          </div>
 
-                    {/* Technologies & Tools */}
-                    {exp.technologies && exp.technologies.length > 0 && (
-                      <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mr-1">
-                          Stack:
-                        </span>
-                        {exp.technologies.map((tech, tIdx) => (
-                          <span
-                            key={tIdx}
-                            className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-mono"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
+                          {/* Right Column: Time Period & Tenure Metadata on Desktop */}
+                          <div className="hidden md:flex flex-col justify-start pt-7 pl-10 text-left space-y-2">
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200/90 text-xs font-mono font-semibold text-slate-900 shadow-2xs w-fit">
+                              <Calendar size={13} className="text-slate-500" />
+                              <span>{formatDate(exp.startDate)} — {formatDate(exp.endDate)}</span>
+                            </div>
+                            <div className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-600 bg-white border border-slate-200/60 rounded-md px-2.5 py-1 w-fit">
+                              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Tenure:</span>
+                              <span className="font-semibold text-slate-900">{calculateDuration(exp.startDate, exp.endDate)}</span>
+                            </div>
+                            {(exp.location || exp.workMode) && (
+                              <div className="text-[11px] font-mono text-slate-500 pt-0.5">
+                                {exp.workMode && <span className="capitalize font-medium text-slate-700">{exp.workMode}</span>}
+                                {exp.workMode && exp.location && <span className="text-slate-300 mx-1.5">•</span>}
+                                {exp.location && <span>{exp.location}</span>}
+                              </div>
+                            )}
+                            {exp.isCurrent && (
+                              <div className="inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-700 font-semibold bg-emerald-50 border border-emerald-200 rounded px-2 py-0.5 mt-1 w-fit">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                <span>Active Engagement</span>
+                              </div>
+                            )}
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          {/* Left Column: Time Period & Tenure Metadata on Desktop */}
+                          <div className="hidden md:flex flex-col justify-start items-end pt-7 pr-10 text-right space-y-2">
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200/90 text-xs font-mono font-semibold text-slate-900 shadow-2xs w-fit">
+                              <Calendar size={13} className="text-slate-500" />
+                              <span>{formatDate(exp.startDate)} — {formatDate(exp.endDate)}</span>
+                            </div>
+                            <div className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-600 bg-white border border-slate-200/60 rounded-md px-2.5 py-1 w-fit">
+                              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Tenure:</span>
+                              <span className="font-semibold text-slate-900">{calculateDuration(exp.startDate, exp.endDate)}</span>
+                            </div>
+                            {(exp.location || exp.workMode) && (
+                              <div className="text-[11px] font-mono text-slate-500 pt-0.5">
+                                {exp.workMode && <span className="capitalize font-medium text-slate-700">{exp.workMode}</span>}
+                                {exp.workMode && exp.location && <span className="text-slate-300 mx-1.5">•</span>}
+                                {exp.location && <span>{exp.location}</span>}
+                              </div>
+                            )}
+                            {exp.isCurrent && (
+                              <div className="inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-700 font-semibold bg-emerald-50 border border-emerald-200 rounded px-2 py-0.5 mt-1 w-fit">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                <span>Active Engagement</span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Right Column: Experience Card */}
+                          <div className="pl-10 md:pl-10 md:pr-0 w-full">
+                            <div className="bg-white rounded-xl border border-slate-200/90 hover:border-slate-400 transition-colors duration-200 p-6 sm:p-7 shadow-2xs space-y-4">
+                              {/* Position & Company Header */}
+                              <div className="border-b border-slate-100 pb-4">
+                                <div className="flex items-center space-x-2 text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-1">
+                                  <Building2 size={13} className="text-slate-400" />
+                                  <span>{exp.company}</span>
+                                  {exp.location && (
+                                    <>
+                                      <span className="text-slate-300">•</span>
+                                      <span className="text-slate-400 font-normal lowercase">{exp.location}</span>
+                                    </>
+                                  )}
+                                </div>
+                                <h2 className="text-xl font-bold text-slate-950 tracking-tight">
+                                  {exp.position}
+                                </h2>
+
+                                {/* Mobile Date Display */}
+                                <div className="md:hidden flex flex-wrap items-center gap-2 font-mono text-xs text-slate-500 mt-2.5">
+                                  {exp.isCurrent && (
+                                    <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded text-[11px] font-semibold uppercase tracking-wider">
+                                      Current Role
+                                    </span>
+                                  )}
+                                  <span className="px-2.5 py-1 bg-slate-100 rounded text-slate-700 flex items-center gap-1.5">
+                                    <Calendar size={12} className="text-slate-400" />
+                                    <span>
+                                      {formatDate(exp.startDate)} — {formatDate(exp.endDate)}
+                                    </span>
+                                  </span>
+                                  <span className="text-slate-400 text-[11px]">
+                                    ({calculateDuration(exp.startDate, exp.endDate)})
+                                  </span>
+                                </div>
+                              </div>
+
+                              {/* Role Description */}
+                              {exp.description && (
+                                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                                  {exp.description}
+                                </p>
+                              )}
+
+                              {/* Key Responsibilities & Contributions */}
+                              {exp.responsibilities && exp.responsibilities.length > 0 && (
+                                <div className="space-y-2 pt-1">
+                                  <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500">
+                                    Key Deliverables & Architectural Impact:
+                                  </div>
+                                  <ul className="space-y-2">
+                                    {exp.responsibilities.map((resp, i) => (
+                                      <li key={i} className="text-xs sm:text-sm text-slate-700 flex items-start gap-2.5 leading-relaxed">
+                                        <CheckCircle2 size={14} className="text-slate-400 flex-shrink-0 mt-0.5" />
+                                        <span>{resp}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {/* Featured Projects in Role */}
+                              {exp.keyProjects && exp.keyProjects.length > 0 && (
+                                <div className="space-y-2.5 pt-2">
+                                  <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500">
+                                    Highlighted Projects:
+                                  </div>
+                                  <div className="grid sm:grid-cols-2 gap-2.5">
+                                    {exp.keyProjects.map((proj, pIdx) => (
+                                      <div key={pIdx} className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
+                                        <div className="text-xs font-bold text-slate-900">{proj.name}</div>
+                                        {proj.description && (
+                                          <p className="text-[11px] text-slate-600 leading-normal">{proj.description}</p>
+                                        )}
+                                        {proj.impact && (
+                                          <div className="text-[11px] font-mono text-emerald-700 flex items-center gap-1 mt-1">
+                                            <Sparkles size={11} className="text-emerald-600" />
+                                            <span>{proj.impact}</span>
+                                          </div>
+                                        )}
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* Technologies & Tools */}
+                              {exp.technologies && exp.technologies.length > 0 && (
+                                <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
+                                  <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mr-1">
+                                    Stack:
+                                  </span>
+                                  {exp.technologies.map((tech, tIdx) => (
+                                    <span
+                                      key={tIdx}
+                                      className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-mono"
+                                    >
+                                      {tech}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           )}
 
           {/* Bottom Conversion Prompt */}
-          <div className="mt-14 p-6 sm:p-7 rounded-xl bg-slate-950 text-white border border-slate-800 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-5">
+          <div className="mt-16 p-6 sm:p-7 rounded-xl bg-slate-950 text-white border border-slate-800 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-5">
             <div className="space-y-1 text-center sm:text-left">
               <h3 className="text-base font-bold text-white">
                 Looking for senior frontend architecture leadership?
