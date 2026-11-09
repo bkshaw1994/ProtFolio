@@ -44,27 +44,27 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-white shadow-md shadow-primary-500/20 hover:shadow-lg hover:shadow-primary-500/30 transform hover:-translate-y-0.5 px-4 py-2.5 rounded-xl font-medium text-sm transition-all duration-300;
+    @apply inline-flex items-center justify-center bg-slate-900 hover:bg-slate-800 text-white shadow-xs px-4 py-2.5 rounded-lg font-medium text-sm transition-colors duration-150;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center bg-white/90 backdrop-blur-md text-slate-700 border border-slate-200 hover:bg-white hover:border-primary-300 hover:text-primary-600 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 px-4 py-2.5 rounded-xl font-medium text-sm transition-all duration-300;
+    @apply inline-flex items-center justify-center bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 hover:text-slate-950 px-4 py-2.5 rounded-lg font-medium text-sm transition-colors duration-150;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center bg-transparent text-primary-600 border border-primary-500/80 hover:bg-primary-600 hover:text-white focus:ring-primary-500 hover:shadow-md hover:shadow-primary-500/20 transform hover:-translate-y-0.5 px-4 py-2.5 rounded-xl font-medium text-sm transition-all duration-300;
+    @apply inline-flex items-center justify-center bg-transparent text-slate-900 border border-slate-300 hover:bg-slate-100 px-4 py-2.5 rounded-lg font-medium text-sm transition-colors duration-150;
   }
 
   .card {
-    @apply bg-white/90 backdrop-blur-md rounded-2xl shadow-md shadow-slate-200/80 hover:shadow-xl hover:shadow-slate-300/80 transition-all duration-300 border border-slate-200/80 hover:border-slate-300 overflow-hidden;
+    @apply bg-white rounded-xl border border-slate-200/90 shadow-2xs hover:border-slate-400 transition-colors duration-200 overflow-hidden;
   }
 
   .card-hover {
-    @apply hover:shadow-2xl hover:shadow-slate-300/80 hover:-translate-y-1.5 transform transition-all duration-300;
+    @apply hover:border-slate-400 transition-colors duration-200;
   }
 
   .glass-card {
-    @apply bg-white/85 backdrop-blur-xl border border-slate-200/80 rounded-2xl shadow-lg shadow-slate-200/70 hover:shadow-xl hover:shadow-slate-300/80 transition-all duration-300;
+    @apply bg-white rounded-xl border border-slate-200/90 shadow-2xs transition-colors duration-200;
   }
 
   .input-field {
@@ -84,7 +84,7 @@
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-primary-600 via-primary-500 to-indigo-600 bg-clip-text text-transparent pb-1 leading-normal;
+    @apply bg-gradient-to-r from-slate-950 via-slate-800 to-slate-700 bg-clip-text text-transparent pb-1 leading-normal;
   }
 
   .text-gradient-subtle {
@@ -130,7 +130,7 @@
 /* Custom background pattern utilities */
 .bg-grid-pattern {
   background-size: 32px 32px;
-  background-image: radial-gradient(circle, rgba(14, 165, 233, 0.12) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(100, 116, 139, 0.12) 1px, transparent 1px);
 }
 
 .glow-blob {

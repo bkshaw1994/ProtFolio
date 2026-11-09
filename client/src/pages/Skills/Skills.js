@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useGetSkillsQuery } from '../../features/api/apiSlice';
 import SkillBadge from '../../components/SkillBadge';
 import { SkeletonSkill } from '../../components/Skeleton';
-import { Sparkles, Code2, Layers, Cpu } from 'lucide-react';
+import { Code2, Layers, Cpu } from 'lucide-react';
 
 const Skills = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -15,11 +15,9 @@ const Skills = () => {
     refetch
   } = useGetSkillsQuery();
 
-  // Extract the actual skills data from the API response
   const skills = skillsResponse?.data || {};
   const skillCategories = Object.keys(skills);
 
-  // Calculate total count of all skills
   const totalSkillsCount = skillCategories.reduce((acc, cat) => {
     return acc + (Array.isArray(skills[cat]) ? skills[cat].length : 0);
   }, 0);
@@ -28,33 +26,22 @@ const Skills = () => {
     return (
       <>
         <Helmet>
-          <title>Skills - Portfolio</title>
+          <title>Skills - Technical Expertise</title>
           <meta
             name="description"
-            content="My technical skills and expertise in various technologies"
+            content="Technical skills and architecture capabilities"
           />
         </Helmet>
-        <div className="pt-24 sm:pt-28">
-          <section className="section-padding bg-gradient-to-br from-primary-50 to-secondary-50">
-            <div className="container-custom text-center">
-              <div className="h-12 bg-gray-200 rounded w-64 mx-auto mb-6 animate-pulse"></div>
-              <div className="h-6 bg-gray-200 rounded w-96 mx-auto animate-pulse"></div>
-            </div>
-          </section>
-          <section className="section-padding">
-            <div className="container-custom">
-              {Array.from({ length: 3 }).map((_, categoryIndex) => (
-                <div key={categoryIndex} className="mb-16">
-                  <div className="h-8 bg-gray-200 rounded w-48 mb-8 animate-pulse"></div>
-                  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-                    {Array.from({ length: 8 }).map((_, index) => (
-                      <SkeletonSkill key={index} />
-                    ))}
-                  </div>
-                </div>
+        <div className="pt-24 sm:pt-28 min-h-screen bg-white">
+          <div className="container-custom max-w-6xl mx-auto py-10">
+            <div className="h-10 bg-slate-200 rounded w-64 mb-4 animate-pulse" />
+            <div className="h-5 bg-slate-200 rounded w-96 mb-12 animate-pulse" />
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {Array.from({ length: 8 }).map((_, index) => (
+                <SkeletonSkill key={index} />
               ))}
             </div>
-          </section>
+          </div>
         </div>
       </>
     );
@@ -62,9 +49,9 @@ const Skills = () => {
 
   if (isError) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28">
+      <div className="min-h-screen flex items-center justify-center pt-24 sm:pt-28 bg-white">
         <div className="text-center">
-          <div className="text-red-500 mb-4">Error loading skills</div>
+          <div className="text-red-500 mb-4 font-mono text-sm">Error loading technical skills</div>
           <button onClick={() => refetch()} className="btn-primary">
             Try Again
           </button>
@@ -80,76 +67,48 @@ const Skills = () => {
   return (
     <>
       <Helmet>
-        <title>Skills - Portfolio</title>
+        <title>Technical Skills & Architecture Stack - Bishal Kumar Shaw</title>
         <meta
           name="description"
-          content="My technical skills and expertise in various technologies"
+          content="Production-tested technical skills: Next.js, React, TypeScript, Redis, Puppeteer, Node.js, and CI/CD testing frameworks."
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 min-h-screen pb-16">
-        {/* Header Hero Banner */}
-        <section className="py-10 sm:py-14 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_50%)] pointer-events-none"></div>
-          <div className="container-custom text-center relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-primary-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-white/10"
-            >
-              <Sparkles size={13} />
-              <span>Tech Stack & Capabilities</span>
-            </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3 text-white"
-            >
-              Technical Expertise
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto font-normal"
-            >
-              Comprehensive breakdown of my skills, tools, and tech stack proficiency
-            </motion.p>
+      <div className="pt-24 sm:pt-28 min-h-screen bg-white pb-20">
+        <div className="container-custom max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="mb-8 space-y-2">
+            <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500">
+              Technical Arsenal & Core Stack
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
+              Architecture Capabilities & Stack
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 font-normal max-w-2xl">
+              Comprehensive breakdown of production-tested frameworks, state management engines, distributed caching systems, and automated test suites.
+            </p>
           </div>
-        </section>
 
-        {/* Category Filter Tabs Section */}
-        <section className="pt-6 pb-2">
-          <div className="container-custom px-4 text-center">
-            <div className="inline-flex items-center sm:justify-center overflow-x-auto scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex-nowrap sm:flex-wrap gap-2 sm:gap-3 p-1.5 bg-slate-100/80 backdrop-blur-lg rounded-full w-fit max-w-full mx-auto border border-slate-200/80 shadow-inner">
-              {/* 'All' Tab */}
+          {/* Minimalist Category Filter Tabs */}
+          <div className="mb-10 overflow-x-auto scrollbar-none pb-2">
+            <div className="inline-flex items-center gap-1.5 p-1 bg-slate-100 rounded-lg border border-slate-200/80">
               <button
                 onClick={() => setActiveTab('all')}
-                className={`relative px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center gap-2 flex-shrink-0 ${
+                className={`px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-colors flex items-center gap-1.5 whitespace-nowrap ${
                   activeTab === 'all'
-                    ? 'text-white shadow-md'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                    ? 'bg-slate-900 text-white shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-950'
                 }`}
               >
-                {activeTab === 'all' && (
-                  <motion.div
-                    layoutId="activeSkillTab"
-                    className="absolute inset-0 bg-gradient-to-r from-primary-600 to-indigo-600 rounded-full"
-                    transition={{ type: 'spring', stiffness: 400, damping: 35 }}
-                  />
-                )}
-                <span className="relative z-10 flex items-center gap-1.5">
-                  <Layers size={14} />
-                  <span>All Skills</span>
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${activeTab === 'all' ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'}`}>
-                    {totalSkillsCount}
-                  </span>
+                <Layers size={13} />
+                <span>All Technologies</span>
+                <span className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
+                  activeTab === 'all' ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
+                }`}>
+                  {totalSkillsCount}
                 </span>
               </button>
 
-              {/* Category Tabs */}
               {skillCategories.map((category) => {
                 const count = Array.isArray(skills[category]) ? skills[category].length : 0;
                 const isSelected = activeTab.toLowerCase() === category.toLowerCase();
@@ -157,88 +116,75 @@ const Skills = () => {
                   <button
                     key={category}
                     onClick={() => setActiveTab(category)}
-                    className={`relative px-4 py-2 rounded-full text-xs sm:text-sm font-semibold capitalize transition-all duration-300 flex items-center gap-2 flex-shrink-0 ${
+                    className={`px-3 py-1.5 rounded-md text-xs font-mono font-medium capitalize transition-colors flex items-center gap-1.5 whitespace-nowrap ${
                       isSelected
-                        ? 'text-white shadow-md'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                        ? 'bg-slate-900 text-white shadow-2xs'
+                        : 'text-slate-600 hover:text-slate-950'
                     }`}
                   >
-                    {isSelected && (
-                      <motion.div
-                        layoutId="activeSkillTab"
-                        className="absolute inset-0 bg-gradient-to-r from-primary-600 to-indigo-600 rounded-full"
-                        transition={{ type: 'spring', stiffness: 400, damping: 35 }}
-                      />
-                    )}
-                    <span className="relative z-10 flex items-center gap-1.5">
-                      <Code2 size={14} />
-                      <span>{category.replace('-', ' ')}</span>
-                      <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'}`}>
-                        {count}
-                      </span>
+                    <Code2 size={13} />
+                    <span>{category.replace('-', ' ')}</span>
+                    <span className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
+                      isSelected ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
+                    }`}>
+                      {count}
                     </span>
                   </button>
                 );
               })}
             </div>
           </div>
-        </section>
 
-        {/* Skills Grid by Category */}
-        <section className="py-4">
-          <div className="container-custom">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-12"
-              >
-                {filteredCategories.map((category) => (
-                  <div key={category} className="space-y-6">
-                    {/* Category Title (visible when 'all' is selected) */}
-                    {activeTab === 'all' && (
-                      <div className="flex items-center gap-3 border-b border-slate-200 pb-3">
-                        <div className="p-2 bg-primary-50 rounded-xl text-primary-600">
-                          <Cpu size={20} />
-                        </div>
-                        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 capitalize">
-                          {category.replace('-', ' ')} Skills
-                        </h2>
-                        <span className="text-xs font-semibold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full">
-                          {Array.isArray(skills[category]) ? skills[category].length : 0} items
-                        </span>
+          {/* Skills Grid by Category */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25 }}
+              className="space-y-10"
+            >
+              {filteredCategories.map((category) => (
+                <div key={category} className="space-y-4">
+                  {/* Category Title */}
+                  {activeTab === 'all' && (
+                    <div className="flex items-center gap-2 border-b border-slate-200 pb-2.5">
+                      <Cpu size={16} className="text-slate-500" />
+                      <h2 className="text-base font-bold text-slate-900 capitalize">
+                        {category.replace('-', ' ')}
+                      </h2>
+                      <span className="text-[11px] font-mono text-slate-400">
+                        ({Array.isArray(skills[category]) ? skills[category].length : 0} tools)
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Responsive Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                    {Array.isArray(skills[category]) && skills[category].length > 0 ? (
+                      skills[category].map((skill, idx) => (
+                        <motion.div
+                          key={skill._id || skill.name}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.2, delay: idx * 0.02 }}
+                          className="h-full flex flex-col"
+                        >
+                          <SkillBadge skill={{ ...skill, category }} />
+                        </motion.div>
+                      ))
+                    ) : (
+                      <div className="text-slate-400 col-span-full py-6 text-center text-xs font-mono">
+                        No skills listed in this category.
                       </div>
                     )}
-
-                    {/* Responsive Grid: 2 cols on mobile, 3 on md, 4 on lg */}
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-                      {Array.isArray(skills[category]) && skills[category].length > 0 ? (
-                        skills[category].map((skill, idx) => (
-                          <motion.div
-                            key={skill._id || skill.name}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.3, delay: idx * 0.04 }}
-                            className="h-full flex flex-col"
-                          >
-                            <SkillBadge skill={{ ...skill, category }} />
-                          </motion.div>
-                        ))
-                      ) : (
-                        <div className="text-slate-400 col-span-full py-8 text-center text-sm font-medium">
-                          No skills found in this category.
-                        </div>
-                      )}
-                    </div>
                   </div>
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </section>
+                </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </>
   );

@@ -2,28 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Mail,
-  Phone,
   MapPin,
-  Heart,
-  Eye
+  Github,
+  Linkedin,
+  FileText,
+  ArrowUpRight
 } from 'lucide-react';
 import {
   useGetProfileQuery,
-  useGetVisitorCountQuery,
   useIncrementVisitorCountMutation
 } from '../../features/api/apiSlice';
+import { getFileUrl } from '../../utils/apiUrl';
 
 const Footer = () => {
   const { data: profile } = useGetProfileQuery();
-  const { data: visitorData } = useGetVisitorCountQuery();
   const [incrementVisitorCount] = useIncrementVisitorCountMutation();
   const [hasTracked, setHasTracked] = useState(false);
   const currentYear = new Date().getFullYear();
 
-  // Extract profile data - handle nested API data structure
   const profileData = profile?.data || profile;
 
-  // Track visitor on mount
+  // Track visitor quietly in the background without displaying a retro hit counter
   useEffect(() => {
     if (!hasTracked) {
       const trackVisit = async () => {
@@ -50,49 +49,55 @@ const Footer = () => {
   const quickLinks = [
     { path: '/', label: 'Home' },
     { path: '/case-studies', label: 'Case Studies' },
-    { path: '/services', label: 'Services & Pricing' },
-    { path: '/projects', label: 'Projects' },
+    { path: '/services', label: 'Services & Sprints' },
+    { path: '/projects', label: 'All Projects' },
     { path: '/experience', label: 'Experience' },
     { path: '/about', label: 'About' },
     { path: '/contact', label: 'Contact' }
   ];
 
   return (
-    <footer className="relative bg-slate-950 text-white overflow-hidden border-t border-slate-800/80 pb-20 md:pb-0">
-      <div className="container-custom relative z-10">
+    <footer className="bg-slate-950 text-white border-t border-slate-800">
+      <div className="container-custom">
         {/* Main Footer Content */}
-        <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* About Section */}
-          <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-tr from-primary-600 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md shadow-primary-500/20">
-                {profileData?.name ? profileData.name.charAt(0).toUpperCase() : 'P'}
+        <div className="py-14 grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
+          {/* Brand & Value Statement (5 cols) */}
+          <div className="md:col-span-5 space-y-4">
+            <div className="flex items-center space-x-2.5">
+              <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-white font-bold text-xs tracking-tight">
+                {profileData?.name ? profileData.name.charAt(0).toUpperCase() : 'B'}
               </div>
               <div>
-                <h3 className="text-xl font-bold tracking-tight text-white">
-                  {profileData?.name || 'Full Stack Developer'}
+                <h3 className="text-base font-bold tracking-tight text-white">
+                  {profileData?.name || 'Bishal Kumar Shaw'}
                 </h3>
-                <p className="text-slate-400 text-xs font-medium">
-                  {profileData?.title || 'MERN Stack Developer'}
+                <p className="text-slate-400 text-xs font-mono">
+                  Senior Frontend & Full-Stack Architect
                 </p>
               </div>
             </div>
 
-            <p className="text-slate-400 text-sm max-w-md leading-relaxed font-normal">
-              {profileData?.summary ||
-                'Passionate full-stack developer with 9 years of experience in building scalable web applications using modern technologies.'}
+            <p className="text-slate-400 text-xs sm:text-sm max-w-sm leading-relaxed font-normal">
+              Specialized in sub-second Core Web Vitals, Next.js architecture, and high-velocity MVP sprints for Seed-to-Series-A startups and high-growth brands.
             </p>
+
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-900 border border-slate-800 text-[11px] font-mono text-slate-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Available for Select Q1/Q2 Contracts</span>
+            </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 mb-4">Quick Links</h3>
-            <nav className="space-y-2.5">
+          {/* Navigation Links (3 cols) */}
+          <div className="md:col-span-3">
+            <div className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3">
+              Navigation
+            </div>
+            <nav className="space-y-2">
               {quickLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className="block text-slate-400 hover:text-white hover:translate-x-1 transition-all text-sm font-medium"
+                  className="block text-slate-400 hover:text-white transition-colors text-xs font-medium"
                 >
                   {link.label}
                 </Link>
@@ -100,77 +105,92 @@ const Footer = () => {
             </nav>
           </div>
 
-          {/* Connect Section - Contact Details */}
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 mb-4">Connect</h3>
-            <div className="space-y-3 text-sm text-slate-300 font-medium">
+          {/* Connect & Social (4 cols) */}
+          <div className="md:col-span-4 space-y-3">
+            <div className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3">
+              Direct Channels
+            </div>
+
+            <div className="space-y-2 text-xs text-slate-300">
               {profileData?.email && (
-                <div className="flex items-center space-x-3">
-                  <Mail size={16} className="text-primary-400 flex-shrink-0" />
+                <div className="flex items-center space-x-2.5">
+                  <Mail size={14} className="text-slate-400 flex-shrink-0" />
                   <a
                     href={`mailto:${profileData.email}`}
-                    className="hover:text-primary-400 transition-colors"
+                    className="hover:text-white transition-colors font-mono"
                   >
                     {profileData.email}
                   </a>
                 </div>
               )}
 
-              {profileData?.phone && (
-                <div className="flex items-center space-x-3">
-                  <Phone size={16} className="text-primary-400 flex-shrink-0" />
-                  <a
-                    href={`tel:${profileData.phone}`}
-                    className="hover:text-primary-400 transition-colors"
-                  >
-                    {profileData.phone}
-                  </a>
-                </div>
-              )}
-
               {profileData?.location && (
-                <div className="flex items-center space-x-3">
-                  <MapPin size={16} className="text-primary-400 flex-shrink-0" />
-                  <span>{profileData.location}</span>
+                <div className="flex items-center space-x-2.5 text-slate-400">
+                  <MapPin size={14} className="text-slate-400 flex-shrink-0" />
+                  <span>{profileData.location} (Remote Worldwide)</span>
                 </div>
               )}
             </div>
 
-            {/* Call to Action */}
-            <div className="mt-6">
-              <Link to="/contact" className="btn-primary w-full justify-center text-xs tracking-wider uppercase py-3">
-                Start a Project
+            {/* Social / External Links */}
+            <div className="flex items-center gap-3 pt-2">
+              {profileData?.socialLinks?.github && (
+                <a
+                  href={profileData.socialLinks.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-850 border border-slate-800 text-xs font-medium text-slate-300 hover:text-white transition-colors"
+                >
+                  <Github size={13} />
+                  <span>GitHub</span>
+                </a>
+              )}
+
+              {profileData?.socialLinks?.linkedin && (
+                <a
+                  href={profileData.socialLinks.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-850 border border-slate-800 text-xs font-medium text-slate-300 hover:text-white transition-colors"
+                >
+                  <Linkedin size={13} />
+                  <span>LinkedIn</span>
+                </a>
+              )}
+
+              {profileData?.resume && (
+                <a
+                  href={getFileUrl(profileData.resume)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-850 border border-slate-800 text-xs font-medium text-slate-300 hover:text-white transition-colors"
+                >
+                  <FileText size={13} />
+                  <span>CV</span>
+                </a>
+              )}
+            </div>
+
+            <div className="pt-2">
+              <Link
+                to="/contact?service=audit"
+                className="inline-flex items-center justify-center px-4 py-2 rounded-lg text-xs font-semibold text-slate-950 bg-white hover:bg-slate-100 transition-colors"
+              >
+                <span>Book 15-Min Audit</span>
+                <ArrowUpRight size={13} className="ml-1" />
               </Link>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-slate-800/80">
-          <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 text-slate-400 text-xs font-medium">
-              <span>
-                © {currentYear} {profileData?.name || 'Portfolio'}. All rights
-                reserved.
-              </span>
+        <div className="py-6 border-t border-slate-800/80 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-slate-500 font-mono">
+          <div>
+            © {currentYear} {profileData?.name || 'Bishal Kumar Shaw'}. All rights reserved.
+          </div>
 
-              {/* Visitor Counter */}
-              {visitorData?.data && (
-                <div className="flex items-center space-x-2 px-3 py-1 bg-slate-900 border border-slate-800 rounded-full">
-                  <Eye size={13} className="text-primary-400" />
-                  <span className="text-slate-300">
-                    {visitorData.data.totalVisits.toLocaleString()}{' '}
-                    {visitorData.data.totalVisits === 1 ? 'visit' : 'visits'}
-                  </span>
-                </div>
-              )}
-            </div>
-
-            <div className="flex items-center space-x-2 text-slate-400 text-xs font-medium">
-              <span>Crafted with</span>
-              <Heart size={15} className="text-rose-500 animate-pulse" />
-              <span>using MERN Stack</span>
-            </div>
+          <div>
+            Built with Next.js architecture standards & zero runtime waste.
           </div>
         </div>
       </div>

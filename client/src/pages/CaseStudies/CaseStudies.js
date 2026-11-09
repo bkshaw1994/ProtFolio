@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
-  Sparkles,
   Github,
   ArrowRight,
   CheckCircle2,
@@ -31,76 +30,72 @@ const CaseStudies = () => {
   return (
     <>
       <Helmet>
-        <title>Architectural Case Studies | Next.js & Core Web Vitals - Bishal Kumar Shaw</title>
+        <title>Architectural Case Studies | Next.js & Performance - Bishal Kumar Shaw</title>
         <meta
           name="description"
           content="In-depth architectural case studies using the Situation-Action-Result (SAR) framework. Real metrics on sub-second LCP, bundle reduction, and Next.js performance overhauls."
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 pb-20 bg-slate-50/60 bg-grid-pattern min-h-screen">
+      <div className="pt-24 sm:pt-28 pb-20 bg-white min-h-screen">
         <div className="container-custom">
           {/* Page Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
+            transition={{ duration: 0.4 }}
+            className="max-w-3xl mb-10"
           >
-            <div className="inline-flex items-center space-x-2 bg-primary-100/80 border border-primary-200/80 px-4 py-1.5 rounded-full text-primary-800 text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
-              <Sparkles size={14} className="text-primary-600" />
-              <span>Flagship Proof-of-Work • The SAR Framework</span>
+            <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
+              Flagship Proof of Work • SAR Framework
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
-              Architectural Case Studies:{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 via-indigo-600 to-sky-600">
-                Speed, Scale & Revenue
-              </span>
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight mb-3">
+              Architectural Case Studies: Speed, Scale & Revenue
             </h1>
 
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              Every architectural engagement is evaluated by concrete business outcomes: slashing latency, passing Core Web Vitals, and unlocking rapid shipping velocity for product teams.
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+              Every architectural engagement is evaluated by concrete engineering and business outcomes: slashing latency, passing Core Web Vitals, and unlocking shipping velocity.
             </p>
 
             {/* Quick Filter Pills */}
-            <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
+            <div className="flex flex-wrap items-center gap-1.5 pt-6">
               <button
                 onClick={() => setSelectedFilter('all')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
                   selectedFilter === 'all'
-                    ? 'bg-slate-900 text-white shadow-md'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                    ? 'bg-slate-900 text-white shadow-2xs'
+                    : 'bg-slate-100 text-slate-600 hover:text-slate-950'
                 }`}
               >
                 All Showcases ({flagshipCaseStudies.length})
               </button>
               <button
                 onClick={() => setSelectedFilter('auditpulse')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
                   selectedFilter === 'auditpulse'
-                    ? 'bg-slate-900 text-white shadow-md'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                    ? 'bg-slate-900 text-white shadow-2xs'
+                    : 'bg-slate-100 text-slate-600 hover:text-slate-950'
                 }`}
               >
                 AuditPulse (Open Source)
               </button>
               <button
                 onClick={() => setSelectedFilter('ecommerce-architecture')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
                   selectedFilter === 'ecommerce-architecture'
-                    ? 'bg-slate-900 text-white shadow-md'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                    ? 'bg-slate-900 text-white shadow-2xs'
+                    : 'bg-slate-100 text-slate-600 hover:text-slate-950'
                 }`}
               >
-                High-Performance E-Commerce
+                E-Commerce Architecture
               </button>
               <button
                 onClick={() => setSelectedFilter('micro-frontend-design-system')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors ${
                   selectedFilter === 'micro-frontend-design-system'
-                    ? 'bg-slate-900 text-white shadow-md'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                    ? 'bg-slate-900 text-white shadow-2xs'
+                    : 'bg-slate-100 text-slate-600 hover:text-slate-950'
                 }`}
               >
                 Enterprise Micro-Frontend
@@ -109,7 +104,7 @@ const CaseStudies = () => {
           </motion.div>
 
           {/* Case Studies Detailed Cards */}
-          <div className="space-y-12">
+          <div className="space-y-10">
             {filteredStudies.map((project, index) => {
               const currentTab = activeTabs[project.id] || 'sar';
 
@@ -117,73 +112,69 @@ const CaseStudies = () => {
                 <motion.div
                   key={project.id}
                   id={project.id}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden scroll-mt-28"
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                  className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden scroll-mt-24"
                 >
                   {/* Card Header */}
-                  <div className="p-6 sm:p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50/90 via-white to-slate-50/40">
+                  <div className="p-6 sm:p-7 border-b border-slate-100 bg-slate-50/50">
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                       <div>
                         <div className="flex flex-wrap items-center gap-2 mb-2">
-                          <span className="px-3 py-1 bg-primary-50 border border-primary-200 text-primary-700 rounded-full text-xs font-bold uppercase tracking-wider">
+                          <span className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-mono font-semibold">
                             {project.badge}
                           </span>
-                          <span className="text-xs font-medium text-slate-500">
+                          <span className="text-[11px] font-mono text-slate-500">
                             {project.category} • {project.role}
                           </span>
                         </div>
-                        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                        <h2 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight">
                           {project.title}
                         </h2>
-                        <p className="text-sm sm:text-base text-slate-600 mt-2 max-w-4xl leading-relaxed">
+                        <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-4xl leading-relaxed font-normal">
                           {project.tagline}
                         </p>
                       </div>
 
                       {/* Header Actions */}
-                      <div className="flex items-center gap-3 flex-shrink-0 pt-2 lg:pt-0">
+                      <div className="flex items-center gap-2.5 flex-shrink-0 pt-1 lg:pt-0">
                         {project.githubUrl && (
                           <a
                             href={project.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition-colors"
                           >
-                            <Github size={15} />
-                            <span>View Source</span>
+                            <Github size={14} />
+                            <span>Source</span>
                           </a>
                         )}
                         <Link
                           to="/contact?service=audit"
-                          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-primary-600 hover:bg-primary-700 shadow-sm transition-all"
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 transition-colors"
                         >
-                          <Calendar size={14} />
+                          <Calendar size={13} />
                           <span>Audit Similar Stack</span>
                         </Link>
                       </div>
                     </div>
 
                     {/* Metrics Grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-5">
                       {project.metrics.map((metric) => (
                         <div
                           key={metric.label}
-                          className={`p-3.5 sm:p-4 rounded-2xl border transition-all ${
-                            metric.highlight
-                              ? 'bg-gradient-to-br from-primary-50 to-indigo-50/60 border-primary-200'
-                              : 'bg-white border-slate-200/80'
-                          }`}
+                          className="p-3.5 rounded-lg border border-slate-200/90 bg-white"
                         >
-                          <div className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                          <div className="text-xl font-bold font-mono text-slate-950 tracking-tight">
                             {metric.value}
                           </div>
-                          <div className="text-xs font-bold text-primary-700 uppercase tracking-wider mt-0.5">
+                          <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider mt-0.5">
                             {metric.label}
                           </div>
-                          <div className="text-[11px] text-slate-500 mt-0.5">
+                          <div className="text-[11px] text-slate-600 mt-0.5 font-medium">
                             {metric.change}
                           </div>
                         </div>
@@ -192,24 +183,24 @@ const CaseStudies = () => {
                   </div>
 
                   {/* Tabs & Deep-Dive Content */}
-                  <div className="p-6 sm:p-8">
-                    <div className="flex items-center space-x-2 border-b border-slate-200 pb-3 mb-6">
+                  <div className="p-6 sm:p-7">
+                    <div className="flex items-center space-x-1.5 border-b border-slate-200 pb-3 mb-6">
                       <button
                         onClick={() => setTab(project.id, 'sar')}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                        className={`px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-colors ${
                           currentTab === 'sar'
-                            ? 'bg-primary-600 text-white shadow-sm'
-                            : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                            ? 'bg-slate-900 text-white'
+                            : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
                         }`}
                       >
                         SAR Framework (Situation • Action • Result)
                       </button>
                       <button
                         onClick={() => setTab(project.id, 'architecture')}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                        className={`px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-colors ${
                           currentTab === 'architecture'
-                            ? 'bg-primary-600 text-white shadow-sm'
-                            : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                            ? 'bg-slate-900 text-white'
+                            : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
                         }`}
                       >
                         Architecture Highlights & Technologies
@@ -217,50 +208,50 @@ const CaseStudies = () => {
                     </div>
 
                     {currentTab === 'sar' ? (
-                      <div className="grid md:grid-cols-3 gap-6">
+                      <div className="grid md:grid-cols-3 gap-5">
                         {/* Situation */}
-                        <div className="p-5 rounded-2xl bg-amber-50/50 border border-amber-200/70 space-y-2.5">
-                          <div className="flex items-center space-x-2 text-amber-800 font-bold text-xs uppercase tracking-wider">
-                            <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                        <div className="p-4 rounded-lg bg-slate-50 border border-slate-200/80 space-y-2">
+                          <div className="flex items-center space-x-2 text-slate-900 font-mono text-xs font-bold uppercase tracking-wider">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                             <span>The Bottleneck (Situation)</span>
                           </div>
-                          <p className="text-slate-700 text-sm leading-relaxed">
+                          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal">
                             {project.sar.situation}
                           </p>
                         </div>
 
                         {/* Action */}
-                        <div className="p-5 rounded-2xl bg-indigo-50/50 border border-indigo-200/70 space-y-2.5">
-                          <div className="flex items-center space-x-2 text-indigo-800 font-bold text-xs uppercase tracking-wider">
-                            <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
+                        <div className="p-4 rounded-lg bg-slate-50 border border-slate-200/80 space-y-2">
+                          <div className="flex items-center space-x-2 text-slate-900 font-mono text-xs font-bold uppercase tracking-wider">
+                            <span className="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
                             <span>The Architecture (Action)</span>
                           </div>
-                          <p className="text-slate-700 text-sm leading-relaxed">
+                          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal">
                             {project.sar.action}
                           </p>
                         </div>
 
                         {/* Result */}
-                        <div className="p-5 rounded-2xl bg-emerald-50/50 border border-emerald-200/70 space-y-2.5">
-                          <div className="flex items-center space-x-2 text-emerald-800 font-bold text-xs uppercase tracking-wider">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <div className="p-4 rounded-lg bg-slate-50 border border-slate-200/80 space-y-2">
+                          <div className="flex items-center space-x-2 text-slate-900 font-mono text-xs font-bold uppercase tracking-wider">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
                             <span>The Business Impact (Result)</span>
                           </div>
-                          <p className="text-slate-700 text-sm leading-relaxed font-medium">
+                          <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-medium">
                             {project.sar.result}
                           </p>
                         </div>
                       </div>
                     ) : (
-                      <div className="space-y-6">
-                        <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="space-y-5">
+                        <div className="grid sm:grid-cols-2 gap-3.5">
                           {project.architectureHighlights.map((highlight, idx) => (
                             <div
                               key={idx}
-                              className="flex items-start space-x-3 p-4 rounded-xl bg-slate-50 border border-slate-200/80"
+                              className="flex items-start space-x-2.5 p-3.5 rounded-lg bg-slate-50 border border-slate-200/80"
                             >
-                              <CheckCircle2 size={18} className="text-primary-600 flex-shrink-0 mt-0.5" />
-                              <span className="text-slate-700 text-xs sm:text-sm font-medium leading-relaxed">
+                              <CheckCircle2 size={15} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                              <span className="text-slate-700 text-xs leading-relaxed font-normal">
                                 {highlight}
                               </span>
                             </div>
@@ -268,14 +259,14 @@ const CaseStudies = () => {
                         </div>
 
                         <div className="pt-2">
-                          <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">
+                          <div className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 mb-2">
                             Technologies Deployed:
                           </div>
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap gap-1.5">
                             {project.technologies.map((tech) => (
                               <span
                                 key={tech}
-                                className="px-3 py-1 bg-slate-100 text-slate-800 rounded-lg text-xs font-semibold border border-slate-200/80"
+                                className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded text-xs font-mono"
                               >
                                 {tech}
                               </span>
@@ -292,17 +283,17 @@ const CaseStudies = () => {
 
           {/* Bottom Conversion Prompt */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-16 p-8 rounded-3xl bg-slate-900 text-white flex flex-col md:flex-row items-center justify-between gap-6"
+            transition={{ duration: 0.4 }}
+            className="mt-12 p-6 sm:p-7 rounded-xl bg-slate-950 text-white flex flex-col md:flex-row items-center justify-between gap-5 border border-slate-800"
           >
             <div className="space-y-1 text-center md:text-left">
-              <h3 className="text-xl font-bold">
+              <h3 className="text-base font-bold text-white">
                 Facing similar performance or architectural bottlenecks?
               </h3>
-              <p className="text-sm text-slate-400">
+              <p className="text-xs text-slate-400">
                 Book a 15-minute, zero-sales-pressure architecture audit. We will trace your render waterfall and identify immediate wins.
               </p>
             </div>
@@ -310,16 +301,16 @@ const CaseStudies = () => {
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 to="/services"
-                className="btn-secondary !bg-slate-800 !text-white !border-slate-700 hover:!bg-slate-700 !py-3 !px-5 text-xs font-bold uppercase tracking-wider"
+                className="inline-flex items-center px-4 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-slate-900 border border-slate-800 transition-colors"
               >
-                <span>View Fixed Sprints</span>
+                <span>View Sprints</span>
               </Link>
               <Link
                 to="/contact?service=audit"
-                className="btn-primary !py-3 !px-6 text-xs font-bold uppercase tracking-wider"
+                className="inline-flex items-center px-4 py-2 rounded-lg text-xs font-semibold text-slate-950 bg-white hover:bg-slate-100 transition-colors"
               >
                 <span>Book 15-Min Audit</span>
-                <ArrowRight size={15} className="ml-1.5" />
+                <ArrowRight size={13} className="ml-1.5" />
               </Link>
             </div>
           </motion.div>

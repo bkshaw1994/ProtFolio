@@ -2,40 +2,36 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  Sparkles,
   Zap,
   Rocket,
   Shield,
   ArrowRight,
   Clock,
-  CheckCircle2
+  CheckCircle2,
+  ArrowUpRight
 } from 'lucide-react';
 
 const serviceCards = [
   {
     id: 'cwv-overhaul',
-    title: 'The Core Web Vitals Overhaul',
+    title: 'Core Web Vitals Overhaul',
     timeline: '2-Week Sprint',
     badge: 'Fixed-Fee Sprint',
-    badgeColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
     icon: Zap,
-    iconGradient: 'from-emerald-500 to-teal-600',
     description:
-      'Eliminate UI lag, optimize render waterfalls, and achieve sub-second Core Web Vitals (LCP < 2.0s, INP < 150ms).',
-    guarantee: 'Guaranteed green Core Web Vitals',
+      'Eliminate UI lag, optimize render waterfalls, and achieve sub-second Core Web Vitals (LCP < 1.2s, INP < 100ms).',
+    guarantee: 'Guaranteed green Core Web Vitals audit pass',
     link: '/services#cwv-overhaul'
   },
   {
     id: 'mvp-launchpad',
-    title: 'The Full-Stack MVP Launchpad',
+    title: 'Full-Stack MVP Launchpad',
     timeline: '4-Week Sprint',
-    badge: 'Most Popular Sprint',
-    badgeColor: 'bg-primary-600 text-white border-primary-500 shadow-sm',
+    badge: 'Flagship Sprint',
     icon: Rocket,
-    iconGradient: 'from-primary-600 to-indigo-600',
     highlight: true,
     description:
-      'From Figma designs to a production-ready Next.js application in 30 days with PostgreSQL, auth, and automated testing.',
+      'From design specs to production Next.js application in 30 days with PostgreSQL, auth, and automated Playwright test suites.',
     guarantee: 'Zero technical debt & 100% typed contracts',
     link: '/services#mvp-launchpad'
   },
@@ -43,10 +39,8 @@ const serviceCards = [
     id: 'fractional-retainer',
     title: 'Senior Fractional Retainer',
     timeline: 'Monthly Advisory',
-    badge: 'Limited to 1-2 Clients',
-    badgeColor: 'bg-indigo-50 text-indigo-800 border-indigo-200',
+    badge: '1-2 Clients Max',
     icon: Shield,
-    iconGradient: 'from-indigo-600 to-purple-600',
     description:
       'Executive-level frontend architecture, code governance, high-leverage PR reviews, and engineering mentorship on demand.',
     guarantee: 'Direct senior architect SLA access',
@@ -56,88 +50,121 @@ const serviceCards = [
 
 const ServicesSnapshot = () => {
   return (
-    <section className="py-16 sm:py-20 bg-white relative overflow-hidden">
-      <div className="container-custom relative z-10">
+    <section className="py-16 sm:py-20 bg-white border-b border-slate-100">
+      <div className="container-custom">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-12"
+          transition={{ duration: 0.4 }}
+          className="max-w-2xl mb-12"
         >
-          <div className="inline-flex items-center space-x-2 bg-slate-100 border border-slate-200/80 px-3.5 py-1.5 rounded-full text-slate-800 text-xs font-bold uppercase tracking-wider mb-3">
-            <Sparkles size={14} className="text-primary-600" />
-            <span>How We Can Work Together</span>
+          <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
+            Engagement Models & Sprints
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
-            Fixed-Scope Packages & Sprints
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight mb-3">
+            Fixed-Scope Packages: Zero Ambiguity
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto font-normal">
-            No vague hourly billing. Choose a predictable, outcome-driven sprint tailored to your startup's growth stage.
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+            No vague hourly billing. Predictable, outcome-driven engineering sprints tailored to Seed and Series-A momentum.
           </p>
         </motion.div>
 
         {/* 3 Clean Package Cards */}
-        <div className="grid md:grid-cols-3 gap-6 sm:gap-8 items-stretch mb-10">
+        <div className="grid md:grid-cols-3 gap-6 items-stretch mb-10">
           {serviceCards.map((service, idx) => {
             const IconComp = service.icon;
 
             return (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className={`rounded-2xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ${
+                transition={{ duration: 0.35, delay: idx * 0.08 }}
+                className={`rounded-xl p-6 flex flex-col justify-between transition-colors duration-200 shadow-2xs ${
                   service.highlight
-                    ? 'bg-gradient-to-b from-white via-primary-50/25 to-slate-50 border-2 border-primary-500 shadow-xl'
-                    : 'bg-white border border-slate-200/90 shadow-md hover:shadow-lg'
+                    ? 'bg-slate-950 text-white border border-slate-900'
+                    : 'bg-white border border-slate-200 hover:border-slate-400'
                 }`}
               >
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-5">
+                  <div className="flex items-center justify-between gap-2 mb-4">
                     <span
-                      className={`text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${service.badgeColor}`}
+                      className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded ${
+                        service.highlight
+                          ? 'bg-white/10 text-slate-200 border border-white/15'
+                          : 'bg-slate-100 text-slate-700'
+                      }`}
                     >
                       {service.badge}
                     </span>
-                    <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
+                    <span
+                      className={`text-xs font-mono flex items-center gap-1 ${
+                        service.highlight ? 'text-slate-400' : 'text-slate-500'
+                      }`}
+                    >
                       <Clock size={12} />
                       {service.timeline}
                     </span>
                   </div>
 
-                  <div className="flex items-center space-x-3 mb-4">
+                  <div className="flex items-center space-x-3 mb-3">
                     <div
-                      className={`w-11 h-11 rounded-xl bg-gradient-to-tr ${service.iconGradient} flex items-center justify-center text-white shadow-sm flex-shrink-0`}
+                      className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                        service.highlight
+                          ? 'bg-white/10 text-white'
+                          : 'bg-slate-100 text-slate-800'
+                      }`}
                     >
-                      <IconComp size={20} />
+                      <IconComp size={18} />
                     </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+                    <h3
+                      className={`text-base sm:text-lg font-bold tracking-tight ${
+                        service.highlight ? 'text-white' : 'text-slate-950'
+                      }`}
+                    >
                       {service.title}
                     </h3>
                   </div>
 
-                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">
+                  <p
+                    className={`text-xs sm:text-sm leading-relaxed mb-5 font-normal ${
+                      service.highlight ? 'text-slate-300' : 'text-slate-600'
+                    }`}
+                  >
                     {service.description}
                   </p>
 
-                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/70 text-xs font-medium text-slate-700 flex items-center gap-2 mb-6">
-                    <CheckCircle2 size={15} className="text-emerald-600 flex-shrink-0" />
-                    <span>{service.guarantee}</span>
+                  <div
+                    className={`p-2.5 rounded-lg text-xs flex items-center gap-2 mb-5 ${
+                      service.highlight
+                        ? 'bg-white/5 border border-white/10 text-slate-200'
+                        : 'bg-slate-50 border border-slate-200/80 text-slate-700'
+                    }`}
+                  >
+                    <CheckCircle2 size={14} className="text-emerald-500 flex-shrink-0" />
+                    <span className="text-[11px] font-mono">{service.guarantee}</span>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div
+                  className={`pt-4 border-t flex items-center justify-between ${
+                    service.highlight ? 'border-slate-800' : 'border-slate-100'
+                  }`}
+                >
                   <Link
                     to={service.link}
-                    className="text-xs font-bold text-primary-600 hover:text-primary-700 uppercase tracking-wider flex items-center gap-1"
+                    className={`text-xs font-semibold flex items-center gap-1 transition-colors ${
+                      service.highlight
+                        ? 'text-white hover:text-slate-300'
+                        : 'text-slate-950 hover:text-slate-600'
+                    }`}
                   >
-                    <span>View Scope & Deliverables</span>
-                    <ArrowRight size={13} />
+                    <span>View Deliverables & Scope</span>
+                    <ArrowUpRight size={13} />
                   </Link>
                 </div>
               </motion.div>
@@ -145,14 +172,14 @@ const ServicesSnapshot = () => {
           })}
         </div>
 
-        {/* Explore Full Services Button */}
-        <div className="text-center">
+        {/* Explore Full Services Link */}
+        <div>
           <Link
             to="/services"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider text-slate-800 bg-white hover:bg-slate-50 border-2 border-slate-200 hover:border-primary-500/50 shadow-sm hover:shadow-md transition-all duration-300"
+            className="inline-flex items-center text-xs font-semibold text-slate-900 hover:text-slate-600 gap-1.5 transition-colors font-mono"
           >
-            <span>Explore Full Deliverables, Process & FAQ</span>
-            <ArrowRight size={15} className="ml-2" />
+            <span>Compare full package scopes, sprint phases, and procurement FAQs</span>
+            <ArrowRight size={13} />
           </Link>
         </div>
       </div>

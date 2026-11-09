@@ -119,31 +119,30 @@ const Experience = () => {
           content="My work experience and career journey"
         />
       </Helmet>
-      <div className="pt-24 sm:pt-28 min-h-screen bg-slate-50/50 bg-grid-pattern pb-20">
+      <div className="pt-24 sm:pt-28 min-h-screen bg-white pb-20">
         <div className="container-custom">
-          <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
-            <div className="inline-flex items-center space-x-2 bg-primary-100/80 text-primary-800 border border-primary-200/60 px-4 py-2 rounded-full mb-4 shadow-sm">
-              <Briefcase size={16} />
-              <span className="text-xs font-bold uppercase tracking-wider">Career Journey</span>
+          <div className="max-w-3xl mb-12">
+            <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
+              Career Trajectory & Engineering Leadership
             </div>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-                Work Experience
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight mb-3">
+              Work Experience & Track Record
             </h1>
-            <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
-                My professional career trajectory showcasing {experience.length}+ roles across tech organizations, client projects, and engineering teams.
+            <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+              9+ years of professional engineering leadership delivering high-concurrency systems, micro-frontends, and sub-second performance overhauls.
             </p>
           </div>
 
           {experience.length === 0 ? (
-            <p className="text-lg text-slate-600 text-center">
+            <p className="text-lg text-slate-600 text-center font-mono">
                 No experience data available.
             </p>
           ) : (
             <div className="max-w-4xl mx-auto">
               {/* Timeline */}
               <div className="relative">
-                {/* Timeline gradient bar */}
-                <div className="absolute left-8 md:left-1/2 top-4 bottom-4 w-1 bg-gradient-to-b from-primary-500 via-indigo-500 to-sky-400 rounded-full transform -translate-x-1/2"></div>
+                {/* Timeline vertical bar */}
+                <div className="absolute left-8 md:left-1/2 top-4 bottom-4 w-0.5 bg-slate-200 transform -translate-x-1/2"></div>
 
                 {sortedExperience.map((exp, index) => (
                   <div key={exp._id} className="relative mb-12 last:mb-0">

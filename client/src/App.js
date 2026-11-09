@@ -11,7 +11,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import InitialLoader from './components/InitialLoader';
-import FloatingMobileDock from './components/FloatingMobileDock';
 import {
   useGetProfileQuery,
   useGetFeaturedProjectsQuery,
@@ -92,7 +91,6 @@ function App() {
           </AnimatePresence>
 
           <Navbar />
-          <FloatingMobileDock />
           
           <main className="flex-grow min-h-[calc(100vh-320px)]">
             <ScrollToTop />

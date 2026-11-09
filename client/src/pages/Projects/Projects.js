@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Briefcase,
   Github,
-  FolderGit2,
   Search,
   X,
   FolderOpen,
@@ -192,27 +191,24 @@ const Projects = () => {
         />
       </Helmet>
 
-      <div className="pt-24 sm:pt-28 min-h-screen bg-slate-50/50 bg-grid-pattern pb-24">
+      <div className="pt-24 sm:pt-28 min-h-screen bg-white pb-24">
         <div className="container-custom">
           {/* Hero Header */}
-          <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
-            <div className="inline-flex items-center space-x-2 bg-primary-100/80 text-primary-800 border border-primary-200/60 px-4 py-2 rounded-full mb-4 shadow-sm">
-              <FolderGit2 size={16} className="text-primary-600" />
-              <span className="text-xs font-bold uppercase tracking-wider">
-                  Portfolio & Open Source
-              </span>
+          <div className="max-w-3xl mb-10">
+            <div className="text-xs font-mono font-semibold uppercase tracking-widest text-slate-500 mb-2">
+              Engineering Showcases & Repositories
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-4">
-                Featured Projects
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight mb-3">
+              Production Projects & Open Source
             </h1>
-            <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
-                Explore my curated portfolio projects and GitHub repositories showcasing my full-stack development journey, technical architecture, and open-source work.
+            <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+              Curated portfolio projects, client architecture overhauls, and open-source systems developed with Next.js, TypeScript, and modern distributed tooling.
             </p>
           </div>
 
           {/* Main Tabs Navigation */}
-          <div className="flex justify-center mb-10">
-            <div className="bg-white/90 backdrop-blur-md p-1.5 rounded-2xl shadow-lg border border-slate-200/80 inline-flex flex-wrap sm:flex-nowrap gap-1">
+          <div className="flex justify-start mb-8">
+            <div className="bg-slate-100 p-1 rounded-lg border border-slate-200/80 inline-flex flex-wrap sm:flex-nowrap gap-1">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -220,34 +216,25 @@ const Projects = () => {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`relative flex items-center space-x-3 px-5 py-3 rounded-xl transition-all duration-300 font-medium text-sm ${
+                    className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-md transition-colors font-mono text-xs ${
                       isActive
-                        ? 'text-primary-700 font-semibold'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/60'
+                        ? 'bg-slate-900 text-white shadow-2xs font-semibold'
+                        : 'text-slate-600 hover:text-slate-950'
                     }`}
                   >
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeTabBadge"
-                        className="absolute inset-0 bg-primary-50 border border-primary-200/70 rounded-xl shadow-sm"
-                        transition={{ type: 'spring', duration: 0.5 }}
-                      />
+                    <Icon size={14} className={isActive ? 'text-white' : 'text-slate-500'} />
+                    <span>{tab.label}</span>
+                    {tab.count !== null && tab.count !== undefined && (
+                      <span
+                        className={`px-1.5 py-0.2 text-[10px] rounded font-mono ${
+                          isActive
+                            ? 'bg-white/20 text-white'
+                            : 'bg-slate-200 text-slate-700'
+                        }`}
+                      >
+                        {tab.count}
+                      </span>
                     )}
-                    <span className="relative z-10 flex items-center gap-2">
-                      <Icon size={18} className={isActive ? 'text-primary-600' : 'text-slate-500'} />
-                      <span>{tab.label}</span>
-                      {tab.count !== null && tab.count !== undefined && (
-                        <span
-                          className={`px-2 py-0.5 text-xs rounded-full font-bold ${
-                            isActive
-                              ? 'bg-primary-600 text-white shadow-xs'
-                              : 'bg-slate-100 text-slate-600 border border-slate-200'
-                          }`}
-                        >
-                          {tab.count}
-                        </span>
-                      )}
-                    </span>
                   </button>
                 );
               })}
