@@ -21,20 +21,20 @@ import LoadingSpinner from '../LoadingSpinner';
 
 const GitHubProjectCard = ({ project }) => {
   return (
-    <div className="bg-white rounded-xl border border-slate-200 hover:border-slate-400 p-6 shadow-2xs hover:shadow-md hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between h-full cursor-pointer">
+    <div className="bg-white rounded-xl border border-slate-200 hover:border-slate-400 p-6 shadow-2xs hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between h-full cursor-pointer">
       <div>
         <div className="flex justify-between items-start mb-3 gap-2">
-          <h3 className="text-lg font-bold text-slate-950 group-hover:text-slate-800 transition-colors line-clamp-1">
+          <h3 className="text-lg font-bold text-slate-950 group-hover:text-emerald-600 transition-colors line-clamp-1 tracking-tight">
             {project.title}
           </h3>
           <div className="flex space-x-2 text-xs font-mono flex-shrink-0">
             {project.stars > 0 && (
-              <span className="flex items-center bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded">
+              <span className="flex items-center bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded font-medium">
                 <Star size={12} className="mr-1 fill-amber-400 text-amber-500" /> {String(project.stars)}
               </span>
             )}
             {project.forks > 0 && (
-              <span className="flex items-center bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded">
+              <span className="flex items-center bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded font-medium">
                 <GitFork size={12} className="mr-1 text-slate-500" /> {String(project.forks)}
               </span>
             )}
@@ -50,13 +50,13 @@ const GitHubProjectCard = ({ project }) => {
             {project.technologies.slice(0, 4).map((tech, index) => (
               <span
                 key={index}
-                className="font-mono text-xs px-2.5 py-0.5 bg-slate-100 text-slate-700 rounded border border-slate-200/60"
+                className="font-mono text-xs px-2.5 py-0.5 bg-slate-100 text-slate-700 rounded border border-slate-200/60 font-medium"
               >
                 {tech}
               </span>
             ))}
             {project.technologies.length > 4 && (
-              <span className="font-mono text-xs px-2 py-0.5 bg-slate-50 text-slate-600 rounded border border-slate-200">
+              <span className="font-mono text-xs px-2 py-0.5 bg-slate-50 text-slate-600 rounded border border-slate-200 font-medium">
                 +{project.technologies.length - 4}
               </span>
             )}
@@ -83,7 +83,7 @@ const GitHubProjectCard = ({ project }) => {
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-3 py-1.5 bg-slate-950 text-white rounded-lg hover:bg-slate-800 transition-colors font-medium text-xs"
+            className="inline-flex items-center px-3 py-1.5 bg-slate-950 text-white rounded-lg hover:bg-slate-800 transition-colors font-mono font-medium text-xs shadow-xs"
           >
             <Github size={13} className="mr-1.5" />
             Code
@@ -93,7 +93,7 @@ const GitHubProjectCard = ({ project }) => {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-3 py-1.5 bg-white border border-slate-200 text-slate-800 rounded-lg hover:bg-slate-50 transition-colors font-medium text-xs shadow-2xs"
+              className="inline-flex items-center px-3 py-1.5 bg-white border border-slate-200 text-slate-800 rounded-lg hover:bg-slate-50 hover:border-slate-300 transition-colors font-mono font-medium text-xs shadow-2xs"
             >
               <ExternalLink size={13} className="mr-1.5" />
               Live
