@@ -26,6 +26,11 @@ const ProjectCard = ({ project = {} }) => {
           <span className="w-2.5 h-2.5 rounded-full bg-slate-800 group-hover:bg-rose-500/80 transition-colors" />
           <span className="w-2.5 h-2.5 rounded-full bg-slate-800 group-hover:bg-amber-500/80 transition-colors" />
           <span className="w-2.5 h-2.5 rounded-full bg-slate-800 group-hover:bg-emerald-500/80 transition-colors" />
+          {project.liveUrl && (
+            <span className="ml-2 text-2xs font-mono text-slate-500 truncate max-w-[130px] sm:max-w-[170px] hidden sm:inline-block">
+              {project.liveUrl.replace(/^https?:\/\//, '')}
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-2">
@@ -56,7 +61,23 @@ const ProjectCard = ({ project = {} }) => {
 
       {/* Project Preview Area */}
       <div className="relative h-48 sm:h-52 overflow-hidden bg-slate-950 border-b border-slate-100 flex items-center justify-center">
-        {hasImage ? (
+        {project.liveUrl ? (
+          <Link
+            to={projectLink}
+            className="relative w-full h-full block overflow-hidden group/preview bg-slate-950"
+            tabIndex={-1}
+          >
+            <iframe
+              src={project.liveUrl}
+              title={project.title || 'Project website preview'}
+              className="w-full h-full border-0 pointer-events-none scale-[0.5] origin-top-left opacity-90 group-hover:opacity-100 group-hover:scale-[0.52] transition-all duration-500"
+              style={{ width: '200%', height: '200%' }}
+              loading="lazy"
+              sandbox="allow-scripts allow-same-origin"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
+          </Link>
+        ) : hasImage ? (
           <Link
             to={projectLink}
             className="relative w-full h-full block overflow-hidden group/img"
