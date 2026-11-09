@@ -40,7 +40,7 @@ const CertificationsSection = ({ certifications }) => {
   };
 
   return (
-    <section className="section-padding bg-white border-t border-slate-100 relative overflow-hidden">
+    <section className="section-padding bg-white relative overflow-hidden">
       <div className="container-custom relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -88,11 +88,11 @@ const CertificationsSection = ({ certifications }) => {
             <ChevronRight size={20} className="stroke-[2.5]" />
           </div>
 
-          {/* Scrollable Track / Desktop Flex */}
+          {/* Scrollable Track / Desktop Flex - Badges have NO border */}
           <div
             ref={scrollRef}
             onScroll={checkScroll}
-            className="flex overflow-x-auto sm:overflow-x-visible sm:flex-wrap justify-start sm:justify-center items-center gap-6 sm:gap-8 scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth snap-x snap-proximity pl-4 pr-4 sm:px-0 py-2"
+            className="flex overflow-x-auto sm:overflow-x-visible sm:flex-wrap justify-start sm:justify-center items-center gap-6 sm:gap-10 scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth snap-x snap-proximity pl-4 pr-4 sm:px-0 py-2"
           >
             {filteredCerts.map((certification, idx) => (
               <motion.a
@@ -104,7 +104,7 @@ const CertificationsSection = ({ certifications }) => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className="inline-block flex-shrink-0 snap-start p-4 bg-white rounded-xl border border-slate-200 shadow-2xs hover:border-slate-400 transition-all duration-300"
+                className="inline-block flex-shrink-0 snap-start p-2 hover:scale-105 transition-transform duration-300"
               >
                 <img
                   src={certification.badge}
@@ -113,7 +113,7 @@ const CertificationsSection = ({ certifications }) => {
                       ? `${certification.title} Badge`
                       : 'Certification Badge'
                   }
-                  className="w-36 h-36 sm:w-44 sm:h-44 hover:scale-105 transition-transform duration-300 object-contain mx-auto"
+                  className="w-36 h-36 sm:w-44 sm:h-44 object-contain mx-auto drop-shadow-sm"
                 />
               </motion.a>
             ))}

@@ -48,13 +48,13 @@ const Certifications = () => {
             </p>
           </div>
 
-          {/* Featured Certifications */}
+          {/* Featured Certifications - Borderless Cards */}
           {featuredCerts.length > 0 && (
             <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
               {featuredCerts.map((cert) => (
                 <div
                   key={cert.id}
-                  className="rounded-xl bg-white border border-slate-200 shadow-2xs hover:border-slate-400 transition-colors p-8 flex flex-col justify-between"
+                  className="rounded-2xl bg-white shadow-xs hover:shadow-md transition-all duration-300 p-8 flex flex-col justify-between"
                 >
                   <div>
                     {/* Badge Image */}
@@ -68,14 +68,14 @@ const Certifications = () => {
                         <img
                           src={cert.badge}
                           alt={cert.title}
-                          className="relative w-44 h-44 object-contain hover:scale-105 transition-transform duration-300"
+                          className="relative w-44 h-44 object-contain hover:scale-105 transition-transform duration-300 drop-shadow-sm"
                         />
                       </a>
                     </div>
 
                     {/* Content */}
                     <div className="text-center mb-6">
-                      <div className="inline-block px-2.5 py-0.5 bg-slate-100 text-slate-800 border border-slate-200 rounded font-mono text-xs font-semibold mb-3">
+                      <div className="inline-block px-2.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono text-xs font-semibold mb-3">
                         {cert.issuer}
                       </div>
 
@@ -94,7 +94,7 @@ const Certifications = () => {
                       </p>
 
                       {cert.credentialDescription && (
-                        <div className="mb-6 p-4 bg-slate-50 rounded-lg border border-slate-100 text-left">
+                        <div className="mb-6 p-4 bg-slate-50 rounded-lg text-left">
                           <p className="text-slate-600 leading-relaxed text-sm">
                             {cert.credentialDescription}
                           </p>
@@ -128,7 +128,7 @@ const Certifications = () => {
                           {cert.skills.map((skill, index) => (
                             <span
                               key={index}
-                              className="font-mono text-xs px-2.5 py-0.5 bg-slate-100 text-slate-700 rounded border border-slate-200"
+                              className="font-mono text-xs px-2.5 py-0.5 bg-slate-100 text-slate-700 rounded"
                             >
                               {skill}
                             </span>
@@ -158,7 +158,7 @@ const Certifications = () => {
             </div>
           )}
 
-          {/* All Certifications Grid */}
+          {/* All Certifications Grid - Borderless Cards */}
           {otherCerts.length > 0 && (
             <div className="mb-16">
               <h2 className="text-2xl font-bold text-slate-950 mb-8 text-center tracking-tight">
@@ -169,10 +169,10 @@ const Certifications = () => {
                 {otherCerts.map((cert) => (
                   <div
                     key={cert.id}
-                    className="rounded-xl bg-white border border-slate-200 shadow-2xs hover:border-slate-400 transition-colors p-6 flex flex-col justify-between"
+                    className="rounded-xl bg-white shadow-xs hover:shadow-md transition-all duration-300 p-6 flex flex-col justify-between"
                   >
                     <div>
-                      <div className="inline-block px-2.5 py-0.5 bg-slate-100 text-slate-800 border border-slate-200 rounded font-mono text-xs font-semibold mb-3">
+                      <div className="inline-block px-2.5 py-0.5 bg-slate-100 text-slate-800 rounded font-mono text-xs font-semibold mb-3">
                         {cert.issuer}
                       </div>
 
@@ -196,7 +196,7 @@ const Certifications = () => {
                             {cert.skills.map((skill, index) => (
                               <span
                                 key={index}
-                                className="font-mono text-2xs px-2 py-0.5 bg-slate-100 text-slate-700 rounded border border-slate-200"
+                                className="font-mono text-2xs px-2 py-0.5 bg-slate-100 text-slate-700 rounded"
                               >
                                 {skill}
                               </span>
